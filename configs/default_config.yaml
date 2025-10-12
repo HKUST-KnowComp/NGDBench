@@ -1,0 +1,117 @@
+# NGDB框架默认配置文件
+
+# 数据源配置
+data_source:
+  type: "file"  # "file" 或 "generator"
+  
+  # 文件数据源配置（当type为"file"时使用）
+  data_path: "data/sample_graph.gml"
+  file_format: "auto"  # "gml", "graphml", "edgelist", "csv", "auto"
+  data_set_name: "ldbc_snb_bi"
+  # 生成器数据源配置（当type为"generator"时使用）
+  generator_type: "barabasi_albert"  # "erdos_renyi", "barabasi_albert", "watts_strogatz", "karate_club"
+  generator_params:
+    n: 100  # 节点数
+    m: 3    # 每个新节点连接的边数（BA模型）
+    seed: 42
+
+# 扰动生成器配置
+perturbation:
+  data_path: None
+  type: "incompleteness" 
+  method: "random"  # "random", "semantic", "topology"
+  seed: 42
+  # 随机扰动配置
+  remove_nodes: true
+  node_removal_ratio: 0.1
+  remove_edges: true
+  edge_removal_ratio: 0.15
+  modify_attributes: true
+  attribute_modification_ratio: 0.05
+  add_noise: false
+  noise_ratio: None
+  numeric_noise_factor: None
+
+# 算法方法配置
+methodology:
+  type: "graph_algorithm"  # "graph_algorithm", "graph_rag", "gnn"
+  algorithm_name: "pagerank"
+  algorithm_type: "pagerank"  # 对于graph_algorithm类型
+  algorithm_params:
+    alpha: 0.85
+    max_iter: 100
+    tol: 1e-6
+
+# 查询配置
+queries:
+  total_queries: 30
+  query_type_ratio:
+    read: 0.7
+    update: 0.3
+  
+  # 读查询配置
+  read_queries:
+    num_queries: 20
+    query_distribution:
+      node_query: 0.3
+      edge_query: 0.2
+      path_query: 0.2
+      subgraph_query: 0.15
+      centrality_query: 0.1
+      community_query: 0.05
+  
+  # 更新查询配置
+  update_queries:
+    num_queries: 10
+    query_distribution:
+      node_operations: 0.4
+      edge_operations: 0.4
+      attribute_operations: 0.2
+
+# 评估配置
+evaluation:
+  # 准确性评估
+  accuracy:
+    enabled: true
+    metrics: ["accuracy", "precision", "recall", "f1"]
+    tolerance: 1e-6
+  
+  # 鲁棒性评估
+  robustness:
+    enabled: true
+    perturbation_types: ["random", "semantic", "topology"]
+    robustness_threshold: 0.8
+  
+  # 性能评估
+  performance:
+    enabled: true
+    performance_metrics: ["execution_time", "memory_usage", "throughput", "scalability"]
+    baseline_performance: {}
+
+# 报告配置
+reports:
+  export_files: true
+  format: "json"  # "json", "html", "markdown", "csv"
+  include_details: true
+  include_visualizations: false
+  
+  # 综合报告
+  comprehensive:
+    enabled: true
+  
+  # 不完整性报告
+  incompleteness:
+    enabled: false
+  
+  # 噪声报告
+  noise:
+    enabled: false
+  
+  # 更新报告
+  update:
+    enabled: false
+
+# 日志配置
+logging:
+  level: "INFO"  # "DEBUG", "INFO", "WARNING", "ERROR"
+  file: "ngdb_framework.log"

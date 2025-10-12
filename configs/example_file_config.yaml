@@ -1,0 +1,98 @@
+# NGDB框架文件数据源示例配置
+
+# 数据源配置 - 使用文件数据源
+data_source:
+  type: "file"
+  file_path: "data/karate_club.gml"
+  file_format: "gml"
+
+# 扰动生成器配置 - 语义扰动
+perturbation:
+  type: "semantic"
+  seed: 42
+  
+  # 语义扰动配置
+  semantic_node_removal: true
+  node_removal_rules:
+    - type: "degree_based"
+      threshold: 5
+      comparison: "greater_than"
+      max_removal_ratio: 0.2
+  
+  semantic_edge_removal: true
+  edge_removal_rules:
+    - type: "relationship_type"
+      target_types: ["weak_tie"]
+      max_removal_ratio: 0.3
+  
+  semantic_attribute_modification: true
+  attribute_modification_rules:
+    - target_attribute: "age"
+      modification_type: "age_inconsistency"
+  
+  semantic_noise: true
+  semantic_noise_rules:
+    - type: "inconsistent_attributes"
+      inconsistency_ratio: 0.1
+
+# 算法方法配置 - 图神经网络
+methodology:
+  type: "gnn"
+  model_type: "gcn"
+  hidden_dim: 64
+  num_layers: 2
+  task_type: "node_classification"
+  feature_dim: 10
+  edge_feature_dim: 5
+
+# 查询配置 - 分析型工作负载
+queries:
+  total_queries: 40
+  query_type_ratio:
+    read: 0.9
+    update: 0.1
+  
+  read_queries:
+    num_queries: 35
+    query_distribution:
+      node_query: 0.1
+      edge_query: 0.1
+      path_query: 0.2
+      subgraph_query: 0.3
+      centrality_query: 0.2
+      community_query: 0.1
+
+# 评估配置 - 启用所有评估
+evaluation:
+  accuracy:
+    enabled: true
+    metrics: ["accuracy", "precision", "recall", "f1"]
+    tolerance: 1e-4
+  
+  robustness:
+    enabled: true
+    perturbation_types: ["semantic", "topology"]
+    robustness_threshold: 0.7
+  
+  performance:
+    enabled: true
+    performance_metrics: ["execution_time", "throughput", "scalability"]
+
+# 报告配置 - 生成多种报告
+reports:
+  export_files: true
+  format: "html"
+  include_details: true
+  include_visualizations: true
+  
+  comprehensive:
+    enabled: true
+  
+  incompleteness:
+    enabled: true
+  
+  noise:
+    enabled: true
+  
+  update:
+    enabled: false

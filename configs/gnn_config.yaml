@@ -1,0 +1,98 @@
+# NGDB框架GNN算法示例配置
+
+# 数据源配置 - 生成较大的图
+data_source:
+  type: "generator"
+  generator_type: "barabasi_albert"
+  generator_params:
+    n: 500
+    m: 5
+    seed: 123
+
+# 扰动生成器配置 - 拓扑扰动
+perturbation:
+  type: "topology"
+  seed: 123
+  
+  # 拓扑扰动配置
+  degree_based_removal: true
+  degree_strategy: "high_degree"
+  degree_removal_ratio: 0.15
+  
+  centrality_based_removal: true
+  centrality_type: "betweenness"
+  centrality_strategy: "high_centrality"
+  centrality_removal_ratio: 0.1
+  
+  community_based_perturbation: true
+  community_perturbation_type: "inter_community_edges"
+  inter_edge_removal_ratio: 0.2
+  
+  topology_noise: true
+  topology_noise_type: "random_edges"
+  random_edge_noise_ratio: 0.05
+
+# 算法方法配置 - 图注意力网络
+methodology:
+  type: "gnn"
+  model_type: "gat"
+  hidden_dim: 128
+  num_layers: 3
+  task_type: "node_classification"
+  feature_dim: 16
+  edge_feature_dim: 8
+  sample_size: 15
+
+# 查询配置 - GNN特定查询
+queries:
+  total_queries: 25
+  query_type_ratio:
+    read: 1.0
+    update: 0.0
+  
+  read_queries:
+    num_queries: 25
+    query_distribution:
+      node_query: 0.4
+      edge_query: 0.2
+      path_query: 0.1
+      subgraph_query: 0.2
+      centrality_query: 0.1
+      community_query: 0.0
+
+# 评估配置 - 重点关注性能和鲁棒性
+evaluation:
+  accuracy:
+    enabled: true
+    metrics: ["accuracy", "f1"]
+    tolerance: 1e-3
+  
+  robustness:
+    enabled: true
+    perturbation_types: ["topology"]
+    robustness_threshold: 0.6
+  
+  performance:
+    enabled: true
+    performance_metrics: ["execution_time", "memory_usage", "scalability"]
+    baseline_performance:
+      execution_time: 10.0
+      memory_usage: 1000
+
+# 报告配置 - 重点关注性能报告
+reports:
+  export_files: true
+  format: "markdown"
+  include_details: true
+  
+  comprehensive:
+    enabled: true
+  
+  incompleteness:
+    enabled: false
+  
+  noise:
+    enabled: false
+  
+  update:
+    enabled: false
