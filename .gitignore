@@ -129,8 +129,16 @@ dmypy.json
 .pyre/
 
 # Project specific
-# 排除扰动数据集文件夹
-perturb_dataset/
+# 排除扰动数据集文件夹，但保留example_data
+# 忽略数据文件夹
+data_gen/gnd_dataset/*
+data_gen/perturbed_dataset/*
+
+# 保留 example_data 目录及内容
+!data_gen/gnd_dataset/example_data/
+!data_gen/gnd_dataset/example_data/**
+!data_gen/perturbed_dataset/example_data/
+!data_gen/perturbed_dataset/example_data/**
 
 # 排除大型数据文件
 *.csv

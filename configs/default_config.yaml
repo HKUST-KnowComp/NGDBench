@@ -2,36 +2,29 @@
 
 # 数据源配置
 data_source:
-  type: "file"  # "file" 或 "generator"
-  
-  # 文件数据源配置（当type为"file"时使用）
-  data_path: "data/sample_graph.gml"
-  file_format: "auto"  # "gml", "graphml", "edgelist", "csv", "auto"
-  data_set_name: "ldbc_snb_bi"
-  # 生成器数据源配置（当type为"generator"时使用）
-  generator_type: "barabasi_albert"  # "erdos_renyi", "barabasi_albert", "watts_strogatz", "karate_club"
-  generator_params:
-    n: 100  # 节点数
-    m: 3    # 每个新节点连接的边数（BA模型）
-    seed: 42
+  root_data_path: "gnd_dataset/ldbc_snb_bi/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot"
+  data_file_format: ".csv.gz"
+  dataset_name: "ldbc_snb_bi/out-sf1"
 
-# 扰动生成器配置
+# perturbation generator config
 perturbation:
-  data_path: None
-  type: "incompleteness" 
-  method: "random"  # "random", "semantic", "topology"
+  method: "random" # "random", "semantic", "topology", mixture is accepted
+  type: ["incompleteness"] # "incompleteness", "noise", mixture is accepted
   seed: 42
-  # 随机扰动配置
+  # incompleteness config
   remove_nodes: true
   node_removal_ratio: 0.1
   remove_edges: true
   edge_removal_ratio: 0.15
-  modify_attributes: true
-  attribute_modification_ratio: 0.05
+  incomplete_attribute: true
+  attribute_attribute_ratio: 0.05
+  # noise config
   add_noise: false
   noise_ratio: None
   numeric_noise_factor: None
-
+  string_noise_factor: None
+  modify_attributes: true
+  attribute_modification_ratio: 0.05
 # 算法方法配置
 methodology:
   type: "graph_algorithm"  # "graph_algorithm", "graph_rag", "gnn"
