@@ -1,26 +1,16 @@
-# NGDB Framework - 图算法基准测试框架
+# NGDB Benchmark Status
 
-NGDB (Noisy Graph Database) Framework 是一个专门用于评估图算法在不完整和噪声数据环境下性能的综合基准测试框架。
+## Data Generation Module Status
+- ✅ Random incompleteness generation is working
+- 🚧 Coming soon:
+  - Random noise generation
+  - Semantic incompleteness generation 
+  - Random mixture generation
+  - And more...
 
-## 代码架构说明
+## Usage Guide
+For detailed instructions on using the data_gen module, please see [data_gen/readme.md](data_gen/readme.md).
 
-data_gen专门负责和gnd数据库不同的扰动数据的生成，从原本src里面解耦出来。所以src里面ngdb_framework目前不能要，得重构
-### data_gen说明
-
-
-### 框架架构
-
-```
-NGDB Framework
-├── 数据准备和扰动
-│   ├── 数据源 (Data Source)
-│   └── 扰动生成器 (Perturbation Generator)
-├── 核心评估和算法模块
-│   ├── 算法执行 (Methodology)
-│   └── 查询模块 (Query Module)
-└── 评估和报告
-    ├── 评估框架 (Evaluation Harness)
-    └── 指标报告 (Metric Report)
-```
-
-
+## Generated Datasets
+The currently generated datasets are stored at:
+ GPU8 /data/ylivm/ngdb_benchmark/data_gen/perturbed_dataset, you cn refer to /data/ylivm/ngdb_benchmark/data_gen/perturb_record for what have happened.

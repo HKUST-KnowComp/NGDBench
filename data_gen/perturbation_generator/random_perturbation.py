@@ -27,9 +27,6 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
                 perturbation_info = self.incomplete_perturb(perturbed_data_path)
             elif perturb_type == 'noise':
                 perturbation_info = self.noise_perturb(perturbed_data_path)
-            elif perturb_type == 'mixture':
-                perturbation_info = self.incomplete_perturb(perturbed_data_path)
-                perturbation_info = self.noise_perturb(perturbed_data_path)
             else:
                 raise ValueError(f"Unsupported: {perturb_type}")
         return perturbation_info

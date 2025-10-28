@@ -133,12 +133,13 @@ dmypy.json
 # 忽略数据文件夹
 data_gen/gnd_dataset/*
 data_gen/perturbed_dataset/*
-
+data_gen/perturb_record/*
 # 保留 example_data 目录及内容
 !data_gen/gnd_dataset/example_data/
 !data_gen/gnd_dataset/example_data/**
 !data_gen/perturbed_dataset/example_data/
 !data_gen/perturbed_dataset/example_data/**
+!data_gen/perturb_record/example_record.json
 
 # 排除大型数据文件
 *.csv
