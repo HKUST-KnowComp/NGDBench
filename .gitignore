@@ -141,10 +141,10 @@ data_gen/perturb_record/*
 !data_gen/perturbed_dataset/example_data/**
 !data_gen/perturb_record/example_record.json
 
-# 排除大型数据文件
-*.csv
-src/*.csv
-part-*.csv
+# # 排除大型数据文件
+# *.csv
+# src/*.csv
+# part-*.csv
 
 # IDE
 .vscode/
