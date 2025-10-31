@@ -1,7 +1,3 @@
-"""
-语义扰动生成器实现
-"""
-
 from typing import Any, Dict, List, Tuple, Callable
 import networkx as nx
 import numpy as np
@@ -10,10 +6,10 @@ from .base import BasePerturbationGenerator
 
 
 class SemanticPerturbationGenerator(BasePerturbationGenerator):
-    """语义扰动生成器 - 基于语义逻辑删除或修改数据"""
+    """Semantic perturbation generator - based on semantic logic to delete or modify data"""
     
     def apply_perturbation(self, graph: nx.Graph, perturb_type) -> Tuple[nx.Graph, Dict[str, Any]]:
-        """应用语义扰动"""
+        
         perturbed_graph = graph.copy()
         perturbation_info = {
             "type": "semantic",

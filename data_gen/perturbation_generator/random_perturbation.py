@@ -1,7 +1,3 @@
-"""
-随机扰动生成器实现
-"""
-
 from typing import Any, Dict, List, Tuple
 import networkx as nx
 import numpy as np
@@ -111,7 +107,7 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
                     operations.extend(noise_ops)
             
             
-            if len(operations) > 0:  # 只有在有修改时才写回
+            if len(operations) > 0:  
                 self._write_file(df, file_path, data_file_format)
             
         except Exception as e:
@@ -122,7 +118,7 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
     def _remove_rows(self, df: pd.DataFrame, removal_ratio: float, file_path: str, 
                      filename: str, entity_type: str) -> Tuple[pd.DataFrame, List[Dict]]:
         """
-        随机删除行Ramdonly remove some rows from the dataset according to the removal_ratio
+        Ramdonly remove some rows from the dataset according to the removal_ratio
         
         Args:
             df: dataframe
@@ -144,11 +140,9 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
         num_to_remove = int(original_rows * removal_ratio)
         
         if num_to_remove > 0 and num_to_remove < original_rows:
-            # Randomly select the rows to remove
             rows_to_remove = random.sample(range(original_rows), num_to_remove)
             df = df.drop(rows_to_remove).reset_index(drop=True)
             
-            # Record the operation
             operations.append({
                 "operation": "remove_rows",
                 "entity_type": entity_type,
@@ -181,13 +175,10 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
         if len(df) == 0 or modification_ratio <= 0:
             return df, operations
         
-        # 计算要修改的行数
         num_to_modify = max(1, int(len(df) * modification_ratio))
         
-        # 随机选择要修改的行
         rows_to_modify = random.sample(range(len(df)), min(num_to_modify, len(df)))
         
-        # 选择可以修改的列（排除ID列）
         modifiable_columns = [col for col in df.columns 
                              if 'id' not in col.lower()]
         
@@ -196,11 +187,10 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
         
         modified_count = 0
         for row_idx in rows_to_modify:
-            # 随机选择一列进行修改
             col = random.choice(modifiable_columns)
             original_value = df.at[row_idx, col]
             
-            # 不完整性扰动：将值设为空值（NaN）
+            # Set the value to NaN（NaN）
             if not pd.isna(original_value):
                 df.at[row_idx, col] = np.nan
                 modified_count += 1
