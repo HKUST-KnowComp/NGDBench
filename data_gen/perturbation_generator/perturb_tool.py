@@ -9,7 +9,7 @@ import pandas as pd
 import tempfile
 import random
 import numpy as np
-from typing import Dict, List
+from typing import Dict, List, Any
 
 
 def apply_incomplete_perturbation(perturbed_data_path: str, dataset_name: str, perturbation_config: Dict) -> tuple:
@@ -200,3 +200,143 @@ def write_compressed_csv(df: pd.DataFrame, output_path: str):
         
         # 删除临时文件
         os.unlink(temp_file.name)
+
+
+# ==================== 噪声添加工具函数 ====================
+
+def add_noise_to_value(value: Any, dtype) -> Any:
+    """
+    对单个值添加噪声
+    
+    Args:
+        value: 原始值
+        dtype: 数据类型
+        
+    Returns:
+        添加噪声后的值
+    """
+    # 字符串类型：大小写互换或插入干扰字符
+    if dtype == 'object' and isinstance(value, str):
+        noise_type = random.choice(['case_swap', 'insert_chars', 'both'])
+        
+        if noise_type == 'case_swap':
+            return swap_case(value)
+        elif noise_type == 'insert_chars':
+            return insert_noise_chars(value)
+        else:  # both
+            value = swap_case(value)
+            return insert_noise_chars(value)
+    
+    # 数值和时间戳类型：转为字符串后插入干扰字符
+    elif dtype in ['int64', 'float64', 'datetime64[ns]']:
+        str_value = str(value)
+        return insert_noise_chars(str_value)
+    
+    return value
+
+
+def swap_case(text: str) -> str:
+    """
+    随机互换字符串中部分字符的大小写
+    
+    Args:
+        text: 输入字符串
+        
+    Returns:
+        大小写互换后的字符串
+    """
+    if len(text) == 0:
+        return text
+    
+    # 随机选择要互换大小写的字符数量（20%-50%）
+    num_to_swap = max(1, int(len(text) * random.uniform(0.2, 0.5)))
+    
+    # 随机选择位置
+    positions = random.sample(range(len(text)), min(num_to_swap, len(text)))
+    
+    text_list = list(text)
+    for pos in positions:
+        if text_list[pos].isalpha():
+            if text_list[pos].isupper():
+                text_list[pos] = text_list[pos].lower()
+            else:
+                text_list[pos] = text_list[pos].upper()
+    
+    return ''.join(text_list)
+
+
+def insert_noise_chars(text: str) -> str:
+    """
+    在字符串中随机插入干扰字符
+    
+    Args:
+        text: 输入字符串
+        
+    Returns:
+        插入干扰字符后的字符串
+    """
+    if len(text) == 0:
+        return text
+    
+    noise_chars = ['-', '+', '*', '&', '#', '@', '!', '~']
+    
+    # 随机选择要插入的位置数量（1-3个）
+    num_insertions = random.randint(1, min(3, len(text)))
+    
+    text_list = list(text)
+    # 从后往前插入，避免索引变化
+    positions = sorted(random.sample(range(len(text) + 1), num_insertions), reverse=True)
+    
+    for pos in positions:
+        noise_char = random.choice(noise_chars)
+        text_list.insert(pos, noise_char)
+    
+    return ''.join(text_list)
+
+
+def generate_different_value(original_value: Any, column_series: pd.Series) -> Any:
+    """
+    为某列生成一个不同的值
+    
+    Args:
+        original_value: 原始值
+        column_series: 该列的所有数据（用于了解数据分布）
+        
+    Returns:
+        一个不同的值
+    """
+    dtype = column_series.dtype
+    
+    # 字符串类型：从该列的其他值中随机选择一个
+    if dtype == 'object' and isinstance(original_value, str):
+        # 获取该列的唯一值（排除原始值）
+        unique_values = column_series[column_series != original_value].unique()
+        if len(unique_values) > 0:
+            return random.choice(unique_values)
+        else:
+            # 如果没有其他值，则添加后缀
+            return original_value + "_modified"
+    
+    # 数值类型：加上或减去一个随机值
+    elif dtype in ['int64', 'float64']:
+        if dtype == 'int64':
+            # 整数：加减一个随机整数
+            change = random.randint(-100, 100)
+            return int(original_value) + change
+        else:
+            # 浮点数：加减一个随机浮点数
+            change = random.uniform(-10.0, 10.0)
+            return float(original_value) + change
+    
+    # 日期时间类型：加减若干天
+    elif dtype == 'datetime64[ns]':
+        days_change = random.randint(-365, 365)
+        return pd.Timestamp(original_value) + pd.Timedelta(days=days_change)
+    
+    # 布尔类型：取反
+    elif dtype == 'bool':
+        return not original_value
+    
+    # 其他类型：转为字符串后添加后缀
+    else:
+        return str(original_value) + "_modified"

@@ -1,0 +1,985 @@
+{
+    "method": "random_incomplete",
+    "operations": [
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00000-23ca22a0-c6de-4cc5-93d0-2e46c823003e-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Organisation/part-00000-23ca22a0-c6de-4cc5-93d0-2e46c823003e-c000.csv.gz",
+        "original_rows": 7954,
+        "removed_rows": 795,
+        "remaining_rows": 7159,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-23ca22a0-c6de-4cc5-93d0-2e46c823003e-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Organisation/part-00000-23ca22a0-c6de-4cc5-93d0-2e46c823003e-c000.csv.gz",
+        "modified_rows": 357,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-315fcb34-a675-407e-8b86-46e7d96bd2b9-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Place_isPartOf_Place/part-00000-315fcb34-a675-407e-8b86-46e7d96bd2b9-c000.csv.gz",
+        "original_rows": 1453,
+        "removed_rows": 217,
+        "remaining_rows": 1236,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-315fcb34-a675-407e-8b86-46e7d96bd2b9-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Place_isPartOf_Place/part-00000-315fcb34-a675-407e-8b86-46e7d96bd2b9-c000.csv.gz",
+        "modified_rows": 61,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00000-10280754-0f08-471b-b77d-108cd052f7e4-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/TagClass/part-00000-10280754-0f08-471b-b77d-108cd052f7e4-c000.csv.gz",
+        "original_rows": 70,
+        "removed_rows": 7,
+        "remaining_rows": 63,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-10280754-0f08-471b-b77d-108cd052f7e4-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/TagClass/part-00000-10280754-0f08-471b-b77d-108cd052f7e4-c000.csv.gz",
+        "modified_rows": 3,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-454c1d11-3810-4b47-9caf-6156639e1213-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Tag_hasType_TagClass/part-00000-454c1d11-3810-4b47-9caf-6156639e1213-c000.csv.gz",
+        "original_rows": 16079,
+        "removed_rows": 2411,
+        "remaining_rows": 13668,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-454c1d11-3810-4b47-9caf-6156639e1213-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Tag_hasType_TagClass/part-00000-454c1d11-3810-4b47-9caf-6156639e1213-c000.csv.gz",
+        "modified_rows": 683,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00000-60eee2b0-49e5-4f2f-8c6c-bcabdda7f17d-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Place/part-00000-60eee2b0-49e5-4f2f-8c6c-bcabdda7f17d-c000.csv.gz",
+        "original_rows": 1459,
+        "removed_rows": 145,
+        "remaining_rows": 1314,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-60eee2b0-49e5-4f2f-8c6c-bcabdda7f17d-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Place/part-00000-60eee2b0-49e5-4f2f-8c6c-bcabdda7f17d-c000.csv.gz",
+        "modified_rows": 65,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-d6a94bea-a16a-4b0e-9258-7bac764cb739-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/TagClass_isSubclassOf_TagClass/part-00000-d6a94bea-a16a-4b0e-9258-7bac764cb739-c000.csv.gz",
+        "original_rows": 69,
+        "removed_rows": 10,
+        "remaining_rows": 59,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-d6a94bea-a16a-4b0e-9258-7bac764cb739-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/TagClass_isSubclassOf_TagClass/part-00000-d6a94bea-a16a-4b0e-9258-7bac764cb739-c000.csv.gz",
+        "modified_rows": 2,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00000-fcfabe81-bbe6-49e9-9f84-2de1e2236d0a-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Tag/part-00000-fcfabe81-bbe6-49e9-9f84-2de1e2236d0a-c000.csv.gz",
+        "original_rows": 16079,
+        "removed_rows": 1607,
+        "remaining_rows": 14472,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-fcfabe81-bbe6-49e9-9f84-2de1e2236d0a-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Tag/part-00000-fcfabe81-bbe6-49e9-9f84-2de1e2236d0a-c000.csv.gz",
+        "modified_rows": 723,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-c589dcc3-5cf0-4f15-b236-0908cd3dd249-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Organisation_isLocatedIn_Place/part-00000-c589dcc3-5cf0-4f15-b236-0908cd3dd249-c000.csv.gz",
+        "original_rows": 7954,
+        "removed_rows": 1193,
+        "remaining_rows": 6761,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-c589dcc3-5cf0-4f15-b236-0908cd3dd249-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/static/Organisation_isLocatedIn_Place/part-00000-c589dcc3-5cf0-4f15-b236-0908cd3dd249-c000.csv.gz",
+        "modified_rows": 338,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-c45977f3-8ca1-49c0-9eea-8c887426bfee-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasTag_Tag/part-00000-c45977f3-8ca1-49c0-9eea-8c887426bfee-c000.csv.gz",
+        "original_rows": 309113,
+        "removed_rows": 46366,
+        "remaining_rows": 262747,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-c45977f3-8ca1-49c0-9eea-8c887426bfee-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasTag_Tag/part-00000-c45977f3-8ca1-49c0-9eea-8c887426bfee-c000.csv.gz",
+        "modified_rows": 13137,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00001-c45977f3-8ca1-49c0-9eea-8c887426bfee-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasTag_Tag/part-00001-c45977f3-8ca1-49c0-9eea-8c887426bfee-c000.csv.gz",
+        "original_rows": 19469,
+        "removed_rows": 2920,
+        "remaining_rows": 16549,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-c45977f3-8ca1-49c0-9eea-8c887426bfee-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasTag_Tag/part-00001-c45977f3-8ca1-49c0-9eea-8c887426bfee-c000.csv.gz",
+        "modified_rows": 827,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00000-3d204419-c47b-41a7-acc9-989f8c846839-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum/part-00000-3d204419-c47b-41a7-acc9-989f8c846839-c000.csv.gz",
+        "original_rows": 95137,
+        "removed_rows": 9513,
+        "remaining_rows": 85624,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-3d204419-c47b-41a7-acc9-989f8c846839-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum/part-00000-3d204419-c47b-41a7-acc9-989f8c846839-c000.csv.gz",
+        "modified_rows": 4281,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00001-3d204419-c47b-41a7-acc9-989f8c846839-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum/part-00001-3d204419-c47b-41a7-acc9-989f8c846839-c000.csv.gz",
+        "original_rows": 5688,
+        "removed_rows": 568,
+        "remaining_rows": 5120,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-3d204419-c47b-41a7-acc9-989f8c846839-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum/part-00001-3d204419-c47b-41a7-acc9-989f8c846839-c000.csv.gz",
+        "modified_rows": 256,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00003-e3f3992f-b326-48fa-9b1d-11299214f9aa-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post/part-00003-e3f3992f-b326-48fa-9b1d-11299214f9aa-c000.csv.gz",
+        "original_rows": 1058975,
+        "removed_rows": 105897,
+        "remaining_rows": 953078,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00003-e3f3992f-b326-48fa-9b1d-11299214f9aa-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post/part-00003-e3f3992f-b326-48fa-9b1d-11299214f9aa-c000.csv.gz",
+        "modified_rows": 37040,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00008-e3f3992f-b326-48fa-9b1d-11299214f9aa-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post/part-00008-e3f3992f-b326-48fa-9b1d-11299214f9aa-c000.csv.gz",
+        "original_rows": 62249,
+        "removed_rows": 6224,
+        "remaining_rows": 56025,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00008-e3f3992f-b326-48fa-9b1d-11299214f9aa-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post/part-00008-e3f3992f-b326-48fa-9b1d-11299214f9aa-c000.csv.gz",
+        "modified_rows": 2151,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-5f60de18-6583-474c-9abd-8faa49818c9c-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_studyAt_University/part-00000-5f60de18-6583-474c-9abd-8faa49818c9c-c000.csv.gz",
+        "original_rows": 7820,
+        "removed_rows": 1173,
+        "remaining_rows": 6647,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-5f60de18-6583-474c-9abd-8faa49818c9c-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_studyAt_University/part-00000-5f60de18-6583-474c-9abd-8faa49818c9c-c000.csv.gz",
+        "modified_rows": 332,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00001-5f60de18-6583-474c-9abd-8faa49818c9c-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_studyAt_University/part-00001-5f60de18-6583-474c-9abd-8faa49818c9c-c000.csv.gz",
+        "original_rows": 487,
+        "removed_rows": 73,
+        "remaining_rows": 414,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-5f60de18-6583-474c-9abd-8faa49818c9c-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_studyAt_University/part-00001-5f60de18-6583-474c-9abd-8faa49818c9c-c000.csv.gz",
+        "modified_rows": 20,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00001-e93f998f-9918-45c3-92e0-d6a0c9cf64ef-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_likes_Comment/part-00001-e93f998f-9918-45c3-92e0-d6a0c9cf64ef-c000.csv.gz",
+        "original_rows": 1053318,
+        "removed_rows": 157997,
+        "remaining_rows": 895321,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-e93f998f-9918-45c3-92e0-d6a0c9cf64ef-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_likes_Comment/part-00001-e93f998f-9918-45c3-92e0-d6a0c9cf64ef-c000.csv.gz",
+        "modified_rows": 44766,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00003-e93f998f-9918-45c3-92e0-d6a0c9cf64ef-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_likes_Comment/part-00003-e93f998f-9918-45c3-92e0-d6a0c9cf64ef-c000.csv.gz",
+        "original_rows": 56493,
+        "removed_rows": 8473,
+        "remaining_rows": 48020,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00003-e93f998f-9918-45c3-92e0-d6a0c9cf64ef-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_likes_Comment/part-00003-e93f998f-9918-45c3-92e0-d6a0c9cf64ef-c000.csv.gz",
+        "modified_rows": 2401,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00003-1a41d492-5914-4165-9d3f-04deb90b408b-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_isLocatedIn_Country/part-00003-1a41d492-5914-4165-9d3f-04deb90b408b-c000.csv.gz",
+        "original_rows": 1058975,
+        "removed_rows": 158846,
+        "remaining_rows": 900129,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00003-1a41d492-5914-4165-9d3f-04deb90b408b-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_isLocatedIn_Country/part-00003-1a41d492-5914-4165-9d3f-04deb90b408b-c000.csv.gz",
+        "modified_rows": 45006,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00008-1a41d492-5914-4165-9d3f-04deb90b408b-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_isLocatedIn_Country/part-00008-1a41d492-5914-4165-9d3f-04deb90b408b-c000.csv.gz",
+        "original_rows": 62249,
+        "removed_rows": 9337,
+        "remaining_rows": 52912,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00008-1a41d492-5914-4165-9d3f-04deb90b408b-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_isLocatedIn_Country/part-00008-1a41d492-5914-4165-9d3f-04deb90b408b-c000.csv.gz",
+        "modified_rows": 2645,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00011-bc1621aa-0284-409c-88e3-b5aa8bc21248-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment/part-00011-bc1621aa-0284-409c-88e3-b5aa8bc21248-c000.csv.gz",
+        "original_rows": 1647260,
+        "removed_rows": 164726,
+        "remaining_rows": 1482534,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00011-bc1621aa-0284-409c-88e3-b5aa8bc21248-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment/part-00011-bc1621aa-0284-409c-88e3-b5aa8bc21248-c000.csv.gz",
+        "modified_rows": 74126,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00022-bc1621aa-0284-409c-88e3-b5aa8bc21248-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment/part-00022-bc1621aa-0284-409c-88e3-b5aa8bc21248-c000.csv.gz",
+        "original_rows": 92176,
+        "removed_rows": 9217,
+        "remaining_rows": 82959,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00022-bc1621aa-0284-409c-88e3-b5aa8bc21248-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment/part-00022-bc1621aa-0284-409c-88e3-b5aa8bc21248-c000.csv.gz",
+        "modified_rows": 4147,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-4debf9d3-6b40-4bb1-a9dd-537dfbc9bec9-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_likes_Post/part-00000-4debf9d3-6b40-4bb1-a9dd-537dfbc9bec9-c000.csv.gz",
+        "original_rows": 717754,
+        "removed_rows": 107663,
+        "remaining_rows": 610091,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-4debf9d3-6b40-4bb1-a9dd-537dfbc9bec9-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_likes_Post/part-00000-4debf9d3-6b40-4bb1-a9dd-537dfbc9bec9-c000.csv.gz",
+        "modified_rows": 30504,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00002-4debf9d3-6b40-4bb1-a9dd-537dfbc9bec9-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_likes_Post/part-00002-4debf9d3-6b40-4bb1-a9dd-537dfbc9bec9-c000.csv.gz",
+        "original_rows": 42699,
+        "removed_rows": 6404,
+        "remaining_rows": 36295,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00002-4debf9d3-6b40-4bb1-a9dd-537dfbc9bec9-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_likes_Post/part-00002-4debf9d3-6b40-4bb1-a9dd-537dfbc9bec9-c000.csv.gz",
+        "modified_rows": 1814,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00011-3d090a36-5d84-4d31-bed9-2f5af62cd567-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_isLocatedIn_Country/part-00011-3d090a36-5d84-4d31-bed9-2f5af62cd567-c000.csv.gz",
+        "original_rows": 1647260,
+        "removed_rows": 247089,
+        "remaining_rows": 1400171,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00011-3d090a36-5d84-4d31-bed9-2f5af62cd567-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_isLocatedIn_Country/part-00011-3d090a36-5d84-4d31-bed9-2f5af62cd567-c000.csv.gz",
+        "modified_rows": 70008,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00022-3d090a36-5d84-4d31-bed9-2f5af62cd567-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_isLocatedIn_Country/part-00022-3d090a36-5d84-4d31-bed9-2f5af62cd567-c000.csv.gz",
+        "original_rows": 92176,
+        "removed_rows": 13826,
+        "remaining_rows": 78350,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00022-3d090a36-5d84-4d31-bed9-2f5af62cd567-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_isLocatedIn_Country/part-00022-3d090a36-5d84-4d31-bed9-2f5af62cd567-c000.csv.gz",
+        "modified_rows": 3917,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00003-0910bd20-30e7-4baa-9dd0-88b478aa44a8-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_hasCreator_Person/part-00003-0910bd20-30e7-4baa-9dd0-88b478aa44a8-c000.csv.gz",
+        "original_rows": 1058975,
+        "removed_rows": 158846,
+        "remaining_rows": 900129,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00003-0910bd20-30e7-4baa-9dd0-88b478aa44a8-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_hasCreator_Person/part-00003-0910bd20-30e7-4baa-9dd0-88b478aa44a8-c000.csv.gz",
+        "modified_rows": 45006,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00008-0910bd20-30e7-4baa-9dd0-88b478aa44a8-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_hasCreator_Person/part-00008-0910bd20-30e7-4baa-9dd0-88b478aa44a8-c000.csv.gz",
+        "original_rows": 62249,
+        "removed_rows": 9337,
+        "remaining_rows": 52912,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00008-0910bd20-30e7-4baa-9dd0-88b478aa44a8-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_hasCreator_Person/part-00008-0910bd20-30e7-4baa-9dd0-88b478aa44a8-c000.csv.gz",
+        "modified_rows": 2645,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00003-534a3baa-2abb-4bfd-a7d0-55b2b83ec5ee-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_containerOf_Post/part-00003-534a3baa-2abb-4bfd-a7d0-55b2b83ec5ee-c000.csv.gz",
+        "original_rows": 1058975,
+        "removed_rows": 158846,
+        "remaining_rows": 900129,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00003-534a3baa-2abb-4bfd-a7d0-55b2b83ec5ee-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_containerOf_Post/part-00003-534a3baa-2abb-4bfd-a7d0-55b2b83ec5ee-c000.csv.gz",
+        "modified_rows": 45006,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00008-534a3baa-2abb-4bfd-a7d0-55b2b83ec5ee-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_containerOf_Post/part-00008-534a3baa-2abb-4bfd-a7d0-55b2b83ec5ee-c000.csv.gz",
+        "original_rows": 62249,
+        "removed_rows": 9337,
+        "remaining_rows": 52912,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00008-534a3baa-2abb-4bfd-a7d0-55b2b83ec5ee-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_containerOf_Post/part-00008-534a3baa-2abb-4bfd-a7d0-55b2b83ec5ee-c000.csv.gz",
+        "modified_rows": 2645,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00001-d3af4b9c-f219-4d3c-bc1a-cef4931a0853-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_workAt_Company/part-00001-d3af4b9c-f219-4d3c-bc1a-cef4931a0853-c000.csv.gz",
+        "original_rows": 1227,
+        "removed_rows": 184,
+        "remaining_rows": 1043,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-d3af4b9c-f219-4d3c-bc1a-cef4931a0853-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_workAt_Company/part-00001-d3af4b9c-f219-4d3c-bc1a-cef4931a0853-c000.csv.gz",
+        "modified_rows": 52,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-d3af4b9c-f219-4d3c-bc1a-cef4931a0853-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_workAt_Company/part-00000-d3af4b9c-f219-4d3c-bc1a-cef4931a0853-c000.csv.gz",
+        "original_rows": 20815,
+        "removed_rows": 3122,
+        "remaining_rows": 17693,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-d3af4b9c-f219-4d3c-bc1a-cef4931a0853-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_workAt_Company/part-00000-d3af4b9c-f219-4d3c-bc1a-cef4931a0853-c000.csv.gz",
+        "modified_rows": 884,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00002-e00a2f05-e661-4c28-a8ed-f6fbff276584-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_hasTag_Tag/part-00002-e00a2f05-e661-4c28-a8ed-f6fbff276584-c000.csv.gz",
+        "original_rows": 41635,
+        "removed_rows": 6245,
+        "remaining_rows": 35390,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00002-e00a2f05-e661-4c28-a8ed-f6fbff276584-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_hasTag_Tag/part-00002-e00a2f05-e661-4c28-a8ed-f6fbff276584-c000.csv.gz",
+        "modified_rows": 1769,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-e00a2f05-e661-4c28-a8ed-f6fbff276584-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_hasTag_Tag/part-00000-e00a2f05-e661-4c28-a8ed-f6fbff276584-c000.csv.gz",
+        "original_rows": 710296,
+        "removed_rows": 106544,
+        "remaining_rows": 603752,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-e00a2f05-e661-4c28-a8ed-f6fbff276584-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Post_hasTag_Tag/part-00000-e00a2f05-e661-4c28-a8ed-f6fbff276584-c000.csv.gz",
+        "modified_rows": 30187,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00003-62a461cf-809a-4c0b-8b31-fc4af631198d-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasMember_Person/part-00003-62a461cf-809a-4c0b-8b31-fc4af631198d-c000.csv.gz",
+        "original_rows": 152490,
+        "removed_rows": 22873,
+        "remaining_rows": 129617,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00003-62a461cf-809a-4c0b-8b31-fc4af631198d-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasMember_Person/part-00003-62a461cf-809a-4c0b-8b31-fc4af631198d-c000.csv.gz",
+        "modified_rows": 6480,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00001-62a461cf-809a-4c0b-8b31-fc4af631198d-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasMember_Person/part-00001-62a461cf-809a-4c0b-8b31-fc4af631198d-c000.csv.gz",
+        "original_rows": 2757276,
+        "removed_rows": 413591,
+        "remaining_rows": 2343685,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-62a461cf-809a-4c0b-8b31-fc4af631198d-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasMember_Person/part-00001-62a461cf-809a-4c0b-8b31-fc4af631198d-c000.csv.gz",
+        "modified_rows": 117184,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00000-6585cb8d-dad4-402e-87fd-8e829ca91aae-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person/part-00000-6585cb8d-dad4-402e-87fd-8e829ca91aae-c000.csv.gz",
+        "original_rows": 9698,
+        "removed_rows": 969,
+        "remaining_rows": 8729,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-6585cb8d-dad4-402e-87fd-8e829ca91aae-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person/part-00000-6585cb8d-dad4-402e-87fd-8e829ca91aae-c000.csv.gz",
+        "modified_rows": 436,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "node",
+        "file": "part-00001-6585cb8d-dad4-402e-87fd-8e829ca91aae-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person/part-00001-6585cb8d-dad4-402e-87fd-8e829ca91aae-c000.csv.gz",
+        "original_rows": 595,
+        "removed_rows": 59,
+        "remaining_rows": 536,
+        "removal_ratio": 0.1
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-6585cb8d-dad4-402e-87fd-8e829ca91aae-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person/part-00001-6585cb8d-dad4-402e-87fd-8e829ca91aae-c000.csv.gz",
+        "modified_rows": 26,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00001-1b0fccf3-e071-4c28-8f73-fe2365a2a2da-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_hasInterest_Tag/part-00001-1b0fccf3-e071-4c28-8f73-fe2365a2a2da-c000.csv.gz",
+        "original_rows": 14376,
+        "removed_rows": 2156,
+        "remaining_rows": 12220,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-1b0fccf3-e071-4c28-8f73-fe2365a2a2da-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_hasInterest_Tag/part-00001-1b0fccf3-e071-4c28-8f73-fe2365a2a2da-c000.csv.gz",
+        "modified_rows": 611,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-1b0fccf3-e071-4c28-8f73-fe2365a2a2da-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_hasInterest_Tag/part-00000-1b0fccf3-e071-4c28-8f73-fe2365a2a2da-c000.csv.gz",
+        "original_rows": 223674,
+        "removed_rows": 33551,
+        "remaining_rows": 190123,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-1b0fccf3-e071-4c28-8f73-fe2365a2a2da-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_hasInterest_Tag/part-00000-1b0fccf3-e071-4c28-8f73-fe2365a2a2da-c000.csv.gz",
+        "modified_rows": 9506,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00001-1ebcbd5c-8101-48be-be10-d9c28c9f9f52-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasModerator_Person/part-00001-1ebcbd5c-8101-48be-be10-d9c28c9f9f52-c000.csv.gz",
+        "original_rows": 5688,
+        "removed_rows": 853,
+        "remaining_rows": 4835,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-1ebcbd5c-8101-48be-be10-d9c28c9f9f52-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasModerator_Person/part-00001-1ebcbd5c-8101-48be-be10-d9c28c9f9f52-c000.csv.gz",
+        "modified_rows": 241,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-1ebcbd5c-8101-48be-be10-d9c28c9f9f52-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasModerator_Person/part-00000-1ebcbd5c-8101-48be-be10-d9c28c9f9f52-c000.csv.gz",
+        "original_rows": 95137,
+        "removed_rows": 14270,
+        "remaining_rows": 80867,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-1ebcbd5c-8101-48be-be10-d9c28c9f9f52-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Forum_hasModerator_Person/part-00000-1ebcbd5c-8101-48be-be10-d9c28c9f9f52-c000.csv.gz",
+        "modified_rows": 4043,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00011-0734a4da-4214-4a2e-9df0-0ff17de0ec18-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_hasCreator_Person/part-00011-0734a4da-4214-4a2e-9df0-0ff17de0ec18-c000.csv.gz",
+        "original_rows": 1647260,
+        "removed_rows": 247089,
+        "remaining_rows": 1400171,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00011-0734a4da-4214-4a2e-9df0-0ff17de0ec18-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_hasCreator_Person/part-00011-0734a4da-4214-4a2e-9df0-0ff17de0ec18-c000.csv.gz",
+        "modified_rows": 70008,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00022-0734a4da-4214-4a2e-9df0-0ff17de0ec18-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_hasCreator_Person/part-00022-0734a4da-4214-4a2e-9df0-0ff17de0ec18-c000.csv.gz",
+        "original_rows": 92176,
+        "removed_rows": 13826,
+        "remaining_rows": 78350,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00022-0734a4da-4214-4a2e-9df0-0ff17de0ec18-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_hasCreator_Person/part-00022-0734a4da-4214-4a2e-9df0-0ff17de0ec18-c000.csv.gz",
+        "modified_rows": 3917,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00022-06f37e42-b137-4738-a1f8-ed4f7364598f-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_replyOf_Post/part-00022-06f37e42-b137-4738-a1f8-ed4f7364598f-c000.csv.gz",
+        "original_rows": 51577,
+        "removed_rows": 7736,
+        "remaining_rows": 43841,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00022-06f37e42-b137-4738-a1f8-ed4f7364598f-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_replyOf_Post/part-00022-06f37e42-b137-4738-a1f8-ed4f7364598f-c000.csv.gz",
+        "modified_rows": 2192,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00011-06f37e42-b137-4738-a1f8-ed4f7364598f-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_replyOf_Post/part-00011-06f37e42-b137-4738-a1f8-ed4f7364598f-c000.csv.gz",
+        "original_rows": 898839,
+        "removed_rows": 134825,
+        "remaining_rows": 764014,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00011-06f37e42-b137-4738-a1f8-ed4f7364598f-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_replyOf_Post/part-00011-06f37e42-b137-4738-a1f8-ed4f7364598f-c000.csv.gz",
+        "modified_rows": 38200,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00001-4b489e98-d68b-4ccf-81bc-6a661d251696-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_isLocatedIn_City/part-00001-4b489e98-d68b-4ccf-81bc-6a661d251696-c000.csv.gz",
+        "original_rows": 595,
+        "removed_rows": 89,
+        "remaining_rows": 506,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-4b489e98-d68b-4ccf-81bc-6a661d251696-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_isLocatedIn_City/part-00001-4b489e98-d68b-4ccf-81bc-6a661d251696-c000.csv.gz",
+        "modified_rows": 25,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-4b489e98-d68b-4ccf-81bc-6a661d251696-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_isLocatedIn_City/part-00000-4b489e98-d68b-4ccf-81bc-6a661d251696-c000.csv.gz",
+        "original_rows": 9698,
+        "removed_rows": 1454,
+        "remaining_rows": 8244,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-4b489e98-d68b-4ccf-81bc-6a661d251696-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_isLocatedIn_City/part-00000-4b489e98-d68b-4ccf-81bc-6a661d251696-c000.csv.gz",
+        "modified_rows": 412,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00001-ce40344f-ba37-4020-9c48-7710e880af1d-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_knows_Person/part-00001-ce40344f-ba37-4020-9c48-7710e880af1d-c000.csv.gz",
+        "original_rows": 9625,
+        "removed_rows": 1443,
+        "remaining_rows": 8182,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00001-ce40344f-ba37-4020-9c48-7710e880af1d-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_knows_Person/part-00001-ce40344f-ba37-4020-9c48-7710e880af1d-c000.csv.gz",
+        "modified_rows": 409,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00000-ce40344f-ba37-4020-9c48-7710e880af1d-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_knows_Person/part-00000-ce40344f-ba37-4020-9c48-7710e880af1d-c000.csv.gz",
+        "original_rows": 163387,
+        "removed_rows": 24508,
+        "remaining_rows": 138879,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00000-ce40344f-ba37-4020-9c48-7710e880af1d-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Person_knows_Person/part-00000-ce40344f-ba37-4020-9c48-7710e880af1d-c000.csv.gz",
+        "modified_rows": 6943,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00002-c0eef2f3-d4d0-4889-9ae1-dd3116bde2cc-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_hasTag_Tag/part-00002-c0eef2f3-d4d0-4889-9ae1-dd3116bde2cc-c000.csv.gz",
+        "original_rows": 2060924,
+        "removed_rows": 309138,
+        "remaining_rows": 1751786,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00002-c0eef2f3-d4d0-4889-9ae1-dd3116bde2cc-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_hasTag_Tag/part-00002-c0eef2f3-d4d0-4889-9ae1-dd3116bde2cc-c000.csv.gz",
+        "modified_rows": 87589,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00004-c0eef2f3-d4d0-4889-9ae1-dd3116bde2cc-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_hasTag_Tag/part-00004-c0eef2f3-d4d0-4889-9ae1-dd3116bde2cc-c000.csv.gz",
+        "original_rows": 115205,
+        "removed_rows": 17280,
+        "remaining_rows": 97925,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00004-c0eef2f3-d4d0-4889-9ae1-dd3116bde2cc-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_hasTag_Tag/part-00004-c0eef2f3-d4d0-4889-9ae1-dd3116bde2cc-c000.csv.gz",
+        "modified_rows": 4896,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00022-9aa437e3-6854-4bb4-8d43-4c1dbb2bc0d1-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_replyOf_Comment/part-00022-9aa437e3-6854-4bb4-8d43-4c1dbb2bc0d1-c000.csv.gz",
+        "original_rows": 40598,
+        "removed_rows": 6089,
+        "remaining_rows": 34509,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00022-9aa437e3-6854-4bb4-8d43-4c1dbb2bc0d1-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_replyOf_Comment/part-00022-9aa437e3-6854-4bb4-8d43-4c1dbb2bc0d1-c000.csv.gz",
+        "modified_rows": 1725,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      },
+      {
+        "operation": "remove_rows",
+        "entity_type": "edge",
+        "file": "part-00011-9aa437e3-6854-4bb4-8d43-4c1dbb2bc0d1-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_replyOf_Comment/part-00011-9aa437e3-6854-4bb4-8d43-4c1dbb2bc0d1-c000.csv.gz",
+        "original_rows": 748420,
+        "removed_rows": 112263,
+        "remaining_rows": 636157,
+        "removal_ratio": 0.15
+      },
+      {
+        "operation": "modify_attributes_incomplete",
+        "file": "part-00011-9aa437e3-6854-4bb4-8d43-4c1dbb2bc0d1-c000.csv.gz",
+        "file_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot/dynamic/Comment_replyOf_Comment/part-00011-9aa437e3-6854-4bb4-8d43-4c1dbb2bc0d1-c000.csv.gz",
+        "modified_rows": 31807,
+        "modification_ratio": 0.05,
+        "description": "将属性设为空值"
+      }
+    ],
+    "perturbed_data_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot",
+    "log_info": {
+      "generator_index": "1/1",
+      "record_path": "/home/ylivm/ngdb/ngdb_benchmark/data_gen/../perturb_record/random_RandomPerturbationGenerator_20251028_000231.json",
+      "method": "random_incomplete",
+      "operation_count": 108,
+      "perturbed_data_path": "perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot"
+    }
+  }

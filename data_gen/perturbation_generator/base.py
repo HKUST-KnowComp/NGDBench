@@ -294,6 +294,11 @@ class BasePerturbationGenerator(ABC):
                 base_filename = base_filename[:-len(ext)]
                 break
         
+        # 检查驼峰命名法的边文件（如 PersonApplyLoan）
+        # 驼峰命名法通常表示：实体A + 动作 + 实体B 的关系模式
+        if self._is_camel_case_edge(base_filename):
+            return False
+        
         # 边文件的常见特征
         edge_indicators = [
             '_',  # 包含下划线通常表示关系，如 Person_knows_Person
@@ -341,6 +346,38 @@ class BasePerturbationGenerator(ABC):
         
         # 默认认为是节点（保守策略）
         return True
+    
+    def _is_camel_case_edge(self, filename: str) -> bool:
+        """
+        检测文件名是否为驼峰命名法的边文件
+        例如: PersonApplyLoan, CompanyOwnAccount
+        
+        驼峰命名法边文件的特征：
+        1. 至少包含3个大写字母开头的单词（实体A + 动作 + 实体B）
+        2. 不是全大写（排除缩写）
+        
+        Args:
+            filename: 文件名（不含扩展名）
+            
+        Returns:
+            bool: 是否为驼峰命名法的边文件
+        """
+        import re
+        
+        # 如果是全大写或全小写，不是驼峰命名
+        if filename.isupper() or filename.islower():
+            return False
+        
+        # 查找所有大写字母开头的单词
+        # 匹配模式：大写字母后跟小写字母
+        capital_words = re.findall(r'[A-Z][a-z]*', filename)
+        
+        # 驼峰命名的边文件通常至少有3个单词（实体 + 动作 + 实体）
+        # 例如: PersonApplyLoan = Person + Apply + Loan
+        if len(capital_words) >= 3:
+            return True
+        
+        return False
     
     @abstractmethod
     def _process_file(self, file_path: str, filename: str, data_file_format: str, perturb_type: str) -> List[Dict]:

@@ -1,15 +1,13 @@
-# NGDB框架默认配置文件
-
 # 数据源配置
 data_source:
-  root_data_path: "gnd_dataset/ldbc_snb_bi/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot"
-  data_file_format: ".csv.gz"
-  dataset_name: "ldbc_snb_bi/out-sf1"
+  root_data_path: "gnd_dataset/ldbc_snb_finbench/sf0.1/snapshot"
+  data_file_format: ".csv"
+  dataset_name: "ldbc_snb_finbench/sf0.1" 
 
 # perturbation generator config
 perturbation:
   method: "random" # "random", "semantic", "topology", mixture is accepted
-  type: ["incompleteness"] # "incompleteness", "noise", mixture is accepted
+  type: ["noise"] # "incompleteness", "noise", mixture is accepted
   seed: 42
   # incompleteness config
   remove_nodes: true
@@ -19,12 +17,15 @@ perturbation:
   incomplete_attribute: true
   attribute_attribute_ratio: 0.05
   # noise config
-  add_noise: false
-  noise_ratio: None
-  numeric_noise_factor: None
-  string_noise_factor: None
-  modify_attributes: true
-  attribute_modification_ratio: 0.05
+  add_noise: true
+  # 属性值加噪配置
+  noise_attributes: true
+  noise_attributes_ratio: 0.08  # 要加噪的行的比例
+  noise_columns_ratio: 0.3  # 每行采样的列的比例进行加噪
+  # 噪声行配置
+  noise_rows: true
+  noise_rows_ratio: 0.05  # 要添加的噪声行占总行数的比例
+  noise_row_columns_ratio: 0.3  # 复制行后要修改的列的比例
 # 算法方法配置
 methodology:
   type: "graph_algorithm"  # "graph_algorithm", "graph_rag", "gnn"

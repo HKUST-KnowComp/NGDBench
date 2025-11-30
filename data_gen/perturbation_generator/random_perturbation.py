@@ -8,6 +8,7 @@ import gzip
 import pandas as pd
 import tempfile
 from .base import BasePerturbationGenerator
+from . import perturb_tool
 
 
 class RandomPerturbationGenerator(BasePerturbationGenerator):
@@ -17,7 +18,7 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
         perturbation_config = self.config.get('perturbation', {})
         perturb_type_ls = perturbation_config.get('type')
         perturbed_data_path = self._copy_dataset()
-
+        # 如果要混合扰动，这里逻辑要改，perturbation_info得存下来
         for perturb_type in perturb_type_ls:
             if perturb_type == 'incompleteness':
                 perturbation_info = self.incomplete_perturb(perturbed_data_path)
@@ -27,12 +28,14 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
                 raise ValueError(f"Unsupported: {perturb_type}")
         return perturbation_info
     
-    
     def incomplete_perturb(self, perturbed_data_path: str) -> tuple:
         """
         Randomly apply incomplete perturbation to the dataset;
         Randomly delete some nodes or edges from the dataset.
         """
+        # 初始化已删除节点ID的集合，用于防止悬空边
+        self.removed_node_ids = set()
+        
         perturbation_info = {
             "method": "random_incomplete",
             "operations": [],
@@ -44,76 +47,6 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
         perturbation_info["operations"] = operations
         
         return  perturbation_info
-    
-    def _process_file(self, file_path: str, filename: str, data_file_format: str, perturb_type: str) -> List[Dict]:
-        """
-        process every single file (support incompleteness and noise two types of perturbation)
-        
-        Args:
-            file_path: file path
-            filename: file name
-            data_file_format: data file format
-            perturb_type: perturbation type ('incompleteness' or 'noise')
-            
-        Returns:
-            List[Dict]: operation record list
-        """
-        operations = []
-        
-        try:
-            df = self._read_file(file_path, data_file_format)
-            
-            if df is None or len(df) == 0:
-                return operations
-            
-            original_rows = len(df)
-            
-            # judge node or edge
-            is_node = self._is_node_file(file_path, filename)
-            
-            if perturb_type == 'incompleteness':
-                # get incompleteness_config
-                remove_nodes = self.perturbation_config.get('remove_nodes', False)
-                node_removal_ratio = self.perturbation_config.get('node_removal_ratio', 0.1)
-                remove_edges = self.perturbation_config.get('remove_edges', False)
-                edge_removal_ratio = self.perturbation_config.get('edge_removal_ratio', 0.15)
-                incomplete_attribute = self.perturbation_config.get('incomplete_attribute', False)
-                incomplete_attribute_ratio = self.perturbation_config.get('incomplete_attribute_ratio', 0.05)
-                
-                if is_node and remove_nodes:
-                    df, remove_ops = self._remove_rows(df, node_removal_ratio, file_path, filename, "node")
-                    operations.extend(remove_ops)
-                elif not is_node and remove_edges:
-                    df, remove_ops = self._remove_rows(df, edge_removal_ratio, file_path, filename, "edge")
-                    operations.extend(remove_ops)
-                
-                # apply attribute modification perturbation (incompleteness type)
-                if incomplete_attribute and incomplete_attribute_ratio > 0:
-                    df, modify_ops = self._modify_attributes_incomplete(df, incomplete_attribute_ratio, 
-                                                                        file_path, filename)
-                    operations.extend(modify_ops)
-            
-            elif perturb_type == 'noise':
-                # get noise_config
-                # To be modified
-                add_noise = self.perturbation_config.get('add_noise', False)
-                noise_ratio = self.perturbation_config.get('noise_ratio', 0.05)
-                numeric_noise_factor = self.perturbation_config.get('numeric_noise_factor', 0.1)
-                string_noise_factor = self.perturbation_config.get('string_noise_factor', 0.1)
-                
-                if add_noise and noise_ratio is not None and noise_ratio > 0:
-                    df, noise_ops = self._add_noise_to_attributes(df, noise_ratio, numeric_noise_factor, 
-                                                                  string_noise_factor, file_path, filename)
-                    operations.extend(noise_ops)
-            
-            
-            if len(operations) > 0:  
-                self._write_file(df, file_path, data_file_format)
-            
-        except Exception as e:
-            print(f"处理文件 {file_path} 时出错: {e}")
-        
-        return operations
     
     def _remove_rows(self, df: pd.DataFrame, removal_ratio: float, file_path: str, 
                      filename: str, entity_type: str) -> Tuple[pd.DataFrame, List[Dict]]:
@@ -141,6 +74,12 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
         
         if num_to_remove > 0 and num_to_remove < original_rows:
             rows_to_remove = random.sample(range(original_rows), num_to_remove)
+            
+            # 如果是节点类型，记录被删除的节点ID
+            if entity_type == "node" and hasattr(self, 'removed_node_ids'):
+                removed_ids = self._extract_node_ids(df, rows_to_remove)
+                self.removed_node_ids.update(removed_ids)
+            
             df = df.drop(rows_to_remove).reset_index(drop=True)
             
             operations.append({
@@ -207,17 +146,40 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
         
         return df, operations
     
-    def _add_noise_to_attributes(self, df: pd.DataFrame, noise_ratio: float, 
+    def noise_perturb(self, perturbed_data_path: str) -> tuple:
+        """
+        Randomly add some noise to the dataset;
+        Randomly modify some attributes of the nodes or edges in the dataset.
+        """
+        perturbation_info = {
+            "method": "random_noise",
+            "operations": [],
+            "perturbed_data_path": perturbed_data_path
+        }
+        
+        # get data file format
+        data_file_format = self.data_config.get("data_file_format", ".csv.gz")
+        
+        # process all files in the directory
+        operations = self._process_directory(perturbed_data_path, data_file_format, 'noise')
+        perturbation_info["operations"] = operations
+        
+        return perturbation_info
+
+    def _add_noise_attributes(self, df: pd.DataFrame, noise_ratio: float, 
                                 numeric_noise_factor: float, string_noise_factor: float,
                                 file_path: str, filename: str) -> Tuple[pd.DataFrame, List[Dict]]:
         """
         向属性添加噪声（噪声扰动）
+        对每个待加噪的行，采样若干列进行加噪：
+        - 字符串：大小写互换、插入干扰字符
+        - 时间戳/数值：转为字符串后插入干扰字符
         
         Args:
             df: 数据框
-            noise_ratio: 噪声比例
-            numeric_noise_factor: 数值噪声因子
-            string_noise_factor: 字符串噪声因子
+            noise_ratio: 噪声比例（要加噪的行的比例）
+            numeric_noise_factor: 数值噪声因子（未使用，保留接口兼容性）
+            string_noise_factor: 字符串噪声因子（未使用，保留接口兼容性）
             file_path: 文件路径
             filename: 文件名
             
@@ -237,39 +199,37 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
         
         # 选择可以修改的列（排除ID列）
         modifiable_columns = [col for col in df.columns 
-                             if 'id' not in col.lower() and df[col].dtype in ['int64', 'float64', 'object']]
+                             if 'id' not in col.lower()]
         
         if len(modifiable_columns) == 0:
             return df, operations
         
+        # 获取每行要修改的列的比例
+        columns_ratio = self.perturbation_config.get('noise_columns_ratio', 0.3)
+        
         modified_count = 0
+        total_columns_modified = 0
+        
         for row_idx in rows_to_modify:
-            # 随机选择一列进行修改
-            col = random.choice(modifiable_columns)
-            original_value = df.at[row_idx, col]
+            # 为当前行随机采样若干列进行加噪（根据比例计算列数）
+            num_cols_to_modify = max(1, int(len(modifiable_columns) * columns_ratio))
+            cols_to_modify = random.sample(modifiable_columns, min(num_cols_to_modify, len(modifiable_columns)))
             
-            # 根据数据类型添加噪声
-            if pd.isna(original_value):
-                continue
-            
-            if df[col].dtype in ['int64', 'float64']:
-                # 数值类型：添加高斯噪声
-                noise = np.random.normal(0, abs(float(original_value)) * numeric_noise_factor)
-                new_value = float(original_value) + noise
-                # 保持原始数据类型
-                if df[col].dtype == 'int64':
-                    new_value = int(round(new_value))
-                df.at[row_idx, col] = new_value
-                modified_count += 1
-            elif df[col].dtype == 'object':
-                # 字符串类型：添加噪声后缀或前缀
-                if isinstance(original_value, str):
-                    if random.random() < 0.5:
-                        new_value = original_value + "_noise"
-                    else:
-                        new_value = "noise_" + original_value
+            for col in cols_to_modify:
+                original_value = df.at[row_idx, col]
+                
+                # 跳过空值
+                if pd.isna(original_value):
+                    continue
+                
+                # 根据数据类型添加不同的噪声（调用外部工具函数）
+                new_value = perturb_tool.add_noise_to_value(original_value, df[col].dtype)
+                
+                if new_value != original_value:
                     df.at[row_idx, col] = new_value
-                    modified_count += 1
+                    total_columns_modified += 1
+            
+            modified_count += 1
         
         if modified_count > 0:
             operations.append({
@@ -277,145 +237,264 @@ class RandomPerturbationGenerator(BasePerturbationGenerator):
                 "file": filename,
                 "file_path": file_path,
                 "modified_rows": modified_count,
+                "total_columns_modified": total_columns_modified,
                 "noise_ratio": noise_ratio,
-                "numeric_noise_factor": numeric_noise_factor,
-                "description": "向属性添加噪声"
+                "columns_ratio": columns_ratio,
+                "description": "向属性值添加噪声（大小写互换、插入干扰字符等）"
             })
         
         return df, operations
         
-    
-    def noise_perturb(self, perturbed_data_path: str) -> tuple:
+    def _add_noise_rows(self, df: pd.DataFrame, noise_ratio: float, 
+                                file_path: str, filename: str) -> Tuple[pd.DataFrame, List[Dict]]:
         """
-        Randomly add some noise to the dataset;
-        Randomly modify some attributes of the nodes or edges in the dataset.
-        """
-        perturbation_info = {
-            "method": "random_noise",
-            "operations": [],
-            "perturbed_data_path": perturbed_data_path
-        }
+        添加噪声行（错误行）
+        通过复制已有的行并修改其中某些列的值来生成噪声行
+        例如：同样的ID和companyName，但是不一样的createTime或者country等
         
-        # 获取文件格式
-        data_file_format = self.data_config.get("data_file_format", ".csv.gz")
-        
-        # 递归处理所有文件，使用基类的通用方法
-        operations = self._process_directory(perturbed_data_path, data_file_format, 'noise')
-        perturbation_info["operations"] = operations
-        
-        return perturbed_data_path, perturbation_info
-        
-        
-    def _modify_random_attributes(self, graph: nx.Graph) -> Tuple[nx.Graph, List[Dict]]:
-        """随机修改节点和边属性"""
-        modification_ratio = self.config.get('attribute_modification_ratio', 0.1)
-        operations = []
-        
-        # 修改节点属性
-        nodes_to_modify = random.sample(list(graph.nodes()), 
-                                      int(graph.number_of_nodes() * modification_ratio))
-        
-        for node in nodes_to_modify:
-            if graph.nodes[node]:
-                attr_name = random.choice(list(graph.nodes[node].keys()))
-                original_value = graph.nodes[node][attr_name]
-                
-                # 根据属性类型生成新值
-                new_value = self._generate_noisy_value(original_value)
-                
-                operations.append({
-                    "operation": "modify_node_attribute",
-                    "target": node,
-                    "attribute": attr_name,
-                    "original_value": original_value,
-                    "new_value": new_value
-                })
-                
-                graph.nodes[node][attr_name] = new_value
-        
-        # 修改边属性
-        edges_to_modify = random.sample(list[Incomplete](graph.edges()), 
-                                      int(graph.number_of_edges() * modification_ratio))
-        
-        for edge in edges_to_modify:
-            if graph.edges[edge]:
-                attr_name = random.choice(list(graph.edges[edge].keys()))
-                original_value = graph.edges[edge][attr_name]
-                
-                new_value = self._generate_noisy_value(original_value)
-                
-                operations.append({
-                    "operation": "modify_edge_attribute",
-                    "target": edge,
-                    "attribute": attr_name,
-                    "original_value": original_value,
-                    "new_value": new_value
-                })
-                
-                graph.edges[edge][attr_name] = new_value
-        
-        return graph, operations
-    
-    def _add_random_noise(self, graph: nx.Graph) -> Tuple[nx.Graph, List[Dict]]:
-        """添加随机噪声数据"""
-        noise_ratio = self.config.get('noise_ratio', 0.05)
-        operations = []
-        
-        # 添加噪声节点
-        num_noise_nodes = int(graph.number_of_nodes() * noise_ratio)
-        max_node_id = max(graph.nodes()) if graph.nodes() else 0
-        
-        for i in range(num_noise_nodes):
-            noise_node = max_node_id + i + 1
-            noise_attrs = self._generate_noise_attributes()
+        Args:
+            df: 数据框
+            noise_ratio: 噪声比例（要添加的噪声行占总行数的比例）
+            file_path: 文件路径
+            filename: 文件名
             
-            graph.add_node(noise_node, **noise_attrs)
+        Returns:
+            Tuple[pd.DataFrame, List[Dict]]: 添加噪声行后的数据框和操作记录
+        """
+        operations = []
+        
+        if len(df) == 0 or noise_ratio <= 0:
+            return df, operations
+        
+        # 计算要添加的噪声行数
+        num_noise_rows = max(1, int(len(df) * noise_ratio))
+        
+        # 随机选择要复制的行
+        rows_to_copy = random.sample(range(len(df)), min(num_noise_rows, len(df)))
+        
+        # 获取每个噪声行要修改的列的比例
+        columns_ratio = self.perturbation_config.get('noise_row_columns_ratio', 0.3)
+        
+        # 选择可以修改的列（排除ID列，因为ID通常需要保持一致或作为识别标志）
+        # 但根据需求，有时候我们需要保留某些列（如ID、Name）而修改其他列
+        all_columns = df.columns.tolist()
+        
+        noise_rows = []
+        for row_idx in rows_to_copy:
+            # 复制该行
+            noise_row = df.iloc[row_idx].copy()
+            
+            # 根据比例计算要修改的列数
+            num_cols_to_change = max(1, int(len(all_columns) * columns_ratio))
+            cols_to_modify = random.sample(all_columns, min(num_cols_to_change, len(all_columns)))
+            
+            modified_columns = {}
+            for col in cols_to_modify:
+                original_value = noise_row[col]
+                
+                # 跳过空值
+                if pd.isna(original_value):
+                    continue
+                
+                # 生成不同的值（调用外部工具函数）
+                new_value = perturb_tool.generate_different_value(original_value, df[col])
+                noise_row[col] = new_value
+                modified_columns[col] = {
+                    'original': str(original_value),
+                    'new': str(new_value)
+                }
+            
+            noise_rows.append(noise_row)
             operations.append({
-                "operation": "add_noise_node",
-                "target": noise_node,
-                "attributes": noise_attrs
+                "operation": "add_noise_row",
+                "file": filename,
+                "source_row_index": int(row_idx),
+                "modified_columns": modified_columns,
+                "description": f"复制第{row_idx}行并修改{len(modified_columns)}列"
             })
         
-        # 添加噪声边
-        num_noise_edges = int(graph.number_of_edges() * noise_ratio)
-        nodes = list(graph.nodes())
+        # 将噪声行添加到原数据框
+        if noise_rows:
+            noise_df = pd.DataFrame(noise_rows)
+            df = pd.concat([df, noise_df], ignore_index=True)
         
-        for _ in range(num_noise_edges):
-            if len(nodes) >= 2:
-                source, target = random.sample(nodes, 2)
-                if not graph.has_edge(source, target):
-                    noise_attrs = self._generate_noise_attributes()
-                    graph.add_edge(source, target, **noise_attrs)
-                    operations.append({
-                        "operation": "add_noise_edge",
-                        "target": (source, target),
-                        "attributes": noise_attrs
-                    })
-        
-        return graph, operations
+        return df, operations
     
-    def _generate_noisy_value(self, original_value: Any) -> Any:
-        """为给定值生成噪声版本"""
-        if isinstance(original_value, (int, float)):
-            noise_factor = self.config.get('numeric_noise_factor', 0.1)
-            noise = np.random.normal(0, abs(original_value) * noise_factor)
-            return type(original_value)(original_value + noise)
-        elif isinstance(original_value, str):
-            # 字符串噪声：随机替换字符或添加后缀
-            if random.random() < 0.5:
-                return original_value + "_noise"
+    def _extract_node_ids(self, df: pd.DataFrame, row_indices: List[int]) -> set:
+        """
+        从数据框中提取指定行的节点ID
+        
+        Args:
+            df: 数据框
+            row_indices: 要提取ID的行索引列表
+            
+        Returns:
+            set: 节点ID集合
+        """
+        node_ids = set()
+        
+        # 尝试识别ID列（通常是第一列或包含'id'的列）
+        id_column = None
+        
+        # 首先查找明确包含'id'的列名（不区分大小写）
+        for col in df.columns:
+            if col.lower() == 'id' or col.lower().endswith('.id'):
+                id_column = col
+                break
+        
+        # 如果没找到，使用第一列
+        if id_column is None and len(df.columns) > 0:
+            id_column = df.columns[0]
+        
+        # 提取ID
+        if id_column is not None:
+            for idx in row_indices:
+                if idx < len(df):
+                    node_id = df.iloc[idx][id_column]
+                    # 转换为字符串以统一处理不同类型的ID
+                    node_ids.add(str(node_id))
+        
+        return node_ids
+    
+    def _remove_dangling_edges(self, df: pd.DataFrame, file_path: str, 
+                               filename: str) -> Tuple[pd.DataFrame, List[Dict]]:
+        """
+        删除连接到已删除节点的悬空边
+        
+        Args:
+            df: 边文件的数据框
+            file_path: 文件路径
+            filename: 文件名
+            
+        Returns:
+            Tuple[pd.DataFrame, List[Dict]]: 修改后的数据框和操作记录
+        """
+        operations = []
+        original_rows = len(df)
+        
+        if original_rows == 0 or not hasattr(self, 'removed_node_ids') or len(self.removed_node_ids) == 0:
+            return df, operations
+        
+        # 尝试识别边文件中的源节点和目标节点列
+        # 通常边文件的前两列是源节点和目标节点ID
+        if len(df.columns) < 2:
+            return df, operations
+        
+        source_col = df.columns[0]
+        target_col = df.columns[1]
+        
+        # 找出需要删除的边（源节点或目标节点在已删除节点集合中）
+        rows_to_keep = []
+        rows_to_remove = []
+        
+        for idx, row in df.iterrows():
+            source_id = str(row[source_col])
+            target_id = str(row[target_col])
+            
+            # 如果源节点或目标节点被删除了，则这条边也需要删除
+            if source_id in self.removed_node_ids or target_id in self.removed_node_ids:
+                rows_to_remove.append(idx)
             else:
-                return "noise_" + original_value
-        else:
-            return original_value
+                rows_to_keep.append(idx)
+        
+        # 删除悬空边
+        if len(rows_to_remove) > 0:
+            df = df.loc[rows_to_keep].reset_index(drop=True)
+            
+            operations.append({
+                "operation": "remove_dangling_edges",
+                "file": filename,
+                "file_path": file_path,
+                "original_rows": original_rows,
+                "removed_rows": len(rows_to_remove),
+                "remaining_rows": len(df),
+                "description": f"删除了{len(rows_to_remove)}条连接到已删除节点的悬空边"
+            })
+        
+        return df, operations
     
-    def _generate_noise_attributes(self) -> Dict[str, Any]:
-        """生成噪声属性"""
-        return {
-            "noise_value": np.random.randint(1, 1000),
-            "noise_category": random.choice(["noise_A", "noise_B", "noise_C"]),
-            "noise_weight": np.random.uniform(0.0, 1.0),
-            "is_noise": True
-        }
-    
-    
+    def _process_file(self, file_path: str, filename: str, data_file_format: str, perturb_type: str) -> List[Dict]:
+        """
+        process every single file (support incompleteness and noise two types of perturbation)
+        
+        Args:
+            file_path: file path
+            filename: file name
+            data_file_format: data file format
+            perturb_type: perturbation type ('incompleteness' or 'noise')
+            
+        Returns:
+            List[Dict]: operation record list
+        """
+        operations = []
+        
+        try:
+            df = self._read_file(file_path, data_file_format)
+            
+            if df is None or len(df) == 0:
+                return operations
+            
+            original_rows = len(df)
+            
+            # judge node or edge
+            is_node = self._is_node_file(file_path, filename)
+            
+            if perturb_type == 'incompleteness':
+                # get incompleteness_config
+                remove_nodes = self.perturbation_config.get('remove_nodes', False)
+                node_removal_ratio = self.perturbation_config.get('node_removal_ratio', 0.1)
+                remove_edges = self.perturbation_config.get('remove_edges', False)
+                edge_removal_ratio = self.perturbation_config.get('edge_removal_ratio', 0.15)
+                incomplete_attribute = self.perturbation_config.get('incomplete_attribute', False)
+                incomplete_attribute_ratio = self.perturbation_config.get('incomplete_attribute_ratio', 0.05)
+                
+                if is_node and remove_nodes:
+                    df, remove_ops = self._remove_rows(df, node_removal_ratio, file_path, filename, "node")
+                    operations.extend(remove_ops)
+                elif not is_node:
+                    # 对于边文件，首先删除悬空边（连接到已删除节点的边）
+                    if hasattr(self, 'removed_node_ids') and len(self.removed_node_ids) > 0:
+                        df, dangling_ops = self._remove_dangling_edges(df, file_path, filename)
+                        operations.extend(dangling_ops)
+                    
+                    # 然后再按比例删除边
+                    if remove_edges:
+                        df, remove_ops = self._remove_rows(df, edge_removal_ratio, file_path, filename, "edge")
+                        operations.extend(remove_ops)
+                
+                # apply attribute modification perturbation (incompleteness type)
+                if incomplete_attribute and incomplete_attribute_ratio > 0:
+                    df, modify_ops = self._modify_attributes_incomplete(df, incomplete_attribute_ratio, 
+                                                                        file_path, filename)
+                    operations.extend(modify_ops)
+            
+            elif perturb_type == 'noise':
+                # 获取噪声配置
+                add_noise = self.perturbation_config.get('add_noise', True)
+                
+                # 属性值加噪
+                if self.perturbation_config.get('noise_attributes', False):
+                    noise_attributes_ratio = self.perturbation_config.get('noise_attributes_ratio', 0.05)
+                    if noise_attributes_ratio > 0:
+                        # 传入所有必需的参数（numeric_noise_factor 和 string_noise_factor 保留用于接口兼容性）
+                        df, noise_attributes_ops = self._add_noise_attributes(
+                            df, noise_attributes_ratio, 0.1, 0.1, file_path, filename)
+                        operations.extend(noise_attributes_ops)
+                
+                # 添加噪声行
+                if self.perturbation_config.get('noise_rows', False):
+                    noise_rows_ratio = self.perturbation_config.get('noise_rows_ratio', 0.05)
+                    if noise_rows_ratio > 0:
+                        df, noise_rows_ops = self._add_noise_rows(
+                            df, noise_rows_ratio, file_path, filename)
+                        operations.extend(noise_rows_ops)
+                
+            
+            
+            if len(operations) > 0:  
+                self._write_file(df, file_path, data_file_format)
+            
+        except Exception as e:
+            print(f"处理文件 {file_path} 时出错: {e}")
+        
+        return operations
