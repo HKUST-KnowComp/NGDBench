@@ -1,12 +1,12 @@
 # 数据源配置
 data_source:
-  root_data_path: "gnd_dataset/ldbc_snb_finbench/sf0.1/snapshot"
+  root_data_path: "gnd_dataset/PrimeKG/kg.csv"
   data_file_format: ".csv"
-  dataset_name: "ldbc_snb_finbench/sf0.1" 
-
+  dataset_name: "PrimeKG" 
+guide_file: "perturbation_generator/semantic_perturb_guide/paramkg_copy.json"
 # perturbation generator config
 perturbation:
-  method: "random" # "random", "semantic", "topology", mixture is accepted
+  method: "semantic" # "random", "semantic", "topology", mixture is accepted
   type: ["noise"] # "incompleteness", "noise", mixture is accepted
   seed: 42
   # incompleteness config

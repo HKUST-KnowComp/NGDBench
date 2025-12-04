@@ -3,13 +3,14 @@
       "false_edges": {
         "description": "Replace either x_id or y_id with another valid ID of the same node type to simulate incorrect biomedical relations extracted from noisy sources.",
         "target_fields": ["x_id", "y_id"],
+        "refer_fields": ["x_type", "y_type"],
         "constraints": {
           "type_consistent": true,
           "avoid_existing_edges": true
         }
       },
       "relation_type_noise": {
-        "description": "Replace the relation type or display_relation with another valid relation of the same semantic family to simulate extraction misclassification.",
+        "description": "Replace or add the relation type or display_relation with another valid relation of the same semantic family to simulate extraction misclassification.",
         "target_fields": ["relation", "display_relation"],
         "constraints": {
           "same_relation_family": true
@@ -20,17 +21,10 @@
         "target_fields": ["x_name", "y_name"],
         "operations": ["character_substitution", "character_deletion", "character_insertion", "case_alteration", "synonym_replacement"]
       },
-      "missing_edges": {
-        "description": "Randomly remove a portion of edges to simulate biomedical knowledge incompleteness.",
-        "target_fields": ["row"],
-        "constraints": {
-          "sampling": "uniform"
-        }
-      },
       "source_conflicts": {
         "description": "Manipulate source information or inject conflicting edges from other typical biomedical databases.",
         "target_fields": ["x_source", "y_source"],
-        "operations": ["source_replacement", "conflicting_relation_injection"]
+        "operations": ["conflicting_relation_injection"]
       },
       "node_type_noise": {
         "description": "Replace node types (e.g., gene/protein, drug, biological_process) to simulate entity classification errors.",

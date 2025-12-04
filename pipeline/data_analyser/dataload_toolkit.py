@@ -11,6 +11,7 @@ from graph_handler import GraphInspector
 from pathlib import Path
 import pickle
 import random
+from torch_geometric.utils import to_networkx
 
 def read_csv_gz(file_path: str) -> pd.DataFrame:
     # read the single .csv.gz file
@@ -332,6 +333,32 @@ def build_graph_from_kg_csv(csv_path: str, save_path: str = None) -> nx.MultiDiG
     
     return graph
 
+def builf_graph_from_carte(carte_path: str, save_path: str = None) -> nx.MultiDiGraph:
+
+    num_train = 128  # Example: set the number of training groups/entities
+    random_state = 1  # Set a random seed for reproducibility
+    X_train, X_test, y_train, y_test = wina_pl(num_train, random_state)
+    print("Wina Poland dataset:", X_train.shape, X_test.shape)
+
+    model_path = hf_hub_download(repo_id="hi-paris/fastText", filename="cc.en.300.bin")
+
+    preprocessor = Table2GraphTransformer(fasttext_model_path=model_path)
+    # help(Table2GraphTransformer)
+
+    # Fit and transform the training data
+    X_train = preprocessor.fit_transform(X_train, y=y_train)
+
+    # Transform the test data
+    X_test = preprocessor.transform(X_test)
+    # 转换 data_graph 中的所有图
+    nx_graph_list = [
+        to_networkx(data_object, to_undirected=False)
+        for data_object in X_test
+    ]
+
+    # 检查第一个转换结果
+    print(f"第一个图的节点数：{nx_graph_list[0].number_of_nodes()}")
+    print(f"第一个图的边数：{nx_graph_list[0].number_of_edges()}")
 if __name__ == "__main__":
     data_path = "/home/ylivm/ngdb/ngdb_benchmark/data_gen/perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot"
     graph_name = "ldbc_snb_bi_2510280002"

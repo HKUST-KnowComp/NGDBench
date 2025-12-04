@@ -111,7 +111,8 @@ class BasePerturbationGenerator(ABC):
     def _copy_dataset(self) -> str:
         """
         Copy the dataset to the perturbed directory 
-        and return the perturbed directory path.
+        and return the perturbed directory/file path.
+        支持目录和单个文件两种情况。
         """
         from datetime import datetime
         timestamp = datetime.now().strftime("%y%m%d%H%M")
@@ -127,17 +128,25 @@ class BasePerturbationGenerator(ABC):
         if os.path.exists(perturbed_root_path):
             return perturbed_root_path
         else:
-            os.makedirs(os.path.dirname(perturbed_root_path), exist_ok=True)
-            shutil.copytree(root_data_path, perturbed_root_path)
+            # 判断是目录还是文件
+            if os.path.isdir(root_data_path):
+                # 目录：使用 copytree
+                os.makedirs(os.path.dirname(perturbed_root_path), exist_ok=True)
+                shutil.copytree(root_data_path, perturbed_root_path)
+            elif os.path.isfile(root_data_path):
+                # 文件：创建父目录并复制文件
+                os.makedirs(os.path.dirname(perturbed_root_path), exist_ok=True)
+                shutil.copy2(root_data_path, perturbed_root_path)
+            else:
+                raise FileNotFoundError(f"数据集路径不存在: {root_data_path}")
             return perturbed_root_path
     
-    def _process_directory(self, dir_path: str, data_file_format: str, perturb_type: str) -> List[Dict]:
+    def _process_directory(self, path: str, data_file_format: str, perturb_type: str) -> List[Dict]:
         """
-        递归处理目录中的所有文件（通用方法）
+        处理目录中的所有文件或单个文件（通用方法）
         
         Args:
-            dir_path: 目录路径
-            perturbation_config: 扰动配置
+            path: 目录路径或文件路径
             data_file_format: 文件格式
             perturb_type: 扰动类型 ('incompleteness' 或 'noise')
             
@@ -146,11 +155,20 @@ class BasePerturbationGenerator(ABC):
         """
         operations = []
         
-        if not os.path.exists(dir_path):
+        if not os.path.exists(path):
             return operations
         
-        for item_name in os.listdir(dir_path):
-            item_path = os.path.join(dir_path, item_name)
+        # 如果是单个文件，直接处理
+        if os.path.isfile(path):
+            filename = os.path.basename(path)
+            if self._is_target_file(filename, data_file_format):
+                file_operations = self._process_file(path, filename, data_file_format, perturb_type)
+                operations.extend(file_operations)
+            return operations
+        
+        # 如果是目录，递归处理所有文件
+        for item_name in os.listdir(path):
+            item_path = os.path.join(path, item_name)
             
             # Recursively process the directory.
             if os.path.isdir(item_path):
@@ -177,6 +195,33 @@ class BasePerturbationGenerator(ABC):
         """
         return filename.endswith(data_file_format)
     
+    def _detect_csv_separator(self, file_path: str, is_gzip: bool = False) -> str:
+        """
+        自动检测 CSV 文件的分隔符
+        
+        Args:
+            file_path: 文件路径
+            is_gzip: 是否为 gzip 压缩文件
+            
+        Returns:
+            str: 检测到的分隔符
+        """
+        import csv
+        try:
+            if is_gzip:
+                with gzip.open(file_path, 'rt', encoding='utf-8') as f:
+                    sample = f.read(4096)
+            else:
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    sample = f.read(4096)
+            
+            sniffer = csv.Sniffer()
+            dialect = sniffer.sniff(sample, delimiters=[',', '|', '\t', ';'])
+            return dialect.delimiter
+        except Exception:
+            # 默认使用逗号
+            return ','
+    
     def _read_file(self, file_path: str, data_file_format: str) -> pd.DataFrame:
         """
         根据文件格式读取文件
@@ -196,12 +241,14 @@ class BasePerturbationGenerator(ABC):
                 return None
                 
             if data_file_format == ".csv.gz":
-                # 压缩的CSV文件
+                # 压缩的CSV文件，自动检测分隔符
+                sep = self._detect_csv_separator(file_path, is_gzip=True)
                 with gzip.open(file_path, 'rt', encoding='utf-8') as f:
-                    return pd.read_csv(f,sep="|")
+                    return pd.read_csv(f, sep=sep, low_memory=False)
             elif data_file_format == ".csv":
-                # 普通CSV文件
-                return pd.read_csv(file_path,sep="|")
+                # 普通CSV文件，自动检测分隔符
+                sep = self._detect_csv_separator(file_path, is_gzip=False)
+                return pd.read_csv(file_path, sep=sep, low_memory=False)
             elif data_file_format in [".parquet", ".pq"]:
                 # Parquet文件
                 return pd.read_parquet(file_path)
