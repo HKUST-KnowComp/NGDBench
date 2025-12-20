@@ -1,0 +1,938 @@
+[
+    {
+        "template_id": "T0",
+        "query_type": "transporter-based-drug-mechanism",
+        "query_template": "MATCH (d:Drug)-[:drug_protein {label: \"transporter\"}]->(p:Protein {name: \"{protein_name}\"}) RETURN d.name AS DrugName",
+        "query_parameters": {
+            "protein_name": "蛋白/转运体名称"
+        },
+        "nl": "查找明确使用 [蛋白名称] 作为转运体（Transporter）的药物",
+        "example": {
+            "protein_name": "ABCB1"
+        }
+    },
+    {
+        "template_id": "T1",
+        "query_type": "drug-target-anatomy-3hop",
+        "query_template": "MATCH (d:Drug {name: \"{drug_name}\"})-[:drug_protein {label: \"target\"}]->(p:Protein)-[:anatomy_protein_present {label: \"expression present\"}]->(a:Anatomy) RETURN DISTINCT p.name AS TargetProtein, a.name AS AnatomicalRegion",
+        "query_parameters": {
+            "drug_name": "药物名称"
+        },
+        "nl": "查找 [药物名称] 的靶点蛋白主要在哪些解剖部位有表达（药物副作用的解剖学定位）",
+        "example": {
+            "drug_name": "Aspirin"
+        }
+    },
+    {
+        "template_id": "T2",
+        "query_type": "drug-target-pathway-3hop",
+        "query_template": "MATCH (d:Drug {name: \"{drug_name}\"})-[:drug_protein {label: \"target\"}]->(p:Protein)-[:pathway_protein]-(path:Pathway) RETURN DISTINCT p.name AS Target, path.name AS Pathway",
+        "query_parameters": {
+            "drug_name": "药物名称"
+        },
+        "nl": "查找 [药物名称] 通过其靶点蛋白影响了哪些生物通路（基于靶点的药物-通路机制探索）",
+        "example": {
+            "drug_name": "Metformin"
+        }
+    },
+    {
+        "template_id": "T3",
+        "query_type": "phenotype-based-drug-discovery",
+        "query_template": "MATCH (d:disease {name: \"{disease_name}\"})-[:disease_phenotype_positive]->(ph:effect_phenotype) MATCH (g:gene_protein)-[:phenotype_protein]->(ph) MATCH (dr:drug)-[:drug_protein]->(g) RETURN DISTINCT dr LIMIT 50",
+        "query_parameters": {
+            "disease_name": "疾病名称"
+        },
+        "nl": "查找针对某些基因/蛋白的药物，而这些基因/蛋白已知会导致 [疾病名称] 所表现出的某种表型，用于寻找可能缓解疾病症状的药物",
+        "example": {
+            "disease_name": "Alzheimer's disease"
+        }
+    },
+    {
+        "template_id": "T4",
+        "query_type": "anatomy-based-disease-risk",
+        "query_template": "MATCH (p:gene_protein)-[:anatomy_protein_present]->(a:anatomy {name: \"{anatomy_name}\"}) MATCH (p)-[:disease_protein]->(d:disease) RETURN DISTINCT d LIMIT 50",
+        "query_parameters": {
+            "anatomy_name": "解剖部位名称"
+        },
+        "nl": "查找在 [解剖部位] 表达的蛋白，并找出这些蛋白关联了哪些疾病，用于探索特定器官可能发生的疾病风险",
+        "example": {
+            "anatomy_name": "Liver"
+        }
+    },
+    {
+        "template_id": "T19",
+        "query_type": "protein-anatomy-network",
+        "query_template": "MATCH (p:gene_protein {name: \"{protein_name}\"})-[:anatomy_protein_present]->(a1:anatomy)-[:anatomy_anatomy]-(a2:anatomy) RETURN DISTINCT a1, a2 LIMIT 50",
+        "query_parameters": {
+            "protein_name": "蛋白质名称"
+        },
+        "nl": "查找 [蛋白质] 表达的解剖部位，并找出这些解剖部位关联的其它解剖部位，用于探索该蛋白质可能影响的器官网络。",
+        "example": {
+            "protein_name": "TP53"
+        }
+    },
+    {
+        "template_id": "T5",
+        "query_type": "drug-pathway-mechanism",
+        "query_template": "MATCH (d:drug {name: \"{drug_name}\"})-[:drug_protein]->(p:gene_protein) MATCH (p)-[:pathway_protein]->(pw:pathway) RETURN DISTINCT pw LIMIT 50",
+        "query_parameters": {
+            "drug_name": "药物名称"
+        },
+        "nl": "查找 [药物名称] 通过其靶点蛋白最终影响了哪些生物通路，用于理解药物的作用机理（MOA）",
+        "example": {
+            "drug_name": "Imatinib"
+        }
+    },
+    {
+        "template_id": "T7",
+        "query_type": "drug-multitarget-statistics",
+        "query_template": "MATCH (d:drug)-[:drug_protein]->(p:gene_protein) WITH d, COUNT(p) as cnt ORDER BY cnt DESC RETURN d, cnt LIMIT 50",
+        "query_parameters": {},
+        "nl": "统计数据库中所有药物的靶点数量，并按靶点数量从高到低排序，返回前50个最广谱的药物（多重药理学分析）",
+        "example": {}
+    },
+    {
+        "template_id": "T8",
+        "query_type": "protein-cellular-component",
+        "query_template": "MATCH (p:Protein {node_id: \"{protein_id}\"})-[:CELLCOMP_PROTEIN]-(c:CellularComponent) RETURN DISTINCT c LIMIT 50",
+        "query_parameters": {
+            "protein_id": "蛋白ID"
+        },
+        "nl": "Find cellular components linked to protein '{protein_id}'.",
+        "example": {
+            "protein_id": "P12345"
+        }
+    },
+    {
+        "template_id": "T9",
+        "query_type": "disease-shared-phenotypes",
+        "query_template": "MATCH (d1:Disease {name:\"{disease_name}\"})-[:DISEASE_PHENOTYPE_POSITIVE]-(p:Phenotype)-[:DISEASE_PHENOTYPE_POSITIVE]-(d2:Disease) RETURN d2, count(p) AS shared ORDER BY shared DESC LIMIT 50",
+        "query_parameters": {
+            "disease_name": "疾病名称"
+        },
+        "nl": "Find diseases that share the most phenotypes with '{disease_name}'.",
+        "example": {
+            "disease_name": "Alzheimer's disease"
+        }
+    },
+    {
+        "template_id": "T10",
+        "query_type": "anatomy-absent-protein-pathway",
+        "query_template": "MATCH (a:Anatomy {name:\"{anatomy_name}\"})-[:ANATOMY_PROTEIN_ABSENT]-(p:Protein)-[:PATHWAY_PROTEIN]-(pw:Pathway) RETURN DISTINCT pw LIMIT 50",
+        "query_parameters": {
+            "anatomy_name": "解剖部位名称"
+        },
+        "nl": "Find pathways that are associated with proteins absent in anatomy '{anatomy_name}'.",
+        "example": {
+            "anatomy_name": "Brain"
+        }
+    },
+    {
+        "template_id": "T11",
+        "query_type": "drug-cellular-component",
+        "query_template": "MATCH (dr:Drug {name:\"{drug_name}\"})-[:DRUG_PROTEIN]-(p:Protein)-[:CELLCOMP_PROTEIN]-(c:CellularComponent) RETURN DISTINCT c",
+        "query_parameters": {
+            "drug_name": "药物名称"
+        },
+        "nl": "Identify cellular components involved in the mechanism of drug '{drug_name}'.",
+        "example": {
+            "drug_name": "Aspirin"
+        }
+    },
+    {
+        "template_id": "T12",
+        "query_type": "disease-molfunc-drug",
+        "query_template": "MATCH (d:Disease {name:\"{disease_name}\"})-[:DISEASE_PROTEIN]-(p1:Protein)-[:MOLFUNC_PROTEIN]-(mf:MolecularFunction)<-[:MOLFUNC_PROTEIN]-(p2:Protein)<-[:DRUG_PROTEIN]-(dr:Drug) RETURN DISTINCT dr",
+        "query_parameters": {
+            "disease_name": "疾病名称"
+        },
+        "nl": "Find drugs that affect molecular functions involved in disease '{disease_name}'.",
+        "example": {
+            "disease_name": "Cancer"
+        }
+    },
+    {
+        "template_id": "T13",
+        "query_type": "disease-drug-no-contraindication",
+        "query_template": "MATCH (d:Disease {name:\"{disease_name}\"})-[:DISEASE_PROTEIN]-(p:Protein)<-[:DRUG_PROTEIN]-(dr:Drug) WHERE NOT (dr)-[:CONTRAINDICATION]-(:Disease) RETURN DISTINCT dr.name",
+        "query_parameters": {
+            "disease_name": "疾病名称"
+        },
+        "nl": "Find drugs targeting proteins of disease '{disease_name}' but without known contraindications.",
+        "example": {
+            "disease_name": "Hypertension"
+        }
+    },
+    {
+        "template_id": "T14",
+        "query_type": "drug-pathway-bioprocess-cascade",
+        "query_template": "MATCH (d:Drug {name:\"{drug_name}\"})-[:DRUG_PROTEIN]-(p:Protein)-[:PATHWAY_PROTEIN]-(pw:Pathway)-[:BIOPROCESS_BIOPROCESS*0..1]-(bp:BiologicalProcess) RETURN DISTINCT bp.name",
+        "query_parameters": {
+            "drug_name": "药物名称"
+        },
+        "nl": "Trace biological processes affected by drug '{drug_name}' via protein-pathway-process cascades.",
+        "example": {
+            "drug_name": "Imatinib"
+        }
+    },
+    {
+        "template_id": "T15",
+        "query_type": "drug-protein-molfunc",
+        "query_template": "MATCH (d:Drug {name:\"{drug_name}\"})-[:DRUG_PROTEIN]-(p:Protein)-[:MOLFUNC_PROTEIN]-(mf:MolecularFunction) RETURN DISTINCT mf.name",
+        "query_parameters": {
+            "drug_name": "药物名称"
+        },
+        "nl": "Find molecular functions associated with pathways targeted by drug '{drug_name}'.",
+        "example": {
+            "drug_name": "Aspirin"
+        }
+    },
+    {
+        "template_id": "T16",
+        "query_type": "drug-protein-cellcomp",
+        "query_template": "MATCH (d:Drug {name:\"{drug_name}\"})-[:DRUG_PROTEIN]-(p:Protein)-[:CELLCOMP_PROTEIN]-(c:CellularComponent) RETURN DISTINCT c.name",
+        "query_parameters": {
+            "drug_name": "药物名称"
+        },
+        "nl": "Identify cellular components involved in mechanisms of drug '{drug_name}'.",
+        "example": {
+            "drug_name": "Metformin"
+        }
+    },
+    {
+        "template_id": "T17",
+        "query_type": "drug-protein-bioprocess",
+        "query_template": "MATCH (d:Drug {name:\"{drug_name}\"})-[:DRUG_PROTEIN]-(p:Protein)-[:BIOPROCESS_PROTEIN]-(bp:BiologicalProcess) RETURN DISTINCT bp.name",
+        "query_parameters": {
+            "drug_name": "药物名称"
+        },
+        "nl": "Find downstream biological processes indirectly influenced by drug '{drug_name}'.",
+        "example": {
+            "drug_name": "Ibuprofen"
+        }
+    },
+    {
+        "template_id": "T18",
+        "query_type": "drug-synergistic-targets",
+        "query_template": "MATCH (d:Drug {name: \"{drug_name}\"})-[:drug_drug {label: \"synergistic interaction\"}]-(d2:Drug)-[:drug_protein {label: \"target\"}]->(p:Protein) RETURN DISTINCT p",
+        "query_parameters": {
+            "drug_name": "药物名称"
+        },
+        "nl": "查找与 [药物名称] 存在协同作用（synergistic interaction）的药物共同作用到的蛋白靶点。",
+        "example": {
+            "drug_name": "Aspirin"
+        }
+    },
+    {
+        "template_id": "T20",
+        "query_type": "drug-synergistic-side-effects",
+        "query_template": "MATCH (d:Drug {name: \"{drug_name}\"})-[:drug_drug {label: \"synergistic interaction\"}]-(d2:Drug)-[:drug_effect {label: \"side effect\"}]->(e:effect_phenotype) RETURN DISTINCT d2, e LIMIT 50",
+        "query_parameters": {
+            "drug_name": "药物名称"
+        },
+        "nl": "查找和 [药物名称] 具有协同作用（synergistic interaction）的药物，以及这些协同药物相关的副作用（side effect）。",
+        "example": {
+            "drug_name": "Aspirin"
+        }
+    },
+    {
+        "template_id": "T019",
+        "query_type": "Drug-Drug Interaction",
+        "nl": "Find drugs that interact with drugs indicated for {disease_name}.",
+        "query_template": "MATCH (d:Disease {name: $disease_name})-[:INDICATION]-(drug1:Drug)-[:DRUG_DRUG]-(drug2:Drug) RETURN drug1.name AS original_drug, drug2.name AS interacting_drug, COUNT(*) AS interaction_count ORDER BY interaction_count DESC",
+        "query_parameters": {
+          "disease_name": {
+            "type": "string",
+            "source": "Disease"
+          }
+        },
+        "expected_columns": ["original_drug", "interacting_drug", "interaction_count"]
+      },
+    {
+      "template_id": "T001",
+      "query_type": "Drug Repurposing",
+      "nl": "Find all drugs that target proteins associated with {disease_name} but are not currently indicated for it.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:DRUG_PROTEIN]-(drug:Drug) WHERE NOT (drug)-[:INDICATION]-(d) RETURN DISTINCT drug.name AS drug_name, d.name AS disease_name, COUNT(p) AS common_targets ORDER BY common_targets DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["drug_name", "disease_name", "common_targets"]
+    },
+    {
+      "template_id": "T002",
+      "query_type": "Disease Similarity",
+      "nl": "Find diseases that share more than 3 phenotypes with {disease_name}.",
+      "query_template": "MATCH (d1:Disease {name: $disease_name})-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype)-[:DISEASE_PHENOTYPE_POSITIVE]-(d2:Disease) WHERE d1 <> d2 WITH d1, d2, COUNT(DISTINCT pheno) AS shared_phenotypes WHERE shared_phenotypes > 3 RETURN d2.name AS similar_disease, shared_phenotypes ORDER BY shared_phenotypes DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["similar_disease", "shared_phenotypes"]
+    },
+    {
+      "template_id": "T004",
+      "query_type": "Multi-hop Path",
+      "nl": "Find the shortest path between {drug_name} and {disease_name} through protein interactions and disease associations (max 5 hops).",
+      "query_template": "MATCH (drug:Drug {name: $drug_name}), (disease:Disease {name: $disease_name}) MATCH path = shortestPath((drug)-[:DRUG_PROTEIN|PROTEIN_PROTEIN|DISEASE_PROTEIN*..5]-(disease)) RETURN [node IN nodes(path) | node.name] AS path_nodes, length(path) AS hop_count",
+      "query_parameters": {
+        "drug_name": {
+          "type": "string",
+          "source": "Drug"
+        },
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["path_nodes", "hop_count"]
+    },
+    {
+      "template_id": "T005",
+      "query_type": "Adverse Event Prediction",
+      "nl": "Find phenotypes (side effects) that are associated with drugs that target the same proteins as {drug_name}.",
+      "query_template": "MATCH (d1:Drug {name: $drug_name})-[:DRUG_PROTEIN]-(p:Protein)-[:DRUG_PROTEIN]-(d2:Drug) WHERE d1 <> d2 MATCH (d2)-[:DRUG_EFFECT]-(pheno:Phenotype) RETURN pheno.name AS potential_side_effect, COUNT(DISTINCT d2) AS drug_count ORDER BY drug_count DESC",
+      "query_parameters": {
+        "drug_name": {
+          "type": "string",
+          "source": "Drug"
+        }
+      },
+      "expected_columns": ["potential_side_effect", "drug_count"]
+    },
+    {
+      "template_id": "T006",
+      "query_type": "Gene Function Enrichment",
+      "nl": "For proteins associated with {disease_name}, find the most enriched molecular functions.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:MOLFUNC_PROTEIN]-(mf:MolecularFunction) RETURN mf.name AS molecular_function, COUNT(DISTINCT p) AS protein_count ORDER BY protein_count DESC LIMIT 10",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["molecular_function", "protein_count"]
+    },
+    {
+      "template_id": "T007",
+      "query_type": "Drug Combination",
+      "nl": "Find drug pairs that are both indicated for {disease_name} but target different proteins.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:INDICATION]-(drug1:Drug)-[:DRUG_PROTEIN]-(p1:Protein) MATCH (d)-[:INDICATION]-(drug2:Drug)-[:DRUG_PROTEIN]-(p2:Protein) WHERE drug1 <> drug2 AND p1 <> p2 RETURN drug1.name AS drug_1, drug2.name AS drug_2, COUNT(DISTINCT p1) AS targets_1, COUNT(DISTINCT p2) AS targets_2",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["drug_1", "drug_2", "targets_1", "targets_2"]
+    },
+    {
+      "template_id": "T008",
+      "query_type": "Anatomical Specificity",
+      "nl": "Find diseases associated with proteins expressed in {anatomy_name}.",
+      "query_template": "MATCH (a:Anatomy {name: $anatomy_name})-[:ANATOMY_PROTEIN_PRESENT]-(p:Protein)-[:DISEASE_PROTEIN]-(d:Disease) RETURN d.name AS disease_name, COUNT(DISTINCT p) AS protein_count ORDER BY protein_count DESC",
+      "query_parameters": {
+        "anatomy_name": {
+          "type": "string",
+          "source": "Anatomy"
+        }
+      },
+      "expected_columns": ["disease_name", "protein_count"]
+    },
+    {
+      "template_id": "T009",
+      "query_type": "Contraindication Analysis",
+      "nl": "Find diseases that are contraindicated for drugs that are indicated for {disease_name}.",
+      "query_template": "MATCH (d1:Disease {name: $disease_name})-[:INDICATION]-(drug:Drug)-[:CONTRAINDICATION]-(d2:Disease) RETURN drug.name AS drug_name, d2.name AS contraindicated_disease",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["drug_name", "contraindicated_disease"]
+    },
+    {
+      "template_id": "T010",
+      "query_type": "Network Hub Analysis",
+      "nl": "Find proteins that are associated with more than 5 diseases and also targeted by drugs.",
+      "query_template": "MATCH (p:Protein)-[:DISEASE_PROTEIN]-(d:Disease) WITH p, COUNT(DISTINCT d) AS disease_count WHERE disease_count > 5 MATCH (p)-[:DRUG_PROTEIN]-(drug:Drug) RETURN p.name AS hub_protein, disease_count, COUNT(DISTINCT drug) AS drug_count ORDER BY disease_count DESC",
+      "query_parameters": {},
+      "expected_columns": ["hub_protein", "disease_count", "drug_count"]
+    },
+    {
+      "template_id": "T011",
+      "query_type": "Exposure-Disease Link",
+      "nl": "Find environmental exposures associated with diseases that share phenotypes with {disease_name}.",
+      "query_template": "MATCH (d1:Disease {name: $disease_name})-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype)-[:DISEASE_PHENOTYPE_POSITIVE]-(d2:Disease) MATCH (d2)-[:EXPOSURE_DISEASE]-(exp:Exposure) RETURN exp.name AS exposure, COUNT(DISTINCT d2) AS associated_diseases ORDER BY associated_diseases DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["exposure", "associated_diseases"]
+    },
+    {
+      "template_id": "T012",
+      "query_type": "Pathway Crosstalk",
+      "nl": "Find pathways that share proteins with the pathways associated with {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:PATHWAY_PROTEIN]-(path1:Pathway) MATCH (p)-[:PATHWAY_PROTEIN]-(path2:Pathway) WHERE path1 <> path2 RETURN path1.name AS original_pathway, path2.name AS connected_pathway, COUNT(DISTINCT p) AS shared_proteins ORDER BY shared_proteins DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["original_pathway", "connected_pathway", "shared_proteins"]
+    },
+    {
+      "template_id": "T013",
+      "query_type": "Off-label Use Discovery",
+      "nl": "Find off-label uses for drugs that target the same proteins as drugs indicated for {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:INDICATION]-(drug1:Drug)-[:DRUG_PROTEIN]-(p:Protein)-[:DRUG_PROTEIN]-(drug2:Drug) WHERE drug1 <> drug2 MATCH (drug2)-[:OFF_LABEL_USE]-(d2:Disease) RETURN drug1.name AS original_drug, drug2.name AS similar_drug, d2.name AS off_label_disease, COUNT(DISTINCT p) AS shared_targets ORDER BY shared_targets DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["original_drug", "similar_drug", "off_label_disease", "shared_targets"]
+    },
+    {
+      "template_id": "T014",
+      "query_type": "Phenotype Clustering",
+      "nl": "Find pairs of diseases that share at least 3 phenotypes.",
+      "query_template": "MATCH (d1:Disease)-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype)-[:DISEASE_PHENOTYPE_POSITIVE]-(d2:Disease) WHERE d1 <> d2 WITH d1, d2, COUNT(DISTINCT pheno) AS shared_phenotypes WHERE shared_phenotypes >= 3 RETURN d1.name AS disease_1, d2.name AS disease_2, shared_phenotypes ORDER BY shared_phenotypes DESC LIMIT 10",
+      "query_parameters": {},
+      "expected_columns": ["disease_1", "disease_2", "shared_phenotypes"]
+    },
+    {
+      "template_id": "T015",
+      "query_type": "Multi-disease Drug",
+      "nl": "Find drugs that are indicated for more than 2 diseases.",
+      "query_template": "MATCH (drug:Drug)-[:INDICATION]-(d:Disease) WITH drug, COUNT(DISTINCT d) AS disease_count WHERE disease_count > 2 RETURN drug.name AS multi_disease_drug, disease_count ORDER BY disease_count DESC",
+      "query_parameters": {},
+      "expected_columns": ["multi_disease_drug", "disease_count"]
+    },
+    {
+      "template_id": "T016",
+      "query_type": "Protein-Protein Interaction",
+      "nl": "Find proteins that interact with proteins associated with {disease_name} and are also targeted by drugs.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p1:Protein)-[:PROTEIN_PROTEIN]-(p2:Protein)-[:DRUG_PROTEIN]-(drug:Drug) RETURN p2.name AS interacting_protein, COUNT(DISTINCT drug) AS drug_count, COUNT(DISTINCT p1) AS disease_interactions ORDER BY drug_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["interacting_protein", "drug_count", "disease_interactions"]
+    },
+    {
+      "template_id": "T017",
+      "query_type": "Biological Process Analysis",
+      "nl": "Find biological processes that involve proteins associated with both {disease1_name} and {disease2_name}.",
+      "query_template": "MATCH (d1:Disease {name: $disease1_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:DISEASE_PROTEIN]-(d2:Disease {name: $disease2_name}) WHERE d1 <> d2 MATCH (p)-[:BIOPROCESS_PROTEIN]-(bp:BiologicalProcess) RETURN bp.name AS biological_process, COUNT(DISTINCT p) AS shared_proteins ORDER BY shared_proteins DESC",
+      "query_parameters": {
+        "disease1_name": {
+          "type": "string",
+          "source": "Disease"
+        },
+        "disease2_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["biological_process", "shared_proteins"]
+    },
+    {
+      "template_id": "T018",
+      "query_type": "Cellular Component Localization",
+      "nl": "Find cellular components where proteins associated with {disease_name} are localized.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:CELLCOMP_PROTEIN]-(cc:CellularComponent) RETURN cc.name AS cellular_component, COUNT(DISTINCT p) AS protein_count ORDER BY protein_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["cellular_component", "protein_count"]
+    },
+    {
+      "template_id": "T020",
+      "query_type": "Negative Phenotype Association",
+      "nl": "Find phenotypes that are negatively associated with {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PHENOTYPE_NEGATIVE]-(pheno:Phenotype) RETURN pheno.name AS negative_phenotype, COUNT(*) AS association_strength ORDER BY association_strength DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["negative_phenotype", "association_strength"]
+    },
+    {
+      "template_id": "T021",
+      "query_type": "Exposure-Protein Association",
+      "nl": "Find exposures that affect proteins associated with {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:EXPOSURE_PROTEIN]-(exp:Exposure) RETURN exp.name AS exposure, COUNT(DISTINCT p) AS affected_proteins ORDER BY affected_proteins DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["exposure", "affected_proteins"]
+    },
+    {
+      "template_id": "T022",
+      "query_type": "Anatomy-Anatomy Hierarchy",
+      "nl": "Find anatomical regions that are part of {anatomy_name} and have proteins expressed in them.",
+      "query_template": "MATCH (a1:Anatomy {name: $anatomy_name})-[:ANATOMY_ANATOMY]-(a2:Anatomy)-[:ANATOMY_PROTEIN_PRESENT]-(p:Protein) RETURN a2.name AS sub_anatomy, COUNT(DISTINCT p) AS expressed_proteins ORDER BY expressed_proteins DESC",
+      "query_parameters": {
+        "anatomy_name": {
+          "type": "string",
+          "source": "Anatomy"
+        }
+      },
+      "expected_columns": ["sub_anatomy", "expressed_proteins"]
+    },
+    {
+      "template_id": "T023",
+      "query_type": "Pathway Hierarchy",
+      "nl": "Find sub-pathways of pathways associated with proteins from {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:PATHWAY_PROTEIN]-(path1:Pathway)-[:PATHWAY_PATHWAY]-(path2:Pathway) RETURN path1.name AS parent_pathway, path2.name AS child_pathway, COUNT(DISTINCT p) AS connecting_proteins ORDER BY connecting_proteins DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["parent_pathway", "child_pathway", "connecting_proteins"]
+    },
+    {
+      "template_id": "T024",
+      "query_type": "Multi-Modal Query",
+      "nl": "Find drugs that target proteins expressed in {anatomy_name} and are indicated for diseases with phenotype {phenotype_name}.",
+      "query_template": "MATCH (a:Anatomy {name: $anatomy_name})-[:ANATOMY_PROTEIN_PRESENT]-(p:Protein)-[:DRUG_PROTEIN]-(drug:Drug) MATCH (drug)-[:INDICATION]-(d:Disease)-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype {name: $phenotype_name}) RETURN drug.name AS drug_name, d.name AS disease_name, COUNT(DISTINCT p) AS target_count ORDER BY target_count DESC",
+      "query_parameters": {
+        "anatomy_name": {
+          "type": "string",
+          "source": "Anatomy"
+        },
+        "phenotype_name": {
+          "type": "string",
+          "source": "Phenotype"
+        }
+      },
+      "expected_columns": ["drug_name", "disease_name", "target_count"]
+    },
+    {
+      "template_id": "T025",
+      "query_type": "Three-Hop Disease Network",
+      "nl": "Find diseases connected to {disease_name} through shared proteins and phenotypes.",
+      "query_template": "MATCH (d1:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:DISEASE_PROTEIN]-(d2:Disease) MATCH (d1)-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype)-[:DISEASE_PHENOTYPE_POSITIVE]-(d2) WHERE d1 <> d2 RETURN d2.name AS connected_disease, COUNT(DISTINCT p) AS shared_proteins, COUNT(DISTINCT pheno) AS shared_phenotypes ORDER BY shared_proteins DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["connected_disease", "shared_proteins", "shared_phenotypes"]
+    },
+    {
+      "template_id": "T026",
+      "query_type": "Protein Function Analysis",
+      "nl": "Find molecular functions of proteins that are targeted by drugs indicated for {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:INDICATION]-(drug:Drug)-[:DRUG_PROTEIN]-(p:Protein)-[:MOLFUNC_PROTEIN]-(mf:MolecularFunction) RETURN mf.name AS molecular_function, COUNT(DISTINCT p) AS protein_count, COUNT(DISTINCT drug) AS drug_count ORDER BY protein_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["molecular_function", "protein_count", "drug_count"]
+    },
+    {
+      "template_id": "T027",
+      "query_type": "Drug Side Effect Profile",
+      "nl": "Find all phenotypes (side effects) associated with drugs that target the same proteins as drugs indicated for {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:INDICATION]-(drug1:Drug)-[:DRUG_PROTEIN]-(p:Protein)-[:DRUG_PROTEIN]-(drug2:Drug) WHERE drug1 <> drug2 MATCH (drug2)-[:DRUG_EFFECT]-(pheno:Phenotype) RETURN pheno.name AS side_effect, COUNT(DISTINCT drug2) AS drug_count ORDER BY drug_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["side_effect", "drug_count"]
+    },
+    {
+      "template_id": "T028",
+      "query_type": "Exposure-Biological Process",
+      "nl": "Find biological processes affected by exposures that are linked to {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:EXPOSURE_DISEASE]-(exp:Exposure)-[:EXPOSURE_BIOPROCESS]-(bp:BiologicalProcess) RETURN bp.name AS biological_process, COUNT(DISTINCT exp) AS exposure_count ORDER BY exposure_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["biological_process", "exposure_count"]
+    },
+    {
+      "template_id": "T029",
+      "query_type": "Cellular Component Hierarchy",
+      "nl": "Find cellular components that are part of other components containing proteins associated with {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:CELLCOMP_PROTEIN]-(cc1:CellularComponent)-[:CELLCOMP_CELLCOMP]-(cc2:CellularComponent) RETURN cc1.name AS parent_component, cc2.name AS child_component, COUNT(DISTINCT p) AS protein_count ORDER BY protein_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["parent_component", "child_component", "protein_count"]
+    },
+    {
+      "template_id": "T030",
+      "query_type": "Disease-Disease Comorbidity",
+      "nl": "Find diseases that are directly associated with {disease_name} through disease-disease relationships.",
+      "query_template": "MATCH (d1:Disease {name: $disease_name})-[:DISEASE_DISEASE]-(d2:Disease) RETURN d2.name AS comorbid_disease, COUNT(*) AS association_strength ORDER BY association_strength DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["comorbid_disease", "association_strength"]
+    },
+    {
+      "template_id": "T031",
+      "query_type": "Protein Absence Analysis",
+      "nl": "Find anatomical regions where proteins associated with {disease_name} are absent.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:ANATOMY_PROTEIN_ABSENT]-(a:Anatomy) RETURN a.name AS anatomy, COUNT(DISTINCT p) AS absent_proteins ORDER BY absent_proteins DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["anatomy", "absent_proteins"]
+    },
+    {
+      "template_id": "T032",
+      "query_type": "Multi-Relationship Path",
+      "nl": "Find paths from {drug_name} to {phenotype_name} through proteins and diseases.",
+      "query_template": "MATCH (drug:Drug {name: $drug_name}), (pheno:Phenotype {name: $phenotype_name}) MATCH path = shortestPath((drug)-[:DRUG_PROTEIN|DISEASE_PROTEIN|DISEASE_PHENOTYPE_POSITIVE*..5]-(pheno)) RETURN [node IN nodes(path) | node.name] AS path_nodes, length(path) AS hop_count",
+      "query_parameters": {
+        "drug_name": {
+          "type": "string",
+          "source": "Drug"
+        },
+        "phenotype_name": {
+          "type": "string",
+          "source": "Phenotype"
+        }
+      },
+      "expected_columns": ["path_nodes", "hop_count"]
+    },
+    {
+      "template_id": "T033",
+      "query_type": "Biological Process Hierarchy",
+      "nl": "Find parent biological processes of processes involving proteins from {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:BIOPROCESS_PROTEIN]-(bp1:BiologicalProcess)-[:BIOPROCESS_BIOPROCESS]-(bp2:BiologicalProcess) RETURN bp1.name AS child_process, bp2.name As parent_process, COUNT(DISTINCT p) AS protein_count ORDER BY protein_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["child_process", "parent_process", "protein_count"]
+    },
+    {
+      "template_id": "T034",
+      "query_type": "Molecular Function Hierarchy",
+      "nl": "Find related molecular functions of functions associated with proteins targeted by {drug_name}.",
+      "query_template": "MATCH (drug:Drug {name: $drug_name})-[:DRUG_PROTEIN]-(p:Protein)-[:MOLFUNC_PROTEIN]-(mf1:MolecularFunction)-[:MOLFUNC_MOLFUNC]-(mf2:MolecularFunction) RETURN mf1.name AS original_function, mf2.name AS related_function, COUNT(DISTINCT p) AS protein_count ORDER BY protein_count DESC",
+      "query_parameters": {
+        "drug_name": {
+          "type": "string",
+          "source": "Drug"
+        }
+      },
+      "expected_columns": ["original_function", "related_function", "protein_count"]
+    },
+    {
+      "template_id": "T035",
+      "query_type": "Exposure-Exposure Interaction",
+      "nl": "Find exposures that interact with exposures linked to {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:EXPOSURE_DISEASE]-(exp1:Exposure)-[:EXPOSURE_EXPOSURE]-(exp2:Exposure) RETURN exp1.name As original_exposure, exp2.name AS interacting_exposure, COUNT(*) AS interaction_count ORDER BY interaction_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["original_exposure", "interacting_exposure", "interaction_count"]
+    },
+    {
+      "template_id": "T036",
+      "query_type": "Phenotype-Phenotype Association",
+      "nl": "Find phenotypes associated with phenotypes that are linked to {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno1:Phenotype)-[:PHENOTYPE_PHENOTYPE]-(pheno2:Phenotype) RETURN pheno1.name AS original_phenotype, pheno2.name AS associated_phenotype, COUNT(*) AS association_strength ORDER BY association_strength DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["original_phenotype", "associated_phenotype", "association_strength"]
+    },
+    {
+      "template_id": "T037",
+      "query_type": "Four-Hop Drug Mechanism",
+      "nl": "Find biological pathways connecting {drug_name} to {disease_name} through proteins and molecular functions.",
+      "query_template": "MATCH (drug:Drug {name: $drug_name})-[:DRUG_PROTEIN]-(p1:Protein)-[:MOLFUNC_PROTEIN]-(mf:MolecularFunction)-[:MOLFUNC_PROTEIN]-(p2:Protein)-[:DISEASE_PROTEIN]-(d:Disease {name: $disease_name}) MATCH (p1)-[:PATHWAY_PROTEIN]-(path:Pathway)-[:PATHWAY_PROTEIN]-(p2) RETURN path.name AS connecting_pathway, COUNT(DISTINCT p1) AS proteins_from_drug, COUNT(DISTINCT p2) AS proteins_to_disease ORDER BY proteins_from_drug DESC",
+      "query_parameters": {
+        "drug_name": {
+          "type": "string",
+          "source": "Drug"
+        },
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["connecting_pathway", "proteins_from_drug", "proteins_to_disease"]
+    },
+    {
+      "template_id": "T038",
+      "query_type": "Anatomy-Disease Connection",
+      "nl": "Find diseases associated with proteins expressed in anatomical regions that are part of {anatomy_name}.",
+      "query_template": "MATCH (a1:Anatomy {name: $anatomy_name})-[:ANATOMY_ANATOMY]-(a2:Anatomy)-[:ANATOMY_PROTEIN_PRESENT]-(p:Protein)-[:DISEASE_PROTEIN]-(d:Disease) RETURN d.name AS disease, a2.name AS sub_anatomy, COUNT(DISTINCT p) AS protein_count ORDER BY protein_count DESC",
+      "query_parameters": {
+        "anatomy_name": {
+          "type": "string",
+          "source": "Anatomy"
+        }
+      },
+      "expected_columns": ["disease", "sub_anatomy", "protein_count"]
+    },
+    {
+      "template_id": "T039",
+      "query_type": "Drug-Protein-Phenotype Chain",
+      "nl": "Find phenotypes associated with diseases that are linked to proteins targeted by {drug_name}.",
+      "query_template": "MATCH (drug:Drug {name: $drug_name})-[:DRUG_PROTEIN]-(p:Protein)-[:DISEASE_PROTEIN]-(d:Disease)-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype) RETURN pheno.name AS phenotype, d.name AS disease, COUNT(DISTINCT p) AS connecting_proteins ORDER BY connecting_proteins DESC",
+      "query_parameters": {
+        "drug_name": {
+          "type": "string",
+          "source": "Drug"
+        }
+      },
+      "expected_columns": ["phenotype", "disease", "connecting_proteins"]
+    },
+    {
+      "template_id": "T040",
+      "query_type": "Protein Centrality",
+      "nl": "Find proteins that interact with more than 10 other proteins and are associated with diseases.",
+      "query_template": "MATCH (p1:Protein)-[:PROTEIN_PROTEIN]-(p2:Protein) WITH p1, COUNT(DISTINCT p2) AS interaction_count WHERE interaction_count > 10 MATCH (p1)-[:DISEASE_PROTEIN]-(d:Disease) RETURN p1.name AS central_protein, interaction_count, COUNT(DISTINCT d) AS disease_count ORDER BY interaction_count DESC",
+      "query_parameters": {},
+      "expected_columns": ["central_protein", "interaction_count", "disease_count"]
+    },
+    {
+      "template_id": "T041",
+      "query_type": "Drug Source Analysis",
+      "nl": "Find drugs that appear in both DrugBank and SIDER data sources.",
+      "query_template": "MATCH (drug:Drug) WHERE drug.source CONTAINS 'DrugBank' MATCH (drug2:Drug {name: drug.name}) WHERE drug2.source CONTAINS 'SIDER' RETURN drug.name AS drug_name, drug.source AS source1, drug2.source AS source2",
+      "query_parameters": {},
+      "expected_columns": ["drug_name", "source1", "source2"]
+    },
+    {
+      "template_id": "T042",
+      "query_type": "Phenotype Source Analysis",
+      "nl": "Find phenotypes that are associated with diseases from both HPO and DisGeNET sources.",
+      "query_template": "MATCH (pheno:Phenotype)-[:DISEASE_PHENOTYPE_POSITIVE]-(d1:Disease) WHERE d1.source CONTAINS 'HPO' MATCH (pheno)-[:DISEASE_PHENOTYPE_POSITIVE]-(d2:Disease) WHERE d2.source CONTAINS 'DisGeNET' RETURN pheno.name AS phenotype, COUNT(DISTINCT d1) AS hpo_diseases, COUNT(DISTINCT d2) AS disgenet_diseases ORDER BY hpo_diseases DESC",
+      "query_parameters": {},
+      "expected_columns": ["phenotype", "hpo_diseases", "disgenet_diseases"]
+    },
+    {
+      "template_id": "T043",
+      "query_type": "Exposure-Molecular Function",
+      "nl": "Find molecular functions affected by exposures linked to diseases with phenotype {phenotype_name}.",
+      "query_template": "MATCH (pheno:Phenotype {name: $phenotype_name})-[:DISEASE_PHENOTYPE_POSITIVE]-(d:Disease)-[:EXPOSURE_DISEASE]-(exp:Exposure)-[:EXPOSURE_MOLFUNC]-(mf:MolecularFunction) RETURN mf.name AS molecular_function, exp.name AS exposure, COUNT(DISTINCT d) AS disease_count ORDER BY disease_count DESC",
+      "query_parameters": {
+        "phenotype_name": {
+          "type": "string",
+          "source": "Phenotype"
+        }
+      },
+      "expected_columns": ["molecular_function", "exposure", "disease_count"]
+    },
+    {
+      "template_id": "T044",
+      "query_type": "Cellular Component-Exposure",
+      "nl": "Find cellular components affected by exposures that are linked to proteins associated with {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:EXPOSURE_PROTEIN]-(exp:Exposure)-[:EXPOSURE_CELLCOMP]-(cc:CellularComponent) RETURN cc.name AS cellular_component, exp.name AS exposure, COUNT(DISTINCT p) AS protein_count ORDER BY protein_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["cellular_component", "exposure", "protein_count"]
+    },
+    {
+      "template_id": "T045",
+      "query_type": "Pathway-Drug Connection",
+      "nl": "Find pathways that contain proteins targeted by drugs indicated for {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:INDICATION]-(drug:Drug)-[:DRUG_PROTEIN]-(p:Protein)-[:PATHWAY_PROTEIN]-(path:Pathway) RETURN path.name AS pathway, COUNT(DISTINCT drug) AS drug_count, COUNT(DISTINCT p) AS protein_count ORDER BY drug_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["pathway", "drug_count", "protein_count"]
+    },
+    {
+      "template_id": "T046",
+      "query_type": "Anatomy-Phenotype Link",
+      "nl": "Find phenotypes associated with diseases that involve proteins expressed in {anatomy_name}.",
+      "query_template": "MATCH (a:Anatomy {name: $anatomy_name})-[:ANATOMY_PROTEIN_PRESENT]-(p:Protein)-[:DISEASE_PROTEIN]-(d:Disease)-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype) RETURN pheno.name AS phenotype, d.name AS disease, COUNT(DISTINCT p) AS connecting_proteins ORDER BY connecting_proteins DESC",
+      "query_parameters": {
+        "anatomy_name": {
+          "type": "string",
+          "source": "Anatomy"
+        }
+      },
+      "expected_columns": ["phenotype", "disease", "connecting_proteins"]
+    },
+    {
+      "template_id": "T047",
+      "query_type": "Drug-Disease-Pathway Triangle",
+      "nl": "Find pathways that connect {drug_name} to {disease_name} through shared proteins.",
+      "query_template": "MATCH (drug:Drug {name: $drug_name})-[:DRUG_PROTEIN]-(p1:Protein)-[:PATHWAY_PROTEIN]-(path:Pathway)-[:PATHWAY_PROTEIN]-(p2:Protein)-[:DISEASE_PROTEIN]-(d:Disease {name: $disease_name}) RETURN path.name AS pathway, COUNT(DISTINCT p1) AS drug_proteins, COUNT(DISTINCT p2) AS disease_proteins ORDER BY drug_proteins DESC",
+      "query_parameters": {
+        "drug_name": {
+          "type": "string",
+          "source": "Drug"
+        },
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["pathway", "drug_proteins", "disease_proteins"]
+    },
+    {
+      "template_id": "T048",
+      "query_type": "Biological Process-Phenotype",
+      "nl": "Find biological processes that involve proteins associated with diseases having phenotype {phenotype_name}.",
+      "query_template": "MATCH (pheno:Phenotype {name: $phenotype_name})-[:DISEASE_PHENOTYPE_POSITIVE]-(d:Disease)-[:DISEASE_PROTEIN]-(p:Protein)-[:BIOPROCESS_PROTEIN]-(bp:BiologicalProcess) RETURN bp.name AS biological_process, COUNT(DISTINCT d) AS disease_count, COUNT(DISTINCT p) AS protein_count ORDER BY disease_count DESC",
+      "query_parameters": {
+        "phenotype_name": {
+          "type": "string",
+          "source": "Phenotype"
+        }
+      },
+      "expected_columns": ["biological_process", "disease_count", "protein_count"]
+    },
+    {
+      "template_id": "T049",
+      "query_type": "Molecular Function-Anatomy",
+      "nl": "Find molecular functions of proteins expressed in {anatomy_name} that are targeted by drugs.",
+      "query_template": "MATCH (a:Anatomy {name: $anatomy_name})-[:ANATOMY_PROTEIN_PRESENT]-(p:Protein)-[:MOLFUNC_PROTEIN]-(mf:MolecularFunction) MATCH (p)-[:DRUG_PROTEIN]-(drug:Drug) RETURN mf.name AS molecular_function, COUNT(DISTINCT drug) AS drug_count, COUNT(DISTINCT p) AS protein_count ORDER BY drug_count DESC",
+      "query_parameters": {
+        "anatomy_name": {
+          "type": "string",
+          "source": "Anatomy"
+        }
+      },
+      "expected_columns": ["molecular_function", "drug_count", "protein_count"]
+    },
+    {
+      "template_id": "T050",
+      "query_type": "Cellular Component-Pathway",
+      "nl": "Find cellular components that contain proteins involved in pathways associated with {disease_name}.",
+      "query_template": "MATCH (d:Disease {name: $disease_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:PATHWAY_PROTEIN]-(path:Pathway) MATCH (p)-[:CELLCOMP_PROTEIN]-(cc:CellularComponent) RETURN cc.name AS cellular_component, path.name AS pathway, COUNT(DISTINCT p) AS protein_count ORDER BY protein_count DESC",
+      "query_parameters": {
+        "disease_name": {
+          "type": "string",
+          "source": "Disease"
+        }
+      },
+      "expected_columns": ["cellular_component", "pathway", "protein_count"]
+    },
+    {
+      "template_id": "T051",
+      "query_type": "Exposure-Pathway",
+      "nl": "Find pathways affected by exposures linked to diseases with proteins expressed in {anatomy_name}.",
+      "query_template": "MATCH (a:Anatomy {name: $anatomy_name})-[:ANATOMY_PROTEIN_PRESENT]-(p1:Protein)-[:DISEASE_PROTEIN]-(d:Disease)-[:EXPOSURE_DISEASE]-(exp:Exposure) MATCH (exp)-[:EXPOSURE_PROTEIN]-(p2:Protein)-[:PATHWAY_PROTEIN]-(path:Pathway) RETURN path.name As pathway, exp.name AS exposure, COUNT(DISTINCT d) AS disease_count ORDER BY disease_count DESC",
+      "query_parameters": {
+        "anatomy_name": {
+          "type": "string",
+          "source": "Anatomy"
+        }
+      },
+      "expected_columns": ["pathway", "exposure", "disease_count"]
+    },
+    {
+      "template_id": "T052",
+      "query_type": "Phenotype-Drug-Anatomy",
+      "nl": "Find drugs that target proteins expressed in {anatomy_name} and are associated with diseases having phenotype {phenotype_name}.",
+      "query_template": "MATCH (a:Anatomy {name: $anatomy_name})-[:ANATOMY_PROTEIN_PRESENT]-(p:Protein)-[:DRUG_PROTEIN]-(drug:Drug) MATCH (drug)-[:INDICATION]-(d:Disease)-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype {name: $phenotype_name}) RETURN drug.name AS drug_name, d.name AS disease_name, COUNT(DISTINCT p) AS target_count ORDER BY target_count DESC",
+      "query_parameters": {
+        "anatomy_name": {
+          "type": "string",
+          "source": "Anatomy"
+        },
+        "phenotype_name": {
+          "type": "string",
+          "source": "Phenotype"
+        }
+      },
+      "expected_columns": ["drug_name", "disease_name", "target_count"]
+    },
+    {
+      "template_id": "T053",
+      "query_type": "Protein-Disease-Exposure Chain",
+      "nl": "Find exposures linked to diseases that share proteins with diseases associated with {protein_name}.",
+      "query_template": "MATCH (p1:Protein {name: $protein_name})-[:DISEASE_PROTEIN]-(d1:Disease)-[:DISEASE_PROTEIN]-(p2:Protein)-[:DISEASE_PROTEIN]-(d2:Disease)-[:EXPOSURE_DISEASE]-(exp:Exposure) WHERE d1 <> d2 RETURN exp.name AS exposure, d2.name AS disease, COUNT(DISTINCT p2) AS shared_proteins ORDER BY shared_proteins DESC",
+      "query_parameters": {
+        "protein_name": {
+          "type": "string",
+          "source": "Protein"
+        }
+      },
+      "expected_columns": ["exposure", "disease", "shared_proteins"]
+    },
+    {
+      "template_id": "T054",
+      "query_type": "Drug-Protein-Pathway-Phenotype",
+      "nl": "Find phenotypes associated with diseases that are connected to {drug_name} through pathways and proteins.",
+      "query_template": "MATCH (drug:Drug {name: $drug_name})-[:DRUG_PROTEIN]-(p1:Protein)-[:PATHWAY_PROTEIN]-(path:Pathway)-[:PATHWAY_PROTEIN]-(p2:Protein)-[:DISEASE_PROTEIN]-(d:Disease)-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype) RETURN pheno.name AS phenotype, d.name AS disease, path.name AS pathway, COUNT(DISTINCT p1) AS drug_proteins ORDER BY drug_proteins DESC",
+      "query_parameters": {
+        "drug_name": {
+          "type": "string",
+          "source": "Drug"
+        }
+      },
+      "expected_columns": ["phenotype", "disease", "pathway", "drug_proteins"]
+    },
+    {
+      "template_id": "T055",
+      "query_type": "Anatomy-Biological Process",
+      "nl": "Find biological processes involving proteins expressed in {anatomy_name} that are associated with diseases.",
+      "query_template": "MATCH (a:Anatomy {name: $anatomy_name})-[:ANATOMY_PROTEIN_PRESENT]-(p:Protein)-[:BIOPROCESS_PROTEIN]-(bp:BiologicalProcess) MATCH (p)-[:DISEASE_PROTEIN]-(d:Disease) RETURN bp.name AS biological_process, COUNT(DISTINCT d) AS disease_count, COUNT(DISTINCT p) AS protein_count ORDER BY disease_count DESC",
+      "query_parameters": {
+        "anatomy_name": {
+          "type": "string",
+          "source": "Anatomy"
+        }
+      },
+      "expected_columns": ["biological_process", "disease_count", "protein_count"]
+    }
+]
