@@ -3,7 +3,7 @@ data_source:
   root_data_path: "gnd_dataset/PrimeKG/kg.csv"
   data_file_format: ".csv"
   dataset_name: "PrimeKG" 
-guide_file: "perturbation_generator/semantic_perturb_guide/paramkg_copy.json"
+guide_file: "perturbation_generator/semantic_perturb_guide/paramkg.json"
 # perturbation generator config
 perturbation:
   method: "semantic" # "random", "semantic", "topology", mixture is accepted
@@ -11,9 +11,9 @@ perturbation:
   seed: 42
   # incompleteness config
   remove_nodes: true
-  node_removal_ratio: 0.1
+  node_removal_ratio: 0.01
   remove_edges: true
-  edge_removal_ratio: 0.15
+  edge_removal_ratio: 0.015
   incomplete_attribute: true
   attribute_attribute_ratio: 0.05
   # noise config
@@ -24,8 +24,13 @@ perturbation:
   noise_columns_ratio: 0.3  # 每行采样的列的比例进行加噪
   # 噪声行配置
   noise_rows: true
-  noise_rows_ratio: 0.05  # 要添加的噪声行占总行数的比例
+  noise_rows_ratio: 0.05  # 要添加的噪声行占总行数的比例s
   noise_row_columns_ratio: 0.3  # 复制行后要修改的列的比例
+# 噪声字段配置 用于指导扰动过程
+target_fields: 
+  base_fields: ["x_id", "y_id"]
+  refer_fields: ["x_type", "y_type"]
+  affiliation: ["x_name", "y_name"]
 # 算法方法配置
 methodology:
   type: "graph_algorithm"  # "graph_algorithm", "graph_rag", "gnn"

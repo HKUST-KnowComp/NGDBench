@@ -6,89 +6,67 @@
       "optional": false,
       "patterns": [
         {
-          "type": "node",
-          "variable": "a",
-          "labels": [],
-          "properties": {
-            "id": "1904862"
-          }
-        }
-      ]
-    },
-    {
-      "type": "match",
-      "optional": false,
-      "patterns": [
-        {
-          "type": "node",
-          "variable": "b",
-          "labels": [],
-          "properties": {
-            "id": "D014025"
-          }
-        }
-      ]
-    },
-    {
-      "type": "match",
-      "optional": false,
-      "patterns": [
-        {
           "type": "path",
-          "variable": "p",
+          "variable": null,
           "elements": [
             {
               "type": "node",
-              "variable": "a",
-              "labels": [],
-              "properties": {}
+              "variable": "d",
+              "labels": [
+                "Disease"
+              ],
+              "properties": {
+                "name": "\"hepatocellular carcinoma\""
+              }
             },
             {
               "type": "relationship",
               "labels": [
-                "contraindication"
+                "DISEASE_PROTEIN"
               ],
               "direction": "->"
             },
             {
               "type": "node",
-              "variable": null,
-              "labels": [],
+              "variable": "p",
+              "labels": [
+                "Protein"
+              ],
               "properties": {}
             },
             {
               "type": "relationship",
               "labels": [
-                "indication"
+                "DRUG_PROTEIN"
               ],
               "direction": "->"
             },
             {
               "type": "node",
-              "variable": null,
-              "labels": [],
-              "properties": {}
-            },
-            {
-              "type": "relationship",
+              "variable": "dr",
               "labels": [
-                "disease_phenotype_negative"
+                "Drug"
               ],
-              "direction": "->"
-            },
-            {
-              "type": "node",
-              "variable": "b",
-              "labels": [],
               "properties": {}
             }
           ]
         }
-      ]
+      ],
+      "where": {
+        "type": "where",
+        "expression": "NOT (dr)-[:CONTRAINDICATION]-(:Disease)"
+      }
     }
   ],
-  "return": [
-    "p"
-  ],
-  "limit": 20
+  "return": {
+    "distinct": true,
+    "items": [
+      {
+        "expr": "dr.name",
+        "alias": null
+      }
+    ],
+    "orderBy": [],
+    "limit": null
+  }
 }

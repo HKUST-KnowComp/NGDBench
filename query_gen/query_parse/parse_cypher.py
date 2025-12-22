@@ -22,10 +22,7 @@ def parse_cypher_to_ast(query: str):
     
 def main():
     query = """
-    MATCH (a {id: '1904862'})
-    MATCH (b {id: 'D014025'})
-    MATCH p = (a)-[:contraindication]->()-[:indication]->()-[:disease_phenotype_negative]->(b)
-    RETURN p LIMIT 20
+    MATCH (d:Disease {name:\"hepatocellular carcinoma\"})-[:DISEASE_PROTEIN]-(p:Protein)<-[:DRUG_PROTEIN]-(dr:Drug) WHERE NOT (dr)-[:CONTRAINDICATION]-(:Disease) RETURN DISTINCT dr.name
     """
 
     ast = parse_cypher_to_ast(query)

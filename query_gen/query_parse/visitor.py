@@ -5,8 +5,12 @@ class CypherASTVisitor(CypherParserVisitor):
         self.ast = {
             "type": "query",
             "clauses": [],
-            "return": [],
-            "limit": None
+            "return": {
+                "distinct": False,
+                "items": [],
+                "orderBy": [],
+                "limit": None
+            }
         }
     def visitMatchSt(self, ctx):
         return self._handle_match(ctx, optional=False)
@@ -18,38 +22,34 @@ class CypherASTVisitor(CypherParserVisitor):
         clause = {
             "type": "match",
             "optional": optional,
-            "patterns": []
+            "patterns": [],
+            "where": None
         }
 
-        pattern = ctx.patternWhere().pattern()
+        pw = ctx.patternWhere()
 
+        # pattern
+        pattern = pw.pattern()
         for part in pattern.patternPart():
             clause["patterns"].append(self.visit(part))
+
+        if pw.where():
+            clause["where"] = {
+                "type": "where",
+                "expression": pw.where().expression().getText()
+            }
 
         self.ast["clauses"].append(clause)
         return None
 
     def visitPatternPart(self, ctx):
-        # p = (a)-[:r]->(b)
+        # 如果有 path variable: p = (...)
+        path = self.visit(ctx.patternElem())
+
         if ctx.symbol():
-            path_var = ctx.symbol().getText()
-            path = {
-                "type": "path",
-                "variable": path_var,
-                "elements": []
-            }
+            path["variable"] = ctx.symbol().getText()
 
-            elem = ctx.patternElem()
-            path["elements"].append(self.visit(elem.nodePattern()))
-
-            for chain in elem.patternElemChain():
-                path["elements"].append(self.visit(chain.relationshipPattern()))
-                path["elements"].append(self.visit(chain.nodePattern()))
-
-            return path
-
-        # 普通 pattern
-        return self.visit(ctx.patternElem())
+        return path
 
     def visitNodePattern(self, ctx):
         node = {
@@ -63,7 +63,7 @@ class CypherASTVisitor(CypherParserVisitor):
             node["variable"] = ctx.symbol().getText()
 
         if ctx.nodeLabels():
-            node["labels"] = [l.getText() for l in ctx.nodeLabels().nodeLabel()]
+            node["labels"] = [n.getText() for n in ctx.nodeLabels().name()]
 
         if ctx.properties():
             for pair in ctx.properties().mapLit().mapPair():
@@ -84,13 +84,56 @@ class CypherASTVisitor(CypherParserVisitor):
             rel["labels"] = [n.getText() for n in detail.relationshipTypes().name()]
 
         return rel
+    
     def visitReturnSt(self, ctx):
-        projection_body = ctx.projectionBody()
-        items = projection_body.projectionItems().projectionItem()
-        for item in items:
-            self.ast["return"].append(item.getText())
+        body = ctx.projectionBody()
 
-        if projection_body.limitSt():
-            self.ast["limit"] = int(projection_body.limitSt().expression().getText())
+        if body.DISTINCT():
+            self.ast["return"]["distinct"] = True
+
+        for item in body.projectionItems().projectionItem():
+            expr = item.expression().getText()
+            alias = None
+
+            if item.AS():
+                alias = item.symbol().getText()
+
+            self.ast["return"]["items"].append({
+                "expr": expr,
+                "alias": alias
+            })
+
+        if body.orderSt():
+            for sort in body.orderSt().sortItem():
+                direction = "ASC"
+                if sort.DESC():
+                    direction = "DESC"
+
+                self.ast["return"]["orderBy"].append({
+                    "expr": sort.expression().getText(),
+                    "direction": direction
+                })
+
+        if body.limitSt():
+            self.ast["return"]["limit"] = int(
+                body.limitSt().expression().getText()
+            )
 
         return None
+
+    def visitPatternElem(self, ctx):
+        path = {
+            "type": "path",
+            "variable": None,
+            "elements": []
+        }
+
+        # 起始 node
+        path["elements"].append(self.visit(ctx.nodePattern()))
+
+        # chain: (rel, node)*
+        for chain in ctx.patternElemChain():
+            path["elements"].append(self.visit(chain.relationshipPattern()))
+            path["elements"].append(self.visit(chain.nodePattern()))
+
+        return path

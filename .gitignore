@@ -135,6 +135,7 @@ data_gen/gnd_dataset/*
 data_gen/perturbed_dataset/*
 data_gen/perturb_record/*
 pipeline/data_analyser/buffer/*
+query_gen/query/*
 # 保留 example_data 目录及内容
 !data_gen/gnd_dataset/example_data/
 !data_gen/gnd_dataset/example_data/**

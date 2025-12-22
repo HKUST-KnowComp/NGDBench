@@ -189,12 +189,11 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
             # 如果有指导文件，使用指导文件定义的噪声类型
             if self.guide_data and self.noise_profile:
                 noise_types = self.guide_data.get('noise_types', {})
-                
+                noise_config = self.guide_data.get('field_targets', {})
                 for noise_type, ratio in self.noise_profile.items():
                     if ratio <= 0 or noise_type not in noise_types:
                         continue
                     
-                    noise_config = noise_types[noise_type]
                     print(f"应用噪声类型: {noise_type} (比例: {ratio}) 到文件: {filename}")
                     
                     # 根据噪声类型调用对应的处理方法
@@ -247,8 +246,9 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
             return df, operations
         
         # 获取 target_fields 和 refer_fields
-        target_fields = config.get('target_fields', ['x_id', 'y_id'])
-        refer_fields = config.get('refer_fields', ['x_type', 'y_type'])
+        target_fields = config.get('target_fields', {}).get('base_fields', ['x_id', 'y_id'])
+        refer_fields = config.get('target_fields', {}).get('refer_fields', ['x_type', 'y_type'])
+        affiliation_fields = config.get('target_fields', {}).get('affiliation', ['x_name', 'y_name'])
         constraints = config.get('constraints', {})
         avoid_existing = constraints.get('avoid_existing_edges', True)
         type_consistent = constraints.get('type_consistent', True)
@@ -301,11 +301,11 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
             # 如果需要避免已存在的边，检查替换后是否会创建重复边
             if avoid_existing:
                 # 构建边的唯一标识
-                x_id_col = 'x_id' if 'x_id' in df.columns else None
-                y_id_col = 'y_id' if 'y_id' in df.columns else None
+                x_id_col = target_fields[0] if target_fields[0] in df.columns else None
+                y_id_col = target_fields[1] if target_fields[1] in df.columns else None
                 
                 if x_id_col and y_id_col:
-                    if target_field == 'x_id':
+                    if target_field == x_id_col:
                         potential_x = new_value
                         potential_y = df.at[row_idx, y_id_col]
                     else:
@@ -317,18 +317,83 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
                     if len(existing_edges) > 0:
                         continue
             
-            # 执行替换
+            
+            # 确定要同时修改的其它字段
+            name_field = None
+            original_name_value = None
+            new_name_value = None
+            
+            if target_field == x_id_col:
+                name_field = affiliation_fields[0]
+            elif target_field == y_id_col:
+                name_field = affiliation_fields[1]
+            
+            # 如果name字段存在，查找新ID对应的name值
+            if name_field and name_field in df.columns:
+                # 保存原始name值
+                original_name_value = df.at[row_idx, name_field]
+                
+                # 从DataFrame中查找新ID对应的name值（在替换ID之前查找）
+                # 优先从同类型的行中查找
+                if refer_field and refer_field in df.columns:
+                    node_type = df.at[row_idx, refer_field]
+                    same_type_mask = df[refer_field] == node_type
+                    # 排除当前行
+                    matching_rows = df[same_type_mask & (df[target_field] == new_value) & (df.index != row_idx)]
+                else:
+                    # 排除当前行
+                    matching_rows = df[(df[target_field] == new_value) & (df.index != row_idx)]
+                
+                if len(matching_rows) > 0:
+                    # 取第一个匹配行的name值
+                    new_name_value = matching_rows.iloc[0][name_field]
+                else:
+                    # 如果找不到匹配的name，保持原值
+                    new_name_value = original_name_value
+            
+            # 执行替换ID
             df.at[row_idx, target_field] = new_value
             
-            operations.append({
-                "operation": "false_edge",
-                "file": filename,
-                "file_path": file_path,
-                "row_index": row_idx,
-                "replaced_field": target_field,
+            # 如果找到了新的name值，也替换name字段
+            if name_field and name_field in df.columns and new_name_value is not None:
+                df.at[row_idx, name_field] = new_name_value
+            
+            # 从文件名推断实体名称
+            entity_name = filename.replace(self.data_config.get("data_file_format", ".csv"), "")
+            node_type_val = str(df.at[row_idx, refer_field]) if refer_field and refer_field in df.columns else "unknown"
+            
+            # 构建change信息，包含ID和name的替换
+            change_info = {
                 "original_value": str(original_value),
                 "new_value": str(new_value),
-                "node_type": str(df.at[row_idx, refer_field]) if refer_field and refer_field in df.columns else "unknown"
+                "modification_method": "id_swap",
+                "node_type": node_type_val
+            }
+            
+            # 如果也替换了name字段，添加到change信息中
+            if name_field and name_field in df.columns and original_name_value is not None and new_name_value is not None:
+                change_info["name_field"] = name_field
+                change_info["original_name"] = str(original_name_value)
+                change_info["new_name"] = str(new_name_value)
+            
+            operations.append({
+                "meta": {
+                    "operation_type": "false_edge",
+                    "description": f"创建虚假边，替换{target_field}字段值" + (f"和{name_field}字段值" if name_field and name_field in df.columns else "")
+                },
+                "target": {
+                    "dataset": self.data_config.get("dataset_name", "unknown"),
+                    "entity_type": "edge",
+                    "entity_name": entity_name,
+                    "file_name": filename,
+                    "file_path": file_path,
+                    "scope": "single",
+                    "location": {
+                        "row_index": row_idx,
+                        "column_name": target_field
+                    }
+                },
+                "change": change_info
             })
         
         return df, operations
@@ -387,15 +452,32 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
                     if df.at[row_idx, field] == original_value:
                         df.at[row_idx, field] = most_similar_value
             
+            # 从文件名推断实体名称
+            entity_name = filename.replace(self.data_config.get("data_file_format", ".csv"), "")
+            
             operations.append({
-                "operation": "relation_type_noise",
-                "file": filename,
-                "file_path": file_path,
-                "row_index": row_idx,
-                "target_field": target_field,
-                "original_relation": original_value_str,
-                "new_relation": most_similar_value,
-                "similarity_score": similarity
+                "meta": {
+                    "operation_type": "relation_type_noise",
+                    "description": f"将关系类型替换为语义相似的其他类型（相似度: {similarity:.3f}）"
+                },
+                "target": {
+                    "dataset": self.data_config.get("dataset_name", "unknown"),
+                    "entity_type": "edge",
+                    "entity_name": entity_name,
+                    "file_name": filename,
+                    "file_path": file_path,
+                    "scope": "single",
+                    "location": {
+                        "row_index": row_idx,
+                        "column_name": target_field
+                    }
+                },
+                "change": {
+                    "original_value": original_value_str,
+                    "new_value": most_similar_value,
+                    "modification_method": "semantic_similar_swap",
+                    "similarity_score": similarity
+                }
             })
         
         return df, operations
@@ -437,14 +519,32 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
                         
                         if noisy_name != original_name:
                             df.at[row_idx, field] = noisy_name
+                            
+                            # 从文件名推断实体名称
+                            entity_name = filename.replace(self.data_config.get("data_file_format", ".csv"), "")
+                            
                             operations.append({
-                                "operation": "name_typo",
-                                "file": filename,
-                                "file_path": file_path,
-                                "row_index": row_idx,
-                                "field": field,
-                                "original_name": original_name,
-                                "noisy_name": noisy_name
+                                "meta": {
+                                    "operation_type": "name_typo",
+                                    "description": "向实体名称注入字符级噪声（模拟OCR/NLP错误）"
+                                },
+                                "target": {
+                                    "dataset": self.data_config.get("dataset_name", "unknown"),
+                                    "entity_type": "unknown",
+                                    "entity_name": entity_name,
+                                    "file_name": filename,
+                                    "file_path": file_path,
+                                    "scope": "single",
+                                    "location": {
+                                        "row_index": row_idx,
+                                        "column_name": field
+                                    }
+                                },
+                                "change": {
+                                    "original_value": original_name,
+                                    "new_value": noisy_name,
+                                    "modification_method": "typo_injection"
+                                }
                             })
         
         return df, operations
@@ -531,14 +631,31 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
                         new_source = random.choice(candidates)
                         df.at[row_idx, field] = new_source
                         
+                        # 从文件名推断实体名称
+                        entity_name = filename.replace(self.data_config.get("data_file_format", ".csv"), "")
+                        
                         operations.append({
-                            "operation": "source_replacement",
-                            "file": filename,
-                            "file_path": file_path,
-                            "row_index": row_idx,
-                            "field": field,
-                            "original_source": str(original_source),
-                            "new_source": new_source
+                            "meta": {
+                                "operation_type": "source_replacement",
+                                "description": "替换数据来源信息，模拟来源冲突"
+                            },
+                            "target": {
+                                "dataset": self.data_config.get("dataset_name", "unknown"),
+                                "entity_type": "unknown",
+                                "entity_name": entity_name,
+                                "file_name": filename,
+                                "file_path": file_path,
+                                "scope": "single",
+                                "location": {
+                                    "row_index": row_idx,
+                                    "column_name": field
+                                }
+                            },
+                            "change": {
+                                "original_value": str(original_source),
+                                "new_value": new_source,
+                                "modification_method": "source_swap"
+                            }
                         })
         
         return df, operations
@@ -591,14 +708,31 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
                 new_type = random.choice(alternative_types)
                 df.at[row_idx, target_field] = new_type
                 
+                # 从文件名推断实体名称
+                entity_name = filename.replace(self.data_config.get("data_file_format", ".csv"), "")
+                
                 operations.append({
-                    "operation": "node_type_noise",
-                    "file": filename,
-                    "file_path": file_path,
-                    "row_index": row_idx,
-                    "field": target_field,
-                    "original_type": str(original_type),
-                    "new_type": str(new_type)
+                    "meta": {
+                        "operation_type": "node_type_noise",
+                        "description": "替换节点类型，模拟实体分类错误"
+                    },
+                    "target": {
+                        "dataset": self.data_config.get("dataset_name", "unknown"),
+                        "entity_type": "node",
+                        "entity_name": entity_name,
+                        "file_name": filename,
+                        "file_path": file_path,
+                        "scope": "single",
+                        "location": {
+                            "row_index": row_idx,
+                            "column_name": target_field
+                        }
+                    },
+                    "change": {
+                        "original_value": str(original_type),
+                        "new_value": str(new_type),
+                        "modification_method": "type_swap"
+                    }
                 })
         
         return df, operations
@@ -641,14 +775,32 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
             
             if corrupted_id != original_id_str:
                 df.at[row_idx, target_field] = corrupted_id
+                
+                # 从文件名推断实体名称
+                entity_name = filename.replace(self.data_config.get("data_file_format", ".csv"), "")
+                
                 operations.append({
-                    "operation": "id_corruption",
-                    "file": filename,
-                    "file_path": file_path,
-                    "row_index": row_idx,
-                    "field": target_field,
-                    "original_id": original_id_str,
-                    "corrupted_id": corrupted_id
+                    "meta": {
+                        "operation_type": "id_corruption",
+                        "description": "损坏ID值（截断/字符替换/前缀替换等）"
+                    },
+                    "target": {
+                        "dataset": self.data_config.get("dataset_name", "unknown"),
+                        "entity_type": "unknown",
+                        "entity_name": entity_name,
+                        "file_name": filename,
+                        "file_path": file_path,
+                        "scope": "single",
+                        "location": {
+                            "row_index": row_idx,
+                            "column_name": target_field
+                        }
+                    },
+                    "change": {
+                        "original_value": original_id_str,
+                        "new_value": corrupted_id,
+                        "modification_method": "id_corruption"
+                    }
                 })
         
         return df, operations
@@ -721,12 +873,28 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
                 duplicated_row = df.iloc[row_idx].copy()
                 new_rows.append(duplicated_row)
                 
+                # 从文件名推断实体名称
+                entity_name = filename.replace(self.data_config.get("data_file_format", ".csv"), "")
+                
                 operations.append({
-                    "operation": "duplicate_edge",
-                    "file": filename,
-                    "file_path": file_path,
-                    "source_row_index": row_idx,
-                    "description": "复制行"
+                    "meta": {
+                        "operation_type": "duplicate_edge",
+                        "description": "复制现有边创建重复数据"
+                    },
+                    "target": {
+                        "dataset": self.data_config.get("dataset_name", "unknown"),
+                        "entity_type": "edge",
+                        "entity_name": entity_name,
+                        "file_name": filename,
+                        "file_path": file_path,
+                        "scope": "single",
+                        "location": {
+                            "row_index": row_idx
+                        }
+                    },
+                    "change": {
+                        "modification_method": "row_duplication"
+                    }
                 })
             
             elif operation_type == 'contradict_relation':
@@ -743,13 +911,30 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
                     
                     new_rows.append(contradicted_row)
                     
+                    # 从文件名推断实体名称
+                    entity_name = filename.replace(self.data_config.get("data_file_format", ".csv"), "")
+                    
                     operations.append({
-                        "operation": "contradict_relation",
-                        "file": filename,
-                        "file_path": file_path,
-                        "source_row_index": row_idx,
-                        "original_relation": str(original_relation),
-                        "contradicted_relation": contradicted_row['relation']
+                        "meta": {
+                            "operation_type": "contradict_relation",
+                            "description": "创建矛盾关系边，模拟来源冲突"
+                        },
+                        "target": {
+                            "dataset": self.data_config.get("dataset_name", "unknown"),
+                            "entity_type": "edge",
+                            "entity_name": entity_name,
+                            "file_name": filename,
+                            "file_path": file_path,
+                            "scope": "single",
+                            "location": {
+                                "row_index": row_idx
+                            }
+                        },
+                        "change": {
+                            "original_value": str(original_relation),
+                            "new_value": contradicted_row['relation'],
+                            "modification_method": "relation_contradiction"
+                        }
                     })
         
         # 添加新行到 DataFrame
@@ -798,14 +983,31 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
                 new_id = random.choice(candidate_ids)
                 df.at[row_idx, target_field] = new_id
                 
+                # 从文件名推断实体名称
+                entity_name = filename.replace(self.data_config.get("data_file_format", ".csv"), "")
+                
                 operations.append({
-                    "operation": "path_level_noise",
-                    "file": filename,
-                    "file_path": file_path,
-                    "row_index": row_idx,
-                    "field": target_field,
-                    "original_id": str(original_id),
-                    "replacement_id": str(new_id)
+                    "meta": {
+                        "operation_type": "path_level_noise",
+                        "description": "替换多跳推理链中的中间节点ID"
+                    },
+                    "target": {
+                        "dataset": self.data_config.get("dataset_name", "unknown"),
+                        "entity_type": "edge",
+                        "entity_name": entity_name,
+                        "file_name": filename,
+                        "file_path": file_path,
+                        "scope": "single",
+                        "location": {
+                            "row_index": row_idx,
+                            "column_name": target_field
+                        }
+                    },
+                    "change": {
+                        "original_value": str(original_id),
+                        "new_value": str(new_id),
+                        "modification_method": "intermediate_node_swap"
+                    }
                 })
         
         return df, operations

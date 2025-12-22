@@ -7,14 +7,14 @@ from pathlib import Path
 
 # ============ 配置区域 ============
 # 扰动记录文件路径
-PERTURB_RECORD_PATH = "../../data_gen/perturbation_generator/perturb_record/semantic_SemanticPerturbationGenerator_primekg_20251202_211407.json"
+PERTURB_RECORD_PATH = "../../data_gen/perturbation_generator/perturb_record/semantic_SemanticPerturbationGenerator_20251220_163553.json"
 # CSV 文件路径 (扰动后的数据集)
-CSV_PATH = "../../data_gen/perturbed_dataset/PrimeKG_2512022114/kg.csv"
+CSV_PATH = "../../data_gen/perturbed_dataset/PrimeKG_2512201635/kg.csv"
 # 查询模板文件路径
 TEMPLATE_1PARAM_PATH = "../query_template/primekg_1param.json"
 TEMPLATE_2PARAM_PATH = "../query_template/primekg_2param.json"
 # 输出路径
-OUTPUT_PATH = "noise_queries1.json"
+OUTPUT_PATH = "noise_queries2.json"
 # 批处理大小
 BATCH_SIZE = 1000
 # =================================
@@ -32,8 +32,8 @@ def load_templates(template_1param_path: str, template_2param_path: str) -> List
     templates = []
     with open(template_1param_path, 'r', encoding='utf-8') as f:
         templates.extend(json.load(f))
-    with open(template_2param_path, 'r', encoding='utf-8') as f:
-        templates.extend(json.load(f))
+    # with open(template_2param_path, 'r', encoding='utf-8') as f:
+    #     templates.extend(json.load(f))
     return templates
 
 
@@ -90,20 +90,20 @@ def normalize_type(node_type: str) -> str:
     将数据中的类型名转换为模板中使用的标签格式
     """
     type_mapping = {
-        'gene/protein': ['Protein', 'gene_protein', 'protein'],
+        'protein': ['Protein', 'gene_protein', 'protein', 'gene/protein'],
         'drug': ['Drug', 'drug'],
         'disease': ['Disease', 'disease'],
         'anatomy': ['Anatomy', 'anatomy'],
-        'biological_process': ['BiologicalProcess', 'biological_process'],
-        'molecular_function': ['MolecularFunction', 'molecular_function'],
-        'cellular_component': ['CellularComponent', 'cellular_component'],
+        'BiologicalProcess': ['BiologicalProcess', 'biological_process'],
+        'MolecularFunction': ['MolecularFunction', 'molecular_function'],
+        'CellularComponent': ['CellularComponent', 'cellular_component'],
         'pathway': ['Pathway', 'pathway'],
-        'effect/phenotype': ['Phenotype', 'effect_phenotype', 'phenotype'],
+        'phenotype': ['Phenotype', 'effect_phenotype', 'phenotype', 'effect/phenotype'],
         'exposure': ['Exposure', 'exposure'],
     }
     
     for key, values in type_mapping.items():
-        if node_type.lower() == key.lower() or node_type in values:
+        if node_type.lower() in [v.lower() for v in values]:
             return key
     return node_type.lower()
 
@@ -433,9 +433,9 @@ def process_name_typo(
     """
     results = []
     
-    field = record['field']  # x_name 或 y_name
-    noisy_name = record['noisy_name']
-    original_name = record['original_name']
+    # 从新格式的记录中提取字段
+    field = record['target']['location']['column_name']  # x_name 或 y_name
+    original_name = record['change']['original_value']
     
     # 根据 field 确定类型字段
     type_field = 'x_type' if field == 'x_name' else 'y_type'
@@ -459,16 +459,14 @@ def process_name_typo(
         template = match['template']
         param_name = match['param_name']
         
-        # 使用噪声名称填充模板
-        query = fill_template(template, param_name, noisy_name)
+        # 使用原始名称填充模板
+        query = fill_template(template, param_name, original_name)
         
         results.append({
             'record': record,
             'template_id': template.get('template_id', template.get('query_id', 'unknown')),
             'query_type': template.get('query_type', ''),
             'generated_query': query,
-            'original_name': original_name,
-            'noisy_name': noisy_name,
             'node_type': node_type,
             'status': 'success'
         })
@@ -486,8 +484,9 @@ def process_false_edge(
     """
     results = []
     
-    replaced_field = record['replaced_field']  # x_id 或 y_id
-    node_type = record['node_type']
+    # 从新格式的记录中提取字段
+    replaced_field = record['target']['location']['column_name']  # x_id 或 y_id
+    node_type = record['change']['node_type']
     
     relation = row_data.get('relation', '')
     display_relation = row_data.get('display_relation', '')
@@ -542,8 +541,9 @@ def process_relation_type_noise(
     """
     results = []
     
-    original_relation = record['original_relation']
-    target_field = record.get('target_field', 'relation')
+    # 从新格式的记录中提取字段
+    original_relation = record['change']['original_value']
+    target_field = record['target']['location']['column_name']
     
     x_type = row_data.get('x_type', '')
     y_type = row_data.get('y_type', '')
@@ -603,9 +603,10 @@ def process_node_type_noise(
     """
     results = []
     
-    field = record['field']  # x_type 或 y_type
-    new_type = record['new_type']
-    original_type = record['original_type']
+    # 从新格式的记录中提取字段
+    field = record['target']['location']['column_name']  # x_type 或 y_type
+    new_type = record['change']['new_value']
+    original_type = record['change']['original_value']
     
     relation = row_data.get('relation', '')
     display_relation = row_data.get('display_relation', '')
@@ -686,7 +687,7 @@ def generate_noise_queries(
     # 统计各类型扰动数量
     type_counts = defaultdict(int)
     for op in operations:
-        type_counts[op.get('operation', 'unknown')] += 1
+        type_counts[op.get('meta', {}).get('operation_type', 'unknown')] += 1
     
     print("Perturbation types distribution:")
     for op_type, count in type_counts.items():
@@ -701,7 +702,7 @@ def generate_noise_queries(
     # 按 row_index 分组，提高读取效率
     operations_by_row = defaultdict(list)
     for i, op in enumerate(operations):
-        row_index = op.get('row_index')
+        row_index = op.get('target', {}).get('location', {}).get('row_index')
         if row_index is not None:
             operations_by_row[row_index].append((i, op))
     
@@ -751,7 +752,7 @@ def generate_noise_queries(
             row_data = df.loc[row_idx].to_dict()
             
             for _, op in operations_by_row[row_idx]:
-                operation_type = op.get('operation', '').strip()
+                operation_type = op.get('meta', {}).get('operation_type', '').strip()
                 
                 try:
                     if operation_type == 'name_typo':
@@ -791,7 +792,7 @@ def generate_noise_queries(
         'metadata': {
             'source_perturb_record': perturb_record_path,
             'source_csv': csv_path,
-            'templates_used': [template_1param_path, template_2param_path],
+            'templates_used': [template_1param_path],
             'total_perturb_records': len(operations),
             'total_generated': len(all_results),
             'success_count': success_count,
@@ -819,7 +820,7 @@ def generate_noise_queries(
     # 按扰动类型统计成功率
     type_stats = defaultdict(lambda: {'success': 0, 'no_match': 0, 'error': 0})
     for r in all_results:
-        op_type = r.get('record', {}).get('operation', 'unknown')
+        op_type = r.get('record', {}).get('meta', {}).get('operation_type', 'unknown')
         status = r.get('status', 'error')
         type_stats[op_type][status] += 1
     

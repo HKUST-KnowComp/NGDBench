@@ -6,7 +6,7 @@
         "query_parameters": {
             "protein_name": "蛋白/转运体名称"
         },
-        "nl": "查找明确使用 [蛋白名称] 作为转运体（Transporter）的药物",
+        "nl": "Find drugs that explicitly use {protein_name} as a transporter",
         "example": {
             "protein_name": "ABCB1"
         }
@@ -18,7 +18,7 @@
         "query_parameters": {
             "drug_name": "药物名称"
         },
-        "nl": "查找 [药物名称] 的靶点蛋白主要在哪些解剖部位有表达（药物副作用的解剖学定位）",
+        "nl": "Find the anatomical regions where the target proteins of {drug_name} are expressed (anatomical localization of drug side effects)",
         "example": {
             "drug_name": "Aspirin"
         }
@@ -30,7 +30,7 @@
         "query_parameters": {
             "drug_name": "药物名称"
         },
-        "nl": "查找 [药物名称] 通过其靶点蛋白影响了哪些生物通路（基于靶点的药物-通路机制探索）",
+        "nl": "Find which biological pathways {drug_name} affects through its target proteins (target-based drug-pathway mechanism exploration)",
         "example": {
             "drug_name": "Metformin"
         }
@@ -38,11 +38,11 @@
     {
         "template_id": "T3",
         "query_type": "phenotype-based-drug-discovery",
-        "query_template": "MATCH (d:disease {name: \"{disease_name}\"})-[:disease_phenotype_positive]->(ph:effect_phenotype) MATCH (g:gene_protein)-[:phenotype_protein]->(ph) MATCH (dr:drug)-[:drug_protein]->(g) RETURN DISTINCT dr LIMIT 50",
+        "query_template": "MATCH (d:disease {name: \"{disease_name}\"})-[:disease_phenotype_positive]->(ph:phenotype) MATCH (g:protein)-[:phenotype_protein]->(ph) MATCH (dr:drug)-[:drug_protein]->(g) RETURN DISTINCT dr LIMIT 50",
         "query_parameters": {
             "disease_name": "疾病名称"
         },
-        "nl": "查找针对某些基因/蛋白的药物，而这些基因/蛋白已知会导致 [疾病名称] 所表现出的某种表型，用于寻找可能缓解疾病症状的药物",
+        "nl": "Find drugs targeting genes/proteins that are known to cause phenotypes exhibited by {disease_name}, for discovering drugs that may alleviate disease symptoms",
         "example": {
             "disease_name": "Alzheimer's disease"
         }
@@ -50,11 +50,11 @@
     {
         "template_id": "T4",
         "query_type": "anatomy-based-disease-risk",
-        "query_template": "MATCH (p:gene_protein)-[:anatomy_protein_present]->(a:anatomy {name: \"{anatomy_name}\"}) MATCH (p)-[:disease_protein]->(d:disease) RETURN DISTINCT d LIMIT 50",
+        "query_template": "MATCH (p:protein)-[:anatomy_protein_present]->(a:anatomy {name: \"{anatomy_name}\"}) MATCH (p)-[:disease_protein]->(d:disease) RETURN DISTINCT d LIMIT 50",
         "query_parameters": {
             "anatomy_name": "解剖部位名称"
         },
-        "nl": "查找在 [解剖部位] 表达的蛋白，并找出这些蛋白关联了哪些疾病，用于探索特定器官可能发生的疾病风险",
+        "nl": "Find proteins expressed in {anatomy_name} and identify which diseases these proteins are associated with, for exploring disease risks in specific organs",
         "example": {
             "anatomy_name": "Liver"
         }
@@ -62,11 +62,11 @@
     {
         "template_id": "T19",
         "query_type": "protein-anatomy-network",
-        "query_template": "MATCH (p:gene_protein {name: \"{protein_name}\"})-[:anatomy_protein_present]->(a1:anatomy)-[:anatomy_anatomy]-(a2:anatomy) RETURN DISTINCT a1, a2 LIMIT 50",
+        "query_template": "MATCH (p:protein {name: \"{protein_name}\"})-[:anatomy_protein_present]->(a1:anatomy)-[:anatomy_anatomy]-(a2:anatomy) RETURN DISTINCT a1, a2 LIMIT 50",
         "query_parameters": {
             "protein_name": "蛋白质名称"
         },
-        "nl": "查找 [蛋白质] 表达的解剖部位，并找出这些解剖部位关联的其它解剖部位，用于探索该蛋白质可能影响的器官网络。",
+        "nl": "Find anatomical regions where {protein_name} is expressed, and identify other anatomical regions associated with them, for exploring the organ network that the protein may affect",
         "example": {
             "protein_name": "TP53"
         }
@@ -74,11 +74,11 @@
     {
         "template_id": "T5",
         "query_type": "drug-pathway-mechanism",
-        "query_template": "MATCH (d:drug {name: \"{drug_name}\"})-[:drug_protein]->(p:gene_protein) MATCH (p)-[:pathway_protein]->(pw:pathway) RETURN DISTINCT pw LIMIT 50",
+        "query_template": "MATCH (d:drug {name: \"{drug_name}\"})-[:drug_protein]->(p:protein) MATCH (p)-[:pathway_protein]->(pw:pathway) RETURN DISTINCT pw LIMIT 50",
         "query_parameters": {
             "drug_name": "药物名称"
         },
-        "nl": "查找 [药物名称] 通过其靶点蛋白最终影响了哪些生物通路，用于理解药物的作用机理（MOA）",
+        "nl": "Find which biological pathways {drug_name} ultimately affects through its target proteins, for understanding the mechanism of action (MOA)",
         "example": {
             "drug_name": "Imatinib"
         }
@@ -86,9 +86,9 @@
     {
         "template_id": "T7",
         "query_type": "drug-multitarget-statistics",
-        "query_template": "MATCH (d:drug)-[:drug_protein]->(p:gene_protein) WITH d, COUNT(p) as cnt ORDER BY cnt DESC RETURN d, cnt LIMIT 50",
+        "query_template": "MATCH (d:drug)-[:drug_protein]->(p:protein) WITH d, COUNT(p) as cnt ORDER BY cnt DESC RETURN d, cnt LIMIT 50",
         "query_parameters": {},
-        "nl": "统计数据库中所有药物的靶点数量，并按靶点数量从高到低排序，返回前50个最广谱的药物（多重药理学分析）",
+        "nl": "Count the number of targets for all drugs in the database, sort by target count in descending order, and return the top 50 broadest-spectrum drugs (polypharmacology analysis)",
         "example": {}
     },
     {
@@ -218,7 +218,7 @@
         "query_parameters": {
             "drug_name": "药物名称"
         },
-        "nl": "查找与 [药物名称] 存在协同作用（synergistic interaction）的药物共同作用到的蛋白靶点。",
+        "nl": "Find protein targets that are shared by drugs having synergistic interactions with {drug_name}",
         "example": {
             "drug_name": "Aspirin"
         }
@@ -226,11 +226,11 @@
     {
         "template_id": "T20",
         "query_type": "drug-synergistic-side-effects",
-        "query_template": "MATCH (d:Drug {name: \"{drug_name}\"})-[:drug_drug {label: \"synergistic interaction\"}]-(d2:Drug)-[:drug_effect {label: \"side effect\"}]->(e:effect_phenotype) RETURN DISTINCT d2, e LIMIT 50",
+        "query_template": "MATCH (d:Drug {name: \"{drug_name}\"})-[:drug_drug {label: \"synergistic interaction\"}]-(d2:Drug)-[:drug_effect {label: \"side effect\"}]->(e:phenotype) RETURN DISTINCT d2, e LIMIT 50",
         "query_parameters": {
             "drug_name": "药物名称"
         },
-        "nl": "查找和 [药物名称] 具有协同作用（synergistic interaction）的药物，以及这些协同药物相关的副作用（side effect）。",
+        "nl": "Find drugs that have synergistic interactions with {drug_name}, along with the side effects associated with these synergistic drugs",
         "example": {
             "drug_name": "Aspirin"
         }
@@ -934,5 +934,73 @@
         }
       },
       "expected_columns": ["biological_process", "disease_count", "protein_count"]
+    },
+    {
+      "template_id": "T056",
+      "query_type": "protein-ppi-disease-drug",
+      "query_template": "MATCH (p:Protein {name: \"{protein_name}\"})-[:PROTEIN_PROTEIN]-(p2:Protein) OPTIONAL MATCH (p2)-[:DISEASE_PROTEIN]-(d:disease) OPTIONAL MATCH (dr:drug)-[:DRUG_PROTEIN]-(p2) RETURN DISTINCT p2.name AS InteractingProtein, collect(DISTINCT d.name) AS RelatedDiseases, collect(DISTINCT dr.name) AS TargetingDrugs LIMIT 50",
+      "query_parameters": {
+        "protein_name": {
+          "type": "string",
+          "source": "Protein"
+        }
+      },
+      "nl": "Given a protein {protein_name}, find its PPI interaction partners, the diseases associated with those partners, and drugs that target them",
+      "example": {
+        "protein_name": "TP53"
+      },
+      "expected_columns": ["InteractingProtein", "RelatedDiseases", "TargetingDrugs"]
+    },
+    {
+      "template_id": "T057",
+      "query_type": "biological-process-protein-disease-drug",
+      "query_template": "MATCH (bp:BiologicalProcess {name: \"{biological_process_name}\"})-[:BioprocessProtein {label: \"interacts with\"}]->(p:Protein) OPTIONAL MATCH (p)<-[:disease_protein]-(d:disease) OPTIONAL MATCH (dr:drug)-[:drug_protein]->(p) RETURN DISTINCT p.name AS InvolvedProtein, collect(DISTINCT d.name) AS RelatedDiseases, collect(DISTINCT dr.name) AS TargetingDrugs LIMIT 50",
+      "query_parameters": {
+        "biological_process_name": "生物过程名称（GO biological process）"
+      },
+      "nl": "Given a biological process {biological_process_name}, find the proteins involved in this process, the diseases associated with those proteins, and drugs that target them",
+      "example": {
+        "biological_process_name": "substantia nigra development"
+      }
+    },
+    {
+      "template_id": "T058",
+      "query_type": "protein-bioprocess-exposure-disease",
+      "query_template": "MATCH (p:Protein {name: \"{protein_name}\"})<-[:bioprocess_protein {label: \"interacts with\"}]-(bp:BiologicalProcess) MATCH (bp)<-[:exposure_bioprocess]-(e:exposure) OPTIONAL MATCH (e)-[:exposure_disease]->(d:disease) RETURN DISTINCT bp.name AS BiologicalProcess, e.name AS Exposure, collect(DISTINCT d.name) AS RelatedDiseases LIMIT 50",
+      "query_parameters": {
+        "protein_name": "基因/蛋白名称"
+      },
+      "nl": "Given a protein {protein_name}, find biological processes it participates in, the exposures linked to those processes, and diseases associated with those exposures",
+      "example": {
+        "protein_name": "HSPA1A"
+      }
+    },
+    {
+      "template_id": "T059",
+      "query_type": "bioprocess-hierarchy-protein",
+      "query_template": "MATCH (bp:BiologicalProcess {name: \"{biological_process_name}\"})-[:bioprocess_bioprocess {label: \"parent-child\"}]->(child_bp:BiologicalProcess) OPTIONAL MATCH (child_bp)-[:bioprocess_protein {label: \"interacts with\"}]->(p:Protein) RETURN DISTINCT child_bp.name AS ChildBiologicalProcess, collect(DISTINCT p.name) AS InvolvedProteins LIMIT 50",
+      "query_parameters": {
+        "biological_process_name": "父级生物过程名称"
+      },
+      "nl": "Given a biological process {biological_process_name}, find its child processes and the proteins involved in each child process",
+      "example": {
+        "biological_process_name": "neuron differentiation"
+      }
+    },
+    {
+      "template_id": "T060",
+      "query_type": "cellular-component-protein-disease",
+      "query_template": "MATCH (cc:cellular_component {name: \"{cellular_component_name}\"})-[:cellcomp_protein {label: \"interacts with\"}]->(p:gene_protein) OPTIONAL MATCH (p)<-[:disease_protein]-(d:disease) RETURN DISTINCT p.name AS Protein, collect(DISTINCT d.name) AS RelatedDiseases LIMIT 50",
+      "query_parameters": {
+        "cellular_component_name": "细胞组分名称"
+      },
+      "nl": "Given a cellular component {cellular_component_name}, find the proteins associated with it and the diseases related to these proteins",
+      "example": {
+        "cellular_component_name": "nucleus"
+      }
     }
+    
+    
+
+    
 ]
