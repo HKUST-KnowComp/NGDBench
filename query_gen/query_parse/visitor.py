@@ -104,15 +104,19 @@ class CypherASTVisitor(CypherParserVisitor):
             })
 
         if body.orderSt():
-            for sort in body.orderSt().sortItem():
+            for item in body.orderSt().orderItem():
                 direction = "ASC"
-                if sort.DESC():
+
+                if item.DESC():
                     direction = "DESC"
+                elif item.ASC():
+                    direction = "ASC"
 
                 self.ast["return"]["orderBy"].append({
-                    "expr": sort.expression().getText(),
+                    "expr": item.expression().getText(),
                     "direction": direction
                 })
+
 
         if body.limitSt():
             self.ast["return"]["limit"] = int(

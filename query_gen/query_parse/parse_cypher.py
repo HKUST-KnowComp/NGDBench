@@ -21,9 +21,10 @@ def parse_cypher_to_ast(query: str):
     return visitor.ast
     
 def main():
+    
     query = """
-    MATCH (d:Disease {name:\"hepatocellular carcinoma\"})-[:DISEASE_PROTEIN]-(p:Protein)<-[:DRUG_PROTEIN]-(dr:Drug) WHERE NOT (dr)-[:CONTRAINDICATION]-(:Disease) RETURN DISTINCT dr.name
-    """
+    MATCH (d1:Disease {name: \"Chediak-Higashi syndrome\"})-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype)-[:DISEASE_PHENOTYPE_POSITIVE]-(d2:Disease) MATCH (d2)-[:EXPOSURE_DISEASE]-(exp:Exposure) RETURN exp.name AS exposure, COUNT(DISTINCT d2) AS associated_diseases ORDER BY associated_diseases DESC
+        """
 
     ast = parse_cypher_to_ast(query)
 

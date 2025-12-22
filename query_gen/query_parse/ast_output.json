@@ -11,62 +11,102 @@
           "elements": [
             {
               "type": "node",
-              "variable": "d",
+              "variable": "d1",
               "labels": [
                 "Disease"
               ],
               "properties": {
-                "name": "\"hepatocellular carcinoma\""
+                "name": "\"Chediak-Higashi syndrome\""
               }
             },
             {
               "type": "relationship",
               "labels": [
-                "DISEASE_PROTEIN"
+                "DISEASE_PHENOTYPE_POSITIVE"
               ],
               "direction": "->"
             },
             {
               "type": "node",
-              "variable": "p",
+              "variable": "pheno",
               "labels": [
-                "Protein"
+                "Phenotype"
               ],
               "properties": {}
             },
             {
               "type": "relationship",
               "labels": [
-                "DRUG_PROTEIN"
+                "DISEASE_PHENOTYPE_POSITIVE"
               ],
               "direction": "->"
             },
             {
               "type": "node",
-              "variable": "dr",
+              "variable": "d2",
               "labels": [
-                "Drug"
+                "Disease"
               ],
               "properties": {}
             }
           ]
         }
       ],
-      "where": {
-        "type": "where",
-        "expression": "NOT (dr)-[:CONTRAINDICATION]-(:Disease)"
-      }
+      "where": null
+    },
+    {
+      "type": "match",
+      "optional": false,
+      "patterns": [
+        {
+          "type": "path",
+          "variable": null,
+          "elements": [
+            {
+              "type": "node",
+              "variable": "d2",
+              "labels": [],
+              "properties": {}
+            },
+            {
+              "type": "relationship",
+              "labels": [
+                "EXPOSURE_DISEASE"
+              ],
+              "direction": "->"
+            },
+            {
+              "type": "node",
+              "variable": "exp",
+              "labels": [
+                "Exposure"
+              ],
+              "properties": {}
+            }
+          ]
+        }
+      ],
+      "where": null
     }
   ],
   "return": {
-    "distinct": true,
+    "distinct": false,
     "items": [
       {
-        "expr": "dr.name",
-        "alias": null
+        "expr": "exp.name",
+        "alias": "exposure"
+      },
+      {
+        "expr": "COUNT(DISTINCT d2)",
+        "alias": "associated_diseases"
       }
     ],
-    "orderBy": [],
+    "orderBy": [
+      {
+        "expr": "associated_diseases",
+        "direction": "DESC"
+      }
+    ],
     "limit": null
   }
 }
