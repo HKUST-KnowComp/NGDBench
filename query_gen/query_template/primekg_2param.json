@@ -96,5 +96,73 @@
             "rel_3": "pathway_disease"
         },
         "note": "在实际代码中，Label和Relationship Type通常不能直接作为参数传递，需要使用字符串拼接方式构建查询，或者使用 APOC 库"
-    }
+    },
+    {
+        "template_id": "T037",
+        "query_type": "Four-Hop Drug Mechanism",
+        "nl": "Find biological pathways connecting {drug_name} to {disease_name} through proteins and molecular functions.",
+        "query_template": "MATCH (drug:Drug {name: $drug_name})-[:DRUG_PROTEIN]-(p1:Protein)-[:MOLFUNC_PROTEIN]-(mf:MolecularFunction)-[:MOLFUNC_PROTEIN]-(p2:Protein)-[:DISEASE_PROTEIN]-(d:Disease {name: $disease_name}) MATCH (p1)-[:PATHWAY_PROTEIN]-(path:Pathway)-[:PATHWAY_PROTEIN]-(p2) RETURN path.name AS connecting_pathway, COUNT(DISTINCT p1) AS proteins_from_drug, COUNT(DISTINCT p2) AS proteins_to_disease ORDER BY proteins_from_drug DESC",
+        "query_parameters": {
+          "drug_name": {
+            "type": "string",
+            "source": "Drug"
+          },
+          "disease_name": {
+            "type": "string",
+            "source": "Disease"
+          }
+        },
+        "expected_columns": ["connecting_pathway", "proteins_from_drug", "proteins_to_disease"]
+      },
+      {
+        "template_id": "T024",
+        "query_type": "Multi-Modal Query",
+        "nl": "Find drugs that target proteins expressed in {anatomy_name} and are indicated for diseases with phenotype {phenotype_name}.",
+        "query_template": "MATCH (a:Anatomy {name: $anatomy_name})-[:ANATOMY_PROTEIN_PRESENT]-(p:Protein)-[:DRUG_PROTEIN]-(drug:Drug) MATCH (drug)-[:INDICATION]-(d:Disease)-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype {name: $phenotype_name}) RETURN drug.name AS drug_name, d.name AS disease_name, COUNT(DISTINCT p) AS target_count ORDER BY target_count DESC",
+        "query_parameters": {
+          "anatomy_name": {
+            "type": "string",
+            "source": "Anatomy"
+          },
+          "phenotype_name": {
+            "type": "string",
+            "source": "Phenotype"
+          }
+        },
+        "expected_columns": ["drug_name", "disease_name", "target_count"]
+      },
+      {
+        "template_id": "T017",
+        "query_type": "Biological Process Analysis",
+        "nl": "Find biological processes that involve proteins associated with both {disease1_name} and {disease2_name}.",
+        "query_template": "MATCH (d1:Disease {name: $disease1_name})-[:DISEASE_PROTEIN]-(p:Protein)-[:DISEASE_PROTEIN]-(d2:Disease {name: $disease2_name}) WHERE d1 <> d2 MATCH (p)-[:BIOPROCESS_PROTEIN]-(bp:BiologicalProcess) RETURN bp.name AS biological_process, COUNT(DISTINCT p) AS shared_proteins ORDER BY shared_proteins DESC",
+        "query_parameters": {
+          "disease1_name": {
+            "type": "string",
+            "source": "Disease"
+          },
+          "disease2_name": {
+            "type": "string",
+            "source": "Disease"
+          }
+        },
+        "expected_columns": ["biological_process", "shared_proteins"]
+      },
+      {
+        "template_id": "T052",
+        "query_type": "Phenotype-Drug-Anatomy",
+        "nl": "Find drugs that target proteins expressed in {anatomy_name} and are associated with diseases having phenotype {phenotype_name}.",
+        "query_template": "MATCH (a:Anatomy {name: $anatomy_name})-[:ANATOMY_PROTEIN_PRESENT]-(p:Protein)-[:DRUG_PROTEIN]-(drug:Drug) MATCH (drug)-[:INDICATION]-(d:Disease)-[:DISEASE_PHENOTYPE_POSITIVE]-(pheno:Phenotype {name: $phenotype_name}) RETURN drug.name AS drug_name, d.name AS disease_name, COUNT(DISTINCT p) AS target_count ORDER BY target_count DESC",
+        "query_parameters": {
+          "anatomy_name": {
+            "type": "string",
+            "source": "Anatomy"
+          },
+          "phenotype_name": {
+            "type": "string",
+            "source": "Phenotype"
+          }
+        },
+        "expected_columns": ["drug_name", "disease_name", "target_count"]
+      }
 ]

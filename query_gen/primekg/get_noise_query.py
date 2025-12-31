@@ -7,14 +7,14 @@ from pathlib import Path
 
 # ============ 配置区域 ============
 # 扰动记录文件路径
-PERTURB_RECORD_PATH = "../../data_gen/perturbation_generator/perturb_record/semantic_SemanticPerturbationGenerator_20251220_163553.json"
+PERTURB_RECORD_PATH = "../../data_gen/perturbation_generator/perturb_record/semantic_SemanticPerturbationGenerator_train_20251226_033149.json"
 # CSV 文件路径 (扰动后的数据集)
-CSV_PATH = "../../data_gen/perturbed_dataset/PrimeKG_2512201635/kg.csv"
+CSV_PATH = "../../data_gen/perturbed_dataset/PrimeKG_2512260331/kg_clean_train.csv"
 # 查询模板文件路径
-TEMPLATE_1PARAM_PATH = "../query_template/primekg_1param.json"
+TEMPLATE_1PARAM_PATH = "../query_template/primekg_train.json"
 TEMPLATE_2PARAM_PATH = "../query_template/primekg_2param.json"
 # 输出路径
-OUTPUT_PATH = "noise_queries2.json"
+OUTPUT_PATH = "noise_queries_test.json"
 # 批处理大小
 BATCH_SIZE = 1000
 # =================================
@@ -423,6 +423,29 @@ def fill_template(template: Dict, param_name: str, value: str) -> str:
     return query
 
 
+def fill_nl_template(template: Dict, param_name: str, value: str) -> str:
+    """
+    填充自然语言模板参数
+    
+    Args:
+        template: 查询模板字典
+        param_name: 参数名称
+        value: 参数值
+    
+    Returns:
+        填充后的自然语言描述
+    """
+    nl = template.get('nl', '')
+    
+    if not nl:
+        return ''
+    
+    # 替换 {param_name} 格式的占位符
+    nl = nl.replace(f'{{{param_name}}}', value)
+    
+    return nl
+
+
 def process_name_typo(
     record: Dict,
     row_data: Dict,
@@ -461,12 +484,15 @@ def process_name_typo(
         
         # 使用原始名称填充模板
         query = fill_template(template, param_name, original_name)
+        # 填充自然语言模板
+        nl = fill_nl_template(template, param_name, original_name)
         
         results.append({
             'record': record,
             'template_id': template.get('template_id', template.get('query_id', 'unknown')),
             'query_type': template.get('query_type', ''),
             'generated_query': query,
+            'generated_nl': nl,
             'node_type': node_type,
             'status': 'success'
         })
@@ -491,13 +517,8 @@ def process_false_edge(
     relation = row_data.get('relation', '')
     display_relation = row_data.get('display_relation', '')
     
-    # 获取对应的名称字段
-    if replaced_field == 'x_id':
-        name_field = 'x_name'
-    else:
-        name_field = 'y_name'
-    
-    node_name = row_data.get(name_field, '')
+    # 直接从扰动记录中获取原始名称
+    node_name = record['change'].get('original_name', '')
     
     # 匹配模板
     matched_templates = match_template_for_false_edge(
@@ -516,12 +537,15 @@ def process_false_edge(
         param_name = match['param_name']
         
         query = fill_template(template, param_name, node_name)
+        # 填充自然语言模板
+        nl = fill_nl_template(template, param_name, node_name)
         
         results.append({
             'record': record,
             'template_id': template.get('template_id', template.get('query_id', 'unknown')),
             'query_type': template.get('query_type', ''),
             'generated_query': query,
+            'generated_nl': nl,
             'node_name': node_name,
             'node_type': node_type,
             'replaced_field': replaced_field,
@@ -578,12 +602,15 @@ def process_relation_type_noise(
         name_value = x_name if use_field == 'x_name' else y_name
         
         query = fill_template(template, param_name, name_value)
+        # 填充自然语言模板
+        nl = fill_nl_template(template, param_name, name_value)
         
         results.append({
             'record': record,
             'template_id': template.get('template_id', template.get('query_id', 'unknown')),
             'query_type': template.get('query_type', ''),
             'generated_query': query,
+            'generated_nl': nl,
             'used_field': use_field,
             'name_value': name_value,
             'match_type': match['match_type'],
@@ -636,12 +663,15 @@ def process_node_type_noise(
         param_name = match['param_name']
         
         query = fill_template(template, param_name, node_name)
+        # 填充自然语言模板
+        nl = fill_nl_template(template, param_name, node_name)
         
         results.append({
             'record': record,
             'template_id': template.get('template_id', template.get('query_id', 'unknown')),
             'query_type': template.get('query_type', ''),
             'generated_query': query,
+            'generated_nl': nl,
             'node_name': node_name,
             'original_type': original_type,
             'new_type': new_type,

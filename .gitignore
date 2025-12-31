@@ -135,14 +135,17 @@ data_gen/gnd_dataset/*
 data_gen/perturbed_dataset/*
 data_gen/perturb_record/*
 pipeline/data_analyser/buffer/*
+data_gen/graph_gen/graph_buffer/*
 query_gen/query/*
+query_gen/query_parse/output/*
+
 # 保留 example_data 目录及内容
 !data_gen/gnd_dataset/example_data/
 !data_gen/gnd_dataset/example_data/**
 !data_gen/perturbed_dataset/example_data/
 !data_gen/perturbed_dataset/example_data/**
 !data_gen/perturb_record/example_record.json
-
+!query_gen/query_parse/output/ast_output_example.json
 # # 排除大型数据文件
 # *.csv
 # src/*.csv

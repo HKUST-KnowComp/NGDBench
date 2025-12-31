@@ -189,13 +189,13 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
             # 如果有指导文件，使用指导文件定义的噪声类型
             if self.guide_data and self.noise_profile:
                 noise_types = self.guide_data.get('noise_types', {})
-                noise_config = self.guide_data.get('field_targets', {})
+                
                 for noise_type, ratio in self.noise_profile.items():
                     if ratio <= 0 or noise_type not in noise_types:
                         continue
                     
                     print(f"应用噪声类型: {noise_type} (比例: {ratio}) 到文件: {filename}")
-                    
+                    noise_config = noise_types.get(noise_type, {})
                     # 根据噪声类型调用对应的处理方法
                     if noise_type == 'false_edges':
                         df, ops = self._apply_false_edges(df, noise_config, ratio, file_path, filename)
@@ -244,11 +244,18 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
         
         if num_to_perturb == 0:
             return df, operations
-        
         # 获取 target_fields 和 refer_fields
-        target_fields = config.get('target_fields', {}).get('base_fields', ['x_id', 'y_id'])
-        refer_fields = config.get('target_fields', {}).get('refer_fields', ['x_type', 'y_type'])
-        affiliation_fields = config.get('target_fields', {}).get('affiliation', ['x_name', 'y_name'])
+        # 支持两种配置格式：列表格式或嵌套字典格式
+        target_fields_config = config.get('target_fields', ['x_id', 'y_id'])
+        if isinstance(target_fields_config, dict):
+            target_fields = target_fields_config.get('base_fields', ['x_id', 'y_id'])
+            refer_fields = target_fields_config.get('refer_fields', ['x_type', 'y_type'])
+            affiliation_fields = target_fields_config.get('affiliation', ['x_name', 'y_name'])
+        else:
+            # 列表格式：target_fields 和 refer_fields 是独立的顶级字段
+            target_fields = target_fields_config
+            refer_fields = config.get('refer_fields', ['x_type', 'y_type'])
+            affiliation_fields = config.get('affiliation', ['x_name', 'y_name'])
         constraints = config.get('constraints', {})
         avoid_existing = constraints.get('avoid_existing_edges', True)
         type_consistent = constraints.get('type_consistent', True)
@@ -501,8 +508,7 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
         if not available_fields:
             return df, operations
         
-        typo_operations = config.get('operations', ['character_substitution', 'character_deletion', 
-                                                    'character_insertion', 'case_alteration'])
+        typo_operations = config.get('operations')
         
         rows_to_perturb = random.sample(range(num_rows), min(num_to_perturb, num_rows))
         
@@ -586,6 +592,13 @@ class SemanticPerturbationGenerator(BasePerturbationGenerator):
             pos = random.randint(0, len(text_list) - 1)
             if text_list[pos].isalpha():
                 text_list[pos] = text_list[pos].swapcase()
+        
+        elif operation == 'mix':
+            # 混合任意两类噪声
+            available_ops = ['character_substitution', 'character_deletion', 'character_insertion', 'case_alteration']
+            selected_ops = random.sample(available_ops, 2)
+            for op in selected_ops:
+                text_list = list(self._introduce_typo(''.join(text_list), [op]))
         
         return ''.join(text_list)
     

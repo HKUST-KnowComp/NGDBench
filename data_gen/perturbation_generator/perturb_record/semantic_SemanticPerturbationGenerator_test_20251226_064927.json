@@ -1,0 +1,12 @@
+{
+  "method": "semantic_noise",
+  "operations": [],
+  "perturbed_data_path": "perturbed_dataset/PrimeKG_2512260649/kg_clean.csv",
+  "log_info": {
+    "generator_index": "1/1",
+    "record_path": "/home/ylivm/fei_work/NGDB_Benchmark/data_gen/perturbation_generator/perturb_record/semantic_SemanticPerturbationGenerator_test_20251226_064927.json",
+    "method": "semantic_noise",
+    "operation_count": 0,
+    "perturbed_data_path": "perturbed_dataset/PrimeKG_2512260649/kg_clean.csv"
+  }
+}

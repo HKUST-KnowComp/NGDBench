@@ -75,13 +75,46 @@ class CypherASTVisitor(CypherParserVisitor):
     def visitRelationshipPattern(self, ctx):
         rel = {
             "type": "relationship",
+            "variable": None,
             "labels": [],
+            "properties": {},
             "direction": "->"
         }
 
+        # Determine direction from arrows by checking LT (<) and GT (>) tokens
+        # Pattern: <-[...]- or -[...]-> or -[...]-
+        text = ctx.getText()
+        has_left_arrow = text.startswith('<')
+        has_right_arrow = text.endswith('>')
+        
+        if has_left_arrow and not has_right_arrow:
+            rel["direction"] = "<-"
+        elif has_right_arrow and not has_left_arrow:
+            rel["direction"] = "->"
+        elif has_left_arrow and has_right_arrow:
+            rel["direction"] = "-"  # bidirectional
+        else:
+            rel["direction"] = "-"  # no direction
+
         detail = ctx.relationDetail()
-        if detail and detail.relationshipTypes():
-            rel["labels"] = [n.getText() for n in detail.relationshipTypes().name()]
+        if detail:
+            # Extract variable
+            if detail.symbol():
+                rel["variable"] = detail.symbol().getText()
+            
+            # Extract relationship types
+            if detail.relationshipTypes():
+                rel["labels"] = [n.getText() for n in detail.relationshipTypes().name()]
+            
+            # Extract properties
+            if detail.properties():
+                try:
+                    for pair in detail.properties().mapLit().mapPair():
+                        key = pair.name().getText()
+                        value = pair.expression().getText().strip("'")
+                        rel["properties"][key] = value
+                except:
+                    pass  # No properties or parsing error
 
         return rel
     

@@ -1,9 +1,11 @@
 # 数据源配置
 data_source:
-  root_data_path: "gnd_dataset/PrimeKG/kg.csv"
+  root_data_path: "gnd_dataset/PrimeKG/kg_clean.csv"
   data_file_format: ".csv"
   dataset_name: "PrimeKG" 
-guide_file: "perturbation_generator/semantic_perturb_guide/paramkg.json"
+mode: "test"
+guide_file: "perturbation_generator/semantic_perturb_guide/paramkg_test.json"
+
 # perturbation generator config
 perturbation:
   method: "semantic" # "random", "semantic", "topology", mixture is accepted

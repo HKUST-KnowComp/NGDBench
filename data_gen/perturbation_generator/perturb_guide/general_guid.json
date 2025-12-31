@@ -1,0 +1,41 @@
+{
+    "noise_types": {
+        "incomplete_edges": {
+            "description": "Delete a certain edge from the graph to simulate missing relations caused by data incompleteness source or data collection errors.",
+            "constraints": {
+              "avoid_dangling_edges": true
+            }
+        },
+        "false_edges": {
+            "description": "A false edge is an edge that does not exist in the original graph but is added to the graph to simulate incorrect relations extracted from noisy sources.",
+            "constraints": {
+              "avoid_dangling_edges": true
+            }
+        },
+        "relation_type_noise": {
+        "description": "Replace or add the relation type or display_relation with another valid relation of the same semantic family to simulate extraction misclassification.",
+        "constraints": {
+          "same_relation_family": true
+        }
+        },
+        "node_type_noise": {
+          "description": "For a ceratin node, replace its node type with another valid node type to simulate entity classification errors.",
+          "constraints": {
+            "allow_invalid_combinations": true
+        }
+        },
+        "name_typos": {
+        "description": "Inject character-level noise into the name of a node to mimic OCR errors, NLP extraction mistakes, or synonym ambiguity.",
+        "operations": ["character_substitution", "character_deletion", "character_insertion", "case_alteration", "mix"]
+        }
+    },
+  
+    "default_profile": {
+      "incomplete_edges": 0.02,
+      "false_edges": 0.03,
+      "relation_type_noise": 0.02,
+      "name_typos": 0.2,
+      "node_type_noise": 0.05
+    }
+}
+  
