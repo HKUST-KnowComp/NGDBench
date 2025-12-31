@@ -133,7 +133,7 @@ dmypy.json
 # 忽略数据文件夹
 data_gen/gnd_dataset/*
 data_gen/perturbed_dataset/*
-data_gen/perturb_record/*
+data_gen/perturbation_generator/perturb_record/*
 pipeline/data_analyser/buffer/*
 data_gen/graph_gen/graph_buffer/*
 query_gen/query/*
