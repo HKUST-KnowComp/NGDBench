@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Foreach</title>
+<style>body { font-family: Arial, sans-serif; max-width: 1200px; margin: 20px auto; padding: 0 20px; }</style>
+</head>
+<body>
+<p><strong>类别:</strong> Data modification operators</p>
+<p><strong>来源:</strong> <a href='https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-foreach'>https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-foreach</a></p>
+<hr>
+<h3 id="query-plan-foreach"><a class="anchor" href="#query-plan-foreach"></a>Foreach</h3>
+<div class="paragraph">
+<p>The <code>Foreach</code> operator executes a nested loop between the left child operator and the right child operator.
+In an analogous manner to the <a href="#query-plan-apply">Apply</a> operator, it takes a row from the left-hand side and, using the <a href="#query-plan-argument">Argument</a> operator, provides it to the operator tree on the right-hand side.
+<code>Foreach</code> will yield all the rows coming in from the left-hand side; all results from the right-hand side are pulled in and discarded.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 114. Foreach</div>
+<div class="content">
+<div class="listingblock">
+<div class="title">Query</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">PROFILE
+FOREACH (value IN [1,2,3] | CREATE (:Person {age: value}))</code></pre>
+</div>
+</div>
+<div class="listingblock queryplan">
+<div class="title">Query Plan</div>
+<div class="content">
+<pre>Planner COST
+
+Runtime SLOTTED
+
+Runtime version 2025.11
+
++-----------------+---------------------------------------------------------+----------------+------+---------+------------------------+
+| Operator        | Details                                                 | Estimated Rows | Rows | DB Hits | Page Cache Hits/Misses |
++-----------------+---------------------------------------------------------+----------------+------+---------+------------------------+
+| +ProduceResults |                                                         |              1 |    0 |       0 |                    0/0 |
+| |               +---------------------------------------------------------+----------------+------+---------+------------------------+
+| +EmptyResult    |                                                         |              1 |    0 |       0 |                    0/0 |
+| |               +---------------------------------------------------------+----------------+------+---------+------------------------+
+| +Foreach        | value IN [1, 2, 3], CREATE (anon_0:Person {age: value}) |              1 |    1 |       9 |                    0/0 |
++-----------------+---------------------------------------------------------+----------------+------+---------+------------------------+
+
+Total database accesses: 9, total allocated memory: 64</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

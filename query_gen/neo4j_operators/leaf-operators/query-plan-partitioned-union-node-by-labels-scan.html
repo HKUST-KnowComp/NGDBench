@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Partitioned Union Node By Labels Scan</title>
+<style>body { font-family: Arial, sans-serif; max-width: 1200px; margin: 20px auto; padding: 0 20px; }</style>
+</head>
+<body>
+<p><strong>类别:</strong> Leaf operators (scans and seeks)</p>
+<p><strong>来源:</strong> <a href='https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-partitioned-union-node-by-labels-scan'>https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-partitioned-union-node-by-labels-scan</a></p>
+<hr>
+<h3 id="query-plan-partitioned-union-node-by-labels-scan"><a class="anchor" href="#query-plan-partitioned-union-node-by-labels-scan"></a>Partitioned Union Node By Labels Scan</h3>
+<div class="paragraph">
+<p>The <code>PartitionedUnionNodeByLabelsScan</code> is a variant of the <a href="#query-plan-union-node-by-labels-scan"><code>UnionNodeByLabelsScan</code></a> operator used by the <a class="xref page" href="../../runtimes/concepts/#runtimes-parallel-runtime">parallel runtime</a>.
+It allows the index to be partitioned into different segments where each segment can be scanned independently in parallel.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="listingblock">
+<div class="title">Query</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">CYPHER runtime=parallel
+PROFILE
+MATCH (countryOrLocation:Country|Location)
+RETURN countryOrLocation</code></pre>
+</div>
+</div>
+<div class="listingblock queryplan">
+<div class="title">Query Plan</div>
+<div class="content">
+<pre>Planner COST
+
+Runtime PARALLEL
+
+Runtime version 2025.11
+
+Batch size 128
+
++-----------------------------------+----+------------------------------------+----------------+------+---------+------------------------+-----------+---------------+
+| Operator                          | Id | Details                            | Estimated Rows | Rows | DB Hits | Page Cache Hits/Misses | Time (ms) | Pipeline      |
++-----------------------------------+----+------------------------------------+----------------+------+---------+------------------------+-----------+---------------+
+| +ProduceResults                   |  0 | countryOrLocation                  |             17 |   11 |      22 |                    2/0 |     1.548 | In Pipeline 1 |
+| |                                 +----+------------------------------------+----------------+------+---------+------------------------+-----------+---------------+
+| +PartitionedUnionNodeByLabelsScan |  1 | countryOrLocation:Country|Location |             17 |   11 |      13 |                    2/0 |     1.976 | In Pipeline 0 |
++-----------------------------------+----+------------------------------------+----------------+------+---------+------------------------+-----------+---------------+
+
+Total database accesses: 35</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

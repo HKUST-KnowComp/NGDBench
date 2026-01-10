@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Cartesian Product</title>
+<style>body { font-family: Arial, sans-serif; max-width: 1200px; margin: 20px auto; padding: 0 20px; }</style>
+</head>
+<body>
+<p><strong>类别:</strong> Nested loops and join operators</p>
+<p><strong>来源:</strong> <a href='https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-cartesian-product'>https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-cartesian-product</a></p>
+<hr>
+<h3 id="query-plan-cartesian-product"><a class="anchor" href="#query-plan-cartesian-product"></a>Cartesian Product</h3>
+<div class="paragraph">
+<p>The <code>CartesianProduct</code> operator produces a cartesian product of the two inputs — each row coming from the left child operator will be combined with all the rows from the right child operator.
+<code>CartesianProduct</code> generally exhibits bad performance and ought to be avoided if possible.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 61. CartesianProduct</div>
+<div class="content">
+<div class="listingblock">
+<div class="title">Query</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">PROFILE
+MATCH
+  (p:Person),
+  (t:Team)
+RETURN p, t</code></pre>
+</div>
+</div>
+<div class="listingblock queryplan">
+<div class="title">Query Plan</div>
+<div class="content">
+<pre>Planner COST
+
+Runtime PIPELINED
+
+Runtime version 2025.11
+
+Batch size 128
+
++--------------------+----------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| Operator           | Details  | Estimated Rows | Rows | DB Hits | Memory (Bytes) | Page Cache Hits/Misses | Time (ms) | Pipeline            |
++--------------------+----------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| +ProduceResults    | p, t     |            140 |  140 |       0 |                |                    2/0 |     1.917 |                     |
+| |                  +----------+----------------+------+---------+----------------+------------------------+-----------+                     |
+| +CartesianProduct  |          |            140 |  140 |       0 |           1736 |                        |     1.209 | In Pipeline 2       |
+| |\                 +----------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| | +NodeByLabelScan | t:Team   |             10 |   10 |      11 |            136 |                    1/0 |     1,145 | In Pipeline 1       |
+| |                  +----------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| +NodeByLabelScan   | p:Person |             15 |   15 |      16 |            120 |                    1/0 |     0,409 | In Pipeline 0       |
++--------------------+----------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+
+Total database accesses: 142, total allocated memory: 1816</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

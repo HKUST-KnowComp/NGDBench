@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Triadic Build</title>
+<style>body { font-family: Arial, sans-serif; max-width: 1200px; margin: 20px auto; padding: 0 20px; }</style>
+</head>
+<body>
+<p><strong>类别:</strong> Traversal operators</p>
+<p><strong>来源:</strong> <a href='https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-triadic-build'>https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-triadic-build</a></p>
+<hr>
+<h3 id="query-plan-triadic-build"><a class="anchor" href="#query-plan-triadic-build"></a>Triadic Build</h3>
+<div class="paragraph">
+<p>The <code>TriadicBuild</code> operator is used in conjunction with <a href="#query-plan-triadic-filter"><code>TriadicFilter</code></a> to solve triangular queries, such as the very common 'find my friend-of-friends that are not already my friend'.
+These two operators are specific to Pipelined runtime and together perform the same logic as <a href="#query-plan-triadic-selection"><code>TriadicSelection</code></a> does for other runtimes.
+<code>TriadicBuild</code> builds a set of all friends, which is later used by <code>TriadicFilter</code>.
+The example finds the names of all friends of my friends that are not already my friends.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 80. TriadicBuild</div>
+<div class="content">
+<div class="listingblock">
+<div class="title">Query</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">PROFILE
+CYPHER runtime=pipelined
+MATCH (me:Person)-[:FRIENDS_WITH]-()-[:FRIENDS_WITH]-(other)
+WHERE NOT (me)-[:FRIENDS_WITH]-(other)
+RETURN other.name</code></pre>
+</div>
+</div>
+<div class="listingblock queryplan">
+<div class="title">Query Plan</div>
+<div class="content">
+<pre>Planner COST
+
+Runtime PIPELINED
+
+Runtime version 2025.11
+
+Batch size 128
+
++------------------+----+----------------------------------------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| Operator         | Id | Details                                | Estimated Rows | Rows | DB Hits | Memory (Bytes) | Page Cache Hits/Misses | Time (ms) | Pipeline            |
++------------------+----+----------------------------------------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| +ProduceResults  |  0 | `other.name`                           |             15 |   24 |       0 |              0 |                    0/0 |     0.172 |                     |
+| |                +----+----------------------------------------+----------------+------+---------+----------------+------------------------+-----------+                     |
+| +Projection      |  1 | other.name AS `other.name`             |             15 |   24 |      48 |                |                    0/0 |     0.162 |                     |
+| |                +----+----------------------------------------+----------------+------+---------+----------------+------------------------+-----------+                     |
+| +Filter          |  2 | NOT anon_2 = anon_0                    |             15 |   24 |       0 |                |                    0/0 |     0.134 |                     |
+| |                +----+----------------------------------------+----------------+------+---------+----------------+------------------------+-----------+                     |
+| +TriadicFilter   | 10 | WHERE NOT (me)--(other)                |             15 |   48 |       0 |           7216 |                    0/0 |     0.251 | In Pipeline 3       |
+| |                +----+----------------------------------------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| +Apply           |  9 |                                        |             16 |   48 |       0 |                |                    0/0 |           |                     |
+| |\               +----+----------------------------------------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| | +Expand(All)   |  4 | (anon_1)-[anon_2:FRIENDS_WITH]-(other) |             16 |   48 |      72 |                |                        |           |                     |
+| | |              +----+----------------------------------------+----------------+------+---------+----------------+                        |           |                     |
+| | +Argument      |  5 | anon_1, anon_0                         |             24 |   24 |       0 |           4464 |                    0/0 |     0.384 | Fused in Pipeline 2 |
+| |                +----+----------------------------------------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| +TriadicBuild    |  8 | (me)--(anon_1)                         |             24 |   24 |       0 |           1080 |                    0/0 |     1.670 | In Pipeline 1       |
+| |                +----+----------------------------------------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| +Expand(All)     |  6 | (me)-[anon_0:FRIENDS_WITH]-(anon_1)    |             24 |   24 |      38 |                |                        |           |                     |
+| |                +----+----------------------------------------+----------------+------+---------+----------------+                        |           |                     |
+| +NodeByLabelScan |  7 | me:Person                              |             14 |   14 |      15 |            376 |                    3/0 |     0.361 | Fused in Pipeline 0 |
++------------------+----+----------------------------------------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+
+Total database accesses: 256, total allocated memory: 7376</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

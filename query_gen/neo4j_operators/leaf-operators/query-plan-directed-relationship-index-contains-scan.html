@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Directed Relationship Index Contains Scan</title>
+<style>body { font-family: Arial, sans-serif; max-width: 1200px; margin: 20px auto; padding: 0 20px; }</style>
+</head>
+<body>
+<p><strong>类别:</strong> Leaf operators (scans and seeks)</p>
+<p><strong>来源:</strong> <a href='https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-directed-relationship-index-contains-scan'>https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-directed-relationship-index-contains-scan</a></p>
+<hr>
+<h3 id="query-plan-directed-relationship-index-contains-scan"><a class="anchor" href="#query-plan-directed-relationship-index-contains-scan"></a>Directed Relationship Index Contains Scan</h3>
+<div class="paragraph">
+<p>The <code>DirectedRelationshipIndexContainsScan</code> operator examines all values stored in an index, searching for entries containing a specific <code>STRING</code>; for example, in queries including <code>CONTAINS</code>.
+Although this is slower than an index seek (since all entries need to be examined), it is still faster than the indirection resulting from a type scan using <code>DirectedRelationshipTypeScan</code>, and a property store filter.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 29. DirectedRelationshipIndexContainsScan</div>
+<div class="content">
+<div class="listingblock">
+<div class="title">Query</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">PROFILE
+MATCH ()-[r: WORKS_IN]-&gt;()
+WHERE r.title CONTAINS 'senior'
+RETURN r</code></pre>
+</div>
+</div>
+<div class="listingblock queryplan">
+<div class="title">Query Plan</div>
+<div class="content">
+<pre>Planner COST
+
+Runtime PIPELINED
+
+Runtime version 2025.11
+
+Batch size 128
+
++----------------------------------------+--------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| Operator                               | Details                                                                              | Estimated Rows | Rows | DB Hits | Memory (Bytes) | Page Cache Hits/Misses | Time (ms) | Pipeline            |
++----------------------------------------+--------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+| +ProduceResults                        | r                                                                                    |              0 |    4 |       0 |                |                        |           |                     |
+| |                                      +--------------------------------------------------------------------------------------+----------------+------+---------+----------------+                        |           |                     |
+| +DirectedRelationshipIndexContainsScan | TEXT INDEX (anon_0)-[r:WORKS_IN(title)]-&gt;(anon_1) WHERE title CONTAINS $autostring_0 |              0 |    4 |       5 |            120 |                    3/0 |     1.051 | Fused in Pipeline 0 |
++----------------------------------------+--------------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+-----------+---------------------+
+
+Total database accesses: 5, total allocated memory: 184</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

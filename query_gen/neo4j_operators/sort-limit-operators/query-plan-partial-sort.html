@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Partial Sort</title>
+<style>body { font-family: Arial, sans-serif; max-width: 1200px; margin: 20px auto; padding: 0 20px; }</style>
+</head>
+<body>
+<p><strong>类别:</strong> Sort and limit operators</p>
+<p><strong>来源:</strong> <a href='https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-partial-sort'>https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-partial-sort</a></p>
+<hr>
+<h3 id="query-plan-partial-sort"><a class="anchor" href="#query-plan-partial-sort"></a>Partial Sort</h3>
+<div class="paragraph">
+<p>The <code>PartialSort</code> operator is an optimization of the <a href="#query-plan-sort"><code>Sort</code></a> operator that takes advantage of the ordering of the incoming rows.
+This operator uses lazy evaluation and has a lower memory pressure in the system than the <code>Sort</code> operator.
+Partial sort is only applicable when sorting on multiple columns.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 100. PartialSort</div>
+<div class="content">
+<div class="listingblock">
+<div class="title">Query</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">PROFILE
+MATCH (p:Person)
+WHERE p.name STARTS WITH 'P'
+RETURN p
+ORDER BY p.name, p.age</code></pre>
+</div>
+</div>
+<div class="listingblock queryplan">
+<div class="title">Query Plan</div>
+<div class="content">
+<pre>Planner COST
+
+Runtime PIPELINED
+
+Runtime version 2025.11
+
+Batch size 128
+
++-----------------------+--------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+-----------+-----------------------+---------------------+
+| Operator              | Details                                                                        | Estimated Rows | Rows | DB Hits | Memory (Bytes) | Page Cache Hits/Misses | Time (ms) | Ordered by            | Pipeline            |
++-----------------------+--------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+-----------+-----------------------+---------------------+
+| +ProduceResults       | p                                                                              |              0 |    2 |       0 |                |                    2/0 |     0.087 |                       |                     |
+| |                     +--------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+-----------+                       |                     |
+| +PartialSort          | `p.name` ASC, `p.age` ASC                                                      |              0 |    2 |       0 |            544 |                    0/0 |     0.184 | p.name ASC, p.age ASC | In Pipeline 1       |
+| |                     +--------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+-----------+-----------------------+---------------------+
+| +Projection           | cache[p.name] AS `p.name`, p.age AS `p.age`                                    |              0 |    2 |       0 |                |                        |           | `p.name` ASC          |                     |
+| |                     +--------------------------------------------------------------------------------+----------------+------+---------+----------------+                        |           +-----------------------+                     |
+| +NodeIndexSeekByRange | RANGE INDEX p:Person(name) WHERE name STARTS WITH $autostring_0, cache[p.name] |              0 |    2 |       3 |            120 |                    0/1 |     0.362 | p.name ASC            | Fused in Pipeline 0 |
++-----------------------+--------------------------------------------------------------------------------+----------------+------+---------+----------------+------------------------+-----------+-----------------------+---------------------+
+
+Total database accesses: 3, total allocated memory: 608</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

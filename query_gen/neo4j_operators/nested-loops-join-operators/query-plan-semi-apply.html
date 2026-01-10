@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+<title>Semi Apply</title>
+<style>body { font-family: Arial, sans-serif; max-width: 1200px; margin: 20px auto; padding: 0 20px; }</style>
+</head>
+<body>
+<p><strong>类别:</strong> Nested loops and join operators</p>
+<p><strong>来源:</strong> <a href='https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-semi-apply'>https://neo4j.com/docs/cypher-manual/25/planning-and-tuning/operators/operators-detail/#query-plan-semi-apply</a></p>
+<hr>
+<h3 id="query-plan-semi-apply"><a class="anchor" href="#query-plan-semi-apply"></a>Semi Apply</h3>
+<div class="paragraph">
+<p>The <code>SemiApply</code> operator tests for the presence of a pattern predicate, and is a variation of the <a href="#query-plan-apply"><code>Apply</code></a> operator.
+If the right-hand side operator yields at least one row, the row from the left-hand side operator is yielded by the <code>SemiApply</code> operator.
+This makes <code>SemiApply</code> a filtering operator, used mostly for pattern predicates in queries.</p>
+</div>
+<div class="exampleblock">
+<div class="title">Example 49. SemiApply</div>
+<div class="content">
+<div class="listingblock">
+<div class="title">Query</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cypher hljs" data-lang="cypher">PROFILE
+CYPHER runtime=slotted
+MATCH (p:Person)
+WHERE (p)-[:FRIENDS_WITH]-&gt;(:Person)
+RETURN p.name</code></pre>
+</div>
+</div>
+<div class="listingblock queryplan">
+<div class="title">Query Plan</div>
+<div class="content">
+<pre>Planner COST
+
+Runtime SLOTTED
+
+Runtime version 2025.11
+
++-----------------+-------------------------------------+----------------+------+---------+------------------------+
+| Operator        | Details                             | Estimated Rows | Rows | DB Hits | Page Cache Hits/Misses |
++-----------------+-------------------------------------+----------------+------+---------+------------------------+
+| +ProduceResults | `p.name`                            |             11 |   10 |       0 |                    0/0 |
+| |               +-------------------------------------+----------------+------+---------+------------------------+
+| +Projection     | p.name AS `p.name`                  |             11 |   10 |      10 |                    1/0 |
+| |               +-------------------------------------+----------------+------+---------+------------------------+
+| +SemiApply      |                                     |             11 |   10 |       0 |                    0/0 |
+| |\              +-------------------------------------+----------------+------+---------+------------------------+
+| | +Filter       | anon_3:Person                       |             12 |    0 |      10 |                    0/0 |
+| | |             +-------------------------------------+----------------+------+---------+------------------------+
+| | +Expand(All)  | (p)-[anon_2:FRIENDS_WITH]-&gt;(anon_3) |             12 |   10 |      51 |                   28/0 |
+| | |             +-------------------------------------+----------------+------+---------+------------------------+
+| | +Argument     | p                                   |             14 |   14 |       0 |                    0/0 |
+| |               +-------------------------------------+----------------+------+---------+------------------------+
+| +NodeByLabelScan| p:Person                            |             14 |   14 |      35 |                    1/0 |
++-----------------+-------------------------------------+----------------+------+---------+------------------------+
+
+Total database accesses: 142, total allocated memory: 64</pre>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
