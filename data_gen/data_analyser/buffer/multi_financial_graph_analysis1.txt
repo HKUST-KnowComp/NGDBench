@@ -1,0 +1,224 @@
+============================================================
+Sample Nodes (30 nodes)
+============================================================
+
+Node: 74ce2973cddbe653cc68f0d51a59ec4d9b389622f731870dab21d2a07545c096
+  Attributes: {'file_id': 'concept_file', 'id': 'teams', 'type': 'concept'}
+  In-degree: 6, Out-degree: 0
+
+Node: 7960e4e61c1ffa12f1d949a8052258eea3e57d15d2fa832e91b98df6a4b7d473
+  Attributes: {'id': 'prototypes jets', 'type': 'entity', 'file_id': 'd973cb786b6d45a953b52092fbd9ff32363b4cde76f88e0cb0a2fa6db1e125d9'}
+  In-degree: 1, Out-degree: 8
+  Sample out-edges:
+    --[mention in]--> d973cb786b6d45a953b52092fbd9ff32363b4cde76f88e0cb0a2fa6db1e125d9
+    --[has_concept]--> 5634f2c306c49ef3f0b8a838d02739ca91c9588c6033d946df6d32dbd1151e5e
+    --[has_concept]--> 1d741ec5ec2421d6085c9e6a5b0db578ad45b76a8d40dee7c373bf9fe3a5bf74
+
+Node: 35397780ee024ef6e6844f8aba0a61437d557132c0371dc8aa2d82ed204eb6cc
+  Attributes: {'id': 'Hudson Bay Capital Management LP', 'type': 'entity', 'file_id': '0b89b2ad11d77057a46fba104dbf95835962b9be564aa9c1e96c7f2e6a91fd8f'}
+  In-degree: 1, Out-degree: 8
+  Sample out-edges:
+    --[mention in]--> 0b89b2ad11d77057a46fba104dbf95835962b9be564aa9c1e96c7f2e6a91fd8f
+    --[has_concept]--> 581728741ac9405c0840086db40703a7318d985e9ff6ce59437426e5ae3bb21e
+    --[has_concept]--> e3b1e93a0ef283be33ad7588bbf2fea040a9b9d337bbe42f2c30182717353af6
+
+Node: c6a707818454e5c52008124c8c61cf61aeb15fb1096bf807ce92085b2a5477d6
+  Attributes: {'id': 'Spot FX Basis Spread Trade', 'type': 'entity', 'file_id': '3ec6cd21197d248ca4d0f6253034ca83bc1b7eddf2289488340903e55359c003'}
+  In-degree: 0, Out-degree: 9
+  Sample out-edges:
+    --[means]--> f9fad179054aadf024abd0111e4c99326a81d8c9138b1204ba068f6c91ff08f8
+    --[mention in]--> 3ec6cd21197d248ca4d0f6253034ca83bc1b7eddf2289488340903e55359c003
+    --[has_concept]--> 9b6d60d56db5adb00fdb59423c7f7134623d6643938d2854bd565cb2aafe7e5a
+
+Node: f65611c113fceb5a5adb1701640c04815206776a291d49b17ea1622f700e4632
+  Attributes: {'id': 'Deliverable Instruments: Class I RECs eligible for delivery are those which are eligible to meet the Class I or Tier 1/I requirements in each of the states of Pennsylvania, New Jersey and Maryland where, the Pennsylvania requirements are specified in Pennsylvania Statutes Title 73 Chapter 18F, the New Jersey requirements are specified in N.J.A.C. 14:8-2-3, and the Maryland requirements are specified in Maryland Annotated Code, Public Utility Companies Article, § 7-701 – 7-713 and in the Code of Maryland Regulations as implemented through Title 20, Subtitle 61.', 'type': 'event', 'file_id': 'c27153f177aeaaa7ba2e2fb48fc7ec1716519b527c222f6d397e3491d9076deb'}
+  In-degree: 1, Out-degree: 7
+  Sample out-edges:
+    --[mention in]--> c27153f177aeaaa7ba2e2fb48fc7ec1716519b527c222f6d397e3491d9076deb
+    --[has_concept]--> 0363c4dd82f8842cd2dbb254ea1c68c537eeca63ee00cdd7bd41d1a12add5ee2
+    --[has_concept]--> ca869d13a8f2c62f7928ce5849c603a249692182221d055f9a8427cc3b1bf8c1
+
+Node: d36a8f9738b64af2eb9ae596824485367f852cc7dcd1d3fe8cc0e031f05c9ee3
+  Attributes: {'id': 'USDA Class III price', 'type': 'entity', 'file_id': 'f42ee02c4cc5e58c94047637ce27af4afbe0564cc51bf61fd78f7a095938c9ca'}
+  In-degree: 1, Out-degree: 6
+  Sample out-edges:
+    --[mention in]--> f42ee02c4cc5e58c94047637ce27af4afbe0564cc51bf61fd78f7a095938c9ca
+    --[has_concept]--> 3077cd0ce21505903391efd48e03a6418efd1d42eabce3aff7ae1dcb78855d62
+    --[has_concept]--> c949e9b6897bd195b65cac4c52e1062caedcfd8f810785b64358e94b38b6c6ac
+
+Node: eaf90e19fac6e2de4c6983b5b1e9956d1c41362d678f2790d213c611fe286847
+  Attributes: {'file_id': 'concept_file', 'id': 'employee development', 'type': 'concept'}
+  In-degree: 1, Out-degree: 0
+
+Node: 3d9a72c1d34cb3d2019802468436a16c770034013f254b6e063bcd462cd69cbf
+  Attributes: {'id': 'compliance and supervisory procedures', 'type': 'entity', 'file_id': '13d6c839d809499293c61aa40eee876f157ba168bd9218266316893544512a64'}
+  In-degree: 1, Out-degree: 8
+  Sample out-edges:
+    --[mention in]--> 13d6c839d809499293c61aa40eee876f157ba168bd9218266316893544512a64
+    --[has_concept]--> 0f40735427b8f468a6647850f1be51b51ea6d6e0dc49469fd55276d438f65170
+    --[has_concept]--> d35d4cb37c169b8145c6896d62577bed2faefb12f44bbb26aa9c5550a1de1f72
+
+Node: dfb92bd78c9fc08f022436605e48d17d6ca5f1617dc59f57bc7e2bdb08aaf2c1
+  Attributes: {'id': 'By (18), there exists a path of transfers {τ ∗ t }∞ t=0 such that Cτ × b τ b τ b τ ∗= ˜ Cib ×bb = Cib ×bb + Cτ × b τ b τ b τ x.', 'type': 'event', 'file_id': '780c791ca956bd860f5b182d128c79898e03d236f26a5fe251b17d6d369ff213'}
+  In-degree: 0, Out-degree: 13
+  Sample out-edges:
+    --[is participated by]--> 245cf37e383c2f4a223fbcedf64a0e7cdb6665e8dc75e1c7de2deacef643efe1
+    --[is participated by]--> 27ad3f798ee1041ec823d42287baefbd2a9c832cf46ab5f787dca408d34cc3f2
+    --[is participated by]--> 7794329e341250a10b14d832323e3df4d5f2dfcd8a83bac1e02e58d6f5cfe375
+
+Node: 6960d27956db062a6bd6b4d0c6e4a444f7b421ae4af97bbace894cb6f30c981c
+  Attributes: {'id': 'Fair value of the investments held by Blackstone Funds is the primary input to the calculation of certain of our management fees.', 'type': 'event', 'file_id': 'd1e092846d9acb9bc2ef34c28f11d42616a5ac20f5f33b04262e8695cd41b11a'}
+  In-degree: 1, Out-degree: 8
+  Sample out-edges:
+    --[because]--> 0c0edb78ed0c893087bfcc12c12b34b0f921141d87587a492e0858140078ca59
+    --[mention in]--> d1e092846d9acb9bc2ef34c28f11d42616a5ac20f5f33b04262e8695cd41b11a
+    --[has_concept]--> fab6b0030297f01189ea68b02e90e8a023f0275d03e798daa22848f701813813
+
+Node: a41a3e51401c5e40016734c03de605eba1ff43dfaa57efb35128ded86aa183a0
+  Attributes: {'id': 'We are committed to creating world-changing technology that improves the life of every person on the planet.', 'type': 'event', 'file_id': '153111add4d37402165234dc7e459566917a52aa94d8690b332aa8e6ef52091c'}
+  In-degree: 0, Out-degree: 7
+  Sample out-edges:
+    --[is participated by]--> 6a12545679b5f7886e771a5cc868f81cdf75e3d3eefaa109bc5fb83d3b06e27a
+    --[mention in]--> 153111add4d37402165234dc7e459566917a52aa94d8690b332aa8e6ef52091c
+    --[has_concept]--> eff08b641e2487622ad168f1777f99e5251111877768db204c5ef4705e2c64b3
+
+Node: 526623c3d811608e9e1a239f761b2e95f2235b1e7471596535e49356f92c5476
+  Attributes: {'id': 'If it is determined that it is more likely than not that an operating segment’s fair value is less than its carrying value.', 'type': 'event', 'file_id': 'c32b8838c3e2f081ddff7b39982fb1a8236f6d730b110a58a0f8d9b5c0163041'}
+  In-degree: 1, Out-degree: 6
+  Sample out-edges:
+    --[mention in]--> c32b8838c3e2f081ddff7b39982fb1a8236f6d730b110a58a0f8d9b5c0163041
+    --[has_concept]--> fab6b0030297f01189ea68b02e90e8a023f0275d03e798daa22848f701813813
+    --[has_concept]--> 2d330678745269d5416e96bb62dc3554e0398b63fbb91c140eb34c950409918e
+
+Node: 8b2886493373fcfdcb0ed33524702d2c2df3eb9a4d32bcba5e48b95ee4b57cc7
+  Attributes: {'id': 'We conducted a series of training sessions covering chemical management in input, process and output phases.', 'type': 'event', 'file_id': 'b0fdaf984737c7973c54cb122135b2a68788186b4ada2c667435607b78eb18ae'}
+  In-degree: 0, Out-degree: 7
+  Sample out-edges:
+    --[is participated by]--> ec80bdccada60aba3c33a77368567615fb1ebca7bdbfa0f8a0004526730d918b
+    --[mention in]--> b0fdaf984737c7973c54cb122135b2a68788186b4ada2c667435607b78eb18ae
+    --[has_concept]--> 72873113e6b011ea7037e17604029468c806b0973ef74c499d5fb469b65a69ed
+
+Node: b7f6479717954f9d78ed6f762073616927ffb7c123be4619124541a11700b3d4
+  Attributes: {'file_id': 'concept_file', 'id': 'building', 'type': 'concept'}
+  In-degree: 62, Out-degree: 0
+
+Node: d5548df3fb647fc1c3fd17740279ebf7301834e70e23738d11f32959027ea882
+  Attributes: {'id': 'environmental risks', 'type': 'entity', 'file_id': 'b208e8cfaa2e5ef78ec57631ca33264f12de0420873172b905633dd852dfa5ab'}
+  In-degree: 5, Out-degree: 8
+  Sample out-edges:
+    --[mention in]--> b208e8cfaa2e5ef78ec57631ca33264f12de0420873172b905633dd852dfa5ab
+    --[has_concept]--> 22f3e8ebd30479de2ce55aa3990d904a811f70e3adc1cae58cee7f3623ad057f
+    --[has_concept]--> 5d1260e232c760b207a205f3b3b4f43d5e36e7953c2f4626d8d0da360abebdb2
+
+Node: 3108a0ecb7eba7ab5a322469209c6095f2b49c5a0f57f83b132403bb541f410a
+  Attributes: {'id': 'Load out for each valid electronic delivery order must be completed in full within sixty (60) calendar days.', 'type': 'event', 'file_id': '7c2f7451e290a84a4c9642321088e4fd60bf90159fad39d53b6aacdc0c0e9056'}
+  In-degree: 0, Out-degree: 9
+  Sample out-edges:
+    --[is participated by]--> e6cfea0c85ca6cc7bac0059f3809e14aadc4b72101c062b832aeabd2562cbc68
+    --[is participated by]--> 45d6ab1a30344131f7684955abe3f6597f51208b3a2b5fe9322ad94b194bc811
+    --[is participated by]--> fe65aebb4e23bac1463541b3e4e8da98304c72b026d8feb8614e0a26aa5bae08
+
+Node: b81b48eb12321b9283e39ae86225ec82d0c9e602ac5840eaf0a1ce65756c0cdc
+  Attributes: {'id': 'The combined trading volume of the ADR and other related ADRs and securities in the U.S. ADR market represents at least 50% of the combined worldwide trading volume in the ADR.', 'type': 'event', 'file_id': 'ec5401ddc21ce000ca78e4791b01290299ada540f38a05a8906ff1607c6a6448'}
+  In-degree: 0, Out-degree: 11
+  Sample out-edges:
+    --[is participated by]--> 29ee8f251fccecb88cc226c704c06d009751059746f73f8c36d6ab988643a523
+    --[is participated by]--> 1247a061cbfa9a4dcf23635533ad29cc1374c42d81e0499675b47b2f8baa3ad2
+    --[is participated by]--> d2cec071ababfc82058ba63f91c9389abb7c93d7b97571c82fda96850fd5452f
+
+Node: d946e1e87643517428dc4347ae174f2d7438669a3467af60bdd950496cbe4e1c
+  Attributes: {'file_id': 'concept_file', 'id': 'freshness', 'type': 'concept'}
+  In-degree: 10, Out-degree: 0
+
+Node: 856fb3ce5d5fb01f29a86f0674130441027bef6244a6a814e394950878669435
+  Attributes: {'id': 'It is designed to facilitate data interpretation, modeling, and design of a CO2 storage site from the first stages of site selection to site characterization, scenario modelling for storage resources estimation and containment and CO2 injection assessments.', 'type': 'event', 'file_id': 'ba2ea432bb21fc2f1519176e9af24bfe27b01c922e5554bb3b0e46ba8e49a298'}
+  In-degree: 0, Out-degree: 10
+  Sample out-edges:
+    --[is participated by]--> a9e950865cbcc0f8427c3fee5035d45bf0c111fdf3843cc2b8f1f56711c7b33d
+    --[mention in]--> ba2ea432bb21fc2f1519176e9af24bfe27b01c922e5554bb3b0e46ba8e49a298
+    --[has_concept]--> ab8575e45fd412ce3ff5fea0debfc05dc4561203e002506c0b605f2cfdaad2c0
+
+Node: f3752e41cf8443064d57fcec7fd17612dacb3337dae9d097d0271275b92b3868
+  Attributes: {'id': 'member who executed the trade', 'type': 'entity', 'file_id': '66e0eaaa622bb1d812f3ef6e3fdbf5dd5f7ac036b27601a71ac6b690feef1339'}
+  In-degree: 1, Out-degree: 7
+  Sample out-edges:
+    --[mention in]--> 66e0eaaa622bb1d812f3ef6e3fdbf5dd5f7ac036b27601a71ac6b690feef1339
+    --[has_concept]--> 6cdb5bffbef8eeb4ad66af788e47e480a6beb095657972a4f2bb985909b903d9
+    --[has_concept]--> c710c4a958870b266fbae260f484042d8de181f05597282277ca88f19bc97e56
+
+Node: b56e254e3b96709a184eaf1d68393e912fe835f0af43c49c5d3a19bd2acc0217
+  Attributes: {'id': 'JD distributes customized welfare gifts to express holiday care to employees.', 'type': 'event', 'file_id': 'beb72bab542acf86baacbde78ef9d2d8efa6ea9680af9cecc9145bc73d410af2'}
+  In-degree: 0, Out-degree: 8
+  Sample out-edges:
+    --[is participated by]--> 27ec787290fe4cb1d315715a5e5006eaaa2c437a9b7451fd24609e5d82bb9d6b
+    --[mention in]--> beb72bab542acf86baacbde78ef9d2d8efa6ea9680af9cecc9145bc73d410af2
+    --[has_concept]--> c5043f03366439e7abcdfa202462766fe8c6a21eb9ab05f440e23f5d448e5a5d
+
+Node: e8ad56e7e6cf897765c952159169d29f2e0405c00e61d5d8e2e1eb9347f98ff7
+  Attributes: {'id': 'integrity of the wells', 'type': 'entity', 'file_id': '5ea50ac95b0c27e370ac0e886a3aa81ec71e737d038d832266a64e6c906f07ac'}
+  In-degree: 1, Out-degree: 7
+  Sample out-edges:
+    --[mention in]--> 5ea50ac95b0c27e370ac0e886a3aa81ec71e737d038d832266a64e6c906f07ac
+    --[has_concept]--> 716b3c650f4b676f9d565777f5e1ca5dbe63f14152a3412fd2bfeb686d1679f1
+    --[has_concept]--> e9b154398d8f4ac3c17e09632ac25cb838f9317e2d9126f7e55a3e0203070183
+
+Node: 71dba1abf421f105feeba10b6bdbdaaa3e399ba9797c35fb5811136ea13e9b02
+  Attributes: {'file_id': 'concept_file', 'id': 'traffic reduction', 'type': 'concept'}
+  In-degree: 1, Out-degree: 0
+
+Node: a5a12cd6199a56e456e063be428156ad74128dba5a7a0d1addadd6601c1c0863
+  Attributes: {'id': "Rwanda's strategic plan targets electrification of buses, motorcycles, and cars.", 'type': 'event', 'file_id': '5b093692a4ca290b19a16000a26a9ea0129213145b38c50428937ab4c513f56a'}
+  In-degree: 0, Out-degree: 11
+  Sample out-edges:
+    --[is participated by]--> 2001903f7cf07217a04611649f45d94293a88109e2c0ed7cd2aa05d2c3d12a6b
+    --[is participated by]--> 5ded40b44e239ceefb0b8e15828cfd5da74ccc9baabeff9359c924f340b9ce8f
+    --[is participated by]--> be4561b7879ab29f872bcfac4e2c4f0139eaf67e4cfd7ce5b4f1bede7cf03bc8
+
+Node: 955ac7164451039c5430f6d031b70ab5775b296ec8c735ccb8a2af242ac6fb10
+  Attributes: {'id': "The FSOC shifted from an 'entity-based' approach to an 'activities-based' approach.", 'type': 'event', 'file_id': '6def7fea666ea873365dc2548389ed13d6a3b3ccd0d7eef24245fa6bceea440e'}
+  In-degree: 0, Out-degree: 7
+  Sample out-edges:
+    --[is participated by]--> 5fcd5c9d14238e000d1852dc704e463a5f339d8f2035ac362bf62b299b93f8d0
+    --[mention in]--> 6def7fea666ea873365dc2548389ed13d6a3b3ccd0d7eef24245fa6bceea440e
+    --[has_concept]--> 7ddcfa88755df3572fbb1100f1dd7855e518175d019792b2ae5890d1c3449a67
+
+Node: 3ccc2c8836f4fc24e7b2fbeaed4a4b8ded8068ce4ba685f0edbc7bc5486e897a
+  Attributes: {'id': 'prevent corrosion in downhole tubulars', 'type': 'entity', 'file_id': '69d742929cf0a196740a7960256de6030da5055fe5876d254d77e08882e04345'}
+  In-degree: 1, Out-degree: 8
+  Sample out-edges:
+    --[mention in]--> 69d742929cf0a196740a7960256de6030da5055fe5876d254d77e08882e04345
+    --[has_concept]--> 14efb40b92f75ef8ddd23e70409cbbe63a6829201fc140fe623c966479546a5a
+    --[has_concept]--> af15fd27a1f42efc4a332084a70a0d8bc27efb6f4a3c9e69a5d546d44c242237
+
+Node: a648d50926d66ef7d05c8bef760d37942e11ceae8d2dac5c6f20c57521e00a72
+  Attributes: {'id': '€ 0.8 million', 'type': 'entity', 'file_id': 'e49e6ced3d6602158c390b1de83d056b3cff403a94bed7c05bed744de9a4cf37'}
+  In-degree: 1, Out-degree: 6
+  Sample out-edges:
+    --[mention in]--> e49e6ced3d6602158c390b1de83d056b3cff403a94bed7c05bed744de9a4cf37
+    --[has_concept]--> b14ae520879421967118a3abdbec6d11726cbe4720ec1498fc1e1fed2d17ce82
+    --[has_concept]--> a36a4b61afcf1c97c67c31d24b61228981eaf7aab5a15aa5bca7bed8792f0641
+
+Node: 804a8a996edc96cee3d939faaacb65a5d5457816661316c75f81ac966e0acde6
+  Attributes: {'id': 'The inverse is characterized for the bond-in-utility model.', 'type': 'event', 'file_id': 'd029eb9e76c61f670be5a142aed9d55c6ffeac9c978b8ccc317c8d306c427dc1'}
+  In-degree: 0, Out-degree: 7
+  Sample out-edges:
+    --[is participated by]--> 04909322e9ed83ebbd736f33baa8cccc4f0070713153739bf34c2e4616b01b29
+    --[mention in]--> d029eb9e76c61f670be5a142aed9d55c6ffeac9c978b8ccc317c8d306c427dc1
+    --[has_concept]--> 388435c2b31da6d2e1efcc781ba786c5043569106e50fd79a8e7eff05c328d27
+
+Node: cf6c36924f4ccf04fddf8dd7653781c5f07866b6a4b4a398872a75e32941e9ea
+  Attributes: {'id': 'No person shall enter or cause to be entered an order with the intent, at the time of order entry, to cancel the order before execution or to modify the order to avoid execution,', 'type': 'event', 'file_id': '4825589c30f9791b4a4851493bc3885c1cfb04fe98305d524dbe9a7b33062c57'}
+  In-degree: 0, Out-degree: 7
+  Sample out-edges:
+    --[is participated by]--> 3253374f4c4d8fba9396b509748735219e439e0ddc0dc006de997cc4d981a22b
+    --[mention in]--> 4825589c30f9791b4a4851493bc3885c1cfb04fe98305d524dbe9a7b33062c57
+    --[has_concept]--> bbd4576f90c38a60b16e2cc9061aa41056a5e75850a8e899a2f983ac24df929a
+
+Node: be136d76f2d2cd4d9251a8ba488f410e47805e5175dd49a2f27f6c5bd93ed70b
+  Attributes: {'id': 'public-sector entities', 'type': 'entity', 'file_id': 'e62ae096ee656ad75a991fb7ac2a3163eecc75d2a07a2b720350c58b2435c8be'}
+  In-degree: 0, Out-degree: 8
+  Sample out-edges:
+    --[are classified as]--> dd435c6d903f4fec1393a2955a7d9de94018afa2a7a0a1a695b656ba722bec20
+    --[mention in]--> e62ae096ee656ad75a991fb7ac2a3163eecc75d2a07a2b720350c58b2435c8be
+    --[has_concept]--> e94574ab098187cf0c56b214133f6f5e923859322aed26c770f95aae5b12459b
+

@@ -1,0 +1,234 @@
+{
+  "generator": "get_noise_query.py",
+  "source_perturb_record": "/home/ylivm/ngdb/ngdb_benchmark/data_gen/perturbation_generator/perturb_record/semantic_SemanticPerturbationGenerator_primekg_20251202_211407.json",
+  "total_queries": 18,
+  "queries": [
+    {
+      "id": 1,
+      "nl": "验证基因/蛋白节点（ID: 645402）的药物靶点关系和通路，原始ID: 26119 被替换为 645402。",
+      "cypher": "MATCH (p:gene_protein)-[r]-(connected)\nWHERE p.id = '645402'\nWITH p, type(r) as rel_type, labels(connected)[0] as connected_type, count(*) as cnt\nRETURN p.name, rel_type, connected_type, cnt\nORDER BY cnt DESC LIMIT 30",
+      "metadata": {
+        "noise_type": "false_edge",
+        "node_type": "gene/protein",
+        "replaced_field": "x_id",
+        "original_value": "26119",
+        "new_value": "645402",
+        "row_index": 3538153
+      }
+    },
+    {
+      "id": 2,
+      "nl": "验证药物节点（ID: DB14897）在噪声数据中的连接情况，原始ID: DB00496 被替换为 DB14897。测试系统如何处理这个错误的边连接。",
+      "cypher": "MATCH (d:drug)-[r]->(target)\nWHERE d.id = 'DB14897' OR d.name CONTAINS 'DB14897'\nRETURN d, type(r) as rel_type, target LIMIT 20",
+      "metadata": {
+        "noise_type": "false_edge",
+        "node_type": "drug",
+        "replaced_field": "x_id",
+        "original_value": "DB00496",
+        "new_value": "DB14897",
+        "row_index": 1451481
+      }
+    },
+    {
+      "id": 3,
+      "nl": "验证药物节点（ID: DB07235）在噪声数据中的连接情况，原始ID: DB14006 被替换为 DB07235。测试系统如何处理这个错误的边连接。",
+      "cypher": "MATCH (d:drug)-[r]->(target)\nWHERE d.id = 'DB07235' OR d.name CONTAINS 'DB07235'\nRETURN d, type(r) as rel_type, target LIMIT 20",
+      "metadata": {
+        "noise_type": "false_edge",
+        "node_type": "drug",
+        "replaced_field": "y_id",
+        "original_value": "DB14006",
+        "new_value": "DB07235",
+        "row_index": 625331
+      }
+    },
+    {
+      "id": 4,
+      "nl": "验证基因/蛋白节点（ID: 29985）的药物靶点关系和通路，原始ID: 23484 被替换为 29985。",
+      "cypher": "MATCH (p:gene_protein)-[r]-(connected)\nWHERE p.id = '29985'\nWITH p, type(r) as rel_type, labels(connected)[0] as connected_type, count(*) as cnt\nRETURN p.name, rel_type, connected_type, cnt\nORDER BY cnt DESC LIMIT 30",
+      "metadata": {
+        "noise_type": "false_edge",
+        "node_type": "gene/protein",
+        "replaced_field": "y_id",
+        "original_value": "23484",
+        "new_value": "29985",
+        "row_index": 5520287
+      }
+    },
+    {
+      "id": 5,
+      "nl": "验证药物节点（ID: DB07325）在噪声数据中的连接情况，原始ID: DB04599 被替换为 DB07325。测试系统如何处理这个错误的边连接。",
+      "cypher": "MATCH (d:drug)-[r]->(target)\nWHERE d.id = 'DB07325' OR d.name CONTAINS 'DB07325'\nRETURN d, type(r) as rel_type, target LIMIT 20",
+      "metadata": {
+        "noise_type": "false_edge",
+        "node_type": "drug",
+        "replaced_field": "x_id",
+        "original_value": "DB04599",
+        "new_value": "DB07325",
+        "row_index": 2774283
+      }
+    },
+    {
+      "id": 6,
+      "nl": "测试关系类型噪声：'drug_drug'→'drug_effect'，相似度: 0.7282。验证药物交互查询的准确性。",
+      "cypher": "MATCH (d1:drug)-[:drug_effect]->(d2)\nRETURN d1.name as drug, labels(d2)[0] as target_type, d2.name as target\nLIMIT 30",
+      "metadata": {
+        "noise_type": "relation_type_noise",
+        "target_field": "relation",
+        "original_relation": "drug_drug",
+        "new_relation": "drug_effect",
+        "similarity_score": 0.7281972765922546,
+        "row_index": 1470699
+      }
+    },
+    {
+      "id": 7,
+      "nl": "测试关系类型噪声：'disease_protein'→'disease_disease'，相似度: 0.7913。验证疾病相关查询的鲁棒性。",
+      "cypher": "MATCH (d:disease)-[:disease_disease]->(target)\nRETURN d.name as disease, labels(target)[0] as target_type, target.name \nLIMIT 30",
+      "metadata": {
+        "noise_type": "relation_type_noise",
+        "target_field": "relation",
+        "original_relation": "disease_protein",
+        "new_relation": "disease_disease",
+        "similarity_score": 0.791332483291626,
+        "row_index": 5969838
+      }
+    },
+    {
+      "id": 8,
+      "nl": "测试关系类型噪声：关系'expression present'被替换为'expression absent'，相似度分数: 0.5591。验证系统对语义相似但错误关系的处理。",
+      "cypher": "MATCH (a)-[r:expression absent]->(b)\nRETURN labels(a)[0] as source_type, a.name as source, \n       labels(b)[0] as target_type, b.name as target \nLIMIT 30",
+      "metadata": {
+        "noise_type": "relation_type_noise",
+        "target_field": "display_relation",
+        "original_relation": "expression present",
+        "new_relation": "expression absent",
+        "similarity_score": 0.5591164231300354,
+        "row_index": 4358497
+      }
+    },
+    {
+      "id": 9,
+      "nl": "测试关系类型噪声：关系'synergistic interaction'被替换为'interacts with'，相似度分数: 0.6660。验证系统对语义相似但错误关系的处理。",
+      "cypher": "MATCH (a)-[r:interacts with]->(b)\nRETURN labels(a)[0] as source_type, a.name as source, \n       labels(b)[0] as target_type, b.name as target \nLIMIT 30",
+      "metadata": {
+        "noise_type": "relation_type_noise",
+        "target_field": "display_relation",
+        "original_relation": "synergistic interaction",
+        "new_relation": "interacts with",
+        "similarity_score": 0.6659559607505798,
+        "row_index": 1111909
+      }
+    },
+    {
+      "id": 10,
+      "nl": "测试关系类型噪声：关系'ppi'被替换为'target'，相似度分数: 0.3011。验证系统对语义相似但错误关系的处理。",
+      "cypher": "MATCH (a)-[r:target]->(b)\nRETURN labels(a)[0] as source_type, a.name as source, \n       labels(b)[0] as target_type, b.name as target \nLIMIT 30",
+      "metadata": {
+        "noise_type": "relation_type_noise",
+        "target_field": "display_relation",
+        "original_relation": "ppi",
+        "new_relation": "target",
+        "similarity_score": 0.30106955766677856,
+        "row_index": 193966
+      }
+    },
+    {
+      "id": 11,
+      "nl": "测试名称拼写错误：未知类型节点的名称'adrenal gland'被修改为'adreonal gland'。",
+      "cypher": "MATCH (n {name: 'adreonal gland'})-[r]-(connected)\nRETURN labels(n)[0] as node_type, n.name, type(r) as rel_type, connected.name\nLIMIT 30",
+      "metadata": {
+        "noise_type": "name_typo",
+        "field": "y_name",
+        "original_name": "adrenal gland",
+        "noisy_name": "adreonal gland",
+        "node_type": "",
+        "node_id": "",
+        "row_index": 5325728
+      }
+    },
+    {
+      "id": 12,
+      "nl": "测试名称拼写错误：未知类型节点的名称'Moclobemide'被修改为'Mocloboemide'。",
+      "cypher": "MATCH (n {name: 'Mocloboemide'})-[r]-(connected)\nRETURN labels(n)[0] as node_type, n.name, type(r) as rel_type, connected.name\nLIMIT 30",
+      "metadata": {
+        "noise_type": "name_typo",
+        "field": "x_name",
+        "original_name": "Moclobemide",
+        "noisy_name": "Mocloboemide",
+        "node_type": "",
+        "node_id": "",
+        "row_index": 664236
+      }
+    },
+    {
+      "id": 13,
+      "nl": "测试名称拼写错误：未知类型节点的名称'Relcovaptan'被修改为'Reliovaptan'。",
+      "cypher": "MATCH (n {name: 'Reliovaptan'})-[r]-(connected)\nRETURN labels(n)[0] as node_type, n.name, type(r) as rel_type, connected.name\nLIMIT 30",
+      "metadata": {
+        "noise_type": "name_typo",
+        "field": "y_name",
+        "original_name": "Relcovaptan",
+        "noisy_name": "Reliovaptan",
+        "node_type": "",
+        "node_id": "",
+        "row_index": 664236
+      }
+    },
+    {
+      "id": 14,
+      "nl": "测试名称拼写错误：未知类型节点的名称'fallopian tube'被修改为'allopian tube'。",
+      "cypher": "MATCH (n {name: 'allopian tube'})-[r]-(connected)\nRETURN labels(n)[0] as node_type, n.name, type(r) as rel_type, connected.name\nLIMIT 30",
+      "metadata": {
+        "noise_type": "name_typo",
+        "field": "x_name",
+        "original_name": "fallopian tube",
+        "noisy_name": "allopian tube",
+        "node_type": "",
+        "node_id": "",
+        "row_index": 8049198
+      }
+    },
+    {
+      "id": 15,
+      "nl": "测试名称拼写错误：未知类型节点的名称'BLOC1S5-TXNDC5'被修改为'BLOC1S5-XNDC5'。",
+      "cypher": "MATCH (n {name: 'BLOC1S5-XNDC5'})-[r]-(connected)\nRETURN labels(n)[0] as node_type, n.name, type(r) as rel_type, connected.name\nLIMIT 30",
+      "metadata": {
+        "noise_type": "name_typo",
+        "field": "y_name",
+        "original_name": "BLOC1S5-TXNDC5",
+        "noisy_name": "BLOC1S5-XNDC5",
+        "node_type": "",
+        "node_id": "",
+        "row_index": 8049198
+      }
+    },
+    {
+      "id": 16,
+      "nl": "聚合查询：统计各关系类型的使用频率，用于评估关系噪声的分布。",
+      "cypher": "MATCH ()-[r]->()\nWITH type(r) as rel_type, count(*) as cnt\nORDER BY cnt DESC\nRETURN rel_type, cnt LIMIT 30",
+      "metadata": {
+        "query_type": "aggregation",
+        "target_noise_type": "relation_type_noise"
+      }
+    },
+    {
+      "id": 17,
+      "nl": "聚合查询：通过名称模式匹配统计可能包含拼写错误的节点。",
+      "cypher": "MATCH (n)\nWHERE n.name IS NOT NULL\nWITH labels(n)[0] as node_type, count(*) as cnt\nRETURN node_type, cnt\nORDER BY cnt DESC",
+      "metadata": {
+        "query_type": "aggregation",
+        "target_noise_type": "name_typo"
+      }
+    },
+    {
+      "id": 18,
+      "nl": "聚合查询：统计各节点类型的连接数分布，用于评估虚假边对图结构的整体影响。",
+      "cypher": "MATCH (d:drug)-[:drug_protein]->(p:gene_protein)\nWITH d, COUNT(p) as target_count\nORDER BY target_count DESC\nRETURN d.name as drug, target_count LIMIT 50",
+      "metadata": {
+        "query_type": "aggregation",
+        "target_noise_type": "false_edge"
+      }
+    }
+  ]
+}

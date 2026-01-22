@@ -2,7 +2,7 @@
 图生成器 - 用于加载图数据并应用扰动
 
 使用示例：
-    python graph_generator.py --input graph_buffer/Primekg.gpickle --output graph_buffer/Primekg_perturbed.gpickle
+    python graph_generator.py --input graph_buffer/ldbc_snb_bi.gpickle --output graph_buffer/ldbc_snb_bi_perturbed.gpickle
 """
 
 import os
@@ -25,13 +25,13 @@ def main():
     # 默认路径配置
     default_graph_dir = Path(__file__).parent / "graph_gen" / "graph_buffer"
     default_records_dir = Path(__file__).parent / "perturbation_generator" / "perturb_record"
-    default_guide_file = Path(__file__).parent / "perturbation_generator" / "perturb_guide" / "general_guid.json"
+    default_guide_file = Path(__file__).parent / "perturbation_generator" / "perturb_guide" / "general_guid_new.json"
     
     parser = argparse.ArgumentParser(description="图扰动生成器")
     parser.add_argument(
         "--input", "-i",
         type=str,
-        default=str(default_graph_dir / "Primekg.gpickle"),
+        default=str(default_graph_dir / "ldbc_snb_finbench.gpickle"),
         help="输入图文件路径 (.gpickle格式)"
     )
     parser.add_argument(
@@ -152,7 +152,7 @@ def demo_basic_usage():
     guide_file = Path(__file__).parent / "perturbation_generator" / "perturb_guide" / "general_guid.json"
     
     # 选择一个图文件
-    graph_file = graph_dir / "Primekg.gpickle"
+    graph_file = graph_dir / "ldbc_snb_bi.gpickle"
     
     if not graph_file.exists():
         print(f"图文件不存在: {graph_file}")
@@ -233,7 +233,7 @@ def demo_basic_usage():
     print("\n6.保存结果...")
     records_dir = Path(__file__).parent / "perturbation_generator" / "perturb_record"
     saved_files = perturbation.save_all_with_timestamp(
-        dataset_name="Primekg",
+        dataset_name="ldbc_snb_bi",
         output_dir=str(graph_dir),
         records_dir=str(records_dir),
         save_records=True
@@ -256,7 +256,7 @@ def demo_selective_perturbation():
     print("="*70 + "\n")
     
     graph_dir = Path(__file__).parent / "graph_gen" / "graph_buffer"
-    graph_file = graph_dir / "Primekg.gpickle"
+    graph_file = graph_dir / "ldbc_snb_bi.gpickle"
     
     if not graph_file.exists():
         print(f"图文件不存在: {graph_file}")

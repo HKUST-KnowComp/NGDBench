@@ -20,7 +20,7 @@ _ILLEGAL_XML_RE = re.compile(
     "\uFFFE\uFFFF" +    # Noncharacters
     "]"
 )
-BUFFER_DIR = Path(__file__).resolve().parent / "buffer"
+BUFFER_DIR = Path(__file__).resolve().parent / "graph_buffer"
 
 
 def _resolve_dataset_root(target_dataset):
@@ -287,3 +287,4 @@ def csvs_to_gpickle(triple_node_file, text_node_file, triple_edge_file, text_edg
     with open(output_path, 'wb') as f:
         pickle.dump(g, f, pickle.HIGHEST_PROTOCOL)
     print(f"Successfully created gpickle file: {output_path}")
+

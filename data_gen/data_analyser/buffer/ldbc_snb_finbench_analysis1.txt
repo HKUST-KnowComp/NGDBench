@@ -1,0 +1,208 @@
+============================================================
+Sample Nodes (30 nodes)
+============================================================
+
+Node: Loan:289074801081844084
+  Attributes: {'label': 'Loan'}
+  In-degree: 3, Out-degree: 3
+  Sample out-edges:
+    --[Loan_Deposit_Account]--> Account:276971377083286155
+    --[Loan_Deposit_Account]--> Account:276971377083286155
+    --[Loan_Deposit_Account]--> Account:276971377083286155
+
+Node: Medium:39582418600471
+  Attributes: {'label': 'Medium'}
+  In-degree: 0, Out-degree: 1
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:4848687948817762418
+
+Node: Account:4900479344532520967
+  Attributes: {'label': 'Account'}
+  In-degree: 7, Out-degree: 4
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:202661983231672620
+    --[Account_Transfer_Account]--> Account:4798585402963263496
+    --[Account_Transfer_Account]--> Account:4868109722210795767
+
+Node: Person:632
+  Attributes: {'label': 'Person'}
+  In-degree: 1, Out-degree: 12
+  Sample out-edges:
+    --[Person_Apply_Loan]--> Loan:4633641066610819901
+    --[Person_Apply_Loan]--> Loan:4684306562418737982
+    --[Person_Apply_Loan]--> Loan:4880213146209354556
+
+Node: Loan:4864450547513558034
+  Attributes: {'label': 'Loan'}
+  In-degree: 4, Out-degree: 1
+  Sample out-edges:
+    --[Loan_Deposit_Account]--> Account:4880494621186066082
+
+Node: Loan:290763650942108968
+  Attributes: {'label': 'Loan'}
+  In-degree: 3, Out-degree: 1
+  Sample out-edges:
+    --[Loan_Deposit_Account]--> Account:290482175965399177
+
+Node: Account:213358032346677385
+  Attributes: {'label': 'Account'}
+  In-degree: 2, Out-degree: 0
+
+Node: Loan:4903012619322917827
+  Attributes: {'label': 'Loan'}
+  In-degree: 1, Out-degree: 0
+
+Node: Account:253327479039592525
+  Attributes: {'label': 'Account'}
+  In-degree: 62, Out-degree: 3
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:232779805739714475
+    --[Account_Transfer_Account]--> Account:286541526291449090
+    --[Account_Repay_Loan]--> Loan:277252852059997451
+
+Node: Loan:229683580995895494
+  Attributes: {'label': 'Loan'}
+  In-degree: 5, Out-degree: 4
+  Sample out-edges:
+    --[Loan_Deposit_Account]--> Account:238127830297215347
+    --[Loan_Deposit_Account]--> Account:238127830297215347
+    --[Loan_Deposit_Account]--> Account:238127830297215347
+
+Node: Loan:253327479039590707
+  Attributes: {'label': 'Loan'}
+  In-degree: 3, Out-degree: 5
+  Sample out-edges:
+    --[Loan_Deposit_Account]--> Account:258112553643672100
+    --[Loan_Deposit_Account]--> Account:258112553643672100
+    --[Loan_Deposit_Account]--> Account:258112553643672100
+
+Node: Company:3298534884120
+  Attributes: {'label': 'Company'}
+  In-degree: 6, Out-degree: 11
+  Sample out-edges:
+    --[Company_Apply_Loan]--> Loan:182395784908506154
+    --[Company_Apply_Loan]--> Loan:198439858581013545
+    --[Company_Own_Account]--> Account:108930815987025625
+
+Node: Account:4904138519229759909
+  Attributes: {'label': 'Account'}
+  In-degree: 1, Out-degree: 10
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:4868391197187506555
+    --[Account_Transfer_Account]--> Account:4806185227334451609
+    --[Account_Transfer_Account]--> Account:4839680749563019671
+
+Node: Account:111182615800710398
+  Attributes: {'label': 'Account'}
+  In-degree: 2, Out-degree: 27
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:4761712181014169644
+    --[Account_Transfer_Account]--> Account:153403862307308495
+    --[Account_Transfer_Account]--> Account:153403862307308495
+
+Node: Loan:296956100429742414
+  Attributes: {'label': 'Loan'}
+  In-degree: 2, Out-degree: 1
+  Sample out-edges:
+    --[Loan_Deposit_Account]--> Account:210824757556281937
+
+Node: Medium:8796093023416
+  Attributes: {'label': 'Medium'}
+  In-degree: 0, Out-degree: 2
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:283163826570920146
+    --[Medium_SignIn_Account]--> Account:283163826570920146
+
+Node: Person:28587302322737
+  Attributes: {'label': 'Person'}
+  In-degree: 0, Out-degree: 7
+  Sample out-edges:
+    --[Person_Own_Account]--> Account:4906953268996867268
+    --[Person_Own_Account]--> Account:4907234743973577925
+    --[Person_Own_Account]--> Account:4908360643880420550
+
+Node: Medium:17592186044589
+  Attributes: {'label': 'Medium'}
+  In-degree: 0, Out-degree: 0
+
+Node: Medium:35184372090759
+  Attributes: {'label': 'Medium'}
+  In-degree: 0, Out-degree: 5
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:4817444226402877856
+    --[Medium_SignIn_Account]--> Account:4817444226402877856
+    --[Medium_SignIn_Account]--> Account:4817444226402877856
+
+Node: Account:4848687948817761730
+  Attributes: {'label': 'Account'}
+  In-degree: 5, Out-degree: 3
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:4804496377474188556
+    --[Account_Transfer_Account]--> Account:4876553971512116489
+    --[Account_Transfer_Account]--> Account:4876553971512116489
+
+Node: Account:4734127633296523661
+  Attributes: {'label': 'Account'}
+  In-degree: 2, Out-degree: 27
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:4868391197187506555
+    --[Account_Transfer_Account]--> Account:4868391197187506555
+    --[Account_Withdraw_Account]--> Account:4745386632364951487
+
+Node: Account:251357154202616201
+  Attributes: {'label': 'Account'}
+  In-degree: 2, Out-degree: 2
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:285978576338026852
+    --[Account_Transfer_Account]--> Account:197032483697460072
+
+Node: Medium:4398046512583
+  Attributes: {'label': 'Medium'}
+  In-degree: 0, Out-degree: 0
+
+Node: Person:13194139533389
+  Attributes: {'label': 'Person'}
+  In-degree: 1, Out-degree: 10
+  Sample out-edges:
+    --[Person_Apply_Loan]--> Loan:4753830881666269270
+    --[Person_Apply_Loan]--> Loan:4828140275517882453
+    --[Person_Apply_Loan]--> Loan:4849813848724602967
+
+Node: Account:253327479039591558
+  Attributes: {'label': 'Account'}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:220113431787733825
+    --[Account_Transfer_Account]--> Account:197032483697460035
+
+Node: Loan:4882746420999750134
+  Attributes: {'label': 'Loan'}
+  In-degree: 1, Out-degree: 0
+
+Node: Account:4814348001659062179
+  Attributes: {'label': 'Account'}
+  In-degree: 5, Out-degree: 2
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:148055837749806645
+    --[Account_Transfer_Account]--> Account:4843621399236969909
+
+Node: Account:293859875685925239
+  Attributes: {'label': 'Account'}
+  In-degree: 3, Out-degree: 10
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:207728532812464476
+    --[Account_Withdraw_Account]--> Account:151152062493623120
+    --[Account_Withdraw_Account]--> Account:197032483697460682
+
+Node: Account:4910049493740685039
+  Attributes: {'label': 'Account'}
+  In-degree: 1, Out-degree: 0
+
+Node: Loan:85568392920039521
+  Attributes: {'label': 'Loan'}
+  In-degree: 3, Out-degree: 5
+  Sample out-edges:
+    --[Loan_Deposit_Account]--> Account:103301316452810917
+    --[Loan_Deposit_Account]--> Account:103301316452810917
+    --[Loan_Deposit_Account]--> Account:103301316452810917
+

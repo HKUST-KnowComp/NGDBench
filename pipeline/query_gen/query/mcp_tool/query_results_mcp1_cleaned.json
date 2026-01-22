@@ -1,0 +1,5733 @@
+[
+  {
+    "query": "MATCH (n:entity {return: ['definition of retreat', 'totalresults: 41, bonds: [list of IPCA bonds]']})-[:attempts_to_generate]->(m) RETURN m",
+    "answer": [
+      "audio description",
+      "audio_narration"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {return: ['error_message', '{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }', '404 Not Found']})-[:queried]->(m) RETURN m",
+    "answer": "fire_pokemon_natural_language",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event {parameter: ['a LinkedIn search query (e.g., person name, company, job title)']})-[:has_concept]->(m) RETURN m",
+    "answer": [
+      "setting",
+      "criteria",
+      "specification",
+      "search",
+      "condition"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {return: ['retreater', 'totalresults: 1, bonds: [Tesouro IPCA+ 2029]', 'memory_banks_status']})-[:builds_URL]->(m) RETURN m",
+    "answer": "documentation_page_URL",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {return: ['error_message', '{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }', '404 Not Found']})-[:subdirectory_created]->(m) RETURN m",
+    "answer": "research2024/academicpapers/projectdocs/markdowns/2023articles/myarticles/projectdocs/2023papers/projectnotes/projectnotes/Q4Research/monthlyreports/webmddownloads/projectX/ProjectReports/research_markdowns/NeurIPS",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {return: ['error_message']})-[:before]->(m) RETURN m",
+    "answer": [
+      "function_5",
+      "assistant_content_6",
+      "assistant_content_12",
+      "function_content_6",
+      "assistant_response_5",
+      "assistant_response_4",
+      "create_wiki_page",
+      "function_6",
+      "assistant_response_6",
+      "assistant_response_5",
+      "npx_playwright_install_command"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {return: ['error_message', '{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }', '404 Not Found']})-[:produces]->(m) RETURN m",
+    "answer": [
+      "gameTitle",
+      "gameDescription",
+      "unix_timestamp",
+      "decision_framework_output"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {return: ['total_results: 0, bonds: []']})-[:gets_weather_forecast]->(m) RETURN m",
+    "answer": "New York City coordinates",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {id: 'function_content_2'})-[:generates_Unix_timestamp]->(m) RETURN m",
+    "answer": "1739370600000 ms",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {return: ['retreater', 'totalresults: 1, bonds: [Tesouro IPCA+ 2029]', 'memory_banks_status']})-[:saves_file]->(m) RETURN m",
+    "answer": "rustic-sourdough-bread-herbs-morning-light-instagram.png",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (g:entity)<-[:defaultValue]-(n:entity) WITH g, n ORDER BY n.return RETURN g.return AS item, collect(n.return)[0..32] AS value",
+    "answer": [
+      {
+        "item": null,
+        "value": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (g:event)<-[:describes]-(n:entity) WITH g, n ORDER BY n.parameter RETURN g.parameter AS group, collect(n.parameter)[0..32] AS result",
+    "answer": [
+      {
+        "group": null,
+        "result": [
+          [
+            "\"url\": { \"type\": \"string\", \"description\": \"YouTube video URL or ID\" }, \"language\": { \"type\": \"string\", \"description\": \"Language code (default: 'en')"
+          ],
+          [
+            "station"
+          ]
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (g:entity)<-[:explores]-(n:entity) WITH g, n ORDER BY n.return RETURN g.parameter AS group, collect(n.return)[0..32] AS data",
+    "answer": [
+      {
+        "group": null,
+        "data": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (g:entity)<-[:permanently_delete]-(n:entity) WITH g, n ORDER BY n.parameter RETURN g.parameter AS item, collect(n.parameter)[0..32] AS value",
+    "answer": [
+      {
+        "item": null,
+        "value": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (g:entity)<-[:encrypts]-(n:entity) WITH g, n ORDER BY n.return RETURN g.return AS data, collect(n.return)[0..32] AS item",
+    "answer": [
+      {
+        "data": null,
+        "item": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (g:entity)<-[:used_available_frameworks]-(n:entity) WITH g, n ORDER BY n.return RETURN g.parameter AS value, collect(n.return)[0..32] AS result",
+    "answer": [
+      {
+        "value": null,
+        "result": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (g:entity)<-[:______________]-(n:entity) WITH g, n ORDER BY n.return RETURN g.parameter AS group, collect(n.return)[0..32] AS item",
+    "answer": [
+      {
+        "group": null,
+        "item": [
+          [
+            "error_2",
+            "code_example_1"
+          ]
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (g:entity)<-[:has_parameter_promptText]-(n:entity) WITH g, n ORDER BY n.parameter RETURN g.return AS result, collect(n.parameter)[0..32] AS value",
+    "answer": [
+      {
+        "result": null,
+        "value": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (g:entity)<-[:stdout]-(n:entity) WITH g, n ORDER BY n.parameter RETURN g.return AS item, collect(n.parameter)[0..32] AS collection",
+    "answer": [
+      {
+        "item": null,
+        "collection": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (g:entity)<-[:is_truncated_by]-(n:entity) WITH g, n ORDER BY n.parameter RETURN g.parameter AS collection, collect(n.parameter)[0..32] AS data",
+    "answer": [
+      {
+        "collection": null,
+        "data": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN min(a.parameter) AS min_value",
+    "answer": [
+      "\"a\", \"b\", and \"c\""
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN min(a.parameter) AS min_value",
+    "answer": [
+      "\"exa-search-crawling_exa\" function is called"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN min(a.parameter) AS min_value",
+    "answer": [
+      "\"exa-search-crawling_exa\" function is called"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN min(a.return) AS min_value",
+    "answer": [
+      "\"Connected: {connected}\""
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN min(a.return) AS min_value",
+    "answer": [
+      "\"Connected: {connected}\""
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN min(a.parameter) AS min_value",
+    "answer": [
+      "\"a\", \"b\", and \"c\""
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN min(a.parameter) AS min_value",
+    "answer": [
+      "\"exa-search-crawling_exa\" function is called"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN min(a.return) AS min_value",
+    "answer": [
+      "\"Connected: {connected}\""
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN min(a.parameter) AS min_value",
+    "answer": [
+      "\"a\", \"b\", and \"c\""
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN min(a.parameter) AS min_value",
+    "answer": [
+      "\"a\", \"b\", and \"c\""
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN max(a.return) AS max_value",
+    "answer": [
+      "산불 정보와 대피소 정보를 포함한 딕셔너리를 반환합니다"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN max(a.parameter) AS max_value",
+    "answer": [
+      "提供币种符号作为参数"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN max(a.return) AS max_value",
+    "answer": [
+      "산불 정보와 대피소 정보를 포함한 딕셔너리를 반환합니다"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN max(a.parameter) AS max_value",
+    "answer": [
+      "提供币种符号作为参数"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN max(a.parameter) AS max_value",
+    "answer": [
+      "提供币种符号作为参数"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN max(a.parameter) AS max_value",
+    "answer": [
+      "{}"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN max(a.parameter) AS max_value",
+    "answer": [
+      "{}"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN max(a.parameter) AS max_value",
+    "answer": [
+      "{}"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN max(a.return) AS max_value",
+    "answer": [
+      "산불 정보와 대피소 정보를 포함한 딕셔너리를 반환합니다"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN max(a.return) AS max_value",
+    "answer": [
+      "분석 결과"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {parameter: ['request-linkedin-token']})-[:mention_in]->(m) RETURN count(m) AS cnt",
+    "answer": 4,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event {parameter: ['a LinkedIn search query (e.g., person name, company, job title)']})-[:mention_in]->(m) RETURN count(m) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {parameter: ['npx playwright install', 'geographic_coordinates', 'request-linkedin-token']})-[:sends_to]->(m) RETURN count(m) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {return: ['no_code_files_found', 'current datetime in Europe/London timezone', '[]']})-[:determines]->(m) RETURN count(m) AS cnt",
+    "answer": 3,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event {parameter: ['a LinkedIn search query (e.g., person name, company, job title)']})-[:mention_in]->(m) RETURN count(m) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {return: ['retreater', 'totalresults: 1, bonds: [Tesouro IPCA+ 2029]', 'memory_banks_status']})-[:provides_alternative]->(m) RETURN count(m) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {parameter: ['influencer_username']})-[:follows]->(m) RETURN count(m) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {parameter: ['login credentials']})-[:gets_document_info]->(m) RETURN count(m) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {parameter: ['influencer_username']})-[:uses_output_of]->(m) RETURN count(m) AS cnt",
+    "answer": 24,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity {return: ['definition of retreat', 'totalresults: 41, bonds: [list of IPCA bonds]']})-[:operates_on]->(m) RETURN count(m) AS cnt",
+    "answer": 265,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:social_media_planning_api]->(b:entity) MATCH (a)-[:social_media_planning_api]->(b) RETURN count(*) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:resulted_in]->(:entity) RETURN a.parameter",
+    "answer": [
+      {
+        "a.parameter": [
+          "request-linkedin-token",
+          "npx playwright install",
+          "request_linkedin_token",
+          "wapulseToken and wapulseInstanceID",
+          "specific coordinates"
+        ]
+      },
+      {
+        "a.parameter": [
+          "configureapikey"
+        ]
+      },
+      {
+        "a.parameter": [
+          "user verification"
+        ]
+      },
+      {
+        "a.parameter": [
+          "VELTAPIKEY"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:provides_input_for]->(:entity) RETURN a.parameter",
+    "answer": [
+      {
+        "a.parameter": [
+          "request-linkedin-token",
+          "npx playwright install",
+          "request_linkedin_token",
+          "wapulseToken and wapulseInstanceID",
+          "specific coordinates"
+        ]
+      },
+      {
+        "a.parameter": [
+          "contract_address",
+          "function_signature",
+          "chain_id",
+          "grandmother_lunar_birth_date",
+          "grandmother_gender"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:has_documentation]->(:entity) RETURN a.id",
+    "answer": "nodes-base.emailSend",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE (a)-[:has_concept]->(:concept {id: \"tally\"}) RETURN a.id",
+    "answer": [
+      {
+        "a.id": "the execution of the count method"
+      },
+      {
+        "a.id": "スペースで区切られた単語をカウントし"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE (a)-[:involves]->(:event) RETURN a.id",
+    "answer": "search for interface tab definitions",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:documents]->(:entity) RETURN a.return",
+    "answer": [
+      "temperature: 26°C",
+      "condition: Clear",
+      "humidity: 45%",
+      "wind: 16 km/h",
+      "latest_block_details",
+      "Endereço encontrado: CEP: 01001-000 Logradouro: Praça da Sé Complemento: lado ímpar Bairro: Sé Cidade: São Paulo Estado: SP (São Paulo) Região: Sudeste DDD: 11 IBGE: 3550308",
+      "current_time"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:is_final_for]->(:entity) RETURN a.id",
+    "answer": "end_season",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:saves_result_in]->(:entity) RETURN a.id",
+    "answer": [
+      {
+        "a.id": "function5"
+      },
+      {
+        "a.id": "Markdown download"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:sets_up]->(:entity) RETURN a.id",
+    "answer": [
+      {
+        "a.id": "function_content_1"
+      },
+      {
+        "a.id": "function_content_2"
+      },
+      {
+        "a.id": "az_login"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:calculates]->(:entity) RETURN a.parameter",
+    "answer": [
+      {
+        "a.parameter": [
+          "coordinates for Paris",
+          "payment"
+        ]
+      },
+      {
+        "a.parameter": [
+          "request-linkedin-token",
+          "npx playwright install",
+          "request_linkedin_token",
+          "wapulseToken and wapulseInstanceID",
+          "specific coordinates"
+        ]
+      },
+      {
+        "a.parameter": [
+          "request-linkedin-token"
+        ]
+      },
+      {
+        "a.parameter": [
+          "GDB process ID",
+          "GDB tty device path",
+          "remote debugging address",
+          "target program executable path",
+          "request-linkedin-token"
+        ]
+      },
+      {
+        "a.parameter": [
+          "npx playwright install",
+          "geographic_coordinates",
+          "request-linkedin-token"
+        ]
+      },
+      {
+        "a.parameter": [
+          "request-linkedin-token"
+        ]
+      },
+      {
+        "a.parameter": [
+          "configureapikey"
+        ]
+      },
+      {
+        "a.parameter": [
+          "user verification"
+        ]
+      },
+      {
+        "a.parameter": [
+          "VELTAPIKEY"
+        ]
+      },
+      {
+        "a.parameter": [
+          "VELTAPIKEY",
+          "credentials"
+        ]
+      },
+      {
+        "a.parameter": [
+          "contract_address",
+          "function_signature",
+          "chain_id",
+          "grandmother_lunar_birth_date",
+          "grandmother_gender"
+        ]
+      },
+      {
+        "a.parameter": [
+          "npx playwright install",
+          "request-linkedin-token"
+        ]
+      },
+      {
+        "a.parameter": [
+          "VELTAPIKEY"
+        ]
+      },
+      {
+        "a.parameter": [
+          "VELTAPIKEY"
+        ]
+      },
+      {
+        "a.parameter": [
+          "Windows environment",
+          "url",
+          "headers",
+          "max_length",
+          "start_index",
+          "reportId",
+          "urns",
+          "iterations",
+          "waitForNetworkIdle",
+          "device",
+          "title",
+          "pythonCode",
+          "description",
+          "includeValidation",
+          "notebookPath",
+          "cellId",
+          "nodeId",
+          "format",
+          "scale",
+          "collectionPath",
+          "data",
+          "documentId",
+          "paperId",
+          "limit",
+          "offset",
+          "query",
+          "name",
+          "\"search\"",
+          "\"limit\"",
+          "\"offset\"",
+          "page",
+          "pageSize",
+          "includeImage (boolean)",
+          "network",
+          "network parameter",
+          "object",
+          "\"game_name\", \"tag_line\", \"region\", \"lang\" parameters",
+          "id"
+        ]
+      },
+      {
+        "a.parameter": [
+          "numbers"
+        ]
+      },
+      {
+        "a.parameter": [
+          "numbers"
+        ]
+      },
+      {
+        "a.parameter": [
+          "sbp, dbp"
+        ]
+      },
+      {
+        "a.parameter": [
+          "weight_kg"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:let_me_provide_you_with_your_tournament_teams]->(:event) OR (n)-[:listed_files_in_programmingresearch_directory_before]->(:entity) RETURN n.id",
+    "answer": "function_content_6",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:provides_exchange_rate_for]->(:entity) OR (n)-[:sends_data_to]->(:entity) RETURN n.return",
+    "answer": [
+      "no_code_files_found",
+      "current datetime in Europe/London timezone",
+      "[]"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:scopes_search_to]->(:entity) OR (n)-[:passes]->(:concept {id: \"coordinate system\"}) RETURN n.id",
+    "answer": [
+      {
+        "n.id": "filterByRepoIds"
+      },
+      {
+        "n.id": "filterByLanguages"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:incorrectly_identifies_location]->(:entity) OR (n)-[:Project_context_saved_with_ID]->(:entity) RETURN n.return",
+    "answer": [
+      "error_2",
+      "code_example_1"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:adds_length_of__fabaceae_]->(:entity) OR (n)-[:cancels]->(:entity) RETURN n.parameter",
+    "answer": [
+      {
+        "n.parameter": [
+          "coordinates for Paris",
+          "payment"
+        ]
+      },
+      {
+        "n.parameter": [
+          "exchange_id",
+          "id"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:requires_resolution_before]->(:entity) OR (n)-[:can_be_planned_and_designed_with]->(:entity) RETURN n.parameter",
+    "answer": [
+      "multi-step-solution"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:run]->(:entity) OR (n)-[:involves]->(:event) RETURN n.id",
+    "answer": [
+      {
+        "n.id": "code-runner-mcp-server-run-code"
+      },
+      {
+        "n.id": "mongodb-mcp-server-find"
+      },
+      {
+        "n.id": "openai-agent-library-run_diagnostics"
+      },
+      {
+        "n.id": "remote-shell-server-shell-exec"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:listed_files_in_programmingresearch_directory_before]->(:concept {id: \"rooftop farm\"}) OR (n)-[:suggested_process]->(:entity) RETURN n.id",
+    "answer": "assistant_provides_visual_description",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:hasOptionalParameter]->(:entity) OR (n)-[:for_a_given_batter]->(:event) RETURN n.parameter",
+    "answer": [
+      {
+        "n.parameter": [
+          "localPort",
+          "action"
+        ]
+      },
+      {
+        "n.parameter": [
+          "exchange",
+          "symbol",
+          "side",
+          "amount",
+          "apiKey",
+          "secret"
+        ]
+      },
+      {
+        "n.parameter": [
+          "contractAddress",
+          "entrypoint"
+        ]
+      },
+      {
+        "n.parameter": [
+          "search_keywords",
+          "count"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:requiresSelector]->(:entity) OR (n)-[:is_required]->(:concept {id: \"rooftop farm\"}) RETURN n.id",
+    "answer": "playwright_select",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:concept {id: \"law\"}) WHERE NOT (n)-[:incorrectly_used]->(:event) OR (n)-[:fetches_latest_data]->(:entity) RETURN n.id",
+    "answer": "law",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE NOT (n)-[:orders]->(:event) OR (n)-[:Accept]->(:entity) RETURN n.parameter",
+    "answer": [
+      {
+        "n.parameter": [
+          "\"exa-search-crawling_exa\" function is called"
+        ]
+      },
+      {
+        "n.parameter": [
+          "a LinkedIn search query (e.g., person name, company, job title)"
+        ]
+      },
+      {
+        "n.parameter": [
+          "the Word document path"
+        ]
+      },
+      {
+        "n.parameter": [
+          "the number of rows in the table"
+        ]
+      },
+      {
+        "n.parameter": [
+          "the number of columns in the table"
+        ]
+      },
+      {
+        "n.parameter": [
+          "filename: Path to the Word document",
+          "style_name: Name for the new style"
+        ]
+      },
+      {
+        "n.parameter": [
+          "filename: Path to the Word document"
+        ]
+      },
+      {
+        "n.parameter": [
+          "outputPath"
+        ]
+      },
+      {
+        "n.parameter": [
+          "Parameters: { \"type\": \"object\", \"properties\": { ... } }"
+        ]
+      },
+      {
+        "n.parameter": [
+          "Provide a name parameter"
+        ]
+      },
+      {
+        "n.parameter": [
+          "\"name\": {\"type\": \"string\", \"description\": \"The name of the index\"} is specified"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:concept {id: \"rooftop farm\"}) WHERE NOT (n)-[:last_updated_at]->(:event) OR (n)-[:usedFor]->(:event) RETURN n.id",
+    "answer": "rooftop farm",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:concept {id: \"law\"}) WHERE NOT (n)-[:created_directory]->(:event) OR (n)-[:produce]->(:event) RETURN n.id",
+    "answer": "law",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE NOT (n)-[:can_perform_action]->(:concept {id: \"tally\"}) OR (n)-[:to_be_ported_with]->(:concept {id: \"tally\"}) RETURN n.return",
+    "answer": [
+      {
+        "n.return": [
+          "results based on the provided parameters"
+        ]
+      },
+      {
+        "n.return": [
+          "List of books with their identifiers and names"
+        ]
+      },
+      {
+        "n.return": [
+          "base64-encoded data"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:concept {id: \"pronunciation\"}) WHERE NOT (n)-[:connected_to]->(:concept {id: \"pronunciation\"}) OR (n)-[:deployes]->(:entity) RETURN n.id",
+    "answer": "pronunciation",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE NOT (n)-[:to_generate]->(:event) OR (n)-[:return_in]->(:entity) RETURN n.parameter",
+    "answer": [
+      {
+        "n.parameter": [
+          "\"exa-search-crawling_exa\" function is called"
+        ]
+      },
+      {
+        "n.parameter": [
+          "a LinkedIn search query (e.g., person name, company, job title)"
+        ]
+      },
+      {
+        "n.parameter": [
+          "the Word document path"
+        ]
+      },
+      {
+        "n.parameter": [
+          "the number of rows in the table"
+        ]
+      },
+      {
+        "n.parameter": [
+          "the number of columns in the table"
+        ]
+      },
+      {
+        "n.parameter": [
+          "filename: Path to the Word document",
+          "style_name: Name for the new style"
+        ]
+      },
+      {
+        "n.parameter": [
+          "filename: Path to the Word document"
+        ]
+      },
+      {
+        "n.parameter": [
+          "outputPath"
+        ]
+      },
+      {
+        "n.parameter": [
+          "Parameters: { \"type\": \"object\", \"properties\": { ... } }"
+        ]
+      },
+      {
+        "n.parameter": [
+          "Provide a name parameter"
+        ]
+      },
+      {
+        "n.parameter": [
+          "\"name\": {\"type\": \"string\", \"description\": \"The name of the index\"} is specified"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:concept {id: \"tint\"}) WHERE NOT (n)-[:Determine]->(:event) OR (n)-[:explains_problem_statement]->(:entity) RETURN n.id",
+    "answer": "tint",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:concept {id: \"coordinate system\"}) WHERE NOT (n)-[:no_character_data_found]->(:entity) OR (n)-[:grabs_current_official_number_from_an_authoritative_source]->(:entity) RETURN n.id",
+    "answer": "coordinate system",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE NOT (n)-[:produces]->(:entity) OR (n)-[:was_supposed_to]->(:concept {id: \"tunnel\"}) RETURN n.return",
+    "answer": [
+      {
+        "n.return": [
+          "{ \"connected\": false, \"timestamp\": \"2025-08-04T20:56:55.546Z\", \"message\": \"Unity Editor is not connected. Please ensure the Unity Editor is running with the MCP plugin.\" }"
+        ]
+      },
+      {
+        "n.return": [
+          "detailed data for Tesouro IPCA+ 2029"
+        ]
+      },
+      {
+        "n.return": [
+          "error_message"
+        ]
+      },
+      {
+        "n.return": [
+          "error_message"
+        ]
+      },
+      {
+        "n.return": [
+          "talks_data"
+        ]
+      },
+      {
+        "n.return": [
+          "videos_data"
+        ]
+      },
+      {
+        "n.return": [
+          "server_status_healthy"
+        ]
+      },
+      {
+        "n.return": [
+          "paper_3",
+          "function_result_3"
+        ]
+      },
+      {
+        "n.return": [
+          "paper_4",
+          "function_result_4"
+        ]
+      },
+      {
+        "n.return": [
+          "Kyogre"
+        ]
+      },
+      {
+        "n.return": [
+          "balance"
+        ]
+      },
+      {
+        "n.return": [
+          "['flux', 'kontext', 'turbo']",
+          "weatherdetails"
+        ]
+      },
+      {
+        "n.return": [
+          "current_bmi_value"
+        ]
+      },
+      {
+        "n.return": [
+          "result_set_of_bonds"
+        ]
+      },
+      {
+        "n.return": [
+          "Skeledirge"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE n.return CONTAINS ['talks_data'] OR (n)-[:found_address_for]->(:entity) RETURN n.id",
+    "answer": "function_address_lookup",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE n.return = ['results based on the provided parameters'] OR (n)-[:includes_only]->(:event) RETURN n.id",
+    "answer": "Search LinkedIn profiles and companies using Exa AI",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE n.return = ['error_message'] OR (n)-[:if_overloaded]->(:entity) RETURN n.id",
+    "answer": [
+      {
+        "n.id": "function_content_4"
+      },
+      {
+        "n.id": "function_content_5"
+      },
+      {
+        "n.id": "Review_server_application_logs"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE n.return <> ['results based on the provided parameters'] OR (n)-[:terminate]->(:concept {id: \"coordinate system\"}) RETURN n.parameter",
+    "answer": [
+      "Args: bounds: (xmin, xmax, ymin, ymax, zmin, zmax)"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE n.parameter = ['login credentials'] OR (n)-[:for_organizing_entries]->(:event) RETURN n.return",
+    "answer": [
+      "detailed data for Tesouro IPCA+ 2029"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE n.return = ['retreater', 'totalresults: 1, bonds: [Tesouro IPCA+ 2029]', 'memory_banks_status'] OR (n)-[:get_address_of]->(:entity) RETURN n.return",
+    "answer": [
+      "retreater",
+      "totalresults: 1, bonds: [Tesouro IPCA+ 2029]",
+      "memory_banks_status"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE n.parameter <> ['\"exa-search-crawling_exa\" function is called'] OR (n)-[:inspired_by]->(:concept {id: \"tunnel\"}) RETURN n.return",
+    "answer": [
+      "Returns: Displayed Matplotlib 3D quiver plot (no image return needed)"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE n.return = ['no_code_files_found', 'current datetime in Europe/London timezone', '[]'] OR (n)-[:is_obtained_before]->(:concept {id: \"pronunciation\"}) RETURN n.id",
+    "answer": "function_content_2",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE n.parameter = ['GDB process ID', 'GDB tty device path', 'remote debugging address', 'target program executable path', 'request-linkedin-token'] OR (n)-[:provides_edge_services]->(:entity) RETURN n.return",
+    "answer": [
+      "error_message",
+      "{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }",
+      "404 Not Found"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE n.return = ['results based on the provided parameters'] OR (n)-[:Execute]->(:event) RETURN n.return",
+    "answer": [
+      "results based on the provided parameters"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}) MATCH (b:event {return: a.return}) RETURN count(b) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['request-linkedin-token']}) MATCH (b:entity {parameter: a.parameter}) RETURN count(b) AS cnt",
+    "answer": 16,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}) MATCH (b:event {return: a.return}) RETURN count(b) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['npx playwright install', 'geographic_coordinates', 'request-linkedin-token']}) MATCH (b:entity {parameter: a.parameter}) RETURN count(b) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['npx playwright install', 'geographic_coordinates', 'request-linkedin-token']}) MATCH (b:entity {return: a.return}) RETURN count(b) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {parameter: ['a LinkedIn search query (e.g., person name, company, job title)']}) MATCH (b:event {parameter: a.parameter}) RETURN count(b) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}) MATCH (b:event {return: a.return}) RETURN count(b) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['request-linkedin-token']}) MATCH (b:entity {return: a.return}) RETURN count(b) AS cnt",
+    "answer": 3,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}) MATCH (b:event {return: a.return}) RETURN count(b) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['error_message', '{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }', '404 Not Found']}) MATCH (b:entity {return: a.return}) RETURN count(b) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}) MATCH (b:event {return: a.return}) WITH a, b ORDER BY b.return RETURN a, collect(b.return)[0..32] AS bs",
+    "answer": [
+      {
+        "a": {
+          "file_id": "f1b18eb0ab09945eb8adea7de222b639a20b31ff8bfa1c16e1b20176d7a0f015",
+          "id": "Search LinkedIn profiles and companies using Exa AI",
+          "return": [
+            "results based on the provided parameters"
+          ],
+          "_node_id": "3bb1e619a9d18b2cd8be76af4805a0232c5f0b78dda64577b7f90705c5606e1b"
+        },
+        "bs": [
+          [
+            "results based on the provided parameters"
+          ]
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['definition of retreat', 'totalresults: 41, bonds: [list of IPCA bonds]']}) MATCH (b:entity {return: a.return}) WITH a, b ORDER BY b.return RETURN a, collect(b.return)[0..32] AS bs",
+    "answer": [
+      {
+        "a": {
+          "file_id": "7ede5195ec99bce741005007704cf3bfb20d1f7a60cf8515850814748adf09a7",
+          "id": "tool3",
+          "return": [
+            "definition of retreat",
+            "totalresults: 41, bonds: [list of IPCA bonds]"
+          ],
+          "_node_id": "ce3026339fa98c0bcc2913fe38ce6e5325f5927da6fab53f15a88f5f02d4e321"
+        },
+        "bs": [
+          [
+            "definition of retreat",
+            "totalresults: 41, bonds: [list of IPCA bonds]"
+          ]
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['influencer_username']}) MATCH (b:entity {parameter: a.parameter}) WITH a, b ORDER BY b.parameter RETURN a, collect(b.parameter)[0..32] AS bs",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "influencer_username"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "assistant_content_1",
+          "_node_id": "ec898ca1b555f36fdc1c965ab6bacd6db131a9e57f3b518de5240a641bd421b5"
+        },
+        "bs": [
+          [
+            "influencer_username"
+          ]
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['npx playwright install', 'geographic_coordinates', 'request-linkedin-token']}) MATCH (b:entity {return: a.return}) WITH a, b ORDER BY b.parameter RETURN a, collect(b.parameter)[0..32] AS bs",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "npx playwright install",
+            "geographic_coordinates",
+            "request-linkedin-token"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "function_content_4",
+          "return": [
+            "error_message"
+          ],
+          "_node_id": "c9666d7c0a34eb3c46a1dc3e2648bdd4bd99c105a95c57af6d118a58b0b70b59"
+        },
+        "bs": [
+          [
+            "npx playwright install",
+            "geographic_coordinates",
+            "request-linkedin-token"
+          ],
+          [
+            "request-linkedin-token"
+          ]
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}) MATCH (b:event {return: a.return}) WITH a, b ORDER BY b.return RETURN a, collect(b.return)[0..32] AS bs",
+    "answer": [
+      {
+        "a": {
+          "file_id": "f1b18eb0ab09945eb8adea7de222b639a20b31ff8bfa1c16e1b20176d7a0f015",
+          "id": "Search LinkedIn profiles and companies using Exa AI",
+          "return": [
+            "results based on the provided parameters"
+          ],
+          "_node_id": "3bb1e619a9d18b2cd8be76af4805a0232c5f0b78dda64577b7f90705c5606e1b"
+        },
+        "bs": [
+          [
+            "results based on the provided parameters"
+          ]
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['error_message', '{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }', '404 Not Found']}) MATCH (b:entity {parameter: a.parameter}) WITH a, b ORDER BY b.return RETURN a, collect(b.return)[0..32] AS bs",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "GDB process ID",
+            "GDB tty device path",
+            "remote debugging address",
+            "target program executable path",
+            "request-linkedin-token"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "function_content_3",
+          "return": [
+            "error_message",
+            "{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }",
+            "404 Not Found"
+          ],
+          "_node_id": "b6a7839058d662061b51b05d2df88955a0559f3da6aa266377f9fef3efe9409f"
+        },
+        "bs": [
+          [
+            "error_message",
+            "{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }",
+            "404 Not Found"
+          ]
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['talks_data']}) MATCH (b:entity {return: a.return}) WITH a, b ORDER BY b.parameter RETURN a, collect(b.parameter)[0..32] AS bs",
+    "answer": [
+      {
+        "a": {
+          "file_id": "303f3fe760864f48bb3d6236ad7cdce4c5707b268f3f6814ab647a6f8a0cd89a",
+          "id": "Talks Results",
+          "return": [
+            "talks_data"
+          ],
+          "_node_id": "b64aa3e145452a9535a1abef110830a08b2a85e225a874b5362c0894c59858d5"
+        },
+        "bs": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['request-linkedin-token']}) MATCH (b:entity {return: a.return}) WITH a, b ORDER BY b.return RETURN a, collect(b.return)[0..32] AS bs",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "request-linkedin-token"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "function_content_5",
+          "return": [
+            "error_message"
+          ],
+          "_node_id": "65c5901b845d215ae1d5fa51cd9a9910a715dc39fcf288a24b16633445974172"
+        },
+        "bs": [
+          [
+            "error_message"
+          ],
+          [
+            "error_message"
+          ]
+        ]
+      },
+      {
+        "a": {
+          "parameter": [
+            "request-linkedin-token"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "function_content_2",
+          "return": [
+            "no_code_files_found",
+            "current datetime in Europe/London timezone",
+            "[]"
+          ],
+          "_node_id": "9edaa4c482bb5e253505e55838a71e03568cf7d8b3aa29197cd8a224a0d2e9ab"
+        },
+        "bs": [
+          [
+            "no_code_files_found",
+            "current datetime in Europe/London timezone",
+            "[]"
+          ]
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {parameter: ['a LinkedIn search query (e.g., person name, company, job title)']}) MATCH (b:event {parameter: a.parameter}) WITH a, b ORDER BY b.parameter RETURN a, collect(b.parameter)[0..32] AS bs",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "a LinkedIn search query (e.g., person name, company, job title)"
+          ],
+          "file_id": "f1b18eb0ab09945eb8adea7de222b639a20b31ff8bfa1c16e1b20176d7a0f015",
+          "id": "Parameters include 'query'",
+          "_node_id": "1b311da1891bffd856c33f2440bdb3cbf1d3aa590255eb0e85feaa82c915b850"
+        },
+        "bs": [
+          [
+            "a LinkedIn search query (e.g., person name, company, job title)"
+          ]
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {parameter: ['a LinkedIn search query (e.g., person name, company, job title)']}) MATCH (b:event {parameter: a.parameter}) WITH a, b ORDER BY b.return RETURN a, collect(b.return)[0..32] AS bs",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "a LinkedIn search query (e.g., person name, company, job title)"
+          ],
+          "file_id": "f1b18eb0ab09945eb8adea7de222b639a20b31ff8bfa1c16e1b20176d7a0f015",
+          "id": "Parameters include 'query'",
+          "_node_id": "1b311da1891bffd856c33f2440bdb3cbf1d3aa590255eb0e85feaa82c915b850"
+        },
+        "bs": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:provide_access_to]->(:entity) RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE (a)-[:caused_by]->(:event) RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:has_default]->(:entity) RETURN count(a) AS cnt",
+    "answer": 5,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:executed]->(:entity) RETURN count(a) AS cnt",
+    "answer": 4,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:needs]->(:entity) RETURN count(a) AS cnt",
+    "answer": 3,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:Find]->(:entity) RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:successful_retrieval]->(:entity) RETURN count(a) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:clears_cache]->(:entity) RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:hasFunctionDescription]->(:entity) RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:uses_prediction_from]->(:entity) RETURN count(a) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE (a)-[:threshold_for_exclusion]->(:entity) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS values",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE (a)-[:failed_after]->(:entity) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS values",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE (a)-[:filtering_for]->(:event) WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS values",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE (a)-[:argues_against]->(:entity) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS values",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"law\"}) WHERE (a)-[:computes_square_root_of]->(:entity) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS values",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"pronunciation\"}) WHERE (a)-[:evaluates]->(:entity) WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS values",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"pronunciation\"}) WHERE (a)-[:then_examined]->(:entity) WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS values",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE (a)-[:version_of]->(:event) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS values",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE (a)-[:receives]->(:event) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS values",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE (a)-[:encodes_output_of]->(:entity) WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS values",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['total_results: 0, bonds: []']}), (b:event) WHERE NOT (a)-[:be]->(b) RETURN count(b) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {parameter: ['\"exa-search-crawling_exa\" function is called']}), (b:event) WHERE NOT (a)-[:adds_to]->(b) RETURN count(b) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['login credentials']}), (b:entity) WHERE NOT (a)-[:has_max_items]->(b) RETURN count(b) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['npx playwright install', 'geographic_coordinates', 'request-linkedin-token']}), (b:entity) WHERE NOT (a)-[:suggested_next]->(b) RETURN count(b) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['request-linkedin-token', 'npx playwright install', 'request_linkedin_token', 'wapulseToken and wapulseInstanceID', 'specific coordinates']}), (b:entity) WHERE NOT (a)-[:haveParameter]->(b) RETURN count(b) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['error_message']}), (b:event) WHERE NOT (a)-[:option_for]->(b) RETURN count(b) AS cnt",
+    "answer": 21862,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['influencer_username']}), (b:entity) WHERE NOT (a)-[:is_option_for]->(b) RETURN count(b) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['coordinates for Paris', 'payment']}), (b:entity) WHERE NOT (a)-[:installs]->(b) RETURN count(b) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['error_message', '{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }', '404 Not Found']}), (b:event) WHERE NOT (a)-[:results_in]->(b) RETURN count(b) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['retreater', 'totalresults: 1, bonds: [Tesouro IPCA+ 2029]', 'memory_banks_status']}), (b:event) WHERE NOT (a)-[:get_current_temperature_for]->(b) RETURN count(b) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:sets_up]->(:entity) OR (n)-[:analyzes_blocks_from]->(:event) RETURN count(n) AS cnt",
+    "answer": 3,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE (n)-[:contains_property]->(:event) OR (n)-[:finds_emoji]->(:entity) RETURN count(n) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:evolves_into]->(:entity) OR (n)-[:calculates_sine_value]->(:entity) RETURN count(n) AS cnt",
+    "answer": 3,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:encourages]->(:concept {id: \"bond search\"}) OR (n)-[:overloads_AI_context_windows]->(:entity) RETURN count(n) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:has_network]->(:entity) OR (n)-[:extra_parameters_for]->(:concept {id: \"coordinate system\"}) RETURN count(n) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:artist_of]->(:entity) OR (n)-[:helps_establish]->(:entity) RETURN count(n) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE (n)-[:part_of]->(:entity) OR (n)-[:raises_error_if_not_found_or_shapes_are_incompatible]->(:concept {id: \"tunnel\"}) RETURN count(n) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:search_through_transcripts]->(:entity) OR (n)-[:returns_existing_cron_jobs]->(:event) RETURN count(n) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:be_passed_to]->(:entity) OR (n)-[:calls_api_with_connection_id]->(:event) RETURN count(n) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE (n)-[:suggests_Azure_authentication]->(:entity) OR (n)-[:informs_analysis_of]->(:entity) RETURN count(n) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE NOT (n)-[:Search_for]->(:event) OR (n)-[:blocks_inbound_rdp]->(:event) RETURN count(n)",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE NOT (n)-[:failed_with_status_code_404]->(:entity) OR (n)-[:provides_data_about]->(:entity) RETURN count(n)",
+    "answer": 137774,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:concept {id: \"pronunciation\"}) WHERE NOT (n)-[:should_be_set_to]->(:event) OR (n)-[:resultsIn]->(:concept {id: \"pronunciation\"}) RETURN count(n)",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE NOT (n)-[:provides_information_for]->(:entity) OR (n)-[:get_documentation_for]->(:concept {id: \"customizations\"}) RETURN count(n)",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE NOT (n)-[:suggests_manual_steps]->(:event) OR (n)-[:can_create_nested_directories]->(:entity) RETURN count(n)",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:entity) WHERE NOT (n)-[:identifier_of]->(:concept {id: \"movie\"}) OR (n)-[:get_details_for]->(:event) RETURN count(n)",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:concept {id: \"tally\"}) WHERE NOT (n)-[:reports_authentication_failure]->(:event) OR (n)-[:to_retrieve_the_result_as_HTML]->(:concept {id: \"tally\"}) RETURN count(n)",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:event) WHERE NOT (n)-[:argues]->(:entity) OR (n)-[:demonstrates]->(:concept {id: \"pronunciation\"}) RETURN count(n)",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:concept {id: \"rooftop farm\"}) WHERE NOT (n)-[:validated_by]->(:concept {id: \"rooftop farm\"}) OR (n)-[:summarized_after]->(:event) RETURN count(n)",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (n:concept {id: \"movie\"}) WHERE NOT (n)-[:expected_commercial_deployment]->(:event) OR (n)-[:gets_timezone_conversions]->(:entity) RETURN count(n)",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:examines_sections_of *1..4]-(b:entity) RETURN a, b",
+    "answer": [
+      {
+        "a": "tool2",
+        "b": "Lake Baikal article"
+      },
+      {
+        "a": "Lake Baikal article",
+        "b": "tool2"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:toDecode *1..5]-(b:entity) RETURN a, b",
+    "answer": [
+      {
+        "a": "content",
+        "b": "hex"
+      },
+      {
+        "a": "hex",
+        "b": "content"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:executed_after *2..2]-(b:entity) RETURN a, b",
+    "answer": [
+      {
+        "a": "cmd_schtasks_query",
+        "b": "PowerShell_Get_ScheduledTask_NextRunTime"
+      },
+      {
+        "a": "PowerShellExecutionTool_is_not_available_on_Linux",
+        "b": "PowerShell_Get_ScheduledTask"
+      },
+      {
+        "a": "PowerShell_Get_ScheduledTask",
+        "b": "PowerShell_Get_Detailed_Trigger_Information"
+      },
+      {
+        "a": "PowerShell_Get_ScheduledTask",
+        "b": "PowerShellExecutionTool_is_not_available_on_Linux"
+      },
+      {
+        "a": "PowerShell_Get_ScheduledTask_NextRunTime",
+        "b": "cmd_schtasks_monitor_real_time"
+      },
+      {
+        "a": "PowerShell_Get_ScheduledTask_NextRunTime",
+        "b": "cmd_schtasks_query"
+      },
+      {
+        "a": "PowerShell_Get_Detailed_Trigger_Information",
+        "b": "PowerShell_Get_ScheduledTask"
+      },
+      {
+        "a": "PowerShell_Get_Detailed_Trigger_Information",
+        "b": "cmd_wevtutil_check_task_history"
+      },
+      {
+        "a": "cmd_schtasks_monitor_real_time",
+        "b": "PowerShell_Get_ScheduledTask_NextRunTime"
+      },
+      {
+        "a": "cmd_wevtutil_check_task_history",
+        "b": "PowerShell_Get_Detailed_Trigger_Information"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:optimizes *1..4]-(b:entity) RETURN a, b",
+    "answer": [
+      {
+        "a": "function_content_4",
+        "b": "diagramId_ecosystem-energy-flow"
+      },
+      {
+        "a": "Hybrid Renewable Plants",
+        "b": "capacity factors"
+      },
+      {
+        "a": "capacity factors",
+        "b": "Hybrid Renewable Plants"
+      },
+      {
+        "a": "diagramId_ecosystem-energy-flow",
+        "b": "function_content_4"
+      },
+      {
+        "a": "IBM BigFix relevance script",
+        "b": "Fast execution"
+      },
+      {
+        "a": "Fast execution",
+        "b": "IBM BigFix relevance script"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:explains_why *1..2]-(b:entity) RETURN a, b",
+    "answer": [
+      {
+        "a": "function_content",
+        "b": "React Context7 Library ID /reactjs/react.dev is chosen"
+      },
+      {
+        "a": "React Context7 Library ID /reactjs/react.dev is chosen",
+        "b": "function_content"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:pubkey_of *1..2]-(b:entity) RETURN a, b",
+    "answer": [
+      {
+        "a": "token_account",
+        "b": "SPL Token account"
+      },
+      {
+        "a": "SPL Token account",
+        "b": "token_account"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:has_required_properties *1..3]-(b:entity) RETURN a, b",
+    "answer": [
+      {
+        "a": "communication",
+        "b": "style, tone"
+      },
+      {
+        "a": "style, tone",
+        "b": "communication"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:causes_error_in *1..4]-(b:entity) RETURN a, b",
+    "answer": [
+      {
+        "a": "invalid_youtube_url",
+        "b": "download_transcript"
+      },
+      {
+        "a": "download_transcript",
+        "b": "invalid_youtube_url"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:isInRange *1..5]-(b:entity) RETURN a, b",
+    "answer": [
+      {
+        "a": "latitude",
+        "b": "-90 ile 90 arasında"
+      },
+      {
+        "a": "longitude",
+        "b": "-180 ile 180 arasında"
+      },
+      {
+        "a": "-90 ile 90 arasında",
+        "b": "latitude"
+      },
+      {
+        "a": "-180 ile 180 arasında",
+        "b": "longitude"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:set_up_after *1..3]-(b:entity) RETURN a, b",
+    "answer": [
+      {
+        "a": "USDA Organic Calculator",
+        "b": "Shopify Dawn Theme"
+      },
+      {
+        "a": "USDA Organic Calculator",
+        "b": "Shopify Product Page Templates"
+      },
+      {
+        "a": "Shopify Dawn Theme",
+        "b": "USDA Organic Calculator"
+      },
+      {
+        "a": "Shopify Dawn Theme",
+        "b": "Shopify Product Page Templates"
+      },
+      {
+        "a": "Shopify Product Page Templates",
+        "b": "Shopify Dawn Theme"
+      },
+      {
+        "a": "Shopify Product Page Templates",
+        "b": "USDA Organic Calculator"
+      },
+      {
+        "a": "TinyPNG Image Compression",
+        "b": "ShipBob or Pirate Ship"
+      },
+      {
+        "a": "TinyPNG Image Compression",
+        "b": "EcoEnclose or Noissue"
+      },
+      {
+        "a": "ShipBob or Pirate Ship",
+        "b": "TinyPNG Image Compression"
+      },
+      {
+        "a": "ShipBob or Pirate Ship",
+        "b": "EcoEnclose or Noissue"
+      },
+      {
+        "a": "EcoEnclose or Noissue",
+        "b": "ShipBob or Pirate Ship"
+      },
+      {
+        "a": "EcoEnclose or Noissue",
+        "b": "TinyPNG Image Compression"
+      },
+      {
+        "a": "Klarna or Later for scheduled educational content",
+        "b": "Klaviyo for segmented email flows"
+      },
+      {
+        "a": "Klarna or Later for scheduled educational content",
+        "b": "AspireIQ or Collabstr"
+      },
+      {
+        "a": "Klaviyo for segmented email flows",
+        "b": "Klarna or Later for scheduled educational content"
+      },
+      {
+        "a": "Klaviyo for segmented email flows",
+        "b": "AspireIQ or Collabstr"
+      },
+      {
+        "a": "AspireIQ or Collabstr",
+        "b": "Klaviyo for segmented email flows"
+      },
+      {
+        "a": "AspireIQ or Collabstr",
+        "b": "Klarna or Later for scheduled educational content"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:is_followed_by]->(b:entity)-[:depends_on]->(c:entity)-[:supports]->(d:entity) RETURN a, count(d) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "59c1c3dfb3a695dc6ba366bcbc43db1caf3425c275e8e705bf9dd606c1e19e5c",
+          "id": "flux",
+          "_node_id": "62b9b2ce5206ff67afaaf3688be45696d7595ea268aa249e3c79fd485706fb03"
+        },
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:return_type *1..5]-(b:entity) RETURN count(b) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:checks_port *1..5]-(b:entity) RETURN count(b) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:checked_directory *1..5]-(b:entity) RETURN count(b) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:suggestion_when *1..5]-(b:event) RETURN count(b) AS cnt",
+    "answer": 6,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:with_parameters_compIndex__layerIndex__and_templateName *1..2]-(b:event) RETURN count(b) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:of *1..2]-(b:event) RETURN count(b) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:against *1..4]-(b:event) RETURN count(b) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:for *1..4]-(b:entity) RETURN count(b) AS cnt",
+    "answer": 8,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:finds *1..2]-(b:event) RETURN count(b) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:canBe *2..4]-(b:entity) RETURN count(b) AS cnt",
+    "answer": 14,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:fails_due_to_lack_of *1..4]-(b:entity) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "user verification"
+          ],
+          "file_id": "06e9cd7fa454b1fa10ff0fe072aee0388acfbe30b9fd8e6c005d20e2280e8ab3",
+          "id": "function2",
+          "return": [
+            "创建文件 project_notes.txt 失败",
+            "{ \"temperature\": 29.4 }",
+            "{'network': 'mainnet', 'chainId': '0x534e5f4d41494e', 'blockNumber': 1685026, 'rpcUrl': 'https://starknet-mainnet.public.blastapi.io'}",
+            "error for Amazon product URL",
+            "bonds",
+            "no matching prompts",
+            "BibTeXEntry",
+            "{ \"monitoringId\": \"incident-analysis-eval-001\", ... }",
+            "invalid_phone_number",
+            "temperature: 18.9",
+            "ollama_supports_reasoning",
+            "2025-08-09T11:09:00+09:00"
+          ],
+          "_node_id": "27a0646dcd9231749abb646f4345039730ae46931f657fc5754eb0d744e09377"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "3a634cd746d48bc9165f1ef21ae02f964c9cb051301a35ec7d7c7611fdcd4646",
+          "id": "PID or TTY information",
+          "_node_id": "0085f13778e932ec1bed77f7b6422b409d3c0b29701ee1a779a16f1c4bcc44fb"
+        },
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:influenced *2..2]-(b:entity) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "0fb1b4a28665cbf931f4a10aad0733bbf57dd5f6aa525a9717af03286c9e2af4",
+          "id": "UK Plant-Based Meat Market 2022-2023",
+          "_node_id": "5c629a8a4b103111edf603eb3f979042bc3cbfed713d1ed26543513abbb979f0"
+        },
+        "cnt": 2
+      },
+      {
+        "a": {
+          "file_id": "0fb1b4a28665cbf931f4a10aad0733bbf57dd5f6aa525a9717af03286c9e2af4",
+          "id": "Germany Plant-Based Meat Market 2022-2023",
+          "_node_id": "b2f0c532cac406e8f7a83066885825a445262531b7d61e6b49545d5c005be72e"
+        },
+        "cnt": 2
+      },
+      {
+        "a": {
+          "file_id": "0fb1b4a28665cbf931f4a10aad0733bbf57dd5f6aa525a9717af03286c9e2af4",
+          "id": "France Plant-Based Meat Market 2022-2023",
+          "_node_id": "e231211c33af4e6a0a5ca13fede902d1a1f72241b80204ae690299e9e1fd8780"
+        },
+        "cnt": 2
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:calculated_before *1..3]-(b:entity) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "VELTAPIKEY"
+          ],
+          "file_id": "8365d6039f6e43a561bed42dc866dcd778f7e218582b38f9af63b3dbca7e44e8",
+          "id": "function_call_1",
+          "return": [
+            "list_of_bonds",
+            "platform_info",
+            "{ \"SHLVL\": \"1\", \"PATH\": \"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\", \"PWD\": \"/app\" }",
+            "most_popular_genres_data",
+            "error_not_found_any_code_files",
+            "models_list",
+            "[\"flux\", \"kontext\", \"turbo\"]",
+            "incorrect_doi",
+            "{ \"total_results\": 0, \"bonds\": [] }",
+            "CID 1049",
+            "molecular weight 79.10 g mol⁻¹",
+            "{ \"total\": 0, \"source\": \"private\", \"prompts\": [] }",
+            "platformInformation",
+            "{ \"SHLVL\": \"1\", \"PATH\": \"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\", \"PWD\": \"/app/src/everything\" }",
+            "search_results"
+          ],
+          "_node_id": "43b8467e3a62cdb21df7eb9ac047c694f221482ecb1b98b2f6d33dc09d27f724"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "502962167fbd717936aa05870bd664f2fd5b81703f6f69956506217449657539",
+          "id": "latitude_sum",
+          "_node_id": "d8646e67015fc8f8a10d60042ca09dbd958b20b77ef8e61c444809b52afa0fb3"
+        },
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:generates_summary *2..2]-(b:entity) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "e2693ef35a59272658e8186abcb2e7131be66c2f1b9d36794dea84e0791a74b7",
+          "id": "of the article",
+          "_node_id": "cfdf4224375038416bb4919d033893730d9fd62b4b5287178951426a61f4ac2f"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "af59485865525d22eb1a73a66c499e2de25c210406e00f0ee7e4a33c8491c1fb",
+          "id": "if True",
+          "_node_id": "5ae35e4736dc7caa9f67811656a973d464da0009de7197283ba1b514af26e305"
+        },
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:contains_error *1..5]-(b:entity) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "request-linkedin-token",
+            "npx playwright install",
+            "request_linkedin_token",
+            "wapulseToken and wapulseInstanceID",
+            "specific coordinates"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "function_content_1",
+          "return": [
+            "temperature_data",
+            "{ \"name\": \"gibraltar\", \"category\": \"flags\", \"group\": \"flags\", \"htmlCode\": [ \"&#127468;\", \"&#127470;\" ], \"unicode\": [ \"U+1F1EC\", \"U+1F1EE\" ] }",
+            "tooltip_component",
+            "current_temperature"
+          ],
+          "_node_id": "7336fde7a840fd09370e0f12d837dc8845a84152821f1a2817afd28af015c541"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "b7e252d2029ee6dc41c177c8d8eae9c0288d083c866c83f2df0712bf3d1838b3",
+          "id": "mechanics.some is not a function",
+          "_node_id": "f154f26d47dcfd6ba5db241f78e235e1e3d04854cca06350abb21062263a89ea"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "b66fbc4c21d566b60a3bb828a4dd1f1f927d3a8a1f0828cf3b716c5ee7736e7f",
+          "id": "response_from_european_central_bank_API",
+          "_node_id": "5b074b57866f0b41cdf47226cdcc207614a59f328da91d77051e482d079ca4d0"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "b66fbc4c21d566b60a3bb828a4dd1f1f927d3a8a1f0828cf3b716c5ee7736e7f",
+          "id": "missingaccesskey",
+          "_node_id": "60d0737ce892939584abe96b2f115286a2631dfe08e136afbea4f452fcaf98a9"
+        },
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:obtain *1..2]-(b:entity) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "885987214b8dcfa67990ed9314190e6b58a2f87786b5491eca32263cb2869eba",
+          "id": "elicitation",
+          "_node_id": "f91bc072e1a5c28f68aaa565765a1a3f6cd72b077dca42082880736e41e562ed"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "885987214b8dcfa67990ed9314190e6b58a2f87786b5491eca32263cb2869eba",
+          "id": "kappa (κ)",
+          "_node_id": "9108379a6c9acda997904f53a679fab47a80c34b425300a9002608a56cf44e8a"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "d0847d77ce3599ad56d4e8f28c2af66be7e442f49636c1ebdc722ac922ee3019",
+          "id": "ipma-weather-data-server-get_weather_warnings",
+          "_node_id": "dc797b002dbf7c4ace9e3b94f2b4d91f7540a4bb0c1775e41595aec55abf8e7e"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "d0847d77ce3599ad56d4e8f28c2af66be7e442f49636c1ebdc722ac922ee3019",
+          "id": "avisos meteorológicos ativos em Portugal",
+          "_node_id": "33c334092cf0d1991a9e59de9fbd10687612fb2c8d578477d0d10502a20c8a4b"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "cf2c2faeec41a2ef9a76e2f8d86709ef01fc770a0bdf62d41c7b8b2feae31832",
+          "id": "ipma-weather-data-server-get_seismic_data",
+          "_node_id": "69814877e4edf8bff4e75b61fa73e4c16cd2f9e5a82a1deb9c41d2de22489ef6"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "cf2c2faeec41a2ef9a76e2f8d86709ef01fc770a0bdf62d41c7b8b2feae31832",
+          "id": "recent seismic data",
+          "_node_id": "87c403a27fb6e10f04e7a380b58d6b9818f8919b70097a63a08024626bba6410"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "123e9468e7b55ddb986c9c1557f3859b456cde6b0b86323bce088817afec79a8",
+          "id": "ipma-weather-data-server-get_uv_forecast",
+          "_node_id": "ab9530722c92e9708e37c4cbbebb2c8fd8bf2f592ab2cf56ed195bf87b9c20bb"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "123e9468e7b55ddb986c9c1557f3859b456cde6b0b86323bce088817afec79a8",
+          "id": "previsão do índice UV",
+          "_node_id": "12d126c0451907971aac91ac1b361d05a89c7cd950d4cff756038c8a922333f1"
+        },
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:for_the_specified_class_name *1..3]-(b:entity) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "9252deb46fab5c3f7630389036c5bcf07f64442b840fc9e0639a479b4129f986",
+          "id": "Get protein classification data",
+          "_node_id": "aa7311372c45fc8cc94edf1b9ab5a56157b29cfc05361d52a0495a95383e5767"
+        },
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:of *1..4]-(b:entity) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "c9a002c04db8b95d26a0f44332c320b6c971143cbda6466c503c56d9af8b9aed",
+          "id": "包含角色档案信息",
+          "_node_id": "61403ecd22615056365523c36ae9ce01fcf1f1096c53500928696b8c74242c6f"
+        },
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:isDefinedAs *1..4]-(b:entity) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "Windows environment",
+            "url",
+            "headers",
+            "max_length",
+            "start_index",
+            "reportId",
+            "urns",
+            "iterations",
+            "waitForNetworkIdle",
+            "device",
+            "title",
+            "pythonCode",
+            "description",
+            "includeValidation",
+            "notebookPath",
+            "cellId",
+            "nodeId",
+            "format",
+            "scale",
+            "collectionPath",
+            "data",
+            "documentId",
+            "paperId",
+            "limit",
+            "offset",
+            "query",
+            "name",
+            "\"search\"",
+            "\"limit\"",
+            "\"offset\"",
+            "page",
+            "pageSize",
+            "includeImage (boolean)",
+            "network",
+            "network parameter",
+            "object",
+            "\"game_name\", \"tag_line\", \"region\", \"lang\" parameters",
+            "id"
+          ],
+          "file_id": "59c1c3dfb3a695dc6ba366bcbc43db1caf3425c275e8e705bf9dd606c1e19e5c,acbdaefdb82b621cc4b470334197cc0258823efc2d8a370d06b69404398674dc",
+          "id": "function",
+          "return": [
+            "{'models': ['o1', 'o3-mini', 'deepseek-reasoner', 'claude-3-7-sonnet-20250219'], 'description': 'These models are specifically optimized for reasoning tasks and support the reasoning_effort parameter.'}",
+            "models",
+            "2025-08-06 21:29:22",
+            "emoji_details",
+            "The current date and time is: 2025-08-08T21:03:46.460Z",
+            "2025-08-08 21:43:25",
+            "(systems theory) A synonym of binding energy. The cooperation of two or more nerves, muscles, organs, etc. The combined action of two or more drugs where the effects are stronger than their mere sum. Benefits resulting from combining different groups, people, objects or processes.",
+            "Random Johto Pokémon: Lugia (#249)",
+            "Pinsir",
+            "Omastar",
+            "[ \"flux\", \"kontext\", \"turbo\" ]",
+            "{ \"SHLVL\": \"1\", \"PATH\": \"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\", \"PWD\": \"/app\" }",
+            "The current date and time is: 2025-08-05T21:56:14.893Z",
+            "{ \"list\": [ \"胡伟军\", \"王文翔\", \"孙海宁\", \"杨阳\", \"赵荆州\" ] }",
+            "{ \"temperature\": 20.6 }",
+            "2024-12-15 06:00:00",
+            "2024-12-16 01:00:00",
+            "The time difference is 0 hours.",
+            "{ \"models\": [ \"o1\", \"o3-mini\", \"deepseek-reasoner\", \"claude-3-7-sonnet-20250219\" ], \"description\": \"These models are specifically optimized for reasoning tasks and support the reasoning_effort parameter.\" }",
+            "a list of copywriting frameworks and their descriptions",
+            "any flagged phrases found in the text"
+          ],
+          "_node_id": "e316abd7fc7b614cea2094f51ddd4621b1ee383ca3bf5d856dc052e3eab9b130"
+        },
+        "cnt": 2
+      },
+      {
+        "a": {
+          "parameter": [
+            "object"
+          ],
+          "file_id": "35fa85cd2814e2307ab341ee5aa43e8873074086c30fe25e538fd03fd09e273b",
+          "id": "wildfly-mcp-server-getWildFlyPrometheusMetrics",
+          "_node_id": "15f7c039d80808e60bdc6e50220e10031b306cc6ea9821da68542434a351b33c"
+        },
+        "cnt": 2
+      },
+      {
+        "a": {
+          "parameter": [
+            "packages"
+          ],
+          "file_id": "bdc20126a4c02d0c52c91c1f4249865a785544e28bdbccfbc59be7fc217d4ce7",
+          "description": [
+            "Get package size information including dependencies and bundle size"
+          ],
+          "id": "npm-sentinel-mcp-npmSize",
+          "_node_id": "8165bbcff1996f31c974238f83e7b35db11e08070db6c6c52b652d85e817cd07"
+        },
+        "cnt": 2
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:retrieves_trending_repos *1..3]-(b:entity) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "06e9cd7fa454b1fa10ff0fe072aee0388acfbe30b9fd8e6c005d20e2280e8ab3",
+          "id": "function3",
+          "return": [
+            "创建文件 project_notes.txt 失败",
+            "{'network': 'sepolia', 'chainId': '0x534e5f5345504f4c4941', 'blockNumber': 1392068, 'rpcUrl': 'https://starknet-sepolia.public.blastapi.io'}",
+            "convertedTime",
+            "Sunday, 10 August 2025 20:54:43",
+            "bitcoin_price"
+          ],
+          "_node_id": "ff1a890b0d381a213f2f37c94a7e01f58d31b8b241563b5efe103a7f3a72f0d8"
+        },
+        "cnt": 1
+      },
+      {
+        "a": {
+          "file_id": "3043411637a655ebe07a37d9e51bf70b59c46a58f959b6f80a635013fc1b766f",
+          "id": "GitHub data",
+          "_node_id": "1a7ca513bebe96f45f7b5a0d43b31fdb0e6011cc05f4be0624cff8dcce74c5a9"
+        },
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"coordinate system\"}) WITH a ORDER BY a.id LIMIT 10 MATCH (b:concept {id: \"coordinate system\"}) WITH a, b ORDER BY b.id LIMIT 10 RETURN a, b",
+    "answer": [
+      {
+        "a": "coordinate system",
+        "b": "coordinate system"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WITH a ORDER BY a.id LIMIT 10 MATCH (b:concept {id: \"tally\"}) WITH a, b ORDER BY b.id LIMIT 10 RETURN a, b",
+    "answer": [
+      {
+        "a": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli",
+        "b": "tally"
+      },
+      {
+        "a": "\"$schema\": \"http://json-schema.org/draft-07/schema#\"",
+        "b": "tally"
+      },
+      {
+        "a": "\"AdditionalProperties\": false",
+        "b": "tally"
+      },
+      {
+        "a": "\"ENSEMBL_MART_ENSEMBL\", \"hsapiens_gene_ensembl\"",
+        "b": "tally"
+      },
+      {
+        "a": "\"Full Data\" flag is set to return full data for each article.",
+        "b": "tally"
+      },
+      {
+        "a": "\"Keyword\" is provided as a search term to find articles.",
+        "b": "tally"
+      },
+      {
+        "a": "\"Max Results\" parameter is set to limit the number of returned articles.",
+        "b": "tally"
+      },
+      {
+        "a": "\"No documentation available\" otherwise",
+        "b": "tally"
+      },
+      {
+        "a": "\"Period\" parameter is set to look back for articles.",
+        "b": "tally"
+      },
+      {
+        "a": "\"Ping\" is an object with a property 'gecko_says'",
+        "b": "tally"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WITH a ORDER BY a.id LIMIT 10 MATCH (b:concept {id: \"customizations\"}) WITH a, b ORDER BY b.id LIMIT 10 RETURN a, b",
+    "answer": [
+      {
+        "a": " Başlık: Animal Farm Yazarlar: George Orwell",
+        "b": "customizations"
+      },
+      {
+        "a": " Başlık: Children of Dune Yazarlar: Frank Herbert",
+        "b": "customizations"
+      },
+      {
+        "a": " Başlık: Dispossessed, the [50th Anniversary Edition] Yazarlar: Ursula K. Le Guin, Karen Joy Fowler",
+        "b": "customizations"
+      },
+      {
+        "a": " Başlık: Dune Messiah Yazarlar: Frank Herbert",
+        "b": "customizations"
+      },
+      {
+        "a": " Başlık: Dune Yazarlar: Frank Herbert",
+        "b": "customizations"
+      },
+      {
+        "a": " Başlık: Foundation Yazarlar: Isaac Asimov",
+        "b": "customizations"
+      },
+      {
+        "a": " Başlık: Foundation and Empire Yazarlar: Isaac Asimov",
+        "b": "customizations"
+      },
+      {
+        "a": " Başlık: Foundation's Edge Yazarlar: Isaac Asimov",
+        "b": "customizations"
+      },
+      {
+        "a": " Başlık: Frankenstein or The Modern Prometheus Yazarlar: Mary Shelley",
+        "b": "customizations"
+      },
+      {
+        "a": " Başlık: God Emperor of Dune Yazarlar: Frank Herbert",
+        "b": "customizations"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WITH a ORDER BY a.id LIMIT 10 MATCH (b:entity) WITH a, b ORDER BY b.parameter LIMIT 10 RETURN a, b",
+    "answer": [
+      {
+        "a": "\"Max Results\" parameter is set to limit the number of returned articles.",
+        "b": "quadratic_rootsArguments"
+      },
+      {
+        "a": "\"Period\" parameter is set to look back for articles.",
+        "b": "quadratic_rootsArguments"
+      },
+      {
+        "a": "\"Keyword\" is provided as a search term to find articles.",
+        "b": "quadratic_rootsArguments"
+      },
+      {
+        "a": "\"ENSEMBL_MART_ENSEMBL\", \"hsapiens_gene_ensembl\"",
+        "b": "quadratic_rootsArguments"
+      },
+      {
+        "a": "\"$schema\": \"http://json-schema.org/draft-07/schema#\"",
+        "b": "quadratic_rootsArguments"
+      },
+      {
+        "a": "\"No documentation available\" otherwise",
+        "b": "quadratic_rootsArguments"
+      },
+      {
+        "a": "\"AdditionalProperties\": false",
+        "b": "quadratic_rootsArguments"
+      },
+      {
+        "a": "\"Full Data\" flag is set to return full data for each article.",
+        "b": "quadratic_rootsArguments"
+      },
+      {
+        "a": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli",
+        "b": "quadratic_rootsArguments"
+      },
+      {
+        "a": "\"Ping\" is an object with a property 'gecko_says'",
+        "b": "quadratic_rootsArguments"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WITH a ORDER BY a.return LIMIT 10 MATCH (b:entity) WITH a, b ORDER BY b.id LIMIT 10 RETURN a, b",
+    "answer": [
+      {
+        "a": "Decomposes the matrix A into A = Q @ R, where Q is an orthogonal matrix and R is an upper triangular matrix.",
+        "b": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "a": "args: sid: PubChem Substance ID (SID)",
+        "b": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "a": "compute taylor series",
+        "b": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "a": "获取城市的天气信息",
+        "b": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "a": "perform summation",
+        "b": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "a": "Parameters include clinical_signs_dvt, alternative_diagnosis_less_likely, heart_rate_over_100, immobilization_or_surgery, previous_dvt_or_pe, hemoptysis, and malignancy",
+        "b": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "a": "compute limit of the expression",
+        "b": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "a": "factorize the expression",
+        "b": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "a": "basic arithmetic operation",
+        "b": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "a": "Type: function Name: weather-forecast-server-with-ai-assistant-weather_greeting",
+        "b": " Başlık: Animal Farm Yazarlar: George Orwell"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"pronunciation\"}) WITH a ORDER BY a.id LIMIT 10 MATCH (b:concept {id: \"pronunciation\"}) WITH a, b ORDER BY b.id LIMIT 10 RETURN a, b",
+    "answer": [
+      {
+        "a": "pronunciation",
+        "b": "pronunciation"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WITH a ORDER BY a.id LIMIT 10 MATCH (b:entity) WITH a, b ORDER BY b.return LIMIT 10 RETURN a, b",
+    "answer": [
+      {
+        "a": "\"Max Results\" parameter is set to limit the number of returned articles.",
+        "b": "solana-client-is_connected"
+      },
+      {
+        "a": "\"Period\" parameter is set to look back for articles.",
+        "b": "solana-client-is_connected"
+      },
+      {
+        "a": "\"ENSEMBL_MART_ENSEMBL\", \"hsapiens_gene_ensembl\"",
+        "b": "solana-client-is_connected"
+      },
+      {
+        "a": "\"Keyword\" is provided as a search term to find articles.",
+        "b": "solana-client-is_connected"
+      },
+      {
+        "a": "\"No documentation available\" otherwise",
+        "b": "solana-client-is_connected"
+      },
+      {
+        "a": "\"AdditionalProperties\": false",
+        "b": "solana-client-is_connected"
+      },
+      {
+        "a": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli",
+        "b": "solana-client-is_connected"
+      },
+      {
+        "a": "\"$schema\": \"http://json-schema.org/draft-07/schema#\"",
+        "b": "solana-client-is_connected"
+      },
+      {
+        "a": "\"Full Data\" flag is set to return full data for each article.",
+        "b": "solana-client-is_connected"
+      },
+      {
+        "a": "\"Ping\" is an object with a property 'gecko_says'",
+        "b": "solana-client-is_connected"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WITH a ORDER BY a.id LIMIT 10 MATCH (b:event) WITH a, b ORDER BY b.id LIMIT 10 RETURN a, b",
+    "answer": [
+      {
+        "a": " Başlık: Foundation's Edge Yazarlar: Isaac Asimov",
+        "b": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli"
+      },
+      {
+        "a": " Başlık: Frankenstein or The Modern Prometheus Yazarlar: Mary Shelley",
+        "b": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli"
+      },
+      {
+        "a": " Başlık: Dune Yazarlar: Frank Herbert",
+        "b": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli"
+      },
+      {
+        "a": " Başlık: Foundation and Empire Yazarlar: Isaac Asimov",
+        "b": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli"
+      },
+      {
+        "a": " Başlık: Dispossessed, the [50th Anniversary Edition] Yazarlar: Ursula K. Le Guin, Karen Joy Fowler",
+        "b": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli"
+      },
+      {
+        "a": " Başlık: Animal Farm Yazarlar: George Orwell",
+        "b": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli"
+      },
+      {
+        "a": " Başlık: Children of Dune Yazarlar: Frank Herbert",
+        "b": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli"
+      },
+      {
+        "a": " Başlık: Dune Messiah Yazarlar: Frank Herbert",
+        "b": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli"
+      },
+      {
+        "a": " Başlık: Foundation Yazarlar: Isaac Asimov",
+        "b": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli"
+      },
+      {
+        "a": " Başlık: God Emperor of Dune Yazarlar: Frank Herbert",
+        "b": "\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"pronunciation\"}) WITH a ORDER BY a.id LIMIT 10 MATCH (b:entity) WITH a, b ORDER BY b.parameter LIMIT 10 RETURN a, b",
+    "answer": [
+      {
+        "a": "pronunciation",
+        "b": "quadratic_rootsArguments"
+      },
+      {
+        "a": "pronunciation",
+        "b": "unity-mcp-integration-execute_editor_command"
+      },
+      {
+        "a": "pronunciation",
+        "b": "op.gg-lol-summoner-search"
+      },
+      {
+        "a": "pronunciation",
+        "b": "playwright-automation-server-playwright_expect_response"
+      },
+      {
+        "a": "pronunciation",
+        "b": "multiply_matricesArguments"
+      },
+      {
+        "a": "pronunciation",
+        "b": "mlb-stats-server-get_player_stats"
+      },
+      {
+        "a": "pronunciation",
+        "b": "think-tank-exa_answer"
+      },
+      {
+        "a": "pronunciation",
+        "b": "textube-deep_analyze"
+      },
+      {
+        "a": "pronunciation",
+        "b": "addArguments"
+      },
+      {
+        "a": "pronunciation",
+        "b": "wallhaven-wallpaper-search-server-get_user_settings"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WITH a ORDER BY a.id LIMIT 10 MATCH (b:concept {id: \"tunnel\"}) WITH a, b ORDER BY b.id LIMIT 10 RETURN a, b",
+    "answer": [
+      {
+        "a": " Başlık: Animal Farm Yazarlar: George Orwell",
+        "b": "tunnel"
+      },
+      {
+        "a": " Başlık: Children of Dune Yazarlar: Frank Herbert",
+        "b": "tunnel"
+      },
+      {
+        "a": " Başlık: Dispossessed, the [50th Anniversary Edition] Yazarlar: Ursula K. Le Guin, Karen Joy Fowler",
+        "b": "tunnel"
+      },
+      {
+        "a": " Başlık: Dune Messiah Yazarlar: Frank Herbert",
+        "b": "tunnel"
+      },
+      {
+        "a": " Başlık: Dune Yazarlar: Frank Herbert",
+        "b": "tunnel"
+      },
+      {
+        "a": " Başlık: Foundation Yazarlar: Isaac Asimov",
+        "b": "tunnel"
+      },
+      {
+        "a": " Başlık: Foundation and Empire Yazarlar: Isaac Asimov",
+        "b": "tunnel"
+      },
+      {
+        "a": " Başlık: Foundation's Edge Yazarlar: Isaac Asimov",
+        "b": "tunnel"
+      },
+      {
+        "a": " Başlık: Frankenstein or The Modern Prometheus Yazarlar: Mary Shelley",
+        "b": "tunnel"
+      },
+      {
+        "a": " Başlık: God Emperor of Dune Yazarlar: Frank Herbert",
+        "b": "tunnel"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"tally\"}) WHERE NOT a.id STARTS WITH 'bond search' WITH a ORDER BY a.id LIMIT 50 RETURN a.id",
+    "answer": "tally",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"rooftop farm\"}) WHERE NOT a.id ENDS WITH 'bond search' WITH a ORDER BY a.id LIMIT 50 RETURN a.id",
+    "answer": "rooftop farm",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.parameter <> ['a LinkedIn search query (e.g., person name, company, job title)'] WITH a ORDER BY a.id LIMIT 50 RETURN a.id",
+    "answer": "Parameters include 'query'",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"coordinate system\"}) WHERE NOT a.id = 'bond search' WITH a ORDER BY a.id LIMIT 50 RETURN a.id",
+    "answer": "coordinate system",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"rooftop farm\"}) WHERE NOT a.id = 'bond search' WITH a ORDER BY a.id LIMIT 50 RETURN a.id",
+    "answer": "rooftop farm",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"tally\"}) WHERE NOT a.id STARTS WITH 'bond search' WITH a ORDER BY a.id LIMIT 50 RETURN a.id",
+    "answer": "tally",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"coordinate system\"}) WHERE NOT a.id ENDS WITH 'rooftop farm' WITH a ORDER BY a.id LIMIT 50 RETURN a.id",
+    "answer": "coordinate system",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"coordinate system\"}) WHERE NOT a.id STARTS WITH 'pronunciation' WITH a ORDER BY a.id LIMIT 50 RETURN a.id",
+    "answer": "coordinate system",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"tunnel\"}) WHERE NOT a.id ENDS WITH 'movie' WITH a ORDER BY a.id LIMIT 50 RETURN a.id",
+    "answer": "tunnel",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"tunnel\"}) WHERE NOT a.id STARTS WITH 'coordinate system' WITH a ORDER BY a.id LIMIT 50 RETURN a.id",
+    "answer": "tunnel",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {id: 'fetch_json_43'}), (b:concept {id: \"law\"}) WHERE NOT (a)-[:returns_details_of]->(b) RETURN b.id",
+    "answer": "law",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {id: 'defines the parameters for the exa-search-company_research_exa function'}), (b:event) WHERE NOT (a)-[:provides_credentials_to]->(b) RETURN b.parameter",
+    "answer": [
+      {
+        "b.parameter": [
+          "\"exa-search-crawling_exa\" function is called"
+        ]
+      },
+      {
+        "b.parameter": [
+          "a LinkedIn search query (e.g., person name, company, job title)"
+        ]
+      },
+      {
+        "b.parameter": [
+          "the Word document path"
+        ]
+      },
+      {
+        "b.parameter": [
+          "the number of rows in the table"
+        ]
+      },
+      {
+        "b.parameter": [
+          "the number of columns in the table"
+        ]
+      },
+      {
+        "b.parameter": [
+          "filename: Path to the Word document",
+          "style_name: Name for the new style"
+        ]
+      },
+      {
+        "b.parameter": [
+          "filename: Path to the Word document"
+        ]
+      },
+      {
+        "b.parameter": [
+          "outputPath"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Parameters: { \"type\": \"object\", \"properties\": { ... } }"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Provide a name parameter"
+        ]
+      },
+      {
+        "b.parameter": [
+          "\"name\": {\"type\": \"string\", \"description\": \"The name of the index\"} is specified"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {parameter: ['a LinkedIn search query (e.g., person name, company, job title)']}), (b:event) WHERE NOT (a)-[:since_loading]->(b) RETURN b.return",
+    "answer": [
+      {
+        "b.return": [
+          "results based on the provided parameters"
+        ]
+      },
+      {
+        "b.return": [
+          "List of books with their identifiers and names"
+        ]
+      },
+      {
+        "b.return": [
+          "base64-encoded data"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {id: 'Find repositories, code snippets, documentation, and developer profiles on GitHub'}), (b:concept {id: \"rooftop farm\"}) WHERE NOT (a)-[:haveParameter]->(b) RETURN b.id",
+    "answer": "rooftop farm",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {parameter: ['\"exa-search-crawling_exa\" function is called']}), (b:event) WHERE NOT (a)-[:provides_instructions_for]->(b) RETURN b.return",
+    "answer": [
+      {
+        "b.return": [
+          "results based on the provided parameters"
+        ]
+      },
+      {
+        "b.return": [
+          "List of books with their identifiers and names"
+        ]
+      },
+      {
+        "b.return": [
+          "base64-encoded data"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {id: 'fetch_json_37'}), (b:event) WHERE NOT (a)-[:calculated_total_cost_for]->(b) RETURN b.parameter",
+    "answer": [
+      {
+        "b.parameter": [
+          "\"exa-search-crawling_exa\" function is called"
+        ]
+      },
+      {
+        "b.parameter": [
+          "a LinkedIn search query (e.g., person name, company, job title)"
+        ]
+      },
+      {
+        "b.parameter": [
+          "the Word document path"
+        ]
+      },
+      {
+        "b.parameter": [
+          "the number of rows in the table"
+        ]
+      },
+      {
+        "b.parameter": [
+          "the number of columns in the table"
+        ]
+      },
+      {
+        "b.parameter": [
+          "filename: Path to the Word document",
+          "style_name: Name for the new style"
+        ]
+      },
+      {
+        "b.parameter": [
+          "filename: Path to the Word document"
+        ]
+      },
+      {
+        "b.parameter": [
+          "outputPath"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Parameters: { \"type\": \"object\", \"properties\": { ... } }"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Provide a name parameter"
+        ]
+      },
+      {
+        "b.parameter": [
+          "\"name\": {\"type\": \"string\", \"description\": \"The name of the index\"} is specified"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {id: 'Find comprehensive, factual information from Wikipedia entries'}), (b:concept {id: \"rooftop farm\"}) WHERE NOT (a)-[:identified_after]->(b) RETURN b.id",
+    "answer": "rooftop farm",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}), (b:event) WHERE NOT (a)-[:manages_search_console]->(b) RETURN b.parameter",
+    "answer": [
+      {
+        "b.parameter": [
+          "\"exa-search-crawling_exa\" function is called"
+        ]
+      },
+      {
+        "b.parameter": [
+          "a LinkedIn search query (e.g., person name, company, job title)"
+        ]
+      },
+      {
+        "b.parameter": [
+          "the Word document path"
+        ]
+      },
+      {
+        "b.parameter": [
+          "the number of rows in the table"
+        ]
+      },
+      {
+        "b.parameter": [
+          "the number of columns in the table"
+        ]
+      },
+      {
+        "b.parameter": [
+          "filename: Path to the Word document",
+          "style_name: Name for the new style"
+        ]
+      },
+      {
+        "b.parameter": [
+          "filename: Path to the Word document"
+        ]
+      },
+      {
+        "b.parameter": [
+          "outputPath"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Parameters: { \"type\": \"object\", \"properties\": { ... } }"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Provide a name parameter"
+        ]
+      },
+      {
+        "b.parameter": [
+          "\"name\": {\"type\": \"string\", \"description\": \"The name of the index\"} is specified"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {id: 'fetch_json_27'}), (b:concept {id: \"tunnel\"}) WHERE NOT (a)-[:can_include]->(b) RETURN b.id",
+    "answer": "tunnel",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {id: 'Identifies similar companies'}), (b:concept {id: \"customizations\"}) WHERE NOT (a)-[:fills_rectangle]->(b) RETURN b.id",
+    "answer": "customizations",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"tunnel\"}) WHERE NOT (a)-[:succeeds]->(:concept {id: \"tunnel\"}) OR (a)-[:created_subdirectory]->(:entity) RETURN a.id",
+    "answer": "tunnel",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"tally\"}) WHERE NOT (a)-[:used_to_check]->(:concept {id: \"tally\"}) OR (a)-[:provides_exchange_rate_for]->(:event) RETURN a.id",
+    "answer": "tally",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"customizations\"}) WHERE NOT (a)-[:Limit]->(:concept {id: \"customizations\"}) OR (a)-[:executed_before]->(:entity) RETURN a.id",
+    "answer": "customizations",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:synthesizes]->(:event) OR (a)-[:marks]->(:entity) RETURN a.parameter",
+    "answer": [
+      {
+        "a.parameter": [
+          "\"exa-search-crawling_exa\" function is called"
+        ]
+      },
+      {
+        "a.parameter": [
+          "a LinkedIn search query (e.g., person name, company, job title)"
+        ]
+      },
+      {
+        "a.parameter": [
+          "the Word document path"
+        ]
+      },
+      {
+        "a.parameter": [
+          "the number of rows in the table"
+        ]
+      },
+      {
+        "a.parameter": [
+          "the number of columns in the table"
+        ]
+      },
+      {
+        "a.parameter": [
+          "filename: Path to the Word document",
+          "style_name: Name for the new style"
+        ]
+      },
+      {
+        "a.parameter": [
+          "filename: Path to the Word document"
+        ]
+      },
+      {
+        "a.parameter": [
+          "outputPath"
+        ]
+      },
+      {
+        "a.parameter": [
+          "Parameters: { \"type\": \"object\", \"properties\": { ... } }"
+        ]
+      },
+      {
+        "a.parameter": [
+          "Provide a name parameter"
+        ]
+      },
+      {
+        "a.parameter": [
+          "\"name\": {\"type\": \"string\", \"description\": \"The name of the index\"} is specified"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"customizations\"}) WHERE NOT (a)-[:get_information]->(:concept {id: \"customizations\"}) OR (a)-[:attempts_to_create_file_with_basic_filename]->(:concept {id: \"customizations\"}) RETURN a.id",
+    "answer": "customizations",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:informs]->(:entity) OR (a)-[:fetches_real_time_Binance_price]->(:concept {id: \"movie\"}) RETURN a.return",
+    "answer": [
+      {
+        "a.return": [
+          "results based on the provided parameters"
+        ]
+      },
+      {
+        "a.return": [
+          "List of books with their identifiers and names"
+        ]
+      },
+      {
+        "a.return": [
+          "base64-encoded data"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"rooftop farm\"}) WHERE NOT (a)-[:attempts_to_fetch]->(:entity) OR (a)-[:should_address]->(:entity) RETURN a.id",
+    "answer": "rooftop farm",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:isDefinedAs]->(:event) OR (a)-[:assesses]->(:event) RETURN a.return",
+    "answer": [
+      {
+        "a.return": [
+          "results based on the provided parameters"
+        ]
+      },
+      {
+        "a.return": [
+          "List of books with their identifiers and names"
+        ]
+      },
+      {
+        "a.return": [
+          "base64-encoded data"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"tint\"}) WHERE NOT (a)-[:succeeded_in_finding]->(:event) OR (a)-[:enum_of]->(:entity) RETURN a.id",
+    "answer": "tint",
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:add_password_protection_to]->(:event) OR (a)-[:has_format]->(:entity) RETURN a.return",
+    "answer": [
+      {
+        "a.return": [
+          "results based on the provided parameters"
+        ]
+      },
+      {
+        "a.return": [
+          "List of books with their identifiers and names"
+        ]
+      },
+      {
+        "a.return": [
+          "base64-encoded data"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT a.return <> ['{ \"connected\": false, \"timestamp\": \"2025-08-04T20:56:55.546Z\", \"message\": \"Unity Editor is not connected. Please ensure the Unity Editor is running with the MCP plugin.\" }'] RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.parameter = ['\"exa-search-crawling_exa\" function is called'] RETURN count(a) AS cnt",
+    "answer": 48,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.parameter = ['\"exa-search-crawling_exa\" function is called'] RETURN count(a) AS cnt",
+    "answer": 48,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT a.return <> ['error_message'] RETURN count(a) AS cnt",
+    "answer": 2,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT a.return = ['error_message', '{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }', '404 Not Found'] RETURN count(a) AS cnt",
+    "answer": 608,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT a.parameter <> ['npx playwright install', 'geographic_coordinates', 'request-linkedin-token'] RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT a.return <> ['error_message', '{ \"name\": \"syringe\", \"category\": \"objects\", \"group\": \"objects\", \"htmlCode\": [ \"&#128137;\" ], \"unicode\": [ \"U+1F489\" ] }', '404 Not Found'] RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.parameter <> ['a LinkedIn search query (e.g., person name, company, job title)'] RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.parameter = ['a LinkedIn search query (e.g., person name, company, job title)'] RETURN count(a) AS cnt",
+    "answer": 48,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT a.return = ['talks_data'] RETURN count(a) AS cnt",
+    "answer": 608,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT a.parameter <> ['login credentials'] WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [
+      [
+        "detailed data for Tesouro IPCA+ 2029"
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.parameter = ['\"exa-search-crawling_exa\" function is called'] WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [
+      [
+        "Returns: Displayed Matplotlib 3D quiver plot (no image return needed)"
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.return = ['results based on the provided parameters'] WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [
+      [
+        "(x - 5)(x + 3)"
+      ],
+      [
+        "1"
+      ],
+      [
+        "1 - x²/2 + x⁴/24 + O(x⁴)"
+      ],
+      [
+        "17"
+      ],
+      [
+        "55"
+      ],
+      [
+        ":return: 天气数据字典；若发生错误，返回包含error信息的字典"
+      ],
+      [
+        "A dictionary with keys: - 'q': np.ndarray, the orthogonal matrix Q - 'r': np.ndarray, the upper triangular matrix R"
+      ],
+      [
+        "Dictionary containing the score, risk category for both three-tier and two-tier models, and recommendations"
+      ],
+      [
+        "Dictionary with substance details"
+      ],
+      [
+        "Dostane karşılama mesajı"
+      ],
+      [
+        "Dostane karşılama mesajı."
+      ],
+      [
+        "E - 1"
+      ],
+      [
+        "Human readable string containing post content and comments tree"
+      ],
+      [
+        "JSON string with breed information"
+      ],
+      [
+        "JSON string with search results"
+      ],
+      [
+        "JSON格式的文件分析结果"
+      ],
+      [
+        "JSON格式的项目扫描结果"
+      ],
+      [
+        "Kullanıcı dostu formatta hava durumu bilgileri"
+      ],
+      [
+        "List of books with their identifiers and names"
+      ],
+      [
+        "List of instances matching the criteria (5 per page)"
+      ],
+      [
+        "List of matching locations with their details"
+      ],
+      [
+        "List of recent matches with details"
+      ],
+      [
+        "Markdown formatted list of clinical trials"
+      ],
+      [
+        "Output of the command execution"
+      ],
+      [
+        "Path to the downloaded PDF file."
+      ],
+      [
+        "Personalized recommendations for cultural heritage exploration"
+      ],
+      [
+        "Returns a tuple of roots (real or complex)"
+      ],
+      [
+        "Returns node names and descriptions."
+      ],
+      [
+        "Returns: Displayed Matplotlib 3D quiver plot (no image return needed)"
+      ],
+      [
+        "Returns: str: Account balance response in the format 'Balance of {address}: {balance}'"
+      ],
+      [
+        "Search for bioassays related to a compound or target"
+      ],
+      [
+        "The function solana-client-confirm_transaction returns a string representing the transaction confirmation status."
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.parameter = ['a LinkedIn search query (e.g., person name, company, job title)'] WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS vals",
+    "answer": [
+      [
+        "\"exa-search-crawling_exa\" function is called"
+      ],
+      [
+        "\"fileKey\" is a required parameter"
+      ],
+      [
+        "\"filename\" parameter",
+        "\"query\" parameter"
+      ],
+      [
+        "\"latitude\" of the location",
+        "\"longitude\" of the location"
+      ],
+      [
+        "\"location\" is required."
+      ],
+      [
+        "\"name\": {\"type\": \"string\", \"description\": \"The name of the index\"} is specified"
+      ],
+      [
+        "\"network\" property with type string",
+        "\"framework\" property with type string"
+      ],
+      [
+        "\"path\", \"content\""
+      ],
+      [
+        "\"search\" is a required parameter."
+      ],
+      [
+        "\"type\": \"object\"",
+        "\"properties\": { \"title\": { \"type\": \"string\", \"description\": \"Title for the porting notebook\" }, \"pythonCode\": { \"type\": \"string\", \"description\": \"Python code to be ported\" }, \"description\": { \"type\": \"string\", \"description\": \"Optional description of the porting task\" }, \"includeValidation\": { \"type\": \"boolean\", \"default\": true, \"description\": \"Whether to include validation cells\" } }"
+      ],
+      [
+        "A valid youtube video URL"
+      ],
+      [
+        "Args: bounds: (xmin, xmax, ymin, ymax, zmin, zmax)"
+      ],
+      [
+        "Args: edition_name: Sürüm adı",
+        "Args: ruku_no: Rüku numarası",
+        "Args: script_type: Yazı tipi (\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli)"
+      ],
+      [
+        "Args: f_str: string representation of 3D field, e.g. '[z, -y, x]'"
+      ],
+      [
+        "Args: n: grid resolution per axis"
+      ],
+      [
+        "Parameters for the function are defined",
+        "\"lat\" parameter is provided",
+        "\"lng\" parameter is provided",
+        "\"adjacents\" parameter is provided",
+        "\"responseType\" parameter is provided"
+      ],
+      [
+        "Parameters: { \"type\": \"object\", \"properties\": { \"objectId\": { \"type\": \"number\", \"description\": \"The ID of the museum object to retrieve\" }, \"returnImage\": { \"type\": \"boolean\", \"default\": true, \"description\": \"Whether to return the image (if available) of the object and add it to the server resources\" } } }"
+      ],
+      [
+        "Parameters: { \"type\": \"object\", \"properties\": { ... } }"
+      ],
+      [
+        "Provide a name parameter"
+      ],
+      [
+        "Search query for authors"
+      ],
+      [
+        "Steam32 account ID of the player"
+      ],
+      [
+        "The function solana-client-confirm_transaction needs a transaction signature."
+      ],
+      [
+        "The project ID"
+      ],
+      [
+        "The unique identifier of the collection"
+      ],
+      [
+        "a valid Facebook company URL and number of reviews"
+      ],
+      [
+        "a valid Instagram URL."
+      ],
+      [
+        "a valid apple app store app URL"
+      ],
+      [
+        "a valid reuter news report URL"
+      ],
+      [
+        "diagramId parameter"
+      ],
+      [
+        "diagramType parameter"
+      ],
+      [
+        "elements parameter"
+      ],
+      [
+        "ensure the CCXT client is initialized correctly using 'params' (e.g., {'options': {'defaultType': 'future'}})."
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.parameter = ['\"exa-search-crawling_exa\" function is called'] WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS vals",
+    "answer": [
+      [
+        "\"fileKey\" is a required parameter"
+      ],
+      [
+        "\"filename\" parameter",
+        "\"query\" parameter"
+      ],
+      [
+        "\"latitude\" of the location",
+        "\"longitude\" of the location"
+      ],
+      [
+        "\"location\" is required."
+      ],
+      [
+        "\"name\": {\"type\": \"string\", \"description\": \"The name of the index\"} is specified"
+      ],
+      [
+        "\"network\" property with type string",
+        "\"framework\" property with type string"
+      ],
+      [
+        "\"path\", \"content\""
+      ],
+      [
+        "\"search\" is a required parameter."
+      ],
+      [
+        "\"type\": \"object\"",
+        "\"properties\": { \"title\": { \"type\": \"string\", \"description\": \"Title for the porting notebook\" }, \"pythonCode\": { \"type\": \"string\", \"description\": \"Python code to be ported\" }, \"description\": { \"type\": \"string\", \"description\": \"Optional description of the porting task\" }, \"includeValidation\": { \"type\": \"boolean\", \"default\": true, \"description\": \"Whether to include validation cells\" } }"
+      ],
+      [
+        "A valid youtube video URL"
+      ],
+      [
+        "Args: bounds: (xmin, xmax, ymin, ymax, zmin, zmax)"
+      ],
+      [
+        "Args: edition_name: Sürüm adı",
+        "Args: ruku_no: Rüku numarası",
+        "Args: script_type: Yazı tipi (\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli)"
+      ],
+      [
+        "Args: f_str: string representation of 3D field, e.g. '[z, -y, x]'"
+      ],
+      [
+        "Args: n: grid resolution per axis"
+      ],
+      [
+        "Parameters for the function are defined",
+        "\"lat\" parameter is provided",
+        "\"lng\" parameter is provided",
+        "\"adjacents\" parameter is provided",
+        "\"responseType\" parameter is provided"
+      ],
+      [
+        "Parameters: { \"type\": \"object\", \"properties\": { \"objectId\": { \"type\": \"number\", \"description\": \"The ID of the museum object to retrieve\" }, \"returnImage\": { \"type\": \"boolean\", \"default\": true, \"description\": \"Whether to return the image (if available) of the object and add it to the server resources\" } } }"
+      ],
+      [
+        "Parameters: { \"type\": \"object\", \"properties\": { ... } }"
+      ],
+      [
+        "Provide a name parameter"
+      ],
+      [
+        "Search query for authors"
+      ],
+      [
+        "Steam32 account ID of the player"
+      ],
+      [
+        "The function solana-client-confirm_transaction needs a transaction signature."
+      ],
+      [
+        "The project ID"
+      ],
+      [
+        "The unique identifier of the collection"
+      ],
+      [
+        "a LinkedIn search query (e.g., person name, company, job title)"
+      ],
+      [
+        "a valid Facebook company URL and number of reviews"
+      ],
+      [
+        "a valid Instagram URL."
+      ],
+      [
+        "a valid apple app store app URL"
+      ],
+      [
+        "a valid reuter news report URL"
+      ],
+      [
+        "diagramId parameter"
+      ],
+      [
+        "diagramType parameter"
+      ],
+      [
+        "elements parameter"
+      ],
+      [
+        "ensure the CCXT client is initialized correctly using 'params' (e.g., {'options': {'defaultType': 'future'}})."
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.parameter CONTAINS ['\"exa-search-crawling_exa\" function is called'] WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT a.return ENDS WITH ['retreater', 'totalresults: 1, bonds: [Tesouro IPCA+ 2029]', 'memory_banks_status'] WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS vals",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT a.return STARTS WITH ['definition of retreat', 'totalresults: 41, bonds: [list of IPCA bonds]'] WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS vals",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT a.return CONTAINS ['results based on the provided parameters'] WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS vals",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT a.parameter = ['npx playwright install', 'geographic_coordinates', 'request-linkedin-token'] WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [
+      [
+        "CSV-formatted table of all filters"
+      ],
+      [
+        "CoinsList",
+        "CoinsMarkets",
+        "CurrencyList"
+      ],
+      [
+        "Description information"
+      ],
+      [
+        "Dictionary"
+      ],
+      [
+        "Dictionary with download speed results"
+      ],
+      [
+        "InChI string"
+      ],
+      [
+        "JSON formatında hava durumu bilgileri"
+      ],
+      [
+        "JSON formatında hava durumu bilgileri"
+      ],
+      [
+        "List of binding site data"
+      ],
+      [
+        "List of dictionaries containing paper details"
+      ],
+      [
+        "List of dictionaries containing recommended papers"
+      ],
+      [
+        "List of organism data"
+      ],
+      [
+        "List of protein classification data"
+      ],
+      [
+        "No .txt files found on desktop.",
+        "['mainnet', 'sepolia']",
+        "definition of 'quantum dot'",
+        "1754859283.3798382",
+        "['flux', 'kontext', 'turbo']",
+        "models",
+        "2025-08-08 19:09:27",
+        "temperature 28.6"
+      ],
+      [
+        "Path"
+      ],
+      [
+        "Path of current working directory"
+      ],
+      [
+        "Token accounts information"
+      ],
+      [
+        "Token accounts information"
+      ],
+      [
+        "Token supply information"
+      ],
+      [
+        "Verse data including reference, text, and translation info"
+      ],
+      [
+        "account information"
+      ],
+      [
+        "array of objects"
+      ],
+      [
+        "content-as-HTML"
+      ],
+      [
+        "converted data as a string",
+        "article titles"
+      ],
+      [
+        "detailed data for Tesouro IPCA+ 2029"
+      ],
+      [
+        "detailed information"
+      ],
+      [
+        "detailed information about the artwork"
+      ],
+      [
+        "dict"
+      ],
+      [
+        "dict"
+      ],
+      [
+        "dict with keys: 'q', 'r'"
+      ],
+      [
+        "dict with keys: - 'eigenvalues': np.ndarray - 'eigenvectors': np.ndarray"
+      ],
+      [
+        "dictionary containing lists of citations and references"
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['error_message']}), (b:event) WHERE NOT (a)-[:partially_succeeded]->(b) RETURN count(b) AS cnt",
+    "answer": 21862,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}), (b:entity) WHERE NOT (a)-[:views_manages_ga3_data]->(b) RETURN count(b) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}), (b:event) WHERE NOT (a)-[:filters_on]->(b) RETURN count(b) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['request-linkedin-token', 'npx playwright install', 'request_linkedin_token', 'wapulseToken and wapulseInstanceID', 'specific coordinates']}), (b:event) WHERE NOT (a)-[:selects_query_using]->(b) RETURN count(b) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['coordinates for Paris', 'payment']}), (b:event) WHERE NOT (a)-[:optional_parameters]->(b) RETURN count(b) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}), (b:entity) WHERE NOT (a)-[:isArray]->(b) RETURN count(b) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}), (b:entity) WHERE NOT (a)-[:convert]->(b) RETURN count(b) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['retreater', 'totalresults: 1, bonds: [Tesouro IPCA+ 2029]', 'memory_banks_status']}), (b:entity) WHERE NOT (a)-[:isCoordinateType]->(b) RETURN count(b) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['total_results: 0, bonds: []']}), (b:event) WHERE NOT (a)-[:included_in]->(b) RETURN count(b) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['total_results: 0, bonds: []']}), (b:entity) WHERE NOT (a)-[:calculates_total_sales_from]->(b) RETURN count(b) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {parameter: ['\"exa-search-crawling_exa\" function is called']}), (b:event) WHERE NOT (a)-[:verify]->(b) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "\"exa-search-crawling_exa\" function is called"
+          ],
+          "file_id": "fcc1319ccc12c86c18608abac6140369a6fa6930ed23232193ecebf56abcbe22",
+          "id": "\"url\" to crawl and extract content from is specified",
+          "_node_id": "cd870171cfe3e5218851c73baefea88b0263d088b4976a40c230fa7b08d34326"
+        },
+        "cnt": 10931
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}), (b:event) WHERE NOT (a)-[:prints_output_of]->(b) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "f1b18eb0ab09945eb8adea7de222b639a20b31ff8bfa1c16e1b20176d7a0f015",
+          "id": "Search LinkedIn profiles and companies using Exa AI",
+          "return": [
+            "results based on the provided parameters"
+          ],
+          "_node_id": "3bb1e619a9d18b2cd8be76af4805a0232c5f0b78dda64577b7f90705c5606e1b"
+        },
+        "cnt": 10931
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}), (b:event) WHERE NOT (a)-[:helps_evaluate]->(b) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "f1b18eb0ab09945eb8adea7de222b639a20b31ff8bfa1c16e1b20176d7a0f015",
+          "id": "Search LinkedIn profiles and companies using Exa AI",
+          "return": [
+            "results based on the provided parameters"
+          ],
+          "_node_id": "3bb1e619a9d18b2cd8be76af4805a0232c5f0b78dda64577b7f90705c5606e1b"
+        },
+        "cnt": 10931
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['error_message']}), (b:entity) WHERE NOT (a)-[:_____]->(b) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "npx playwright install",
+            "geographic_coordinates",
+            "request-linkedin-token"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "function_content_4",
+          "return": [
+            "error_message"
+          ],
+          "_node_id": "c9666d7c0a34eb3c46a1dc3e2648bdd4bd99c105a95c57af6d118a58b0b70b59"
+        },
+        "cnt": 137776
+      },
+      {
+        "a": {
+          "parameter": [
+            "request-linkedin-token"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "function_content_5",
+          "return": [
+            "error_message"
+          ],
+          "_node_id": "65c5901b845d215ae1d5fa51cd9a9910a715dc39fcf288a24b16633445974172"
+        },
+        "cnt": 137776
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {parameter: ['request-linkedin-token']}), (b:event) WHERE NOT (a)-[:provides_email_services]->(b) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "request-linkedin-token"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "function_content_2",
+          "return": [
+            "no_code_files_found",
+            "current datetime in Europe/London timezone",
+            "[]"
+          ],
+          "_node_id": "9edaa4c482bb5e253505e55838a71e03568cf7d8b3aa29197cd8a224a0d2e9ab"
+        },
+        "cnt": 10931
+      },
+      {
+        "a": {
+          "parameter": [
+            "request-linkedin-token"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "function_content_5",
+          "return": [
+            "error_message"
+          ],
+          "_node_id": "65c5901b845d215ae1d5fa51cd9a9910a715dc39fcf288a24b16633445974172"
+        },
+        "cnt": 10931
+      },
+      {
+        "a": {
+          "parameter": [
+            "request-linkedin-token"
+          ],
+          "file_id": "b18bbacc7843af559361a8c56f4a235d86bc05e9c1069ddfa943f14ac26d577b",
+          "id": "tool-function-1",
+          "_node_id": "16cdc62618ccd94d8deedff57a860c1549e40a5d57c95f968dad28677fa79121"
+        },
+        "cnt": 10931
+      },
+      {
+        "a": {
+          "file_id": "de1a1cb572cd92c26345997e4790c5c66871ee503bebcd217a460d4e59326c70",
+          "parameter": [
+            "request-linkedin-token"
+          ],
+          "id": "tool-function1",
+          "_node_id": "f5810eb49b6ee6ac35c43b21106d3d6cb71600eceab0fd8398953f81713569b0"
+        },
+        "cnt": 10931
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {parameter: ['a LinkedIn search query (e.g., person name, company, job title)']}), (b:event) WHERE NOT (a)-[:Retrieve_and_format]->(b) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "a LinkedIn search query (e.g., person name, company, job title)"
+          ],
+          "file_id": "f1b18eb0ab09945eb8adea7de222b639a20b31ff8bfa1c16e1b20176d7a0f015",
+          "id": "Parameters include 'query'",
+          "_node_id": "1b311da1891bffd856c33f2440bdb3cbf1d3aa590255eb0e85feaa82c915b850"
+        },
+        "cnt": 10931
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['no_code_files_found', 'current datetime in Europe/London timezone', '[]']}), (b:entity) WHERE NOT (a)-[:computes]->(b) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "parameter": [
+            "request-linkedin-token"
+          ],
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "id": "function_content_2",
+          "return": [
+            "no_code_files_found",
+            "current datetime in Europe/London timezone",
+            "[]"
+          ],
+          "_node_id": "9edaa4c482bb5e253505e55838a71e03568cf7d8b3aa29197cd8a224a0d2e9ab"
+        },
+        "cnt": 137775
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['total_results: 0, bonds: []']}), (b:event) WHERE NOT (a)-[:if_resolved]->(b) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "7ede5195ec99bce741005007704cf3bfb20d1f7a60cf8515850814748adf09a7",
+          "id": "tool1",
+          "return": [
+            "total_results: 0, bonds: []"
+          ],
+          "_node_id": "98f32b5341a9fbd612f4f19421041d2638f77e0a52d0d8178e30ee8b461f47ca"
+        },
+        "cnt": 10931
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity {return: ['total_results: 0, bonds: []']}), (b:event) WHERE NOT (a)-[:saves_output_to]->(b) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "7ede5195ec99bce741005007704cf3bfb20d1f7a60cf8515850814748adf09a7",
+          "id": "tool1",
+          "return": [
+            "total_results: 0, bonds: []"
+          ],
+          "_node_id": "98f32b5341a9fbd612f4f19421041d2638f77e0a52d0d8178e30ee8b461f47ca"
+        },
+        "cnt": 10931
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event {return: ['results based on the provided parameters']}), (b:entity) WHERE NOT (a)-[:Includes]->(b) RETURN a, count(b) AS cnt",
+    "answer": [
+      {
+        "a": {
+          "file_id": "f1b18eb0ab09945eb8adea7de222b639a20b31ff8bfa1c16e1b20176d7a0f015",
+          "id": "Search LinkedIn profiles and companies using Exa AI",
+          "return": [
+            "results based on the provided parameters"
+          ],
+          "_node_id": "3bb1e619a9d18b2cd8be76af4805a0232c5f0b78dda64577b7f90705c5606e1b"
+        },
+        "cnt": 137776
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:provides_information_about]->(:concept {id: \"bond search\"}) OR (a)-[:notContainAdditional]->(:concept {id: \"bond search\"}) RETURN count(a) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"bond search\"}) WHERE NOT (a)-[:does_not_wait_for]->(:concept {id: \"bond search\"}) OR (a)-[:error_due_to]->(:entity) RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:to_contain_an_array_of_string_items]->(:entity) OR (a)-[:searches_for_other_renowned_artists]->(:event) RETURN count(a) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:can_be]->(:event) OR (a)-[:validates]->(:event) RETURN count(a) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:formattedresult]->(:event) OR (a)-[:analyzes_type_mapping_challenges]->(:event) RETURN count(a) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"tally\"}) WHERE NOT (a)-[:gereklilik]->(:concept {id: \"tally\"}) OR (a)-[:anyOf]->(:entity) RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:installs_from]->(:concept {id: \"pronunciation\"}) OR (a)-[:used_when]->(:event) RETURN count(a) AS cnt",
+    "answer": 137776,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"law\"}) WHERE NOT (a)-[:provides_migration_strategy_and_type_mapping_guidance]->(:event) OR (a)-[:discusses]->(:concept {id: \"law\"}) RETURN count(a) AS cnt",
+    "answer": 1,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:is_set_on]->(:entity) OR (a)-[:provides_data_about]->(:concept {id: \"law\"}) RETURN count(a) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:sobre]->(:event) OR (a)-[:than]->(:event) RETURN count(a) AS cnt",
+    "answer": 10931,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"law\"}) WHERE NOT (a)-[:failed_to_set_download_directory_due_to]->(:event) OR (a)-[:creates_after]->(:concept {id: \"law\"}) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"rooftop farm\"}) WHERE NOT (a)-[:isProcessedBy]->(:entity) OR (a)-[:replaces]->(:entity) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:installs_from]->(:entity) OR (a)-[:isRGBAFormat]->(:entity) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [
+      [
+        "(x - 5)(x + 3)"
+      ],
+      [
+        "1"
+      ],
+      [
+        "1 - x²/2 + x⁴/24 + O(x⁴)"
+      ],
+      [
+        "17"
+      ],
+      [
+        "55"
+      ],
+      [
+        ":return: 天气数据字典；若发生错误，返回包含error信息的字典"
+      ],
+      [
+        "A dictionary with keys: - 'q': np.ndarray, the orthogonal matrix Q - 'r': np.ndarray, the upper triangular matrix R"
+      ],
+      [
+        "Dictionary containing the score, risk category for both three-tier and two-tier models, and recommendations"
+      ],
+      [
+        "Dictionary with substance details"
+      ],
+      [
+        "Dostane karşılama mesajı"
+      ],
+      [
+        "Dostane karşılama mesajı."
+      ],
+      [
+        "E - 1"
+      ],
+      [
+        "Human readable string containing post content and comments tree"
+      ],
+      [
+        "JSON string with breed information"
+      ],
+      [
+        "JSON string with search results"
+      ],
+      [
+        "JSON格式的文件分析结果"
+      ],
+      [
+        "JSON格式的项目扫描结果"
+      ],
+      [
+        "Kullanıcı dostu formatta hava durumu bilgileri"
+      ],
+      [
+        "List of books with their identifiers and names"
+      ],
+      [
+        "List of instances matching the criteria (5 per page)"
+      ],
+      [
+        "List of matching locations with their details"
+      ],
+      [
+        "List of recent matches with details"
+      ],
+      [
+        "Markdown formatted list of clinical trials"
+      ],
+      [
+        "Output of the command execution"
+      ],
+      [
+        "Path to the downloaded PDF file."
+      ],
+      [
+        "Personalized recommendations for cultural heritage exploration"
+      ],
+      [
+        "Returns a tuple of roots (real or complex)"
+      ],
+      [
+        "Returns node names and descriptions."
+      ],
+      [
+        "Returns: Displayed Matplotlib 3D quiver plot (no image return needed)"
+      ],
+      [
+        "Returns: str: Account balance response in the format 'Balance of {address}: {balance}'"
+      ],
+      [
+        "Search for bioassays related to a compound or target"
+      ],
+      [
+        "The function solana-client-confirm_transaction returns a string representing the transaction confirmation status."
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"law\"}) WHERE NOT (a)-[:guides]->(:event) OR (a)-[:properties]->(:event) WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS vals",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:are_captured_by]->(:entity) OR (a)-[:analyze]->(:event) WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS vals",
+    "answer": [
+      [
+        "\"a\", \"b\", and \"c\""
+      ],
+      [
+        "\"code\" parameter"
+      ],
+      [
+        "\"game_name\", \"tag_line\", \"region\", \"lang\""
+      ],
+      [
+        "\"id\"",
+        "\"url\""
+      ],
+      [
+        "\"name_a\" and \"name_b\""
+      ],
+      [
+        "\"player_id\": { \"title\": \"Player Id\", \"type\": \"integer\" }"
+      ],
+      [
+        "\"question\"",
+        "\"max_citations\""
+      ],
+      [
+        "\"url\": { \"type\": \"string\", \"description\": \"YouTube video URL or ID\" }, \"language\": { \"type\": \"string\", \"description\": \"Language code (default: 'en')"
+      ],
+      [
+        "A",
+        "B"
+      ],
+      [
+        "API key"
+      ],
+      [
+        "API_key"
+      ],
+      [
+        "API_key"
+      ],
+      [
+        "Binance_API_key_and_secret"
+      ],
+      [
+        "CYPRESSUSEREMAIL",
+        "CYPRESSUSERPASSWORD"
+      ],
+      [
+        "Context7-compatible_library_ID"
+      ],
+      [
+        "Excel_MCP_token",
+        "sheet_name",
+        "cell_address"
+      ],
+      [
+        "GDB process ID",
+        "GDB tty device path",
+        "remote debugging address",
+        "target program executable path",
+        "request-linkedin-token"
+      ],
+      [
+        "Investor Group ID",
+        "Group Access"
+      ],
+      [
+        "MCP"
+      ],
+      [
+        "MULTIPLE_AUTHORIZATION_CHECKS"
+      ],
+      [
+        "No user interaction"
+      ],
+      [
+        "Number of transactions",
+        "Estimated gas limit per transaction",
+        "Minimum balance requirement"
+      ],
+      [
+        "OPENPROJECTAPIKEY",
+        "OPENPROJECT_URL"
+      ],
+      [
+        "OpenAI_announcement_video_URL"
+      ],
+      [
+        "OpenProjectConfiguration"
+      ],
+      [
+        "PID or TTY"
+      ],
+      [
+        "Path to the Word document",
+        "Path to the image file"
+      ],
+      [
+        "Ping",
+        "SimplePrice",
+        "SimpleTokenPrice"
+      ],
+      [
+        "PowerShell in the allowed commands list"
+      ],
+      [
+        "Pro API key"
+      ],
+      [
+        "Proper output format (TRUE/FALSE)"
+      ],
+      [
+        "Session_protocol"
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:failed_to_retrieve_details_for]->(:event) OR (a)-[:terminates_process]->(:entity) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [
+      [
+        "(x - 5)(x + 3)"
+      ],
+      [
+        "1"
+      ],
+      [
+        "1 - x²/2 + x⁴/24 + O(x⁴)"
+      ],
+      [
+        "17"
+      ],
+      [
+        "55"
+      ],
+      [
+        ":return: 天气数据字典；若发生错误，返回包含error信息的字典"
+      ],
+      [
+        "A dictionary with keys: - 'q': np.ndarray, the orthogonal matrix Q - 'r': np.ndarray, the upper triangular matrix R"
+      ],
+      [
+        "Dictionary containing the score, risk category for both three-tier and two-tier models, and recommendations"
+      ],
+      [
+        "Dictionary with substance details"
+      ],
+      [
+        "Dostane karşılama mesajı"
+      ],
+      [
+        "Dostane karşılama mesajı."
+      ],
+      [
+        "E - 1"
+      ],
+      [
+        "Human readable string containing post content and comments tree"
+      ],
+      [
+        "JSON string with breed information"
+      ],
+      [
+        "JSON string with search results"
+      ],
+      [
+        "JSON格式的文件分析结果"
+      ],
+      [
+        "JSON格式的项目扫描结果"
+      ],
+      [
+        "Kullanıcı dostu formatta hava durumu bilgileri"
+      ],
+      [
+        "List of books with their identifiers and names"
+      ],
+      [
+        "List of instances matching the criteria (5 per page)"
+      ],
+      [
+        "List of matching locations with their details"
+      ],
+      [
+        "List of recent matches with details"
+      ],
+      [
+        "Markdown formatted list of clinical trials"
+      ],
+      [
+        "Output of the command execution"
+      ],
+      [
+        "Path to the downloaded PDF file."
+      ],
+      [
+        "Personalized recommendations for cultural heritage exploration"
+      ],
+      [
+        "Returns a tuple of roots (real or complex)"
+      ],
+      [
+        "Returns node names and descriptions."
+      ],
+      [
+        "Returns: Displayed Matplotlib 3D quiver plot (no image return needed)"
+      ],
+      [
+        "Returns: str: Account balance response in the format 'Balance of {address}: {balance}'"
+      ],
+      [
+        "Search for bioassays related to a compound or target"
+      ],
+      [
+        "The function solana-client-confirm_transaction returns a string representing the transaction confirmation status."
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:codes_for]->(:entity) OR (a)-[:belongs_to_group]->(:concept {id: \"rooftop farm\"}) WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS vals",
+    "answer": [
+      [
+        "\"exa-search-crawling_exa\" function is called"
+      ],
+      [
+        "\"fileKey\" is a required parameter"
+      ],
+      [
+        "\"filename\" parameter",
+        "\"query\" parameter"
+      ],
+      [
+        "\"latitude\" of the location",
+        "\"longitude\" of the location"
+      ],
+      [
+        "\"location\" is required."
+      ],
+      [
+        "\"name\": {\"type\": \"string\", \"description\": \"The name of the index\"} is specified"
+      ],
+      [
+        "\"network\" property with type string",
+        "\"framework\" property with type string"
+      ],
+      [
+        "\"path\", \"content\""
+      ],
+      [
+        "\"search\" is a required parameter."
+      ],
+      [
+        "\"type\": \"object\"",
+        "\"properties\": { \"title\": { \"type\": \"string\", \"description\": \"Title for the porting notebook\" }, \"pythonCode\": { \"type\": \"string\", \"description\": \"Python code to be ported\" }, \"description\": { \"type\": \"string\", \"description\": \"Optional description of the porting task\" }, \"includeValidation\": { \"type\": \"boolean\", \"default\": true, \"description\": \"Whether to include validation cells\" } }"
+      ],
+      [
+        "A valid youtube video URL"
+      ],
+      [
+        "Args: bounds: (xmin, xmax, ymin, ymax, zmin, zmax)"
+      ],
+      [
+        "Args: edition_name: Sürüm adı",
+        "Args: ruku_no: Rüku numarası",
+        "Args: script_type: Yazı tipi (\"\" = normal, \"la\" = latin, \"lad\" = latin diakritikli)"
+      ],
+      [
+        "Args: f_str: string representation of 3D field, e.g. '[z, -y, x]'"
+      ],
+      [
+        "Args: n: grid resolution per axis"
+      ],
+      [
+        "Parameters for the function are defined",
+        "\"lat\" parameter is provided",
+        "\"lng\" parameter is provided",
+        "\"adjacents\" parameter is provided",
+        "\"responseType\" parameter is provided"
+      ],
+      [
+        "Parameters: { \"type\": \"object\", \"properties\": { \"objectId\": { \"type\": \"number\", \"description\": \"The ID of the museum object to retrieve\" }, \"returnImage\": { \"type\": \"boolean\", \"default\": true, \"description\": \"Whether to return the image (if available) of the object and add it to the server resources\" } } }"
+      ],
+      [
+        "Parameters: { \"type\": \"object\", \"properties\": { ... } }"
+      ],
+      [
+        "Provide a name parameter"
+      ],
+      [
+        "Search query for authors"
+      ],
+      [
+        "Steam32 account ID of the player"
+      ],
+      [
+        "The function solana-client-confirm_transaction needs a transaction signature."
+      ],
+      [
+        "The project ID"
+      ],
+      [
+        "The unique identifier of the collection"
+      ],
+      [
+        "a LinkedIn search query (e.g., person name, company, job title)"
+      ],
+      [
+        "a valid Facebook company URL and number of reviews"
+      ],
+      [
+        "a valid Instagram URL."
+      ],
+      [
+        "a valid apple app store app URL"
+      ],
+      [
+        "a valid reuter news report URL"
+      ],
+      [
+        "diagramId parameter"
+      ],
+      [
+        "diagramType parameter"
+      ],
+      [
+        "elements parameter"
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"bond search\"}) WHERE NOT (a)-[:failed_to_execute_because_of]->(:event) OR (a)-[:are]->(:concept {id: \"bond search\"}) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) WHERE NOT (a)-[:can_branch_from]->(:event) OR (a)-[:detected_by]->(:event) WITH a ORDER BY a.return RETURN collect(a.return)[0..32] AS vals",
+    "answer": [
+      [
+        "(x - 5)(x + 3)"
+      ],
+      [
+        "1"
+      ],
+      [
+        "1 - x²/2 + x⁴/24 + O(x⁴)"
+      ],
+      [
+        "17"
+      ],
+      [
+        "55"
+      ],
+      [
+        ":return: 天气数据字典；若发生错误，返回包含error信息的字典"
+      ],
+      [
+        "A dictionary with keys: - 'q': np.ndarray, the orthogonal matrix Q - 'r': np.ndarray, the upper triangular matrix R"
+      ],
+      [
+        "Dictionary containing the score, risk category for both three-tier and two-tier models, and recommendations"
+      ],
+      [
+        "Dictionary with substance details"
+      ],
+      [
+        "Dostane karşılama mesajı"
+      ],
+      [
+        "Dostane karşılama mesajı."
+      ],
+      [
+        "E - 1"
+      ],
+      [
+        "Human readable string containing post content and comments tree"
+      ],
+      [
+        "JSON string with breed information"
+      ],
+      [
+        "JSON string with search results"
+      ],
+      [
+        "JSON格式的文件分析结果"
+      ],
+      [
+        "JSON格式的项目扫描结果"
+      ],
+      [
+        "Kullanıcı dostu formatta hava durumu bilgileri"
+      ],
+      [
+        "List of books with their identifiers and names"
+      ],
+      [
+        "List of instances matching the criteria (5 per page)"
+      ],
+      [
+        "List of matching locations with their details"
+      ],
+      [
+        "List of recent matches with details"
+      ],
+      [
+        "Markdown formatted list of clinical trials"
+      ],
+      [
+        "Output of the command execution"
+      ],
+      [
+        "Path to the downloaded PDF file."
+      ],
+      [
+        "Personalized recommendations for cultural heritage exploration"
+      ],
+      [
+        "Returns a tuple of roots (real or complex)"
+      ],
+      [
+        "Returns node names and descriptions."
+      ],
+      [
+        "Returns: Displayed Matplotlib 3D quiver plot (no image return needed)"
+      ],
+      [
+        "Returns: str: Account balance response in the format 'Balance of {address}: {balance}'"
+      ],
+      [
+        "Search for bioassays related to a compound or target"
+      ],
+      [
+        "The function solana-client-confirm_transaction returns a string representing the transaction confirmation status."
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:returns_up_to]->(:entity) OR (a)-[:annotates_with]->(:entity) WITH a ORDER BY a.parameter RETURN collect(a.parameter)[0..32] AS vals",
+    "answer": [
+      [
+        "\"a\", \"b\", and \"c\""
+      ],
+      [
+        "\"code\" parameter"
+      ],
+      [
+        "\"game_name\", \"tag_line\", \"region\", \"lang\""
+      ],
+      [
+        "\"id\"",
+        "\"url\""
+      ],
+      [
+        "\"name_a\" and \"name_b\""
+      ],
+      [
+        "\"player_id\": { \"title\": \"Player Id\", \"type\": \"integer\" }"
+      ],
+      [
+        "\"question\"",
+        "\"max_citations\""
+      ],
+      [
+        "\"url\": { \"type\": \"string\", \"description\": \"YouTube video URL or ID\" }, \"language\": { \"type\": \"string\", \"description\": \"Language code (default: 'en')"
+      ],
+      [
+        "A",
+        "B"
+      ],
+      [
+        "API key"
+      ],
+      [
+        "API_key"
+      ],
+      [
+        "API_key"
+      ],
+      [
+        "Binance_API_key_and_secret"
+      ],
+      [
+        "CYPRESSUSEREMAIL",
+        "CYPRESSUSERPASSWORD"
+      ],
+      [
+        "Context7-compatible_library_ID"
+      ],
+      [
+        "Excel_MCP_token",
+        "sheet_name",
+        "cell_address"
+      ],
+      [
+        "GDB process ID",
+        "GDB tty device path",
+        "remote debugging address",
+        "target program executable path",
+        "request-linkedin-token"
+      ],
+      [
+        "Investor Group ID",
+        "Group Access"
+      ],
+      [
+        "MCP"
+      ],
+      [
+        "MULTIPLE_AUTHORIZATION_CHECKS"
+      ],
+      [
+        "No user interaction"
+      ],
+      [
+        "Number of transactions",
+        "Estimated gas limit per transaction",
+        "Minimum balance requirement"
+      ],
+      [
+        "OPENPROJECTAPIKEY",
+        "OPENPROJECT_URL"
+      ],
+      [
+        "OpenAI_announcement_video_URL"
+      ],
+      [
+        "OpenProjectConfiguration"
+      ],
+      [
+        "PID or TTY"
+      ],
+      [
+        "Path to the Word document",
+        "Path to the image file"
+      ],
+      [
+        "Ping",
+        "SimplePrice",
+        "SimpleTokenPrice"
+      ],
+      [
+        "PowerShell in the allowed commands list"
+      ],
+      [
+        "Pro API key"
+      ],
+      [
+        "Proper output format (TRUE/FALSE)"
+      ],
+      [
+        "Session_protocol"
+      ]
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:Counts]->(b:entity) WITH a, count(b.parameter) AS metric1 WHERE metric1 <= 5 RETURN a.return AS EntityName, 'B' AS Category, metric1 AS ValueScore UNION ALL MATCH (c:event)<-[:provide_coordinates]-(d:entity) WITH c, max(d.parameter) AS metric2 WHERE metric2 <= 0 RETURN c.return AS EntityName, 'C' AS Category, metric2 AS ValueScore",
+    "answer": [
+      {
+        "EntityName": [
+          "array of integers"
+        ],
+        "Category": "B",
+        "ValueScore": 0
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"tint\"})-[:RespondsWithTextToPrompt]->(b:event) WITH a, min(b.parameter) AS metric1 WHERE metric1 = 5 RETURN a.parameter AS EntityName, 'Type1' AS Category, metric1 AS ValueScore UNION ALL MATCH (c:entity)<-[:develops]-(d:entity) WITH c, sum(d.parameter) AS metric2 WHERE metric2 < 5 RETURN c.parameter AS EntityName, 'Type1' AS Category, metric2 AS ValueScore",
+    "answer": [
+      {
+        "EntityName": null,
+        "Category": "Type1",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "Type1",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "Type1",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "Type1",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "Type1",
+        "ValueScore": 0
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:gets_current_time_for]->(b:entity) WITH a, collect(b.return) AS metric1 WHERE metric1 <= 1 RETURN a.return AS EntityName, 'Type2' AS Category, metric1 AS ValueScore UNION ALL MATCH (c:entity)<-[:belongsto]-(d:entity) WITH c, sum(d.return) AS metric2 WHERE metric2 <= 1 RETURN c.return AS EntityName, 'Type2' AS Category, metric2 AS ValueScore",
+    "answer": [
+      {
+        "EntityName": null,
+        "Category": "Type2",
+        "ValueScore": 0
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:transforms]->(b:entity) WITH a, avg(b.return) AS metric1 WHERE metric1 < 5 RETURN a.return AS EntityName, 'Low' AS Category, metric1 AS ValueScore UNION ALL MATCH (c:entity)<-[:can_be_used_in]-(d:entity) WITH c, count(d.parameter) AS metric2 WHERE metric2 = 0 RETURN c.return AS EntityName, 'Type2' AS Category, metric2 AS ValueScore",
+    "answer": [
+      {
+        "EntityName": null,
+        "Category": "Type2",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "Type2",
+        "ValueScore": 0
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:partOf]->(b:event) WITH a, count(b.parameter) AS metric1 WHERE metric1 < 1 RETURN a.parameter AS EntityName, 'A' AS Category, metric1 AS ValueScore UNION ALL MATCH (c:concept {id: \"bond search\"})<-[:can_be_string_or_null]-(d:event) WITH c, avg(d.return) AS metric2 WHERE metric2 >= 10 RETURN c.parameter AS EntityName, 'C' AS Category, metric2 AS ValueScore",
+    "answer": [
+      {
+        "EntityName": null,
+        "Category": "A",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "A",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "A",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "A",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "A",
+        "ValueScore": 0
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:is_verified_based_on]->(b:event) WITH a, avg(b.parameter) AS metric1 WHERE metric1 <= 1 RETURN a.parameter AS EntityName, 'High' AS Category, metric1 AS ValueScore UNION ALL MATCH (c:entity)<-[:provides_example_for]-(d:entity) WITH c, collect(d.return) AS metric2 WHERE metric2 <> 1 RETURN c.return AS EntityName, 'Type2' AS Category, metric2 AS ValueScore",
+    "answer": [
+      {
+        "EntityName": null,
+        "Category": "Type2",
+        "ValueScore": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:has_example]->(b:entity) WITH a, count(b.return) AS metric1 WHERE metric1 < 1000 RETURN a.parameter AS EntityName, 'Type2' AS Category, metric1 AS ValueScore UNION ALL MATCH (c:entity)<-[:requires_integer]-(d:event) WITH c, max(d.parameter) AS metric2 WHERE metric2 < 0 RETURN c.parameter AS EntityName, 'Low' AS Category, metric2 AS ValueScore",
+    "answer": [
+      {
+        "EntityName": null,
+        "Category": "Type2",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "Type2",
+        "ValueScore": 0
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:failed_to_execute_due_to]->(b:entity) WITH a, collect(b.parameter) AS metric1 WHERE metric1 <> 0 RETURN a.return AS EntityName, 'Low' AS Category, metric1 AS ValueScore UNION ALL MATCH (c:event)<-[:is_specified_by]-(d:entity) WITH c, max(d.parameter) AS metric2 WHERE metric2 < 0 RETURN c.return AS EntityName, 'Low' AS Category, metric2 AS ValueScore",
+    "answer": [
+      {
+        "EntityName": [
+          "No .txt files found on desktop.",
+          "['mainnet', 'sepolia']",
+          "definition of 'quantum dot'",
+          "1754859283.3798382",
+          "['flux', 'kontext', 'turbo']",
+          "models",
+          "2025-08-08 19:09:27",
+          "temperature 28.6"
+        ],
+        "Category": "Low",
+        "ValueScore": []
+      },
+      {
+        "EntityName": [
+          "创建文件 project_notes.txt 失败",
+          "{ \"temperature\": 29.4 }",
+          "{'network': 'mainnet', 'chainId': '0x534e5f4d41494e', 'blockNumber': 1685026, 'rpcUrl': 'https://starknet-mainnet.public.blastapi.io'}",
+          "error for Amazon product URL",
+          "bonds",
+          "no matching prompts",
+          "BibTeXEntry",
+          "{ \"monitoringId\": \"incident-analysis-eval-001\", ... }",
+          "invalid_phone_number",
+          "temperature: 18.9",
+          "ollama_supports_reasoning",
+          "2025-08-09T11:09:00+09:00"
+        ],
+        "Category": "Low",
+        "ValueScore": []
+      },
+      {
+        "EntityName": [
+          "27.18281828459045",
+          "2025-08-06 02:03:36",
+          "temperature_33.8",
+          "temperature_reading",
+          "exchange_rate_data"
+        ],
+        "Category": "Low",
+        "ValueScore": []
+      },
+      {
+        "EntityName": [
+          "function_output_1",
+          "temperature_data",
+          "result_1",
+          "unexpected_status_code_404",
+          "Balance for 0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0: 0 Atto-FLOW 0.000000 FLOW",
+          "paper_1",
+          "function_result_1"
+        ],
+        "Category": "Low",
+        "ValueScore": []
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:calculates_total]->(b:event) WITH a, avg(b.return) AS metric1 WHERE metric1 <= 100 RETURN a.parameter AS EntityName, 'Low' AS Category, metric1 AS ValueScore UNION ALL MATCH (c:entity)<-[:match]-(d:entity) WITH c, sum(d.parameter) AS metric2 WHERE metric2 <= 1 RETURN c.return AS EntityName, 'Medium' AS Category, metric2 AS ValueScore",
+    "answer": [
+      {
+        "EntityName": null,
+        "Category": "Medium",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "Medium",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "Medium",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "Medium",
+        "ValueScore": 0
+      },
+      {
+        "EntityName": null,
+        "Category": "Medium",
+        "ValueScore": 0
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:removed_from]->(b:entity) WITH a, count(b.parameter) AS metric1 WHERE metric1 <> 50 RETURN a.parameter AS EntityName, 'B' AS Category, metric1 AS ValueScore UNION ALL MATCH (c:concept {id: \"movie\"})<-[:by]-(d:event) WITH c, min(d.parameter) AS metric2 WHERE metric2 < 50 RETURN c.return AS EntityName, 'High' AS Category, metric2 AS ValueScore",
+    "answer": [
+      {
+        "EntityName": null,
+        "Category": "B",
+        "ValueScore": 0
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN count(a.parameter) AS cnt UNION MATCH (b:event) RETURN count(b.parameter) AS cnt",
+    "answer": [
+      {
+        "cnt": 825
+      },
+      {
+        "cnt": 49
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"pronunciation\"}) RETURN count(a.parameter) AS cnt UNION MATCH (b:entity) RETURN count(b.parameter) AS cnt",
+    "answer": [
+      {
+        "cnt": 0
+      },
+      {
+        "cnt": 825
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN count(a.return) AS cnt UNION MATCH (b:event) RETURN count(b.return) AS cnt",
+    "answer": 85,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN count(a.parameter) AS cnt UNION MATCH (b:entity) RETURN count(b.parameter) AS cnt",
+    "answer": 825,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN count(a.parameter) AS cnt UNION MATCH (b:event) RETURN count(b.parameter) AS cnt",
+    "answer": 49,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN count(a.return) AS cnt UNION MATCH (b:concept {id: \"tunnel\"}) RETURN count(b.return) AS cnt",
+    "answer": [
+      {
+        "cnt": 85
+      },
+      {
+        "cnt": 0
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:concept {id: \"pronunciation\"}) RETURN count(a.parameter) AS cnt UNION MATCH (b:event) RETURN count(b.parameter) AS cnt",
+    "answer": [
+      {
+        "cnt": 0
+      },
+      {
+        "cnt": 49
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN count(a.parameter) AS cnt UNION MATCH (b:concept {id: \"tunnel\"}) RETURN count(b.parameter) AS cnt",
+    "answer": [
+      {
+        "cnt": 825
+      },
+      {
+        "cnt": 0
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event) RETURN count(a.return) AS cnt UNION MATCH (b:event) RETURN count(b.return) AS cnt",
+    "answer": 85,
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity) RETURN count(a.return) AS cnt UNION MATCH (b:event) RETURN count(b.return) AS cnt",
+    "answer": [
+      {
+        "cnt": 609
+      },
+      {
+        "cnt": 85
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:suggests_alternative]-()-[:suggests_alternative]-(b:entity) WHERE NOT (a)-[:suggests_alternative]-(b) WITH b ORDER BY b.id LIMIT 20 RETURN b.id",
+    "answer": [
+      {
+        "b.id": "Python solution"
+      },
+      {
+        "b.id": "douyin_hot_search"
+      },
+      {
+        "b.id": "douyin_hot_search"
+      },
+      {
+        "b.id": "netease_tencent_news_hot_search"
+      },
+      {
+        "b.id": "netease_tencent_news_hot_search"
+      },
+      {
+        "b.id": "specific company website"
+      },
+      {
+        "b.id": "zhihu_hot_search"
+      },
+      {
+        "b.id": "zhihu_hot_search"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:provides_output_of]-()-[:provides_output_of]-(b:entity) WHERE NOT (a)-[:provides_output_of]-(b) WITH b ORDER BY b.id LIMIT 20 RETURN b.id",
+    "answer": [
+      {
+        "b.id": "Current UTC time is 2025-08-08 22:38:51, and the time in Australia/Sydney is 2025-08-09 08:38:51."
+      },
+      {
+        "b.id": "Current UTC time is 2025-08-08 22:38:51, and the time in Australia/Sydney is 2025-08-09 08:38:51."
+      },
+      {
+        "b.id": "The current date and time is: 2025-08-06T19:50:55.608Z"
+      },
+      {
+        "b.id": "The current date and time is: 2025-08-06T19:50:55.608Z"
+      },
+      {
+        "b.id": "current_time_in_new_york_1"
+      },
+      {
+        "b.id": "current_time_in_new_york_2"
+      },
+      {
+        "b.id": "current_time_in_utc_1"
+      },
+      {
+        "b.id": "current_time_in_utc_2"
+      },
+      {
+        "b.id": "timestamp of 2025-06-15 14:00:00 (parsed as UTC)"
+      },
+      {
+        "b.id": "timestamp of 2025-06-15 14:00:00 (parsed as UTC)"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:provides_current_temperature]-()-[:provides_current_temperature]-(b:entity) WHERE NOT (a)-[:provides_current_temperature]-(b) WITH b ORDER BY b.return LIMIT 20 RETURN b.return",
+    "answer": [
+      "temperature_value",
+      "temperature"
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:branch_to]-()-[:branch_to]-(b:entity) WHERE NOT (a)-[:branch_to]-(b) WITH b ORDER BY b.id LIMIT 20 RETURN b.id",
+    "answer": [
+      {
+        "b.id": "Engineering_Path"
+      },
+      {
+        "b.id": "Engineering_Path"
+      },
+      {
+        "b.id": "Operations_Path"
+      },
+      {
+        "b.id": "Operations_Path"
+      },
+      {
+        "b.id": "Sales_Path"
+      },
+      {
+        "b.id": "Sales_Path"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:created]-()-[:created]-(b:entity) WHERE NOT (a)-[:created]-(b) WITH b ORDER BY b.id LIMIT 20 RETURN b.id",
+    "answer": [
+      {
+        "b.id": "/home/user/utils.py"
+      },
+      {
+        "b.id": "/home/user/utils.py"
+      },
+      {
+        "b.id": "/home/user/utils.py"
+      },
+      {
+        "b.id": "/home/user/utils.py"
+      },
+      {
+        "b.id": "/home/user/utils.py"
+      },
+      {
+        "b.id": "Aquaponics System"
+      },
+      {
+        "b.id": "Aquaponics System"
+      },
+      {
+        "b.id": "Bustanica Dubai"
+      },
+      {
+        "b.id": "Bustanica Dubai"
+      },
+      {
+        "b.id": "Bustanica Dubai"
+      },
+      {
+        "b.id": "Bustanica Dubai"
+      },
+      {
+        "b.id": "Bustanica Dubai implements Vertical Farming Technology"
+      },
+      {
+        "b.id": "Bustanica Dubai implements Vertical Farming Technology"
+      },
+      {
+        "b.id": "Bustanica Dubai implements Vertical Farming Technology"
+      },
+      {
+        "b.id": "Bustanica Dubai implements Vertical Farming Technology"
+      },
+      {
+        "b.id": "Case Study Database"
+      },
+      {
+        "b.id": "Case Study Database"
+      },
+      {
+        "b.id": "Document Q4-2024-Sales-Report.docx"
+      },
+      {
+        "b.id": "Document Quarterly_Summary.docx"
+      },
+      {
+        "b.id": "Dubai Controlled Environment Agriculture"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:is_participated_by]-()-[:is_participated_by]-(b:entity) WHERE NOT (a)-[:is_participated_by]-(b) WITH b ORDER BY b.parameter LIMIT 20 RETURN b.parameter",
+    "answer": [
+      {
+        "b.parameter": [
+          "\"player_id\": { \"title\": \"Player Id\", \"type\": \"integer\" }"
+        ]
+      },
+      {
+        "b.parameter": [
+          "MCP"
+        ]
+      },
+      {
+        "b.parameter": [
+          "MCP"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      },
+      {
+        "b.parameter": [
+          "Ping",
+          "SimplePrice",
+          "SimpleTokenPrice"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:changes_to]-()-[:changes_to]-(b:entity) WHERE NOT (a)-[:changes_to]-(b) WITH b ORDER BY b.id LIMIT 20 RETURN b.id",
+    "answer": [
+      {
+        "b.id": "description"
+      },
+      {
+        "b.id": "name"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:processes]-()-[:processes]-(b:entity) WHERE NOT (a)-[:processes]-(b) WITH b ORDER BY b.return LIMIT 20 RETURN b.return",
+    "answer": [
+      {
+        "b.return": [
+          "alert logs"
+        ]
+      },
+      {
+        "b.return": [
+          "statistics logs"
+        ]
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:has_min_length]-()-[:has_min_length]-(b:entity) WHERE NOT (a)-[:has_min_length]-(b) WITH b ORDER BY b.id LIMIT 20 RETURN b.id",
+    "answer": [
+      {
+        "b.id": "name"
+      },
+      {
+        "b.id": "query"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:has_concept]-()-[:has_concept]-(b:entity) WHERE NOT (a)-[:has_concept]-(b) WITH b ORDER BY b.id LIMIT 20 RETURN b.id",
+    "answer": [
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      },
+      {
+        "b.id": " Başlık: Animal Farm Yazarlar: George Orwell"
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:can_provide]-()-[:can_provide]-(b:entity) WHERE NOT (a)-[:can_provide]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.return, cnt",
+    "answer": [
+      {
+        "a.return": null,
+        "cnt": 1
+      },
+      {
+        "a.return": null,
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:gets_selection]-()-[:gets_selection]-(b:entity) WHERE NOT (a)-[:gets_selection]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.return, cnt",
+    "answer": [
+      {
+        "a.return": null,
+        "cnt": 2
+      },
+      {
+        "a.return": null,
+        "cnt": 2
+      },
+      {
+        "a.return": [
+          "definition of retreat",
+          "totalresults: 41, bonds: [list of IPCA bonds]"
+        ],
+        "cnt": 2
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:has_parameter_type]-()-[:has_parameter_type]-(b:entity) WHERE NOT (a)-[:has_parameter_type]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.parameter, cnt",
+    "answer": [
+      {
+        "a.parameter": null,
+        "cnt": 1
+      },
+      {
+        "a.parameter": [
+          "documentPath",
+          "field",
+          "incrementBy"
+        ],
+        "cnt": 1
+      },
+      {
+        "a.parameter": null,
+        "cnt": 1
+      },
+      {
+        "a.parameter": [
+          "id",
+          "title",
+          "language",
+          "portal",
+          "skip",
+          "limit"
+        ],
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:be_of_type]-()-[:be_of_type]-(b:entity) WHERE NOT (a)-[:be_of_type]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.parameter, cnt",
+    "answer": [
+      {
+        "a.parameter": null,
+        "cnt": 2
+      },
+      {
+        "a.parameter": null,
+        "cnt": 2
+      },
+      {
+        "a.parameter": null,
+        "cnt": 2
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:default_value]-()-[:default_value]-(b:entity) WHERE NOT (a)-[:default_value]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.return, cnt",
+    "answer": [
+      {
+        "a.return": null,
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:is_a_parameter_of]-()-[:is_a_parameter_of]-(b:entity) WHERE NOT (a)-[:is_a_parameter_of]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.parameter, cnt",
+    "answer": [
+      {
+        "a.parameter": null,
+        "cnt": 1
+      },
+      {
+        "a.parameter": null,
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:is_described_as]-()-[:is_described_as]-(b:entity) WHERE NOT (a)-[:is_described_as]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.parameter, cnt",
+    "answer": [
+      {
+        "a.parameter": [
+          "username",
+          "page",
+          "per_page",
+          "strategy",
+          "{ \"type\": \"object\", \"properties\": { \"username\": { \"type\": \"string\", \"description\": \"The username to get the content\" }, \"slug\": { \"type\": \"string\", \"description\": \"The slug to get the content\" } } }"
+        ],
+        "cnt": 3
+      },
+      {
+        "a.parameter": null,
+        "cnt": 3
+      },
+      {
+        "a.parameter": null,
+        "cnt": 3
+      },
+      {
+        "a.parameter": [
+          "\"code\" parameter"
+        ],
+        "cnt": 3
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:attempts_to_resolve]-()-[:attempts_to_resolve]-(b:entity) WHERE NOT (a)-[:attempts_to_resolve]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.parameter, cnt",
+    "answer": [
+      {
+        "a.parameter": null,
+        "cnt": 3
+      },
+      {
+        "a.parameter": null,
+        "cnt": 3
+      },
+      {
+        "a.parameter": null,
+        "cnt": 3
+      },
+      {
+        "a.parameter": null,
+        "cnt": 3
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:event)-[:required]-()-[:required]-(b:event) WHERE NOT (a)-[:required]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.parameter, cnt",
+    "answer": [
+      {
+        "a.parameter": null,
+        "cnt": 3
+      },
+      {
+        "a.parameter": null,
+        "cnt": 3
+      },
+      {
+        "a.parameter": null,
+        "cnt": 3
+      },
+      {
+        "a.parameter": [
+          "get_weather_by_cityArguments parametresi 'city_name' gerektirir"
+        ],
+        "cnt": 1
+      },
+      {
+        "a.parameter": null,
+        "cnt": 1
+      },
+      {
+        "a.parameter": null,
+        "cnt": 3
+      }
+    ],
+    "is_noise_query": null
+  },
+  {
+    "query": "MATCH (a:entity)-[:example]-()-[:example]-(b:entity) WHERE NOT (a)-[:example]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.return, cnt",
+    "answer": [
+      {
+        "a.return": null,
+        "cnt": 1
+      },
+      {
+        "a.return": null,
+        "cnt": 1
+      }
+    ],
+    "is_noise_query": null
+  }
+]

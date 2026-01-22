@@ -1,0 +1,94 @@
+{
+  "type": "query",
+  "clauses": [
+    {
+      "type": "match",
+      "optional": false,
+      "patterns": [
+        {
+          "type": "node",
+          "variable": "a",
+          "labels": [],
+          "properties": {
+            "id": "1904862"
+          }
+        }
+      ]
+    },
+    {
+      "type": "match",
+      "optional": false,
+      "patterns": [
+        {
+          "type": "node",
+          "variable": "b",
+          "labels": [],
+          "properties": {
+            "id": "D014025"
+          }
+        }
+      ]
+    },
+    {
+      "type": "match",
+      "optional": false,
+      "patterns": [
+        {
+          "type": "path",
+          "variable": "p",
+          "elements": [
+            {
+              "type": "node",
+              "variable": "a",
+              "labels": [],
+              "properties": {}
+            },
+            {
+              "type": "relationship",
+              "labels": [
+                "contraindication"
+              ],
+              "direction": "->"
+            },
+            {
+              "type": "node",
+              "variable": null,
+              "labels": [],
+              "properties": {}
+            },
+            {
+              "type": "relationship",
+              "labels": [
+                "indication"
+              ],
+              "direction": "->"
+            },
+            {
+              "type": "node",
+              "variable": null,
+              "labels": [],
+              "properties": {}
+            },
+            {
+              "type": "relationship",
+              "labels": [
+                "disease_phenotype_negative"
+              ],
+              "direction": "->"
+            },
+            {
+              "type": "node",
+              "variable": "b",
+              "labels": [],
+              "properties": {}
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "return": [
+    "p"
+  ],
+  "limit": 20
+}

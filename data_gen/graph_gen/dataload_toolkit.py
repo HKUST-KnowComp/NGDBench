@@ -2,12 +2,18 @@
 temporarily done for only one data format, need to be extended to other data formats
 """
 import os
+import sys
+# 添加项目根目录到 Python 路径，以便正确导入 pipeline 模块
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
 import gzip
 import pandas as pd
 import networkx as nx
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Tuple, List
-from graph_handler import GraphInspector
+from data_analyser.graph_handler import GraphInspector
 from pathlib import Path
 import pickle
 import random
@@ -15,11 +21,35 @@ import random
 
 def read_csv_gz(file_path: str) -> pd.DataFrame:
     # read the single .csv.gz file
-    with gzip.open(file_path, 'rt', encoding='utf-8') as f:
-        return pd.read_csv(f)
+    # 尝试不同的分隔符，先尝试 | 分隔符（LDBC SNB BI 格式常用）
+    # 注意：LDBC SNB BI 格式通常没有 header，使用 header=None
+    try:
+        # 先尝试 | 分隔符，没有 header
+        with gzip.open(file_path, 'rt', encoding='utf-8') as f:
+            df = pd.read_csv(f, sep='|', header=None)
+        # 如果只有一列，说明分隔符不对，尝试逗号
+        if len(df.columns) == 1:
+            with gzip.open(file_path, 'rt', encoding='utf-8') as f:
+                df = pd.read_csv(f, sep=',', header=None)
+    except Exception:
+        # 如果 | 分隔符失败，尝试逗号
+        try:
+            with gzip.open(file_path, 'rt', encoding='utf-8') as f:
+                df = pd.read_csv(f, sep=',', header=None)
+        except Exception:
+            # 最后尝试自动检测（可能有 header）
+            with gzip.open(file_path, 'rt', encoding='utf-8') as f:
+                df = pd.read_csv(f)
+    return df
 
-def process_single_file(file_path: str, folder_name: str, file_format: str) -> Tuple[List[Tuple[str, str]], List[Tuple[str, str, str]]]:
-    # Process the single file and return the nodes and edges
+def read_csv(file_path: str, sep: str = ',', header=0) -> pd.DataFrame:
+    # read the single .csv file
+    # header=0 表示第一行是列名（默认行为）
+    # 如果 header=None，pandas不会将第一行作为列名，而是使用数字列名
+    return pd.read_csv(file_path, sep=sep, encoding='utf-8', header=header)
+
+def process_single_file_ldbcbi(file_path: str, folder_name: str, file_format: str) -> Tuple[List[Tuple[str, str, dict]], List[Tuple[str, str, str]]]:
+    # Process the single file and return the nodes and edges (包含所有属性)
     import time
     start_time = time.time()
     file_name = os.path.basename(file_path)
@@ -39,33 +69,102 @@ def process_single_file(file_path: str, folder_name: str, file_format: str) -> T
         #     df = read_parquet(file_path)
         # elif file_format == ".feather":
         #     df = read_feather(file_path)
+        else:
+            print(f"警告: 不支持的文件格式 {file_format}，跳过文件 {file_path}")
+            return nodes, edges
     except Exception as e:
         print(f"skip the file {file_path}, error: {e}")
+        return nodes, edges
+    
+    # 检查 DataFrame 是否为空
+    if df is None or df.empty:
+        print(f"警告: 文件 {file_path} 为空，跳过")
         return nodes, edges
     
     # check if the file is a node table or an edge table
     if "_" not in folder_name:
         # the file is a node table
         node_type = folder_name
+        # 检查是否有 'id' 列，或者第一列（当没有header时，列名是0）
+        id_col = None
         if 'id' in df.columns:
-            # for nid in df['id'].astype(str):
-            #     nodes.append((f"{node_type}:{nid}", node_type))
-            # 使用向量化操作，比 iterrows 快得多
-            node_ids = df['id'].astype(str).values
-            nodes = [(f"{node_type}:{nid}", node_type) for nid in node_ids]
+            id_col = 'id'
+        elif len(df.columns) > 0:
+            # 如果没有 'id' 列，使用第一列作为 id
+            id_col = df.columns[0]
+        
+        if id_col is not None:
+            # 遍历每一行，构建节点及其所有属性
+            for idx, row in df.iterrows():
+                node_id_value = str(row[id_col])
+                node_id = f"{node_type}:{node_id_value}"
+                
+                # 构建属性字典，包含所有列的值
+                attributes = {}
+                for col in df.columns:
+                    value = row[col]
+                    # 处理 NaN 值
+                    if pd.isna(value):
+                        attributes[col] = None
+                    else:
+                        # 保持原始类型，但确保可以序列化
+                        attributes[col] = value
+                
+                nodes.append((node_id, node_type, attributes))
     else:
         # the file is an edge table
         rel_type = folder_name
         cols = df.columns.tolist()
         if len(cols) >= 2:
-            src_col, dst_col = cols[0], cols[1]
-            src_prefix = src_col.split('_')[0]
-            dst_prefix = dst_col.split('_')[0]
+            # 处理不同列数的边表：
+            # - 2列：静态边表，直接是源节点ID和目标节点ID（列0和列1）
+            # - 3列或更多：动态边表，第一列是时间戳，第二列和第三列是源节点ID和目标节点ID（列1和列2）
+            if len(cols) == 2:
+                # 静态边表：使用第0列和第1列
+                src_col, dst_col = cols[0], cols[1]
+            else:
+                # 动态边表：跳过第一列（时间戳），使用第1列和第2列
+                src_col, dst_col = cols[1], cols[2]
+            
+            # 从关系名（文件夹名）中提取源节点类型和目标节点类型
+            # 格式：SourceType_RelationName_TargetType
+            # 例如：Place_isPartOf_Place -> 源类型：Place，目标类型：Place
+            #      Tag_hasType_TagClass -> 源类型：Tag，目标类型：TagClass
+            #      Comment_isLocatedIn_Country -> 源类型：Comment，目标类型：Country
+            parts = folder_name.split('_')
+            if len(parts) >= 3:
+                # 源节点类型是第一部分
+                src_prefix = parts[0]
+                # 目标节点类型是最后一部分
+                dst_prefix = parts[-1]
+                
+                # 处理特殊情况：Country、City、University、Company 等可能是 Place 或 Organisation 的子类型
+                # 在 composite-projected-fk 格式中，这些节点实际上存储在 Place 或 Organisation 节点表中
+                # 将目标节点类型映射到实际的节点类型
+                type_mapping = {
+                    'Country': 'Place',
+                    'City': 'Place',
+                    'University': 'Organisation',  # 或者可能是 Place，需要根据实际情况调整
+                    'Company': 'Organisation',
+                }
+                if dst_prefix in type_mapping:
+                    dst_prefix = type_mapping[dst_prefix]
+            else:
+                # 如果格式不符合预期，尝试从列名中提取
+                if isinstance(src_col, (int, str)) and str(src_col).isdigit():
+                    src_prefix = "node"  # 默认前缀
+                else:
+                    src_prefix = str(src_col).split('_')[0] if '_' in str(src_col) else "node"
+                
+                if isinstance(dst_col, (int, str)) and str(dst_col).isdigit():
+                    dst_prefix = "node"  # 默认前缀
+                else:
+                    dst_prefix = str(dst_col).split('_')[0] if '_' in str(dst_col) else "node"
             
             edges = []
 
-            src_values = df[src_col].values
-            dst_values = df[dst_col].values
+            src_values = df[src_col].astype(str).values
+            dst_values = df[dst_col].astype(str).values
             edges = [
                 (f"{src_prefix}:{src}", f"{dst_prefix}:{dst}", rel_type)
                 for src, dst in zip(src_values, dst_values)
@@ -73,7 +172,7 @@ def process_single_file(file_path: str, folder_name: str, file_format: str) -> T
     
     return nodes, edges
 
-def build_graph_from_data(data_path: str, file_format: str) -> nx.MultiDiGraph:
+def build_graph_from_data_ldbcbi(data_path: str, file_format: str) -> nx.MultiDiGraph:
     """
     Build the graph from the data path (sequential processing)
     Suitable for single file or small dataset scenarios
@@ -106,26 +205,42 @@ def build_graph_from_data(data_path: str, file_format: str) -> nx.MultiDiGraph:
     
     # process files sequentially
     processed_files = 0
+    total_nodes_added = 0
+    total_edges_added = 0
     for file_path, folder_name, fmt in file_tasks:
         try:
-            nodes, edges = process_single_file(file_path, folder_name, fmt)
+            nodes, edges = process_single_file_ldbcbi(file_path, folder_name, fmt)
             
-            # add the nodes to the graph
-            for node_id, node_type in nodes:
-                graph.add_node(node_id, label=node_type)
+            # add the nodes to the graph (包含所有属性)
+            for node_id, node_type, attributes in nodes:
+                # 添加节点，包含所有属性
+                # 将 label 作为单独属性，同时保留所有其他属性
+                node_attrs = {'label': node_type}
+                node_attrs.update(attributes)
+                graph.add_node(node_id, **node_attrs)
             
             # add the edges to the graph
             for src, dst, rel_type in edges:
                 graph.add_edge(src, dst, label=rel_type)
             
+            nodes_count = len(nodes)
+            edges_count = len(edges)
+            total_nodes_added += nodes_count
+            total_edges_added += edges_count
+            
             processed_files += 1
             
-            # print progress
+            # print progress with details
             if processed_files % 10 == 0 or processed_files == total_files:
-                print(f"progress: {processed_files}/{total_files} files processed")
+                print(f"progress: {processed_files}/{total_files} files processed (nodes: {total_nodes_added:,}, edges: {total_edges_added:,})")
+            elif nodes_count > 0 or edges_count > 0:
+                # 打印有内容的文件
+                print(f"  {os.path.basename(file_path)}: {nodes_count} nodes, {edges_count} edges")
                 
         except Exception as e:
             print(f"error when processing the file {os.path.basename(file_path)}: {e}")
+            import traceback
+            traceback.print_exc()
             processed_files += 1
     
     overall_elapsed = time.time() - overall_start
@@ -175,7 +290,7 @@ def build_graph_from_data_threaded(data_path: str, file_format: str, max_workers
     processed_files = 0
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         future_to_file = {
-            executor.submit(process_single_file, file_path, folder_name, file_format): file_path
+            executor.submit(process_single_file_ldbcbi, file_path, folder_name, file_format): file_path
             for file_path, folder_name, file_format in file_tasks
         }
         
@@ -185,9 +300,13 @@ def build_graph_from_data_threaded(data_path: str, file_format: str, max_workers
             try:
                 nodes, edges = future.result()
                 
-                # add the nodes to the graph
-                for node_id, node_type in nodes:
-                    graph.add_node(node_id, label=node_type)
+                # add the nodes to the graph (包含所有属性)
+                for node_id, node_type, attributes in nodes:
+                    # 添加节点，包含所有属性
+                    # 将 label 作为单独属性，同时保留所有其他属性
+                    node_attrs = {'label': node_type}
+                    node_attrs.update(attributes)
+                    graph.add_node(node_id, **node_attrs)
                 
                 # add the edges to the graph
                 for src, dst, rel_type in edges:
@@ -334,84 +453,323 @@ def build_graph_from_kg_csv(csv_path: str, save_path: str = None) -> nx.MultiDiG
     return graph
 
 
+def is_camel_case(filename: str) -> bool:
+    """
+    判断文件名是否为驼峰命名法（关系文件）
+    如果文件名包含大写字母（除了首字母），则认为是驼峰命名
+    """
+    # 移除文件扩展名
+    name_without_ext = os.path.splitext(filename)[0]
+    # 检查是否有大写字母（除了首字母）
+    return any(c.isupper() for c in name_without_ext[1:])
 
-if __name__ == "__main__":
-    data_path = "/home/ylivm/ngdb/ngdb_benchmark/data_gen/perturbed_dataset/ldbc_snb_bi_2510280002/out-sf1/graphs/csv/bi/composite-projected-fk/initial_snapshot"
-    graph_name = "ldbc_snb_bi_2510280002"
-    file_format = ".csv.gz"
-    graph_path = Path(f"pipeline/data_analyser/buffer/{graph_name}.gpickle")
-    if graph_path.exists():
-        graph = load_graph(graph_path)
-        print(f"loaded graph from {graph_path}")
+
+def parse_relation_filename(filename: str) -> Tuple[str, str, str]:
+    """
+    解析关系文件名，提取源节点类型、关系名和目标节点类型
+    
+    例如：
+    - AccountTransferAccount -> (Account, Transfer, Account)
+    - PersonInvestCompany -> (Person, Invest, Company)
+    - CompanyOwnAccount -> (Company, Own, Account)
+    
+    Args:
+        filename: 文件名（不含扩展名）
+        
+    Returns:
+        (源节点类型, 关系名, 目标节点类型)
+    """
+    name_without_ext = os.path.splitext(filename)[0]
+    
+    # 找到所有大写字母的位置
+    uppercase_positions = [i for i, c in enumerate(name_without_ext) if c.isupper()]
+    
+    if len(uppercase_positions) < 2:
+        # 如果只有一个大写字母（首字母），无法解析
+        return None, None, None
+    
+    # 第一个大写字母位置是0（首字母）
+    # 找到第二个大写字母的位置，这通常是源节点类型和关系名的分界
+    first_break = uppercase_positions[1] if len(uppercase_positions) > 1 else len(name_without_ext)
+    
+    # 源节点类型：从开头到第一个分界点
+    src_type = name_without_ext[:first_break]
+    
+    # 找到最后一个大写字母的位置，这通常是关系名和目标节点类型的分界
+    if len(uppercase_positions) >= 3:
+        # 有多个大写字母，最后一个分界点是倒数第二个大写字母
+        last_break = uppercase_positions[-1]
+        # 关系名：从第一个分界点到最后一个分界点
+        rel_name = name_without_ext[first_break:last_break]
+        # 目标节点类型：从最后一个分界点到结尾
+        dst_type = name_without_ext[last_break:]
     else:
-        graph = build_graph_from_data_threaded(data_path, file_format)
-        save_graph(graph, graph_path)
+        # 只有两个大写字母，说明是 SourceTarget 格式
+        # 这种情况下，中间部分可能是关系名，但通常关系名会被省略
+        # 例如：AccountAccount 可能是 Account -> Account 的自环关系
+        # 我们假设第二个大写字母开始是目标节点类型
+        last_break = uppercase_positions[1]
+        rel_name = name_without_ext[first_break:last_break] if first_break < last_break else name_without_ext[first_break:]
+        dst_type = name_without_ext[last_break:] if last_break < len(name_without_ext) else src_type
     
-    # 创建图检查器
-    graph_inspector = GraphInspector(graph)
+    return src_type, rel_name, dst_type
+
+
+def process_node_file_ldbcfin(file_path: str) -> List[Tuple[str, str, dict]]:
+    """
+    处理节点文件，返回节点列表（包含所有属性）
     
-    # 显示图的统计信息
-    print("\n" + "="*60)
-    print("【图的整体统计信息】")
-    print("="*60)
-    graph_inspector.summary()
-    
-    # 随机采样一些节点进行测试
-    all_nodes = list(graph.nodes())
-    sample_size = min(5, len(all_nodes))  # 采样5个节点，如果节点数少于5则全部采样
-    sampled_nodes = random.sample(all_nodes, sample_size)
-    
-    print("\n" + "="*60)
-    print(f"【随机采样 {sample_size} 个节点进行测试】")
-    print("="*60)
-    
-    for i, node in enumerate(sampled_nodes, 1):
-        print(f"\n{'─'*60}")
-        print(f"📍 节点 {i}: {node}")
-        print(f"{'─'*60}")
+    Args:
+        file_path: CSV文件路径
         
-        # 测试度数相关功能
-        in_deg = graph_inspector.in_degree(node)
-        out_deg = graph_inspector.out_degree(node)
-        total_deg = graph_inspector.degree(node)
-        print(f"📥 入度: {in_deg}")
-        print(f"📤 出度: {out_deg}")
-        print(f"📊 总度数: {total_deg}")
+    Returns:
+        节点列表，格式为 [(node_id, node_type, attributes_dict), ...]
+        其中 attributes_dict 包含节点的所有属性（包括ID列）
+    """
+    nodes = []
+    try:
+        # 读取CSV文件，使用 | 分隔符
+        # 注意：LDBC FinBench 的 CSV 文件第一行是列名，所以使用 header=0（默认值）
+        df = read_csv(file_path, sep='|', header=0)
         
-        # 测试按关系统计出度
-        rel_outdegree = graph_inspector.out_degree_by_relation(node)
-        if rel_outdegree:
-            print(f"\n🔗 按关系类型统计出度:")                                                                                                                                          
-            for rel, count in sorted(rel_outdegree.items(), key=lambda x: x[1], reverse=True):
-                print(f"  - {rel}: {count}")
+        if df.empty:
+            return nodes
+        
+        # 节点类型是文件名（不含扩展名）
+        node_type = os.path.splitext(os.path.basename(file_path))[0]
+        
+        # 查找ID列：通常是第一列，或者包含'id'的列（不区分大小写）
+        id_col = None
+        for col in df.columns:
+            if 'id' in str(col).lower():
+                id_col = col
+                break
+        
+        if id_col is None and len(df.columns) > 0:
+            # 如果没有找到id列，使用第一列
+            id_col = df.columns[0]
+        
+        if id_col is not None:
+            # 遍历每一行，构建节点及其属性
+            for idx, row in df.iterrows():
+                node_id_value = str(row[id_col])
+                node_id = f"{node_type}:{node_id_value}"
+                
+                # 构建属性字典，包含所有列的值
+                attributes = {}
+                for col in df.columns:
+                    value = row[col]
+                    # 处理 NaN 值
+                    if pd.isna(value):
+                        attributes[col] = None
+                    else:
+                        # 保持原始类型，但确保可以序列化
+                        attributes[col] = value
+                
+                nodes.append((node_id, node_type, attributes))
+            
+    except Exception as e:
+        print(f"处理节点文件 {file_path} 时出错: {e}")
+        import traceback
+        traceback.print_exc()
+    
+    return nodes
+
+
+def process_relation_file_ldbcfin(file_path: str) -> List[Tuple[str, str, str]]:
+    """
+    处理关系文件，返回边列表
+    
+    Args:
+        file_path: CSV文件路径
+        
+    Returns:
+        边列表，格式为 [(src_id, dst_id, rel_type), ...]
+    """
+    edges = []
+    try:
+        # 读取CSV文件，使用 | 分隔符
+        df = read_csv(file_path, sep='|')
+        
+        if df.empty:
+            return edges
+        
+        # 解析文件名获取关系信息
+        filename = os.path.basename(file_path)
+        src_type, rel_name, dst_type = parse_relation_filename(filename)
+        
+        if src_type is None or dst_type is None:
+            print(f"警告: 无法解析关系文件名 {filename}，跳过")
+            return edges
+        
+        # 关系类型使用完整的关系名
+        rel_type = f"{src_type}_{rel_name}_{dst_type}" if rel_name else f"{src_type}_to_{dst_type}"
+        
+        # 查找源节点ID列和目标节点ID列
+        # 常见的列名模式：
+        # - fromId, toId
+        # - srcId, dstId
+        # - sourceId, targetId
+        # - 或者特定类型：如 investorId, companyId
+        
+        src_col = None
+        dst_col = None
+        
+        # 先尝试常见的列名
+        for col in df.columns:
+            col_lower = str(col).lower()
+            if 'from' in col_lower or 'src' in col_lower or 'source' in col_lower:
+                src_col = col
+            elif 'to' in col_lower or 'dst' in col_lower or 'target' in col_lower:
+                dst_col = col
+        
+        # 如果没找到，尝试根据节点类型查找
+        if src_col is None:
+            for col in df.columns:
+                if src_type.lower() in str(col).lower() and 'id' in str(col).lower():
+                    src_col = col
+                    break
+        
+        if dst_col is None:
+            for col in df.columns:
+                if dst_type.lower() in str(col).lower() and 'id' in str(col).lower():
+                    dst_col = col
+                    break
+        
+        # 如果还是没找到，使用前两列
+        if src_col is None and len(df.columns) >= 1:
+            src_col = df.columns[0]
+        if dst_col is None and len(df.columns) >= 2:
+            dst_col = df.columns[1]
+        
+        if src_col is None or dst_col is None:
+            print(f"警告: 无法找到源节点或目标节点ID列，文件 {filename}，列: {list(df.columns)}")
+            return edges
+        
+        # 构建边
+        src_values = df[src_col].astype(str).values
+        dst_values = df[dst_col].astype(str).values
+        
+        edges = [
+            (f"{src_type}:{src}", f"{dst_type}:{dst}", rel_type)
+            for src, dst in zip(src_values, dst_values)
+        ]
+        
+    except Exception as e:
+        print(f"处理关系文件 {file_path} 时出错: {e}")
+        import traceback
+        traceback.print_exc()
+    
+    return edges
+
+
+def build_graph_from_data_ldbcfin(data_path: str, file_format: str = ".csv") -> nx.MultiDiGraph:
+    """
+    从 LDBC SNB FinBench 数据构建图
+    
+    数据格式说明：
+    - 驼峰命名法的文件（如 AccountTransferAccount.csv）是关系文件
+    - 其他文件（如 Account.csv）是节点文件
+    - 所有文件都在同一个目录下
+    
+    Args:
+        data_path: 数据目录路径
+        file_format: 文件格式（默认 ".csv"）
+        
+    Returns:
+        nx.MultiDiGraph: 构建好的图
+    """
+    import time
+    overall_start = time.time()
+    
+    graph = nx.MultiDiGraph()
+    print(f"从 {data_path} 加载图数据...")
+    
+    # 收集所有文件
+    all_files = []
+    if os.path.isdir(data_path):
+        for file in os.listdir(data_path):
+            if file.endswith(file_format):
+                file_path = os.path.join(data_path, file)
+                all_files.append(file_path)
+    else:
+        print(f"错误: {data_path} 不是一个有效的目录")
+        return graph
+    
+    total_files = len(all_files)
+    print(f"找到 {total_files} 个文件，开始处理...")
+    
+    # 先处理节点文件，再处理关系文件
+    node_files = []
+    relation_files = []
+    
+    for file_path in all_files:
+        filename = os.path.basename(file_path)
+        if is_camel_case(filename):
+            relation_files.append(file_path)
         else:
-            print(f"\n🔗 该节点没有出边")
-        
-        # 测试入边和出边
-        in_edges = graph_inspector.in_edges(node)
-        out_edges = graph_inspector.out_edges(node)
-        
-        # 显示部分入边示例（最多显示3条）
-        if in_edges:
-            print(f"\n📥 入边示例 (共 {len(in_edges)} 条，显示前3条):")
-            for src, dst, data in in_edges[:3]:
-                print(f"  {src} --[{data.get('label', 'N/A')}]--> {dst}")
-        
-        # 显示部分出边示例（最多显示3条）
-        if out_edges:
-            print(f"\n📤 出边示例 (共 {len(out_edges)} 条，显示前3条):")
-            for src, dst, data in out_edges[:3]:
-                print(f"  {src} --[{data.get('label', 'N/A')}]--> {dst}")
-        
-        # 如果有关系类型，测试按关系查询边
-        if rel_outdegree:
-            # 选择出度最高的关系类型
-            top_relation = max(rel_outdegree.items(), key=lambda x: x[1])[0]
-            edges_of_relation = graph_inspector.edges_by_relation(node, top_relation)
-            print(f"\n🎯 关系类型 '{top_relation}' 的边 (共 {len(edges_of_relation)} 条，显示前3条):")
-            for src, dst in edges_of_relation[:3]:
-                print(f"  {src} --> {dst}")
+            node_files.append(file_path)
     
-    print("\n" + "="*60)
-    print("✅ GraphInspector 功能测试完成！")
-    print("="*60)
+    print(f"节点文件: {len(node_files)} 个，关系文件: {len(relation_files)} 个")
+    
+    # 处理节点文件
+    total_nodes_added = 0
+    processed_files = 0
+    
+    for file_path in node_files:
+        try:
+            nodes = process_node_file_ldbcfin(file_path)
+            for node_id, node_type, attributes in nodes:
+                # 添加节点，包含所有属性
+                # 将 label 作为单独属性，同时保留所有其他属性
+                node_attrs = {'label': node_type}
+                node_attrs.update(attributes)
+                graph.add_node(node_id, **node_attrs)
+            
+            nodes_count = len(nodes)
+            total_nodes_added += nodes_count
+            processed_files += 1
+            
+            if nodes_count > 0:
+                print(f"  {os.path.basename(file_path)}: {nodes_count} 个节点")
+                
+        except Exception as e:
+            print(f"处理节点文件 {os.path.basename(file_path)} 时出错: {e}")
+            processed_files += 1
+    
+    # 处理关系文件
+    total_edges_added = 0
+    
+    for file_path in relation_files:
+        try:
+            edges = process_relation_file_ldbcfin(file_path)
+            for src, dst, rel_type in edges:
+                graph.add_edge(src, dst, label=rel_type)
+            
+            edges_count = len(edges)
+            total_edges_added += edges_count
+            processed_files += 1
+            
+            if edges_count > 0:
+                print(f"  {os.path.basename(file_path)}: {edges_count} 条边")
+                
+        except Exception as e:
+            print(f"处理关系文件 {os.path.basename(file_path)} 时出错: {e}")
+            import traceback
+            traceback.print_exc()
+            processed_files += 1
+    
+    overall_elapsed = time.time() - overall_start
+    
+    print(f"\n{'='*60}")
+    print("图加载成功！")
+    print(f"{'='*60}")
+    print(f"总耗时: {overall_elapsed:.2f} 秒")
+    print(f"处理文件数: {processed_files}/{total_files}")
+    print(f"节点数量: {graph.number_of_nodes():,}")
+    print(f"边数量: {graph.number_of_edges():,}")
+    print(f"{'='*60}\n")
+    
+    return graph
+
+

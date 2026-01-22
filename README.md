@@ -1,4 +1,16 @@
 # NADB Benchmark Status
+## User Guide
+首先把数据转换为图的形式 .gpickle或者.graphml
+cd data_gen/graph_gen
+python run.py
+
+模拟噪声图，记录噪声点的位置：
+cd data_gen
+python graph_generator.py
+
+生成检测查询（噪声图上：噪声点和干净点上的复杂查询检测；干净图上：增删改相关的查询生成）：
+查询分为几类：
+complex1，complex2(判断题), management
 
 ## Data Generation Module Status
 - ✅ Random incompleteness generation is done.

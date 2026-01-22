@@ -1,0 +1,469 @@
+
+============================================================
+          FULL GRAPH ANALYSIS
+          2026-01-19 17:08:14
+============================================================
+
+============================================================
+Graph Statistics
+============================================================
+Number of nodes: 10,865
+Number of edges: 60,476
+Average degree: 11.13
+Max degree: 17253
+Min degree: 0
+Directed: True
+
+============================================================
+Node Type Distribution
+============================================================
+  Account: 3,967 (36.51%)
+  Loan: 2,439 (22.45%)
+  Medium: 1,750 (16.11%)
+  Company: 975 (8.97%)
+  Person: 875 (8.05%)
+  Unknown: 859 (7.91%)
+
+============================================================
+Edge/Relation Type Distribution
+============================================================
+  Account_Withdraw_Account: 17,160 (28.37%)
+  Account_Transfer_Account: 14,013 (23.17%)
+  Medium_SignIn_Account: 5,434 (8.99%)
+  Loan_Deposit_Account: 5,053 (8.36%)
+  Account_Repay_Loan: 3,968 (6.56%)
+  Company_Invest_Company: 2,760 (4.56%)
+  Person_Invest_Company: 2,640 (4.37%)
+  Company_Own_Account: 2,251 (3.72%)
+  Person_Own_Account: 2,228 (3.68%)
+  Company_Apply_Loan: 1,516 (2.51%)
+  Person_Apply_Loan: 1,491 (2.47%)
+  Company_Guarantee_Company: 999 (1.65%)
+  Person_Guarantee_Person: 963 (1.59%)
+
+============================================================
+Degree Distribution
+============================================================
+Total Degree  - Mean: 11.13, Max: 17253, Min: 0
+In Degree     - Mean: 5.57, Max: 17253, Min: 0
+Out Degree    - Mean: 5.57, Max: 1676, Min: 0
+
+度数最高的5个节点:
+  Account:debit card: degree=17253
+  Account:retirement account: degree=1676
+  Account:trust account: degree=1602
+  Account:corporate account: degree=1573
+  Account:credit card: degree=1487
+
+============================================================
+Connectivity Analysis
+============================================================
+[Disconnected] 图不是连通的，包含多个分离的子图
+
+连通分量统计:
+  - 连通分量数量: 174
+  - 最大分量节点数: 10,681
+  - 最小分量节点数: 1
+
+各连通分量大小分布:
+  1. 分量大小: 10,681 节点 (98.31%)
+  2. 分量大小: 4 节点 (0.04%)
+  3. 分量大小: 3 节点 (0.03%)
+  4. 分量大小: 2 节点 (0.02%)
+  5. 分量大小: 2 节点 (0.02%)
+  6. 分量大小: 2 节点 (0.02%)
+  7. 分量大小: 2 节点 (0.02%)
+  8. 分量大小: 2 节点 (0.02%)
+  9. 分量大小: 2 节点 (0.02%)
+  10. 分量大小: 1 节点 (0.01%)
+  ... 还有 164 个更小的分量
+============================================================
+
+============================================================
+Sample Nodes (30 nodes)
+============================================================
+
+Node: Medium:52776558134143
+  Attributes: {'label': 'Medium', 'mediumId': 52776558134143, 'mediumType': 'PHONE', 'isBlocked': False, 'createTime': '2022-08-29 18:55:20.024', 'lastLoginTime': '2022-10-04 12:37:16.684', 'riskLevel': 'High risk'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:285697101361317507
+
+Node: Medium:52776558134783
+  Attributes: {'label': 'Medium', 'mediumId': 52776558134783, 'mediumType': 'IPv6', 'isBlocked': False, 'createTime': '2022-08-10 16:47:52.421', 'lastLoginTime': '2022-10-29 17:27:56.325', 'riskLevel': 'High risk'}
+  In-degree: 0, Out-degree: 6
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:190558559233115734
+    --[Medium_SignIn_Account]--> Account:190558559233115734
+    --[Medium_SignIn_Account]--> Account:190558559233115734
+
+Node: Account:4852910073468421930
+  Attributes: {'label': 'Account', 'accountId': 4852910073468421930, 'createTime': '2022-05-07 23:37:12.624', 'isBlocked': False, 'accountType': 'brokerage account', 'nickname': 'Joel ShepearD', 'phonenum': '969-4422', 'email': 'gmx.com', 'freqLoginType': 'IPv6', 'lastLoginTime': '2026-12-27 21:54:47.383', 'accountLevel': 'Silver level', 'original_name': 'Joel Shepeard'}
+  In-degree: 2, Out-degree: 1
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:Invoice Factoring
+
+Node: Person:2199023256380
+  Attributes: {'label': 'Person', 'personId': 2199023256380, 'personName': 'Gibbbon', 'isBlocked': False, 'createTime': '2020-04-21 10:16:34.519', 'gender': 'female', 'birthday': '1997-08-10', 'country': 'Russia', 'city': 'Barnaul', 'original_name': 'Gibbon'}
+  In-degree: 0, Out-degree: 6
+  Sample out-edges:
+    --[Person_Apply_Loan]--> Loan:4793800328359183444
+    --[Person_Guarantee_Person]--> Person:8796093023081
+    --[Person_Own_Account]--> Account:4709639310322697992
+
+Node: Medium:35184372088862
+  Attributes: {'label': 'Medium', 'mediumId': 35184372088862, 'mediumType': 'IPv6', 'isBlocked': False, 'createTime': '2021-11-01 19:44:05.516', 'lastLoginTime': '2022-09-04 00:46:09.924', 'riskLevel': 'Severe risk'}
+  In-degree: 1, Out-degree: 8
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:4812940626775508873
+    --[Medium_SignIn_Account]--> Account:4812940626775508873
+    --[Medium_SignIn_Account]--> Account:4812940626775508873
+
+Node: Company:10995116278168
+  Attributes: {'label': 'Company', 'companyId': 10995116278168, 'companyName': 'Niclas LLC', 'isBlocked': False, 'createTime': '2022-02-24 09:14:24.693', 'country': 'Japan', 'city': 'Toyohashi', 'business': 'Fiat dealer', 'description': 'Another. These earnest gentlemen- all three took their sticks from the door if he were being so insistent, and openly pressed her face into his ear, gregor would think of any other way of transferring gregor.', 'url': 'https://www.momentlywedging.org', 'original_name': 'Nicolas LLC'}
+  In-degree: 4, Out-degree: 7
+  Sample out-edges:
+    --[Company_Guarantee_Company]--> Company:615
+    --[Company_Guarantee_Company]--> Company:8796093022770
+    --[Company_Apply_Loan]--> Loan:229683580995895822
+
+Node: Account:84723967989909330
+  Attributes: {'label': 'Account', 'accountId': 84723967989909330, 'createTime': '2020-10-28 09:09:28.223', 'isBlocked': False, 'accountType': 'brokerage account', 'nickname': 'Darin Zavalza', 'phonenum': '117-9428', 'email': 'gmx.com', 'freqLoginType': 'RFID', 'lastLoginTime': '2029-01-10 21:50:23.614', 'accountLevel': 'Silver level'}
+  In-degree: 4, Out-degree: 3
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:Cryptocurrency
+    --[Account_Withdraw_Account]--> Medium:48378511623876
+    --[Person_Invest_Company]--> Company:17592186045137
+
+Node: Account:4805903752357742020
+  Attributes: {'label': 'Account', 'accountId': 4805903752357742020, 'createTime': '2021-11-22 04:59:58.361', 'isBlocked': False, 'accountType': 'merchant account', 'nickname': 'Clare Gildoow', 'phonenum': '114-4077', 'email': 'gmail.com', 'freqLoginType': 'MAC', 'lastLoginTime': '2023-12-30 12:42:48.251', 'accountLevel': 'Silver level', 'original_name': 'Clare Gildow'}
+  In-degree: 2, Out-degree: 7
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:Cheque
+    --[Account_Transfer_Account]--> Account:Payment Plan
+    --[Account_Transfer_Account]--> Account:Mobile Carrier Billing
+
+Node: Medium:43980465112401
+  Attributes: {'label': 'Medium', 'mediumId': 43980465112401, 'mediumType': 'NFC', 'isBlocked': False, 'createTime': '2022-02-11 19:17:14.133', 'lastLoginTime': '2022-03-01 06:30:29.640', 'riskLevel': 'Critical risk'}
+  In-degree: 1, Out-degree: 4
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:4798585402963263496
+    --[Medium_SignIn_Account]--> Account:4798585402963263496
+    --[Medium_SignIn_Account]--> Account:4798585402963263496
+
+Node: Company:19791209300528
+  Attributes: {}
+  In-degree: 5, Out-degree: 1
+  Sample out-edges:
+    --[Person_Own_Account]--> Company:8796093023110
+
+Node: Medium:35184372089520
+  Attributes: {'label': 'Medium', 'mediumId': 35184372089520, 'mediumType': 'IPv6', 'isBlocked': False, 'createTime': '2021-09-19 00:28:15.639', 'lastLoginTime': '2022-08-30 14:36:24.218', 'riskLevel': 'Critical risk'}
+  In-degree: 0, Out-degree: 1
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:4756364156456665637
+
+Node: Company:6597069766902
+  Attributes: {'label': 'Company', 'companyId': 6597069766902, 'companyName': 'Koelpn  PLC', 'isBlocked': -2147483648, 'createTime': '2021-06-01 08:41:29.3886', 'country': 'Pakistam', 'city': 'Khhuzdar', 'business': 'TAttoo and Piercing Shop', 'description': 'Spin around him. He could hardly be recognised as the charwoman seemed to haveto do the heaviest work; everything else was looked after by gregor crawling about, he said this morning that he realised what.', 'url': 'https://www.withoufnecrotized.info', 'original_name': 'Koeelpin PLC'}
+  In-degree: 5, Out-degree: 5
+  Sample out-edges:
+    --[Company_Apply_Loan]--> Loan:171418260816789816
+    --[Company_Apply_Loan]--> Loan:296393150476321079
+    --[Company_Own_Account]--> Account:194499208907063845
+
+Node: Person:28587302322936
+  Attributes: {'label': 'Person', 'personId': 28587302322936, 'personName': 'Archainbaud', 'isBlocked': False, 'createTime': '2022-10-25 12:19:38.102', 'gender': 'male', 'birthday': '1991-01-07', 'country': 'South_Africa', 'city': 'Johannesburg'}
+  In-degree: 0, Out-degree: 5
+  Sample out-edges:
+    --[Company_Apply_Loan]--> Loan:4901042294485943278
+    --[Person_Apply_Loan]--> Loan:4903012619322917871
+    --[Person_Apply_Loan]--> Loan:4905827369090024429
+
+Node: Medium:21990232556882
+  Attributes: {'label': 'Medium', 'mediumId': 21990232556882, 'mediumType': 'WIFI', 'isBlocked': False, 'createTime': '2021-02-16 02:50:16.567', 'lastLoginTime': '2021-03-02 17:19:42.265', 'riskLevel': 'Moderate risk'}
+  In-degree: 1, Out-degree: 0
+
+Node: Medium:26388279067467
+  Attributes: {'label': 'Medium', 'mediumId': 26388279067467, 'mediumType': 'WIFI', 'isBlocked': False, 'createTime': '2021-05-01 13:59:32.829', 'lastLoginTime': '2021-12-13 10:21:13.247', 'riskLevel': 'Significant risk'}
+  In-degree: 0, Out-degree: 0
+
+Node: Loan:4903857044253049672
+  Attributes: {'label': 'Loan', 'loanId': 4903857044253049672, 'loanAmount': 33860605.0, 'balance': 716979.72, 'createTime': '2022-11-05 12:02:26.135', 'loanUsage': 'debt consolidation', 'interestRate': 0.068}
+  In-degree: 3, Out-degree: 4
+  Sample out-edges:
+    --[Loan_Deposit_Account]--> Account:4897383119788705149
+    --[Loan_Deposit_Account]--> Account:4897383119788705149
+    --[Loan_Deposit_Account]--> Account:4852347123515000190
+
+Node: Account:4763401030874432656
+  Attributes: {'label': 'Account', 'accountId': 4763401030874432656, 'createTime': '2021-06-23 15:28:39.859', 'isBlocked': False, 'accountType': 'corporate account', 'nickname': 'Beverley Lineberger', 'phonenum': '598-8065', 'email': 'gmail.com', 'freqLoginType': 'QRCode', 'lastLoginTime': '2023-06-03 04:56:24.980', 'accountLevel': 'Basic level'}
+  In-degree: 3, Out-degree: 3
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:Money Order
+    --[Account_Transfer_Account]--> Account:Gift Card
+    --[Account_Withdraw_Account]--> Company:4398046511885
+
+Node: Account:4868109722210795710
+  Attributes: {'label': 'Account', 'accountId': 4868109722210795710, 'createTime': '2022-07-01 11:44:08.626', 'isBlocked': False, 'accountType': 'prepaid card', 'nickname': 'Carletta Gonsalves', 'phonenum': '396-7605', 'email': 'gmx.com', 'freqLoginType': 'NFC', 'lastLoginTime': '2024-06-10 05:15:23.373', 'accountLevel': 'Basic level'}
+  In-degree: 7, Out-degree: 4
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:Google Pay
+    --[Account_Transfer_Account]--> Account:Gift Card
+    --[Account_Transfer_Account]--> Account:Mobile Carrier Billing
+
+Node: Loan:4774941504919569110
+  Attributes: {'label': 'Loan', 'loanId': 4774941504919569110, 'loanAmount': 12837676.0, 'balance': 12381605.13, 'createTime': '2021-08-04 04:00:26.781', 'loanUsage': 'vacations', 'interestRate': 0.083}
+  In-degree: 6, Out-degree: 3
+  Sample out-edges:
+    --[Loan_Deposit_Account]--> Account:4846154674027365507
+    --[Loan_Deposit_Account]--> Account:4846154674027365507
+    --[Loan_Deposit_Account]--> Account:4846154674027365507
+
+Node: Account:4887531495603832108
+  Attributes: {'label': 'Loan', 'accountId': 4887531495603832108, 'createTime': '2022-09-08 12:36:09.591', 'isBlocked': False, 'accountType': 'internet account', 'nickname': 'Jonas Salesses', 'phonenum': '602-3577', 'email': 'gmx.com', 'freqLoginType': 'IPv4', 'lastLoginTime': '2027-05-03 12:39:57.129', 'accountLevel': 'Basic level', 'noise_similarity': 0.40370887517929077}
+  In-degree: 2, Out-degree: 2
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:Direct Deposit
+    --[Account_Repay_Loan]--> Loan:4828421750494593824
+
+Node: Company:14293651161819
+  Attributes: {'label': 'Company', 'companyId': 14293651161819, 'companyName': 'Skiles-Harvey', 'isBlocked': False, 'createTime': '2022-10-28 04:53:14.460', 'country': 'Cuba', 'city': 'Pinar_del_Río', 'business': 'Business Administration Service', 'description': "Me, i' ll have to go, he will certainly work with all his sorrows would soon be finally at an end. Or he might take some of the lady dressed in copious fur. He' d have gone up to them with his two friends.", 'url': 'https://www.springilyshoehorns.info'}
+  In-degree: 3, Out-degree: 4
+  Sample out-edges:
+    --[Company_Guarantee_Company]--> Company:1099511628351
+    --[Company_Own_Account]--> Account:294704300616058451
+    --[Company_Invest_Company]--> Company:14293651161377
+
+Node: Account:298082000336585903
+  Attributes: {'label': 'Account', 'accountId': 298082000336585903, 'createTime': '2022-11-26 14:36:10.704', 'isBlocked': False, 'accountType': 'escrow account', 'nickname': 'PAtience Rodger', 'phonenum': '741-3983', 'email': 'gmail.com', 'freqLoginType': 'RFID', 'lastLoginTime': '2023-04-08 05:21:48.347', 'accountLevel': 'Basic level', 'original_name': 'Patience Rodger'}
+  In-degree: 1, Out-degree: 10
+  Sample out-edges:
+    --[Account_Transfer_Account]--> Account:Gift Card
+    --[Account_Transfer_Account]--> Account:Gift Card
+    --[Account_Transfer_Account]--> Account:WeChat Pay
+
+Node: Company:12094627905974
+  Attributes: {'label': 'Company', 'companyId': 12094627905974, 'companyName': 'West LLC', 'isBlocked': False, 'createTime': '2022-05-06 19:34:08.171', 'country': 'Belarus', 'city': 'Vitebsk', 'business': 'Spices Exporter', 'description': "Very soon. Then there was, and was only a little onto the picture on the idea, not without looking back at him as he was responsible for some act of violence. That' s give thanks to god for that morning.", 'url': 'https://www.stiffnormalize.info'}
+  In-degree: 3, Out-degree: 5
+  Sample out-edges:
+    --[Company_Guarantee_Company]--> Company:13194139534298
+    --[Company_Invest_Company]--> Company:3298534883452
+    --[Person_Own_Account]--> Account:285978576338027459
+
+Node: Medium:17592186044761
+  Attributes: {'label': 'Medium', 'mediumId': 17592186044761, 'mediumType': 'ATM', 'isBlocked': False, 'createTime': '2020-11-08 17:40:26.318', 'lastLoginTime': '2021-01-01 07:55:55.145', 'riskLevel': 'High risk'}
+  In-degree: 1, Out-degree: 9
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:80783318315959536
+    --[Medium_SignIn_Account]--> Account:80783318315959536
+    --[Medium_SignIn_Account]--> Account:80783318315959536
+
+Node: Account:170855310863368581
+  Attributes: {'label': 'Account', 'accountId': 170855310863368581, 'createTime': '2021-08-30 19:27:58.094', 'isBlocked': False, 'accountType': 'escrow account', 'nickname': 'MarYellen Lautt', 'phonenum': '819-0313', 'email': 'yahoo.com', 'freqLoginType': 'MAC', 'lastLoginTime': '2024-03-14 13:31:42.481', 'accountLevel': 'Silver level', 'original_name': 'Maryellen Lautt'}
+  In-degree: 11, Out-degree: 1
+  Sample out-edges:
+    --[Account_Repay_Loan]--> Loan:293015450755793106
+
+Node: Company:28587302322663
+  Attributes: {}
+  In-degree: 3, Out-degree: 0
+
+Node: Person:28587302322275
+  Attributes: {'label': 'Person', 'personId': 28587302322275, 'personName': 'Loudonsack', 'isBlocked': False, 'createTime': '2022-09-25 12:48:11.068', 'gender': 'male', 'birthday': '1995-07-26', 'country': 'Germany', 'city': 'Lörrach'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[Person_Invest_Company]--> Company:28587302322275
+
+Node: Company:934
+  Attributes: {'label': 'Company', 'companyId': 934, 'companyName': 'Waters Ltd', 'isBlocked': False, 'createTime': '2020-03-11 07:19:31.544', 'country': 'Portugal', 'city': 'Braga', 'business': 'Plywood Supplier', 'description': "Any conversation, especially as he rushed towards her. As soon as he did feel a great advantage. His back; gregor' s nothing serious. But now she could do even more work for a pair of feeble women to be.", 'url': 'https://www.surethimblerigged.gov'}
+  In-degree: 2, Out-degree: 10
+  Sample out-edges:
+    --[Company_Apply_Loan]--> Loan:94575592174781666
+    --[Company_Apply_Loan]--> Loan:231935380809581795
+    --[Company_Apply_Loan]--> Loan:272186302479205605
+
+Node: Medium:39582418600716
+  Attributes: {'label': 'Medium', 'mediumId': 39582418600716, 'mediumType': 'PHONE', 'isBlocked': False, 'createTime': '2021-11-16 01:17:42.564', 'lastLoginTime': '2022-01-04 23:21:12.790', 'riskLevel': 'Critical risk'}
+  In-degree: 2, Out-degree: 1
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:4770719380268909091
+
+Node: Medium:43980465112453
+  Attributes: {'label': 'Medium', 'mediumId': 43980465112453, 'mediumType': 'NC', 'isBlocked': -2147483648, 'createTime': '2022-01-30 13:10:58.7551', 'lastLoginTime': '2022-10-02 15:14:48.038', 'riskLevel': 'Very high risk'}
+  In-degree: 1, Out-degree: 8
+  Sample out-edges:
+    --[Medium_SignIn_Account]--> Account:4885842645743567152
+    --[Medium_SignIn_Account]--> Account:4885842645743567152
+    --[Medium_SignIn_Account]--> Account:4885842645743567152
+
+============================================================
+Node Attributes Statistics
+============================================================
+Total number of nodes: 10,865
+Total number of unique attributes: 32
+
+  label:
+    - 出现节点数: 10,006 (92.09%)
+    - 值类型: str
+    - 示例值: Loan, Loan, Loan
+
+  createTime:
+    - 出现节点数: 10,006 (92.09%)
+    - 值类型: str
+    - 示例值: 2020-02-15 04:08:32.798, 2020-03-01 17:27:28.106, 2020-03-02 09:52:49.443
+
+  isBlocked:
+    - 出现节点数: 7,708 (70.94%)
+    - 值类型: bool, int
+    - 示例值: 2147483647, False, 2147483647
+
+  lastLoginTime:
+    - 出现节点数: 5,760 (53.01%)
+    - 值类型: str
+    - 示例值: 2020-5-03 18:42:43.956, 2025-07-02 16:39:05.796, 2022-03-06 01:39:21.862
+
+  accountId:
+    - 出现节点数: 3,810 (35.07%)
+    - 值类型: int
+    - 示例值: 4615626668101338845, 4503599627371623, 4617596992938311786
+
+  accountType:
+    - 出现节点数: 3,810 (35.07%)
+    - 值类型: str
+    - 示例值: brokerage accownt, credit card, forign currency
+
+  nickname:
+    - 出现节点数: 3,810 (35.07%)
+    - 值类型: str
+    - 示例值: Aimee Bath, Ulysses Tiogangco, Alfred Dahiel
+
+  phonenum:
+    - 出现节点数: 3,810 (35.07%)
+    - 值类型: str
+    - 示例值: 2344-8689, 677-0344, 640-4911
+
+  email:
+    - 出现节点数: 3,810 (35.07%)
+    - 值类型: str
+    - 示例值: ggmx.com, gmail.com, gmx.om
+
+  freqLoginType:
+    - 出现节点数: 3,810 (35.07%)
+    - 值类型: str
+    - 示例值: MC, QRCode, NFc
+
+  accountLevel:
+    - 出现节点数: 3,810 (35.07%)
+    - 值类型: str
+    - 示例值: Basic leevel, Silver level, DiAmond level
+
+  loanId:
+    - 出现节点数: 2,298 (21.15%)
+    - 值类型: int
+    - 示例值: 12666373951980233, 4628574517030027418, 17169973579351110
+
+  loanAmount:
+    - 出现节点数: 2,298 (21.15%)
+    - 值类型: float
+    - 示例值: 70338856.0, 39948732.0, 78020902.0
+
+  balance:
+    - 出现节点数: 2,298 (21.15%)
+    - 值类型: float
+    - 示例值: 32754740.13, 13712068.55, 38950944.59
+
+  loanUsage:
+    - 出现节点数: 2,298 (21.15%)
+    - 值类型: str
+    - 示例值: debt consolidation, debt consolidation, weddings
+
+  interestRate:
+    - 出现节点数: 2,298 (21.15%)
+    - 值类型: float
+    - 示例值: 0.035, 0.035, 0.024
+
+  mediumId:
+    - 出现节点数: 1,950 (17.95%)
+    - 值类型: int
+    - 示例值: 884, 918, 80
+
+  mediumType:
+    - 出现节点数: 1,950 (17.95%)
+    - 值类型: str
+    - 示例值: WiFI, RFID, RFID
+
+  riskLevel:
+    - 出现节点数: 1,950 (17.95%)
+    - 值类型: str
+    - 示例值: Moderate rlsk, Minimal risk, High risk
+
+  country:
+    - 出现节点数: 1,948 (17.93%)
+    - 值类型: str
+    - 示例值: Senegal, Cambodia, Tunisia
+
+  city:
+    - 出现节点数: 1,948 (17.93%)
+    - 值类型: str
+    - 示例值: Saint-Louis, Ta_Khmau, El_Mourouj
+
+  original_name:
+    - 出现节点数: 1,137 (10.46%)
+    - 值类型: str
+    - 示例值: AlfRed Daniell, Leonila Agustin, Shelly Desimone
+
+  noise_similarity:
+    - 出现节点数: 990 (9.11%)
+    - 值类型: float
+    - 示例值: 0.40370887517929077, 0.40370887517929077, 0.40370887517929077
+
+  personId:
+    - 出现节点数: 980 (9.02%)
+    - 值类型: int
+    - 示例值: 755, 985, 640
+
+  personName:
+    - 出现节点数: 980 (9.02%)
+    - 值类型: str
+    - 示例值: Bertrand, Heimlich, Menville
+
+  gender:
+    - 出现节点数: 980 (9.02%)
+    - 值类型: str
+    - 示例值: male, male, male
+
+  birthday:
+    - 出现节点数: 980 (9.02%)
+    - 值类型: str
+    - 示例值: 1999-01-21, 1982-09-12, 1981-05-20
+
+  companyId:
+    - 出现节点数: 968 (8.91%)
+    - 值类型: int
+    - 示例值: 423, 538, 237
+
+  companyName:
+    - 出现节点数: 968 (8.91%)
+    - 值类型: str
+    - 示例值: Franecki LLC, Shields and Sons, Rosenbaum-Gleason
+
+  business:
+    - 出现节点数: 968 (8.91%)
+    - 值类型: str
+    - 示例值: Leather Coats Store, Direct Mail Advertising, Baseball Field
+
+  description:
+    - 出现节点数: 968 (8.91%)
+    - 值类型: str
+    - 示例值: Practical. All of them, who was faithful and devot, Feed themselves. But as time went by gregor. In hi, And imploring hands, she' d arrived and from then 
+
+  url:
+    - 出现节点数: 968 (8.91%)
+    - 值类型: str
+    - 示例值: https://www.flauntinglyclerk.edu, https://www.frorentes.net, https://www.needilychap.com
+
+============================================================
+
+============================================================
+          ANALYSIS COMPLETE
+============================================================

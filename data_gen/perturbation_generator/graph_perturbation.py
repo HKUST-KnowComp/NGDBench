@@ -28,7 +28,7 @@ class PerturbationType(Enum):
     RELATION_TYPE_NOISE = "relation_type_noise"
     NODE_TYPE_NOISE = "node_type_noise"
     NAME_TYPOS = "name_typos"
-
+    ATTRIBUTE_NOISE = "attribute_noise"
 
 @dataclass
 class EdgeRecord:
@@ -291,6 +291,8 @@ class GraphPerturbation:
                 records, summary = self._apply_node_type_noise(ratio)
             elif perturbation_type == PerturbationType.NAME_TYPOS.value:
                 records, summary = self._apply_name_typos(ratio)
+            elif perturbation_type == PerturbationType.ATTRIBUTE_NOISE.value:
+                records, summary = self._apply_attribute_noise(ratio)
             else:
                 print(f"   ⚠️ 未知扰动类型: {perturbation_type}")
                 continue
@@ -659,8 +661,7 @@ class GraphPerturbation:
             if 'node_type' in self.graph.nodes[node_id]:
                 self.graph.nodes[node_id]['node_type'] = new_type
             
-            # 标记为噪声并记录相似度
-            self.graph.nodes[node_id]['is_noise'] = True
+            # 记录相似度
             self.graph.nodes[node_id]['noise_similarity'] = similarity
             
             # 创建记录（包含相似度信息）
@@ -702,6 +703,43 @@ class GraphPerturbation:
         }
         return records, summary
     
+    def _find_node_name(self, data: Dict[str, Any], config: Dict = None) -> Tuple[Optional[str], Optional[str]]:
+        """
+        查找节点名称，支持多种可能的属性名
+        
+        Args:
+            data: 节点属性字典
+            config: 配置字典，可包含 name_fields 列表指定要查找的字段名
+            
+        Returns:
+            Tuple[Optional[str], Optional[str]]: (节点名称值, 属性名)
+        """
+        # 从配置中获取可能的名称字段列表
+        if config:
+            name_fields = config.get('name_fields', None)
+            if name_fields:
+                for field in name_fields:
+                    if field in data and isinstance(data[field], str) and len(data[field]) >= 2:
+                        return data[field], field
+        
+        # 默认优先级：name > 其他包含"name"的属性
+        # 注意：不包含 'id'，因为节点的id不应该被修改
+        # 1. 首先尝试 'name'
+        if 'name' in data and isinstance(data['name'], str) and len(data['name']) >= 2:
+            return data['name'], 'name'
+        
+        # 2. 查找所有包含 "name" 或 "Name" 的属性（不区分大小写）
+        # 排除 'id' 和以 'id' 结尾的属性，避免修改节点标识符
+        for attr_name, attr_value in data.items():
+            if (attr_name.lower() != 'id' and 
+                not attr_name.lower().endswith('id') and
+                'name' in attr_name.lower() and 
+                isinstance(attr_value, str) and 
+                len(attr_value) >= 2):
+                return attr_value, attr_name
+        
+        return None, None
+    
     def _apply_name_typos(self, ratio: float) -> Tuple[List[Dict], Dict]:
         """
         应用名称拼写错误噪声 - 向节点名称注入字符级噪声
@@ -728,10 +766,18 @@ class GraphPerturbation:
         
         modified_count = 0
         for node_id, data in nodes_to_modify:
-            # 尝试获取节点名称
-            original_name = data.get('name') or data.get('id') or str(node_id)
+            # 尝试获取节点名称（支持多种属性名）
+            original_name, name_field = self._find_node_name(data, config)
             
-            if not isinstance(original_name, str) or len(original_name) < 3:
+            # 如果找不到名称字段，跳过
+            if original_name is None or name_field is None:
+                continue
+            
+            # 保护：确保不会修改节点的id字段
+            if name_field.lower() == 'id' or name_field.lower().endswith('id'):
+                continue
+            
+            if len(original_name) < 3:
                 continue
             
             # 引入拼写错误
@@ -743,15 +789,12 @@ class GraphPerturbation:
             # 保存原始属性
             original_attrs = dict(data)
             
-            # 更新节点名称
-            if 'name' in self.graph.nodes[node_id]:
-                self.graph.nodes[node_id]['name'] = noisy_name
-            else:
-                self.graph.nodes[node_id]['name'] = noisy_name
+            # 更新节点名称（使用找到的属性名）
+            self.graph.nodes[node_id][name_field] = noisy_name
+            # 如果原属性名不是 'name'，也保存原始值到 'original_name' 以便追踪
+            if name_field != 'name':
                 self.graph.nodes[node_id]['original_name'] = original_name
             
-            # 标记为噪声
-            self.graph.nodes[node_id]['is_noise'] = True
             
             # 记录修改
             node_record = NodeRecord(
@@ -759,7 +802,7 @@ class GraphPerturbation:
                 original_attrs=original_attrs,
                 new_attrs=dict(self.graph.nodes[node_id]),
                 operation='modified',
-                field_changed='name'
+                field_changed=name_field
             )
             
             self.modified_nodes.append(node_record)
@@ -770,6 +813,136 @@ class GraphPerturbation:
         summary = {
             "modified_count": modified_count,
             "target_count": num_to_modify
+        }
+        return records, summary
+    
+    def _apply_attribute_noise(self, ratio: float) -> Tuple[List[Dict], Dict]:
+        """
+        应用属性噪声 - 对节点属性进行扰动
+        
+        对于数值属性：将数值变为极大或极小
+        对于字符串属性：使用拼写错误注入（类似 _introduce_typo）
+        
+        Args:
+            ratio: 要修改的节点比例
+            
+        Returns:
+            (记录列表, 摘要)
+        """
+        records = []
+        nodes = list(self.graph.nodes(data=True))
+        num_to_modify = int(len(nodes) * ratio)
+        
+        if num_to_modify == 0:
+            return records, {"modified_count": 0}
+        
+        config = self.noise_types.get('attribute_noise', {})
+        # 获取要排除的属性（如节点ID、类型等不应被扰动的属性）
+        exclude_attrs = config.get('exclude_attributes', ['id', 'label', 'node_type', 'name'])
+        # 获取字符串属性的拼写错误操作类型
+        typo_operations = config.get('typo_operations', 
+            ['character_substitution', 'character_deletion', 'character_insertion', 'case_alteration'])
+        
+        # 随机选择要修改的节点
+        nodes_to_modify = random.sample(nodes, min(num_to_modify, len(nodes)))
+        
+        modified_count = 0
+        numeric_attrs_count = 0
+        string_attrs_count = 0
+        
+        for node_id, data in nodes_to_modify:
+            # 保存原始属性
+            original_attrs = dict(data)
+            new_attrs = dict(data)
+            modified = False
+            changed_fields = []
+            
+            # 遍历所有属性
+            for attr_name, attr_value in data.items():
+                # 跳过排除的属性
+                if attr_name in exclude_attrs:
+                    continue
+                
+                # 保护：确保不会修改节点的id字段（包括所有以'id'结尾的属性）
+                if attr_name.lower() == 'id' or attr_name.lower().endswith('id'):
+                    continue
+                
+                # 判断属性类型并应用相应的扰动
+                if isinstance(attr_value, (int, float)):
+                    # 数值属性：变为极大或极小
+                    if isinstance(attr_value, int):
+                        # 整数：随机选择极大或极小
+                        if random.random() > 0.5:
+                            # 极大值：使用系统最大整数或一个很大的数
+                            new_value = 2**31 - 1  # 32位整数最大值
+                        else:
+                            # 极小值：使用系统最小整数或一个很小的数
+                            new_value = -(2**31)  # 32位整数最小值
+                    else:
+                        # 浮点数：随机选择极大或极小
+                        if random.random() > 0.5:
+                            # 极大值：使用一个很大的浮点数
+                            new_value = 1e308  # 接近浮点数最大值
+                        else:
+                            # 极小值：使用一个很小的浮点数
+                            new_value = -1e308  # 接近浮点数最小值
+                    
+                    new_attrs[attr_name] = new_value
+                    modified = True
+                    changed_fields.append(attr_name)
+                    numeric_attrs_count += 1
+                    
+                elif isinstance(attr_value, str) and len(attr_value) >= 2:
+                    # 字符串属性：使用拼写错误注入
+                    noisy_value = self._introduce_typo(attr_value, typo_operations)
+                    if noisy_value != attr_value:
+                        new_attrs[attr_name] = noisy_value
+                        modified = True
+                        changed_fields.append(attr_name)
+                        string_attrs_count += 1
+            
+            # 如果有修改，更新节点并记录
+            if modified:
+                # 更新图中的节点属性（只更新被修改的属性）
+                for attr_name in changed_fields:
+                    self.graph.nodes[node_id][attr_name] = new_attrs[attr_name]
+                
+                
+                # 创建记录
+                record_dict = {
+                    "node_id": node_id,
+                    "original_attrs": original_attrs,
+                    "new_attrs": new_attrs,
+                    "operation": "modified",
+                    "field_changed": ",".join(changed_fields),
+                    "change": {
+                        "changed_fields": changed_fields,
+                        "numeric_attrs_count": sum(1 for f in changed_fields 
+                                                  if isinstance(original_attrs.get(f), (int, float))),
+                        "string_attrs_count": sum(1 for f in changed_fields 
+                                                 if isinstance(original_attrs.get(f), str))
+                    }
+                }
+                
+                # 记录修改
+                node_record = NodeRecord(
+                    node_id=node_id,
+                    original_attrs=original_attrs,
+                    new_attrs=new_attrs,
+                    operation='modified',
+                    field_changed=",".join(changed_fields)
+                )
+                
+                self.modified_nodes.append(node_record)
+                self.noisy_nodes.add(node_id)
+                records.append(record_dict)
+                modified_count += 1
+        
+        summary = {
+            "modified_count": modified_count,
+            "target_count": num_to_modify,
+            "numeric_attrs_modified": numeric_attrs_count,
+            "string_attrs_modified": string_attrs_count
         }
         return records, summary
     
