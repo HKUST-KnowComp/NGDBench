@@ -431,7 +431,8 @@ class ManageGenerator:
         max_attempts_multiplier: int = 10,
         max_failures_per_template: int = 100,
         operations: Optional[List[str]] = None,
-        success_per_template: int = 5
+        success_per_template: int = 5,
+        stream_output_path: Optional[str] = None,
     ) -> List[ManagementQueryResult]:
         """
         生成管理操作查询样本
@@ -481,102 +482,135 @@ class ManageGenerator:
                 'failure_count': 0,
                 'usage_count': 0
             }
+
+        # 流式输出相关
+        stream_file = None
+        first_stream_record = True
+        if stream_output_path:
+            stream_file = open(stream_output_path, 'w', encoding='utf-8')
+            stream_file.write('[\n')
         
-        # 按顺序遍历每个模板
-        for template in all_templates:
-            # 如果已达到目标数量或超过最大尝试次数，停止
-            if len(self.results) >= target_count or attempts >= max_attempts:
-                break
-            
-            template_id = f"{template.operation}_{template.difficulty}"
-            stats = template_stats[template_id]
-            
-            logger.info(f"开始处理模板 [{template.operation}] difficulty={template.difficulty}: {template.title}")
-            
-            # 对当前模板连续采样
-            while stats['success_count'] < success_per_template:
-                # 检查是否达到全局限制
+        try:
+            # 按顺序遍历每个模板
+            for template in all_templates:
+                # 如果已达到目标数量或超过最大尝试次数，停止
                 if len(self.results) >= target_count or attempts >= max_attempts:
                     break
                 
-                # 检查是否超过最大失败次数
-                if stats['failure_count'] >= max_failures_per_template:
-                    logger.warning(f"模板 {template_id} 连续失败 {stats['failure_count']} 次，跳过该模板")
-                    break
+                template_id = f"{template.operation}_{template.difficulty}"
+                stats = template_stats[template_id]
                 
-                attempts += 1
-                stats['usage_count'] += 1
+                logger.info(f"开始处理模板 [{template.operation}] difficulty={template.difficulty}: {template.title}")
                 
-                # 构建查询
-                pre_query, template_query, post_query, params_used = self.builder.build_queries(template)
-                
-                if not pre_query or not template_query or not post_query:
-                    stats['failure_count'] += 1
-                    logger.debug(f"构建查询失败: {template_id}")
-                    continue
-                
-                # 依次执行三个查询
-                # 1. 执行前置验证（允许结果为空，因为COUNT等聚合函数可能返回0）
-                pre_success, pre_answer, pre_error = self.executor.execute(pre_query, allow_empty=True)
-                
-                # 2. 执行操作（CREATE/DELETE/SET等操作可能不返回结果，允许空结果）
-                template_success, _, template_error = self.executor.execute(template_query, allow_empty=True)
-                
-                # 3. 执行后置验证（允许结果为空，因为COUNT等聚合函数可能返回0）
-                post_success, post_answer, post_error = self.executor.execute(post_query, allow_empty=True)
-                
-                # 判断整体是否成功
-                overall_success = pre_success and template_success and post_success
-                
-                if overall_success:
-                    # 创建结果对象
-                    result = ManagementQueryResult(
-                        operation=template.operation,
-                        difficulty=template.difficulty,
-                        title=template.title,
-                        template_id=template_id,
-                        pre_validation_query=pre_query,
-                        pre_validation_params=params_used,
-                        pre_validation_answer=pre_answer,
-                        pre_validation_success=pre_success,
-                        pre_validation_error=pre_error,
-                        template_query=template_query,
-                        template_params=params_used,
-                        template_success=template_success,
-                        template_error=template_error,
-                        post_validation_query=post_query,
-                        post_validation_params=params_used,
-                        post_validation_answer=post_answer,
-                        post_validation_success=post_success,
-                        post_validation_error=post_error,
-                        overall_success=overall_success
-                    )
+                # 对当前模板连续采样
+                while stats['success_count'] < success_per_template:
+                    # 检查是否达到全局限制
+                    if len(self.results) >= target_count or attempts >= max_attempts:
+                        break
                     
-                    self.results.append(result)
-                    stats['success_count'] += 1
-                    stats['failure_count'] = 0
+                    # 检查是否超过最大失败次数
+                    if stats['failure_count'] >= max_failures_per_template:
+                        logger.warning(f"模板 {template_id} 连续失败 {stats['failure_count']} 次，跳过该模板")
+                        break
                     
-                    logger.info(f"成功生成查询 [{len(self.results)}/{target_count}]: "
-                              f"[{template.operation}] difficulty={template.difficulty} "
-                              f"(模板成功: {stats['success_count']}/{success_per_template})")
-                else:
-                    stats['failure_count'] += 1
-                    # 输出详细的失败信息，帮助调试
-                    failure_reasons = []
-                    if not pre_success:
-                        failure_reasons.append(f"pre_validation失败: {pre_error}")
-                    if not template_success:
-                        failure_reasons.append(f"template失败: {template_error}")
-                    if not post_success:
-                        failure_reasons.append(f"post_validation失败: {post_error}")
+                    attempts += 1
+                    stats['usage_count'] += 1
                     
-                    logger.warning(f"查询执行失败 [{template_id}]: {', '.join(failure_reasons)}")
-            
-            # 完成当前模板
-            if stats['success_count'] >= success_per_template:
-                logger.info(f"模板 {template_id} 已完成，成功生成 {stats['success_count']} 个查询")
-            elif stats['failure_count'] >= max_failures_per_template:
-                logger.warning(f"模板 {template_id} 因连续失败过多而跳过，成功生成 {stats['success_count']} 个查询")
+                    # 构建查询
+                    pre_query, template_query, post_query, params_used = self.builder.build_queries(template)
+
+                    if not pre_query or not template_query or not post_query:
+                        stats['failure_count'] += 1
+                        logger.debug(f"构建查询失败: {template_id}")
+                        continue
+                    
+                    # 额外过滤：如果查询中出现针对 ID 相关属性的聚合（如 avg(a.companyId)），则跳过该样本
+                    if (
+                        self._has_id_aggregate(pre_query)
+                        or self._has_id_aggregate(template_query)
+                        or self._has_id_aggregate(post_query)
+                    ):
+                        stats['failure_count'] += 1
+                        logger.debug(f"查询包含针对 ID 属性的聚合，跳过该样本: {template_id}")
+                        continue
+                    
+                    # 依次执行三个查询
+                    # 1. 执行前置验证（允许结果为空，因为COUNT等聚合函数可能返回0）
+                    pre_success, pre_answer, pre_error = self.executor.execute(pre_query, allow_empty=True)
+                    
+                    # 2. 执行操作（CREATE/DELETE/SET等操作可能不返回结果，允许空结果）
+                    template_success, _, template_error = self.executor.execute(template_query, allow_empty=True)
+                    
+                    # 3. 执行后置验证（允许结果为空，因为COUNT等聚合函数可能返回0）
+                    post_success, post_answer, post_error = self.executor.execute(post_query, allow_empty=True)
+                    
+                    # 判断整体是否成功
+                    overall_success = pre_success and template_success and post_success
+                    
+                    if overall_success:
+                        # 创建结果对象
+                        result = ManagementQueryResult(
+                            operation=template.operation,
+                            difficulty=template.difficulty,
+                            title=template.title,
+                            template_id=template_id,
+                            pre_validation_query=pre_query,
+                            pre_validation_params=params_used,
+                            pre_validation_answer=pre_answer,
+                            pre_validation_success=pre_success,
+                            pre_validation_error=pre_error,
+                            template_query=template_query,
+                            template_params=params_used,
+                            template_success=template_success,
+                            template_error=template_error,
+                            post_validation_query=post_query,
+                            post_validation_params=params_used,
+                            post_validation_answer=post_answer,
+                            post_validation_success=post_success,
+                            post_validation_error=post_error,
+                            overall_success=overall_success
+                        )
+                        
+                        self.results.append(result)
+                        stats['success_count'] += 1
+                        stats['failure_count'] = 0
+
+                        # 流式写入当前成功结果
+                        if stream_file:
+                            record = self._build_export_record(result)
+                            if not first_stream_record:
+                                stream_file.write(',\n')
+                            json.dump(record, stream_file, ensure_ascii=False, default=str)
+                            stream_file.flush()
+                            first_stream_record = False
+                        
+                        logger.info(
+                            f"成功生成查询 [{len(self.results)}/{target_count}]: "
+                            f"[{template.operation}] difficulty={template.difficulty} "
+                            f"(模板成功: {stats['success_count']}/{success_per_template})"
+                        )
+                    else:
+                        stats['failure_count'] += 1
+                        # 输出详细的失败信息，帮助调试
+                        failure_reasons = []
+                        if not pre_success:
+                            failure_reasons.append(f"pre_validation失败: {pre_error}")
+                        if not template_success:
+                            failure_reasons.append(f"template失败: {template_error}")
+                        if not post_success:
+                            failure_reasons.append(f"post_validation失败: {post_error}")
+                        
+                        logger.warning(f"查询执行失败 [{template_id}]: {', '.join(failure_reasons)}")
+                
+                # 完成当前模板
+                if stats['success_count'] >= success_per_template:
+                    logger.info(f"模板 {template_id} 已完成，成功生成 {stats['success_count']} 个查询")
+                elif stats['failure_count'] >= max_failures_per_template:
+                    logger.warning(f"模板 {template_id} 因连续失败过多而跳过，成功生成 {stats['success_count']} 个查询")
+        finally:
+            if stream_file:
+                stream_file.write('\n]\n')
+                stream_file.close()
         
         logger.info(f"生成完成，成功生成 {len(self.results)} 个管理操作查询 (尝试 {attempts} 次)")
         
@@ -588,41 +622,78 @@ class ManageGenerator:
         
         return self.results
     
+    @staticmethod
+    def _is_id_property(prop_name: str) -> bool:
+        """判断属性名是否为 ID 相关属性（与 QueryBuilder 中逻辑保持一致）"""
+        prop_lower = prop_name.lower()
+        # 以 id 结尾（loanId, userId, user_id 等）
+        if prop_lower.endswith("id") or prop_lower.endswith("_id"):
+            return True
+        # 刚好等于 id
+        if prop_lower == "id":
+            return True
+        return False
+
+    def _has_id_aggregate(self, query: str) -> bool:
+        """
+        判断查询中是否存在针对 ID 相关属性的聚合：
+        如 avg(a.companyId)、sum(a.user_id) 等。
+        """
+        import re
+
+        if not query:
+            return False
+
+        # 提取聚合函数调用片段：AVG(...), SUM(...), COUNT(...), MIN(...), MAX(...), COLLECT(...)
+        pattern_agg = r'(?i)\b(?:avg|sum|min|max|count|collect)\s*\(([^)]*)\)'
+        for agg_arg in re.findall(pattern_agg, query):
+            # 在聚合参数中查找属性访问：a.prop 或 a.`prop`
+            # 支持普通和反引号形式；这里只关心属性名本身
+            for prop_bt, prop_plain in re.findall(r'\w+\.(?:`([^`]+)`|(\w+))', agg_arg):
+                prop_name = prop_bt or prop_plain
+                if not prop_name:
+                    continue
+                if self._is_id_property(prop_name):
+                    return True
+
+        return False
+    
+    def _build_export_record(self, r: ManagementQueryResult) -> Dict[str, Any]:
+        """将内部结果对象转换为导出的记录格式"""
+
+        def _extract_scalar_answer(answer: List[Dict]) -> Any:
+            """
+            将执行结果列表简化为标量：
+            - 若为单行单列（如 [{ "cnt": 753 }]），返回该值 753
+            - 其他情况原样返回（一般不会用于当前基准）
+            """
+            if not answer:
+                return None
+            if isinstance(answer, list) and len(answer) == 1 and isinstance(answer[0], dict):
+                row = answer[0]
+                if len(row) == 1:
+                    return next(iter(row.values()))
+            return answer
+
+        return {
+            "pre_validation": {
+                "query": r.pre_validation_query,
+                "answer": _extract_scalar_answer(r.pre_validation_answer),
+            },
+            "template": {
+                "query": r.template_query,
+            },
+            "post_validation": {
+                "query": r.post_validation_query,
+                "answer": _extract_scalar_answer(r.post_validation_answer),
+            },
+        }
+
     def export_results(self, output_path: str):
-        """导出结果到JSON文件"""
-        output_data = []
-        for r in self.results:
-            output_data.append({
-                "operation": r.operation,
-                "difficulty": r.difficulty,
-                "title": r.title,
-                "template_id": r.template_id,
-                "pre_validation": {
-                    "query": r.pre_validation_query,
-                    "parameters": r.pre_validation_params,
-                    "answer": r.pre_validation_answer,
-                    "success": r.pre_validation_success,
-                    "error": r.pre_validation_error
-                },
-                "template": {
-                    "query": r.template_query,
-                    "parameters": r.template_params,
-                    "success": r.template_success,
-                    "error": r.template_error
-                },
-                "post_validation": {
-                    "query": r.post_validation_query,
-                    "parameters": r.post_validation_params,
-                    "answer": r.post_validation_answer,
-                    "success": r.post_validation_success,
-                    "error": r.post_validation_error
-                },
-                "overall_success": r.overall_success
-            })
-        
+        """一次性导出全部结果到JSON文件（与流式输出格式保持一致）"""
+        output_data = [self._build_export_record(r) for r in self.results]
         with open(output_path, 'w', encoding='utf-8') as f:
             json.dump(output_data, f, ensure_ascii=False, indent=2, default=str)
-        
         logger.info(f"结果已导出到: {output_path}")
     
     def close(self):

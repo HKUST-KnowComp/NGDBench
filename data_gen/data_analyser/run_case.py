@@ -20,8 +20,8 @@ def load_graph(path: str) -> nx.MultiDiGraph:
     return g
 if __name__ == "__main__":
     # csv_path = "/home/ylivm/fei_work/NGDB_Benchmark/data_gen/perturbed_dataset/PrimeKG_2512260650/kg_test.csv"
-    save_path = "/home/ylivm/ngdb/ngdb_benchmark/data_gen/graph_gen/graph_buffer/ldbc_snb_finbench_noise_20260118_220611.gpickle"
-    output_path = "/home/ylivm/ngdb/ngdb_benchmark/data_analyser/buffer/ldbc_snb_finbench_noise_analysis1.txt"
+    save_path = "../graph_gen/graph_buffer/mcp_tragectory_cleaned_normalized_copy_no_concepts.gpickle"
+    output_path = "buffer/mcp_tragectory_no_concepts_analysis1.txt"
     # graph = build_graph_from_kg_csv(csv_path, save_path)
     # convert_to_gpickle("agent_memory1", "agent_memory1", include_concept=False)
     graph = load_graph(save_path)

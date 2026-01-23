@@ -19,8 +19,8 @@ def main():
     password = "fei123456"
     
     # 输入和输出文件路径
-    input_json_file = "../query_gen/query/ldbc_snb_finbench/noise_query_results_ldbcfin.json"
-    output_json_file = "noise_query_execution_results.json"
+    input_json_file = "../query_gen/query/ldbc_snb_finbench/noise_query_results_ldbcfin_cleaned.json"
+    output_json_file = "noise_execution_step1_ldbcfin_results.json"
     
     # 创建数据库执行器
     executor = DatabaseExecutor(uri, user, password)

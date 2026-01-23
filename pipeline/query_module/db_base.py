@@ -2,8 +2,18 @@
 数据库连接和查询执行基类
 """
 import json
+import os
+import sys
 from typing import List, Dict, Any, Optional
 from neo4j import GraphDatabase
+
+# 确保可以导入清洗函数 cleaner.clean_normal_answer
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(CURRENT_DIR)
+if PROJECT_ROOT not in sys.path:
+    sys.path.insert(0, PROJECT_ROOT)
+
+from handler.cleaner import clean_normal_answer
 
 
 class DatabaseExecutor:
@@ -102,7 +112,7 @@ class DatabaseExecutor:
             
         Returns:
             执行结果列表，每个结果包含查询信息、执行结果和比较结果
-        """
+        """ 
         if incremental_save and not output_file_path:
             raise ValueError("启用增量保存时必须提供 output_file_path 参数")
         
@@ -122,28 +132,53 @@ class DatabaseExecutor:
                 query_text = query_data.get('query', '')
                 original_answer = query_data.get('answer', [])
                 template_id = query_data.get('template_id', f'query_{idx}')
+                is_noise_query = query_data.get('is_noise_query', False)
                 
                 print(f"执行查询 {idx}/{len(queries)}: {template_id}")
                 
                 try:
                     # 执行查询
-                    execution_result = self.execute_query(query_text)
+                    execution_result_raw = self.execute_query(query_text)
                     
-                    # 比较结果
-                    is_match = False
-                    if compare_with_original:
-                        is_match = self._compare_results(execution_result, original_answer)
-                    
-                    result_item = {
-                        'template_id': template_id,
-                        'template_type': query_data.get('template_type', ''),
-                        'query': query_text,
-                        'parameters': query_data.get('parameters', {}),
-                        'original_answer': original_answer,
-                        'execution_result': execution_result,
-                        'same_as_cleangraph': is_match,
-                        'is_noise_query': query_data.get('is_noise_query', False)
-                    }
+                    # 噪声查询与普通查询采用不同的结果结构和比较逻辑
+                    if is_noise_query:
+                        # 对执行结果做与 original_answer 相同的清洗，再比较
+                        cleaned_execution_result = clean_normal_answer(execution_result_raw)
+                        
+                        is_match = False
+                        if compare_with_original:
+                            # original_answer 已经是清洗后的结果，这里直接比较
+                            is_match = cleaned_execution_result == original_answer
+                        
+                        # 噪声查询的输出格式与
+                        # noise_query_execution_results_cleaned_from_step1.json 保持一致
+                        result_item = {
+                            'query': query_text,
+                            'clean_answer': original_answer,
+                            'noise_answer': cleaned_execution_result,
+                            'same_as_cleangraph': is_match,
+                            'error': None,
+                        }
+                    else:
+                        # 普通查询保持原有逻辑和输出格式
+                        execution_result = execution_result_raw
+                        
+                        # 比较结果
+                        is_match = False
+                        if compare_with_original:
+                            is_match = self._compare_results(execution_result, original_answer)
+                        
+                        result_item = {
+                            'template_id': template_id,
+                            'template_type': query_data.get('template_type', ''),
+                            'query': query_text,
+                            'parameters': query_data.get('parameters', {}),
+                            'original_answer': original_answer,
+                            'execution_result': execution_result,
+                            'same_as_cleangraph': is_match,
+                            'is_noise_query': is_noise_query,
+                            'error': None,
+                        }
                     
                     results.append(result_item)
                     
@@ -156,17 +191,27 @@ class DatabaseExecutor:
                     
                 except Exception as e:
                     # 记录执行失败的查询
-                    result_item = {
-                        'template_id': template_id,
-                        'template_type': query_data.get('template_type', ''),
-                        'query': query_text,
-                        'parameters': query_data.get('parameters', {}),
-                        'original_answer': original_answer,
-                        'execution_result': None,
-                        'error': str(e),
-                        'same_as_cleangraph': False,
-                        'is_noise_query': query_data.get('is_noise_query', False)
-                    }
+                    if is_noise_query:
+                        # 噪声查询失败时也保持与成功时类似的结构
+                        result_item = {
+                            'query': query_text,
+                            'clean_answer': original_answer,
+                            'noise_answer': None,
+                            'same_as_cleangraph': False,
+                            'error': str(e),
+                        }
+                    else:
+                        result_item = {
+                            'template_id': template_id,
+                            'template_type': query_data.get('template_type', ''),
+                            'query': query_text,
+                            'parameters': query_data.get('parameters', {}),
+                            'original_answer': original_answer,
+                            'execution_result': None,
+                            'error': str(e),
+                            'same_as_cleangraph': False,
+                            'is_noise_query': is_noise_query,
+                        }
                     results.append(result_item)
                     print(f"查询执行失败: {e}")
                     

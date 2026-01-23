@@ -75,38 +75,23 @@ def clean_answer(answer: List[Dict[str, Any]]) -> Union[str, List]:
 def process_noise_query_results(
     input_file: str,
     output_file: str,
-    nlp_source_file: str
 ) -> None:
     """
     处理噪声查询执行结果
     
-    从 noise_query_execution_results.json 中提取：
+    从 noise_query_execution_results.json 中提取并清洗字段：
     - query
     - original_answer (重命名为 clean_answer，并清洗)
     - execution_result (重命名为 noise_answer，并清洗)
     - same_as_cleangraph
-    并从 nlp_source_file 中提取对应的 nlp 字段
     
     Args:
         input_file: 输入的 noise_query_execution_results.json 文件路径
         output_file: 输出的 JSON 文件路径
-        nlp_source_file: 包含 nlp 字段的源文件路径
     """
     # 读取输入文件
     with open(input_file, 'r', encoding='utf-8') as f:
         data = json.load(f)
-    
-    # 读取 nlp 源文件并建立 query -> nlp 的映射
-    with open(nlp_source_file, 'r', encoding='utf-8') as f:
-        nlp_data = json.load(f)
-    
-    # 建立 query -> nlp 的映射
-    query_to_nlp = {}
-    for item in nlp_data:
-        query = item.get("query", "")
-        nlp = item.get("nlp", "")
-        if query:
-            query_to_nlp[query] = nlp
     
     # 处理每一项
     processed_data = []
@@ -120,15 +105,11 @@ def process_noise_query_results(
         clean_answer_value = clean_answer(original_answer)
         noise_answer_value = clean_answer(execution_result)
         
-        # 获取对应的 nlp
-        nlp_value = query_to_nlp.get(query, "")
-        
-        # 构建处理后的项
+        # 构建处理后的项（只保留 query / clean_answer / noise_answer / same_as_cleangraph）
         processed_item = {
             "query": query,
             "clean_answer": clean_answer_value,
             "noise_answer": noise_answer_value,
-            "nlp": nlp_value,
             "same_as_cleangraph": same_as_cleangraph
         }
         
@@ -152,14 +133,6 @@ if __name__ == "__main__":
         os.path.dirname(__file__),
         "noise_query_execution_results_cleaned.json"
     )
-    nlp_source_file = os.path.join(
-        os.path.dirname(__file__),
-        "..",
-        "query_gen",
-        "query",
-        "ldbc_snb_finbench",
-        "noise_query_results_ldbcfin_cleaned_with_nlp_fixed.json"
-    )
     
     # 执行处理
-    process_noise_query_results(input_file, output_file, nlp_source_file)
+    process_noise_query_results(input_file, output_file)

@@ -758,6 +758,9 @@ class QueryBuilder:
         # 填充标签参数
         params_used[label_param] = label
         
+        # 预先判断当前是否为聚合查询
+        is_aggregate_query = self._is_aggregate_query(template, params_used)
+        
         # 填充属性和值参数
         for prop_param, value_param in prop_value_pairs:
             # 如果属性参数和值参数都已填充，跳过
@@ -790,6 +793,14 @@ class QueryBuilder:
             node_props = list(sampled_node.keys())
             if self.excluded_return_props:
                 node_props = [p for p in node_props if p not in self.excluded_return_props]
+            
+            # 对于聚合相关查询，普通属性参数（如 P、PROP 等）不应落到 ID 相关属性上
+            # 注意：这里仅针对“普通属性参数”做过滤，真正的 ID 参数（如 PROP_ID / PROP_ID1 等）
+            # 仍然允许选择 ID 属性，以避免破坏依赖 ID 语义的非聚合模板。
+            if is_aggregate_query and not ('ID' in prop_param or prop_param.endswith('_ID')):
+                non_id_props = [p for p in node_props if not self._is_id_property(p)]
+                if non_id_props:
+                    node_props = non_id_props
             
             if not node_props:
                 return False
@@ -2441,7 +2452,7 @@ class QueryGenerator:
                             
                             for param_name, value in params.items():
                                 # 替换模版中的参数
-                                if param_name == 'VALUE' or param_name in ('VAL', 'FILTER_VAL', 'NODE_VALUE', 'START_VALUE', 'V', 'AID', 'BID', 'CID', 'ID', 'ID1', 'ID2'):
+                                if param_name == 'VALUE' or param_name in ('VAL', 'FILTER_VAL', 'NODE_VALUE', 'START_VALUE', 'V','NEW_V' 'AID', 'BID', 'CID', 'ID', 'ID1', 'ID2'):
                                     if isinstance(value, str):
                                         replacement = f"'{value}'"
                                     else:

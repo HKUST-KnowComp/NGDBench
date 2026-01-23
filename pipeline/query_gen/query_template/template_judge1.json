@@ -4,8 +4,8 @@
         "templates": [
             {
                 "id": "T002",
-                "template": "MATCH (g:$GROUP_LABEL)<-[:$REL]-(n:$LABEL) WITH g, n RETURN g.$GROUP_PROP AS $GROUP_ALIAS, collect(n.$NODE_PROP) AS $COLLECT_ALIAS",
-                "anti_template": "MATCH (g:$GROUP_LABEL), (n:$LABEL) WHERE NOT (g)<-[:$REL]-(n) WITH g, n RETURN g.$GROUP_PROP AS $GROUP_ALIAS, collect(n.$NODE_PROP) AS $COLLECT_ALIAS",
+                "template": "MATCH (g:$GROUP_LABEL)<-[:$REL]-(n:$LABEL) WITH g, n RETURN g.$GROUP_PROP AS $GROUP_ALIAS, collect(n.$NODE_PROP)[0..5] AS $COLLECT_ALIAS",
+                "anti_template": "MATCH (g:$GROUP_LABEL), (n:$LABEL) WHERE NOT (g)<-[:$REL]-(n) WITH g, n RETURN g.$GROUP_PROP AS $GROUP_ALIAS, collect(n.$NODE_PROP)[0..5] AS $COLLECT_ALIAS",
                 "parameters": {
                     "GROUP_LABEL": "string",
                     "REL": "string",
@@ -36,8 +36,8 @@
         "templates": [
             {
                 "id": "T008",
-                "template": "MATCH (a:$LABEL1 {$PROP1: $VALUE}) MATCH (b:$LABEL2 {$PROP2: a.$REF_PROP}) WITH a, b ORDER BY b.$PROP_ID RETURN a, collect(b.$PROP_ID)[0..32] AS bs",
-                "anti_template": "MATCH (a:$LABEL1 {$PROP1: $VALUE}) MATCH (b:$LABEL2) WHERE b.$PROP2 <> a.$REF_PROP WITH a, b ORDER BY b.$PROP_ID RETURN a, collect(b.$PROP_ID)[0..32] AS bs",
+                "template": "MATCH (a:$LABEL1 {$PROP1: $VALUE}) MATCH (b:$LABEL2 {$PROP2: a.$REF_PROP}) WITH a, b ORDER BY b.$PROP_ID RETURN a, collect(b.$PROP_ID)[0..5] AS bs",
+                "anti_template": "MATCH (a:$LABEL1 {$PROP1: $VALUE}) MATCH (b:$LABEL2) WHERE b.$PROP2 <> a.$REF_PROP WITH a, b ORDER BY b.$PROP_ID RETURN a, collect(b.$PROP_ID)[0..5] AS bs",
                 "parameters": {
                     "LABEL1": "string",
                     "LABEL2": "string",
@@ -50,8 +50,8 @@
             },
             {
                 "id": "T010",
-                "template": "MATCH (a:$LABEL1) WHERE (a)-[:$REL_TYPE]->(:$LABEL2) WITH a RETURN collect(a.$RETURN_PROP) AS values",
-                "anti_template": "MATCH (a:$LABEL1) WHERE NOT (a)-[:$REL_TYPE]->(:$LABEL2) WITH a RETURN collect(a.$RETURN_PROP) AS values",
+                "template": "MATCH (a:$LABEL1) WHERE (a)-[:$REL_TYPE]->(:$LABEL2) WITH a RETURN collect(a.$RETURN_PROP)[0..5] AS values",
+                "anti_template": "MATCH (a:$LABEL1) WHERE NOT (a)-[:$REL_TYPE]->(:$LABEL2) WITH a RETURN collect(a.$RETURN_PROP)[0..5] AS values",
                 "parameters": {
                     "LABEL1": "string",
                     "LABEL2": "string",
@@ -66,8 +66,8 @@
         "templates": [
             {
                 "id": "T007",
-                "template": "MATCH (a:$LABEL1)-[:$REL1]->(b:$LABEL2)-[:$REL2]->(c:$LABEL3)-[:$REL3]->(d:$LABEL4) WITH a, d RETURN a, collect(d.$PROP) AS ds",
-                "anti_template": "MATCH (a:$LABEL1), (d:$LABEL4) WHERE NOT (a)-[:$REL1]->(b:$LABEL2)-[:$REL2]->(c:$LABEL3)-[:$REL3]->(d) WITH a, d RETURN a, collect(d.$PROP) AS ds",
+                "template": "MATCH (a:$LABEL1)-[:$REL1]->(b:$LABEL2)-[:$REL2]->(c:$LABEL3)-[:$REL3]->(d:$LABEL4) WITH a, d RETURN a, collect(d.$PROP)[0..5] AS ds",
+                "anti_template": "MATCH (a:$LABEL1), (d:$LABEL4) WHERE NOT (a)-[:$REL1]->(b:$LABEL2)-[:$REL2]->(c:$LABEL3)-[:$REL3]->(d) WITH a, d RETURN a, collect(d.$PROP)[0..5] AS ds",
                 "parameters": {
                     "LABEL1": "string",
                     "LABEL2": "string",
@@ -97,8 +97,8 @@
             },
             {
                 "id": "T005",
-                "template": "MATCH (a:$LABEL1), (b:$LABEL2) WHERE a.$PROP1 = b.$PROP2 AND a <> b WITH a, b RETURN a, collect(b.$PROP) AS bs",
-                "anti_template": "MATCH (a:$LABEL1), (b:$LABEL2) WHERE a.$PROP1 <> b.$PROP2 AND a <> b WITH a, b RETURN a, collect(b.$PROP) AS bs",
+                "template": "MATCH (a:$LABEL1), (b:$LABEL2) WHERE a.$PROP1 = b.$PROP2 AND a <> b WITH a, b RETURN a, collect(b.$PROP)[0..5] AS bs",
+                "anti_template": "MATCH (a:$LABEL1), (b:$LABEL2) WHERE a.$PROP1 <> b.$PROP2 AND a <> b WITH a, b RETURN a, collect(b.$PROP)[0..5] AS bs",
                 "parameters": {
                     "LABEL1": "string",
                     "LABEL2": "string",
@@ -114,8 +114,8 @@
         "templates": [
             {
                 "id": "T001",
-                "template": "MATCH (a:$LABEL) WHERE NOT a.$PROP $OP $VALUE WITH a ORDER BY a.$PROP_ID LIMIT 50 RETURN a.$PROP_ID",
-                "anti_template": "MATCH (a:$LABEL) WHERE a.$PROP $OP $VALUE WITH a ORDER BY a.$PROP_ID LIMIT 50 RETURN a.$PROP_ID",
+                "template": "MATCH (a:$LABEL) WHERE NOT a.$PROP $OP $VALUE WITH a ORDER BY a.$PROP_ID LIMIT 10 RETURN a.$PROP_ID",
+                "anti_template": "MATCH (a:$LABEL) WHERE a.$PROP $OP $VALUE WITH a ORDER BY a.$PROP_ID LIMIT 10 RETURN a.$PROP_ID",
                 "parameters": {
                     "LABEL": "string",
                     "PROP": "string",
@@ -126,8 +126,8 @@
             },
             {
                 "id": "T005",
-                "template": "MATCH (a:$LABEL) WHERE NOT a.$PROP $OP $VALUE WITH a RETURN collect(a.$RET_PROP) AS vals",
-                "anti_template": "MATCH (a:$LABEL) WHERE a.$PROP $OP $VALUE WITH a RETURN collect(a.$RET_PROP) AS vals",
+                "template": "MATCH (a:$LABEL) WHERE NOT a.$PROP $OP $VALUE WITH a RETURN collect(a.$RET_PROP)[0..5] AS vals",
+                "anti_template": "MATCH (a:$LABEL) WHERE a.$PROP $OP $VALUE WITH a RETURN collect(a.$RET_PROP)[0..5] AS vals",
                 "parameters": {
                     "LABEL": "string",
                     "PROP": "string",
@@ -138,7 +138,7 @@
             },
             {
                 "id": "T009",
-                "template": "MATCH (a:$LABEL) WHERE NOT (a)-[:$REL1]->(:$LABEL2) OR (a)-[:$REL2]->(:$LABEL3) WITH a RETURN collect(a.$RET_PROP) AS vals",
+                "template": "MATCH (a:$LABEL) WHERE NOT (a)-[:$REL1]->(:$LABEL2) OR (a)-[:$REL2]->(:$LABEL3) WITH a RETURN collect(a.$RET_PROP)[0..5] AS vals",
                 "parameters": {
                     "LABEL": "string",
                     "LABEL2": "string",
@@ -155,8 +155,8 @@
         "templates": [
             {
                 "id": "T001",
-                "template": "MATCH (a:$LABEL1)-[:$REL]-()-[:$REL]-(b:$LABEL2) WHERE NOT (a)-[:$REL]-(b) WITH b ORDER BY b.$PROP_ID LIMIT 20 RETURN b.$PROP_ID",
-                "anti_template": "MATCH (a:$LABEL1)-[:$REL]-()-[:$REL]-(b:$LABEL2) WHERE (a)-[:$REL]-(b) WITH b ORDER BY b.$PROP_ID LIMIT 20 RETURN b.$PROP_ID",
+                "template": "MATCH (a:$LABEL1)-[:$REL]-()-[:$REL]-(b:$LABEL2) WHERE NOT (a)-[:$REL]-(b) WITH b ORDER BY b.$PROP_ID LIMIT 10 RETURN b.$PROP_ID",
+                "anti_template": "MATCH (a:$LABEL1)-[:$REL]-()-[:$REL]-(b:$LABEL2) WHERE (a)-[:$REL]-(b) WITH b ORDER BY b.$PROP_ID LIMIT 10 RETURN b.$PROP_ID",
                 "parameters": {
                     "LABEL1": "string",
                     "LABEL2": "string",

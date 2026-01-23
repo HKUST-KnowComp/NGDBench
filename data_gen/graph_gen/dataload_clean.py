@@ -251,3 +251,194 @@ def normalize_mcp_relations(
         pickle.dump(g, f, pickle.HIGHEST_PROTOCOL)
 
     print(f"Saved relation-normalized graph to: {output_path}")
+
+
+def remove_concept_nodes_and_annotate_neighbors(
+    g: nx.Graph,
+    *,
+    concept_node_type_value: str = "concept",
+    node_type_attr: str = "type",
+    labels_attr: str = "labels",
+    concept_id_attr: str = "id",
+    concept_attr_name: str = "concept",
+    keep_concepts_as_list: bool = True,
+    deduplicate: bool = True,
+    expand_to_indexed_attrs: bool = False,
+):
+    """
+    删除图中用于“连接同 concept 的其它节点”的 concept 中间节点，并把 concept 信息写回相邻节点属性。
+
+    识别规则（任一命中即视为 concept 节点）：
+    - node[node_type_attr] == concept_node_type_value（忽略大小写）
+    - node[labels_attr] 是可迭代对象，且包含 concept_node_type_value（忽略大小写）
+    - node[labels_attr] 是字符串，且包含 concept_node_type_value（忽略大小写）
+
+    写回规则：
+    - 对每个 concept 节点 c，取其 concept 值为 c 的 `id`（优先）或 `name` 或节点自身 key
+      （同时兼容属性嵌在 `properties` dict 里的情况）
+    - 把该值写到所有相邻节点的 `concept_attr_name` 上
+      - keep_concepts_as_list=True：用 list 存多值（去重可控）
+      - keep_concepts_as_list=False：若出现多值会自动升级为 list，避免丢信息
+
+    返回
+    ----
+    g : networkx graph
+        原图就地修改并返回（in-place）。
+    stats : dict
+        统计信息：concept_nodes_removed, neighbor_nodes_annotated, concept_links_written
+    """
+
+    def _get_attr(attrs: dict, key: str):
+        if key in attrs and attrs.get(key) is not None:
+            return attrs.get(key)
+        props = attrs.get("properties")
+        if isinstance(props, dict) and props.get(key) is not None:
+            return props.get(key)
+        return None
+
+    def _is_concept_node(attrs: dict) -> bool:
+        t = _get_attr(attrs, node_type_attr)
+        if t is not None and str(t).strip().lower() == concept_node_type_value.lower():
+            return True
+        labels = attrs.get(labels_attr)
+        if isinstance(labels, (list, tuple, set)):
+            return any(
+                str(x).strip().lower() == concept_node_type_value.lower() for x in labels
+            )
+        if isinstance(labels, str):
+            return concept_node_type_value.lower() in labels.lower()
+        return False
+
+    def _append_concept(node_attrs: dict, concept_value):
+        if concept_value is None or concept_value == "":
+            return False
+        existing = node_attrs.get(concept_attr_name)
+        if existing is None:
+            node_attrs[concept_attr_name] = (
+                [concept_value] if keep_concepts_as_list else concept_value
+            )
+            return True
+
+        # 统一成 list 追加，避免覆盖已有信息
+        if isinstance(existing, list):
+            if (not deduplicate) or concept_value not in existing:
+                existing.append(concept_value)
+                return True
+            return False
+
+        # existing 是单值
+        if existing == concept_value:
+            return False
+        node_attrs[concept_attr_name] = [existing, concept_value]
+        return True
+
+    concept_nodes = [n for n, attrs in g.nodes(data=True) if _is_concept_node(attrs)]
+
+    neighbor_nodes_annotated = set()
+    concept_links_written = 0
+
+    # 先写回邻居属性，再删节点（避免遍历时结构变化）
+    for c in concept_nodes:
+        c_attrs = g.nodes[c]
+        concept_value = (
+            _get_attr(c_attrs, concept_id_attr)
+            or _get_attr(c_attrs, "name")
+            or c
+        )
+
+        if isinstance(g, (nx.DiGraph, nx.MultiDiGraph)):
+            neighbors = set(g.predecessors(c)) | set(g.successors(c))
+        else:
+            neighbors = set(g.neighbors(c))
+
+        for n in neighbors:
+            if n == c:
+                continue
+            changed = _append_concept(g.nodes[n], concept_value)
+            if changed:
+                concept_links_written += 1
+                neighbor_nodes_annotated.add(n)
+
+    if concept_nodes:
+        g.remove_nodes_from(concept_nodes)
+
+    # 如有需要，将收集到的 concept 列表展开为 concept1, concept2, ... 属性
+    concept_indexed_attrs_written = 0
+    if expand_to_indexed_attrs:
+        for _, attrs in g.nodes(data=True):
+            if concept_attr_name not in attrs:
+                continue
+            concepts_val = attrs.get(concept_attr_name)
+            if isinstance(concepts_val, list):
+                for idx, v in enumerate(concepts_val, start=1):
+                    attrs[f"{concept_attr_name}{idx}"] = v
+                    concept_indexed_attrs_written += 1
+            elif concepts_val is not None:
+                attrs[f"{concept_attr_name}1"] = concepts_val
+                concept_indexed_attrs_written += 1
+            # 展开后删除原始列表字段，避免歧义
+            attrs.pop(concept_attr_name, None)
+
+    stats = {
+        "concept_nodes_removed": len(concept_nodes),
+        "neighbor_nodes_annotated": len(neighbor_nodes_annotated),
+        "concept_links_written": concept_links_written,
+        "concept_indexed_attrs_written": concept_indexed_attrs_written,
+    }
+    return g, stats
+
+
+def remove_concept_nodes_from_file(
+    input_file,
+    output_file=None,
+    *,
+    concept_attr_name: str = "concept",
+    remove_isolates_after: bool = False,
+    expand_to_indexed_attrs: bool = True,
+):
+    """
+    文件级封装：读取 .gpickle / .graphml -> 去 concept 节点并写回 concept 属性 -> 保存。
+    """
+    input_path = Path(input_file)
+    suffix = input_path.suffix.lower()
+
+    if suffix == ".gpickle":
+        with open(input_path, "rb") as f:
+            g = pickle.load(f)
+    elif suffix == ".graphml":
+        g = nx.read_graphml(input_path)
+    else:
+        raise ValueError(
+            f"Unsupported file type: {suffix}. Only .gpickle and .graphml are supported."
+        )
+
+    _, stats = remove_concept_nodes_and_annotate_neighbors(
+        g,
+        concept_attr_name=concept_attr_name,
+        expand_to_indexed_attrs=expand_to_indexed_attrs,
+    )
+
+    if remove_isolates_after:
+        isolated_nodes = list(nx.isolates(g))
+        if isolated_nodes:
+            g.remove_nodes_from(isolated_nodes)
+            stats["isolated_nodes_removed_after"] = len(isolated_nodes)
+        else:
+            stats["isolated_nodes_removed_after"] = 0
+
+    if output_file is None:
+        output_path = input_path.with_name(
+            input_path.stem + "_no_concepts" + input_path.suffix
+        )
+    else:
+        output_path = _ensure_parent_dir(output_file)
+
+    if suffix == ".gpickle":
+        with open(output_path, "wb") as f:
+            pickle.dump(g, f, pickle.HIGHEST_PROTOCOL)
+    else:
+        nx.write_graphml(g, output_path, infer_numeric_types=True)
+
+    print(f"Removed concept nodes and annotated neighbors: {stats}")
+    print(f"Saved concept-cleaned graph to: {output_path}")
+    return output_path, stats

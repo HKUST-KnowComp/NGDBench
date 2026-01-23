@@ -77,18 +77,6 @@
                     "LABEL": "string",
                     "PROP": "string"
                 }
-            },
-            {
-                "id": "T006",
-                "template": "MATCH (a:$LABEL1 {$PROP1: $VALUE}), (b:$LABEL2) WHERE NOT (a)-[:$REL]->(b) WITH b ORDER BY b.$RET_PROP LIMIT 32 RETURN b.$RET_PROP",
-                "parameters": {
-                    "LABEL1": "string",
-                    "LABEL2": "string",
-                    "PROP1": "string",
-                    "VALUE": "string",
-                    "REL": "string",
-                    "RET_PROP": "string"
-                }
             }
         ]
     },
@@ -496,16 +484,6 @@
                 }
             },
             {
-                "id": "T002",
-                "template": "MATCH (a:$LABEL1), (b:$LABEL2) WHERE a.$PROP1 = b.$PROP2 AND a <> b WITH a, b ORDER BY a.$PROP1, b.$PROP2 LIMIT 32 RETURN a, b",
-                "parameters": {
-                    "LABEL1": "string",
-                    "LABEL2": "string",
-                    "PROP1": "string",
-                    "PROP2": "string"
-                }
-            },
-            {
                 "id": "T003",
                 "template": "MATCH (a:$LABEL1) WITH a ORDER BY a.$PROP1 MATCH (b:$LABEL2) WHERE a <> b WITH a, b ORDER BY b.$PROP2 RETURN count(*) AS pair_count",
                 "parameters": {
@@ -610,17 +588,6 @@
     {
         "type": "anti",
         "templates": [
-            {
-                "id": "T001",
-                "template": "MATCH (a:$LABEL) WHERE NOT a.$PROP $OP $VALUE WITH a ORDER BY a.$RET_PROP LIMIT 50 RETURN a.$RET_PROP",
-                "parameters": {
-                    "LABEL": "string",
-                    "PROP": "string",
-                    "OP": "string",
-                    "VALUE": "string",
-                    "RET_PROP": "string"
-                }
-            },
             {
                 "id": "T002",
                 "template": "MATCH (a:$LABEL1 {$PROP1: $VALUE}), (b:$LABEL2) WHERE NOT (a)-[:$REL_TYPE]->(b) RETURN b.$RETURN_PROP",
@@ -740,16 +707,6 @@
     {
         "type": "triadic",
         "templates": [
-            {
-                "id": "T001",
-                "template": "MATCH (a:$LABEL1)-[:$REL]-()-[:$REL]-(b:$LABEL2) WHERE NOT (a)-[:$REL]-(b) WITH b ORDER BY b.$PROP LIMIT 20 RETURN b.$PROP",
-                "parameters": {
-                    "LABEL1": "string",
-                    "LABEL2": "string",
-                    "REL": "string",
-                    "PROP": "string"
-                }
-            },
             {
                 "id": "T002",
                 "template": "MATCH (a:$LABEL1)-[:$REL]-()-[:$REL]-(b:$LABEL2) WHERE NOT (a)-[:$REL]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.$PROP, cnt",
