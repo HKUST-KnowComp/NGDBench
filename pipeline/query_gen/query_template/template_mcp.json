@@ -1,0 +1,129 @@
+[
+    {
+        "type": "basic_expand_aggregation",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (n:$LABEL {$PROP_ID: $VALUE})-[:$REL_TYPE]->(m) RETURN count(m) AS cnt",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string"
+                }
+            },
+            {
+                "id": "T002",
+                "template": "MATCH (n:$LABEL {$PROP_ID: $VALUE})-[:$REL_TYPE]->(m:$L2) RETURN avg(m.$PROP2) AS avg_value",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string",
+                    "L2": "string",
+                    "PROP2": "string"
+                }
+            },
+            {
+                "id": "T003",
+                "template": "MATCH (n:$LABEL {$PROP_ID: $VALUE})-[:$REL_TYPE]->(m) RETURN sum(m.$PROP2) AS total",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string",
+                    "PROP2": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "shortest_path",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (start:$LABEL {$PROP_ID: $VALUE}), (end:$LABEL {$PROP_ID: $END_ID}) MATCH path = shortestPath((start)-[:$REL_TYPE*..$MAX_HOPS]->(end)) RETURN path",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "END_ID": "string",
+                    "REL_TYPE": "string",
+                    "MAX_HOPS": "integer"
+                }
+            }
+        ]
+    },
+    {
+        "type": "incoming_relationships",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (f:$LABEL) OPTIONAL MATCH (other:$LABEL)-[r]->(f) RETURN f.$PROP_ID, count(r) AS incoming_relationships, collect(type(r)) AS rel_types ORDER BY incoming_relationships DESC LIMIT $THRESHOLD",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP_ID": "string",
+                    "THRESHOLD": "integer"
+                }
+            }
+        ]
+    },
+    {
+        "type": "dependency_path",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (base:$LABEL {$PROP_ID: $BASE_ID}) MATCH path = (dependent:$LABEL)-[:$REL_TYPE*$MIN_HOPS..$MAX_HOPS]->(base) WHERE dependent.$FILTER_PROP = $FILTER_VAL RETURN dependent.$PROP_ID, length(path) as depth, path ORDER BY depth DESC",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP_ID": "string",
+                    "BASE_ID": "string",
+                    "REL_TYPE": "string",
+                    "MIN_HOPS": "integer",
+                    "MAX_HOPS": "integer",
+                    "FILTER_PROP": "string",
+                    "FILTER_VAL": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "dependency_count",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (target:$LABEL {$PROP_ID: $TARGET_ID}) MATCH (other:$LABEL)-[:$REL_TYPE*$MIN_HOPS..$MAX_HOPS]->(target) WHERE other.$FILTER_PROP1 = $FILTER_VAL1 OR other.$FILTER_PROP2 = $FILTER_VAL2 RETURN count(DISTINCT other) AS dependency_count",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP_ID": "string",
+                    "TARGET_ID": "string",
+                    "REL_TYPE": "string",
+                    "MIN_HOPS": "integer",
+                    "MAX_HOPS": "integer",
+                    "FILTER_PROP1": "string",
+                    "FILTER_VAL1": "string",
+                    "FILTER_PROP2": "string",
+                    "FILTER_VAL2": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "common_neighbors",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (original:$LABEL {$PROP_ID: $VALUE})-[:$REL_TYPE]-(neighbor) MATCH (other:$LABEL)-[:$REL_TYPE]-(neighbor) WHERE other <> original AND (other.$FILTER_PROP = $FILTER_VAL) RETURN other.$PROP_ID, count(neighbor) AS common_neighbors ORDER BY common_neighbors DESC LIMIT $THRESHOLD",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP_ID": "string",
+                    "ORIGINAL_ID": "string",
+                    "REL_TYPE": "string",
+                    "FILTER_PROP": "string",
+                    "FILTER_VAL": "string",
+                    "THRESHOLD": "integer"
+                }
+            }
+        ]
+    }
+]

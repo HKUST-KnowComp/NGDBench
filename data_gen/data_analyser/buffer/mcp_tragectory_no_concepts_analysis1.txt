@@ -1,7 +1,7 @@
 
 ============================================================
           FULL GRAPH ANALYSIS
-          2026-01-23 20:55:32
+          2026-01-23 21:48:03
 ============================================================
 
 ============================================================
@@ -3942,201 +3942,196 @@ Connectivity Analysis
 Sample Nodes (30 nodes)
 ============================================================
 
-Node: 9f0d9c2a16a08667f93f76a2e33c595cb90a62c79c92f475917f2ca758f15a78
-  Attributes: {'id': 'tool_nutrition_fig', 'type': 'entity', 'file_id': '040b9291899950c2081af61d4388365eff7727ec8b2b2aafe41d6f0299c8c68b', 'concept': ['tool', 'figure', 'component', 'element', 'nutrition']}
-  In-degree: 1, Out-degree: 2
-  Sample out-edges:
-    --[before]--> 33f2cff9c404f92ce9eb128e6539fb6fb939c05298b0ae4457d3541b45fabbd4
-    --[mention in]--> 040b9291899950c2081af61d4388365eff7727ec8b2b2aafe41d6f0299c8c68b
-
-Node: 440db5fb190594ecc5b75c7c2fe61e8daf44b5df8ce0cf981e4a8a6b6df8fc0c
-  Attributes: {'id': 'performance_test_operation', 'type': 'entity', 'file_id': '41eb8ba4415f46e1633b3eda5151a23c922db8dd78884ba88372853f4e0206ec', 'concept': ['test', 'evaluation', 'assessment', 'experiment', 'trial', 'operation']}
-  In-degree: 1, Out-degree: 1
-  Sample out-edges:
-    --[mention in]--> 41eb8ba4415f46e1633b3eda5151a23c922db8dd78884ba88372853f4e0206ec
-
-Node: 4e6acac5b5125b56de868c1fbad76b86140f311134a01438e3b11068a81c239f
-  Attributes: {'id': 'get_market_data', 'type': 'entity', 'file_id': '1691b519286cd7cd76694eed82b043639ddeb792904f9d1e296c233505274ed7', 'concept': ['operation', 'process', 'task', 'action', 'command', 'retrieval', 'function']}
-  In-degree: 6, Out-degree: 7
-  Sample out-edges:
-    --[operates on]--> 1e33f93a11c69993636b32f52af6da8f88efb4c14593e329b1969d46e25905aa
-    --[depends on]--> 91f423582111cde8636dae02cfd57de6ab38efa7d9b59caa61b4de5f9db92cd6
-    --[after]--> 54478738b79abf522ea47b5253832299bbbc99c638b218d1fbd1f1aee6d64a63
-
-Node: f3dd3c434ab24e3351cab493a15a9bdce23d94f1a5627a3f250da39d9e3a42c6
-  Attributes: {'id': 'tool_search_AI_art_tools', 'type': 'entity', 'file_id': '502805cfad8a1e66d79e5293853714f1bd3288e7c08ac338735c3cfe63dbad4a', 'concept': ['platform', 'software', 'resource', 'application', 'tool', 'utility', 'search']}
-  In-degree: 1, Out-degree: 2
-  Sample out-edges:
-    --[before]--> 23036419bdfd38fdb81d5073ff478a643bc173bec549862d78e2b2661ae7e9c6
-    --[mention in]--> 502805cfad8a1e66d79e5293853714f1bd3288e7c08ac338735c3cfe63dbad4a
-
-Node: ee1132edf76748ecf4a7453722c1e700eadb57abc7db24ca545180b161668df5
-  Attributes: {'file_id': 'ee1132edf76748ecf4a7453722c1e700eadb57abc7db24ca545180b161668df5', 'id': 'role: user content: I’m consolidating our project’s memory bank after a recent refactor. Could you first rename all existing bank files from camelCase to kebab‑case, then give me a list of the newly‑named files, and finally read the contents of the file that stores the current “active_context” so I can verify the rename didn’t break the context linkage? role: assistant content: I\'ll help you consolidate your project\'s memory bank. Let me perform these steps in order: First, I\'ll migrate all bank files from camelCase to kebab-case naming Then list the newly-named files Finally, read the active_context file contents role: function content: Error migrating file naming: TypeError: memoryBankManager.migrateFileNaming is not a function. (In \'memoryBankManager.migrateFileNaming()\', \'memoryBankManager.migrateFileNaming\' is undefined) role: assistant content: Let me check the memory bank status first to understand the current state: role: function content: { "path": "/app/memory-bank", "files": [ "00-amcg-installer-project-overview.md", "00-new-project-setup.md", "00-new-project-starter.md", "00-project-overview.md", "01-amcg-installer-architecture.md", "01-architecture.md", "02-amcg-installer-components.md", "02-components.md", "03-amcg-installer-development-process.md", "03-development-process.md", "04-amcg-installer-api-documentation.md", "04-api-documentation.md", "05-amcg-installer-progress-log.md", "05-progress-log.md", "1918spanishflucausesfactsheet.txt", "2024-12-19-abc-corp-q4-sales-analysis-findings.md", "2024-12-19-team-sync.md", "2024-q3-sales-analysis-top-performers-insights.md", "2025-08-06-product-roadmap-meeting-notes.md", "abccorpq4salestrends2023-04-10.md", "active-analysis-context.md", "active-context-backup.json", "active-context-from-underscore.json", "active-context-new.json", "active-context.json", "active-context.md", "active-project-context-optimization-complete.md", "active-research-context.json", "activecontext.json", "afi-btc-analysis-complete-aug-3.md", "afi-btc-analysis-complete-aug3.md", "afi-system-architecture.md", "afi-trading-strategies.md", "agents-system.md", "ai-assistant-config.json", "ai-assistant-memory-system.md", "ai-daily-news-weekly-briefing-2025-08-08.md", "ai-ecommerce-integration-design-goals.md", "ai-engineer.md", "ai-local-seo-dominator-complete-handoff.md", "ai-local-seo-dominator-complete-session-handoff.md", "ai-model-config.json", "ai-research-context-integration.md", "airportbusroutestops.txt", "alphaplan.md", "amazongiftcardnote.txt", "amoxicillinguidelines.txt", "analysis-progress-tracker.md", "analysis-session-state.json", "api-design-standards.md", "app-config.json", "architecture-decisions-summary.md", "architecture-decisions.md", "assistant-config.json", "assistant-config.md", "assistantconfig.json", "async-connection-pooling-debug-session.md", "authentication-module-spec.md", "automated-camelcase-migration-analysis.md", "automated-camelcase-migration.py", "automated-camelcase-to-kebab-migration.py", "automated-kebab-case-migration.py", "automated-migration-execution-guide.md", "battlelog.txt", "bazichart1992-04-18.json", "big-childcare-victoria-cost-flyer.md", "bots-liquidadores-actuacion-real-113178.md", "brief.txt", "btc-analysis-honest-august-4-2025.md", "btc-liquidations-analysis-august-4-2025.md", "btc-market-analysis-august-2025.md", "btc-post-volume-trading-setup-aug4.md", "btcpricelog.txt", "camel-case-analysis.md", "camelcase-identification-report.md", "camelcase-to-kebab-case-mapping.md", "camelcase-to-kebab-mapping-guides.md", "camelcase-to-kebab-mapping.json", "camelcase-to-kebab-migration-analysis.md", "camlecase-identification-report.md", "campaign-ideas.md", "catfactoftheweek.txt", "changelog.txt", "claude-instructions-optimization-for-review.md", "claude-settings-compact.md", "client-consulting-brief.md", "client-meeting-[client-name]-[date].md", "client-meeting-notes.txt", "client-mode-switching-system.md", "client-project-brief.md", "client-x-preferences.md", "climate-analysis-phase1-temperature-anomalies.md", "climate-research-project-goals.md", "climatechangetemperatureanomalies.txt", "coinglass-api-key-guide.md", "coinglass-api-troubleshooting.md", "coinglass-claude-integration.md", "coinglass-config.md", "coinglass-correct-endpoints.md", "coinglass-final-decision.md", "coinglass-final-diagnosis.md", "coinglass-final-verdict-cancel.md", "coinglass-live-setup.md", "coinglass-paid-active.md", "coinglass-paid-upgrade.md", "coinglass-plan-analysis.md", "coinglass-plan-revaluation.md", "coinglass-refund-expectations.md", "coinglass-troubleshooting.md", "coinglass-verification-success.md", "coinglass-vs-alternatives.md", "complete-camelcase-to-kebab-migration-guide.md", "complete-migration-workflow.md", "config", "config-legacy-backup.json", "config.ini", "config.json", "config.yaml", "configsettings.txt", "consulta-analisis-2-agosto-no-encontrado.md", "content-calendar.md", "context-graph.json", "context-loading-workflow.md", "context.txt", "contextdata.txt", "conversacion-completa-analisis-btc-agosto-4-2025.md", "conversation-history.txt", "conversationhistory.txt", "core-config.md", "correction-price-reading-error-aug4.md", "country-data-template.json", "covermanager-features-analysis.md", "critical-bug-fix-2025-08-06.md", "critical-conversation-history-2025-08-07.md", "criticalconversationhistory.txt", "criticalinformation.txt", "cross-device-sync-system.md", "crucial-notes.md", "crucialdata.txt", "current-camelcase-identification-report.md", "current-configuration.md", "current-conversation-session-summary.md", "current-migration-mapping.md", "current-naming-analysis.md", "current-project-goals.md", "current-session-context.md", "current-session.txt", "current-setup-summary.md", "current-system-architecture-reference.md", "current-user-sessions.json", "currentusersessions.json", "customer-behavior-analysis-research-findings.md", "customer-behavior-findings.md", "customer-behavior-insights.md", "customer-feedback-analysis-week-august-4-2025.md", "customer-feedback-research-project.md", "customer-segmentation-analysis.md", "customer-segmentation-insights.md", "customer-segmentation-update-survey-2024.md", "customer-segments.md", "customerfeedbackanalysisweekly.json", "dailybriefing.md", "data-analysis-project-overview.md", "decision-log.md", "decisions.md", "decisions.txt", "definitions.txt", "demo-note.md", "dinov2-작동흐름.md", "e-commerce-trends-analysis-mobile-commerce-2025.md", "e-commerce-trends-analysis.txt", "eiffel.txt", "email-implementation-guide.md", "email-management-context.md", "email-management-pain-points.md", "eu-solar-incentives-tracker.md", "execute-manual-renaming.md", "execute-migration-now.sh", "execute-now.sh", "family-care-newborn-0-3-months.md", "family-planning-context.md", "file-name-migration-map.md", "file-processing-checkpoint.json", "final-migration-execution-plan.md", "final-migration-execution.py", "findingstoday.md", "flash-sale-banner-15-percent-off.png", "forctx-initial-project-notes.md", "forecast.json", "framework-analisis-autonomo.md", "fruit-nutrition-report.md", "germanysyria2023.txt", "gloomhavenprice.txt", "harbourbusroutes.txt", "immediate-migration-script.sh", "importantfile.txt", "info.txt", "initial-config.json", "initial-context.txt", "initial-data.json", "initial-data.txt", "initial-memory-bank-config.json", "initial-progress-notes.md", "initialcontext.txt", "initialdata.txt", "initialnotes.txt", "instructions.md", "jira-sync-optimization-plan-v2.1-large-backlog.md", "jira-sync-optimization-plan-v2.md", "jira-sync-optimization-plan-v3.0-context-aware.md", "jwt-authentication-plan.md", "kebab-case-final-verification.md", "kebab-case-manual-migration-guide.md", "kebab-case-manual-migration-status.md", "kebab-case-migration-checklist.md", "kebab-case-migration-completion-report.md", "kebab-case-migration-execution-complete.md", "kebab-case-migration-execution-guide.md", "kebab-case-migration-execution-plan.md", "kebab-case-migration-final-report.md", "kebab-case-migration-guide.md", "kebab-case-migration-manual-execution-guide.md", "kebab-case-migration-manual-plan.md", "kebab-case-migration-manual-verification.md", "kebab-case-migration-plan.md", "kebab-case-migration-report.md", "kebab-case-migration-steps.md", "kebab-case-migration-strategy.md", "kebab-case-migration-summary.md", "kebab-case-migration-systematic-report.md", "kebab-case-migration-verification-complete.md", "kebab-case-migration-verification-final.md", "kebab-case-migration-verification-report.md", "kebab-case-migration-verification-script.md", "kebab-case-naming-standards.md", "kebab-case-regular-migrate.py", "kebab-case-test-renaming.md", "kebab-case-verification-complete.md", "kebab-case-verification-final.md", "kebab-migration-tracking.md", "kebabindex.txt", "knowledge-system-roadmap", "knowledge-system-roadmap.md", "latestcovidstudies.csv", "latestcryptoflash.txt", "latestreviewdoc.txt", "launchsettings.json", "legend-ampliado-caida-brusca-analisis.md", "legend-trading-analysis.md", "linkedin-ai-product-announcement.md", "lisbonairbnbselection.md", "literaturereview.md", "long-term-memory-migrated.txt", "long-term-memory-new.txt", "long-term-memory.txt", "longtermmemory.txt", "longevity-supplements-research-data.csv", "longevity-supplements-trials.csv", "longevitysupplementstrials.csv", "manual-camelcase-to-kebab-migration.py", "manual-kebab-case-migration-guide.md", "manual-kebab-case-migration-plan.md", "manual-kebab-case-migration-script.py", "manual-kebab-file-renaming-plan.md", "manual-kebab-migration-instructions.md", "manual-kebab-migration-script.sh", "market-research-workspace.md", "marketing-campaign-brainstorm-2024.md", "marketing-campaign-overview-2025.md", "marketing-campaign-strategy.md", "marketing-strategy-overview.md", "marketingcampaignsummary.txt", "mcp-auto-install-patterns.md", "mcp-project-continuity-system.md", "media-automation-ai-assistant-approval-based.md", "media-automation-ai-assistant-guide.md", "media-automation-ai-assistant-local-storage.md", "meeting-notes-2025-08-05.md", "meeting-notes-2025-08-06-important-meeting.md", "meeting-notes-log.md", "meeting-notes.txt", "meeting-summary.txt", "meetingnotes.log", "meetingnotes.md", "meetingnotesyesterday.md", "meetingsummary20250808.md", "memory-bank", "memory-bank-config.json", "memory-bank-file-listing-2025-08-08.md", "memory-bank-health-check.md", "memory-bank-quick-start.md", "memory-bank-reorganization-guide.md", "memory-bank-setup-guide.md", "microservices-architecture-planning-session.md", "microservices-deployment-strategies-research.md", "microservices-design-patterns.md", "migration-analysis.md", "migration-audit-report.md", "migration-backup-reference.md", "migration-commands.md", "migration-completion-report.md", "migration-completion-summary.md", "migration-completion-verification-report.md", "migration-execution-checklist.md", "migration-execution-log-2025-08-08.md", "migration-execution-plan-manual.md", "migration-execution-plan.md", "migration-execution-report.md", "migration-execution-script.sh", "migration-execution-status.md", "migration-guide-camelcase-to-kebab-case.md", "migration-log-camelcase-to-kebab.md", "migration-plan-camelcase-to-kebab-case.md", "migration-summary-complete.md", "migration-summary.md", "migration-summary.txt", "migration-to-kebab-case-plan.md", "migration-verification-checklist.md", "migration-verification-complete.md", "migration-verification-report.md", "migration-verification-script.md", "migrationreport.txt", "milestone-tracker.md", "mini-pc-blog-completed.md", "mini-pc-project-plan.md", "miroexpertavailability2025-08-04.txt", "ml-experimental-results-tracker.md", "ml-research-milestones.md", "ml-research-project-overview.md", "model-settings.json", "modelsettings.json", "module-110-data-analysis-creation.md", "module-129-network-components-creation.md", "module-169-services-conteneurs-creation.md", "module-190-virtualisation-creation.md", "module-210-cloud-public-applications-creation.md", "module-217-ioe-service-creation.md", "module-259-machine-learning-creation.md", "module-335-mobile-app-creation.md", "module-346-solutions-cloud-creation.md", "n8n-credentials.md", "naming-convention-analysis-current.md", "naming-convention-migration-plan.md", "naming-convention-migration-report.md", "namingmigrationlog.md", "new-client-project-planning.md", "new-project-config.json", "new-session-overview.md", "newconfigfile.txt", "newsmartphonereleases", "notion-mini-pc-blog-final.md", "notiontasksretrieval.txt", "nuevas-funcionalidades-wordpress-whatsapp-content.md", "nutritionreport.txt", "onboardingworkflow.md", "overview.md", "ownerrez-current-work-session.md", "ownerrez-site-august-6-2025-work.md", "paristomorrow.txt", "personal-assistant-context.md", "phase-01-technology-assessment.md", "phase-02-infrastructure-analysis.md", "phase-03-economic-analysis.md", "phase-04-implementation-strategy.md", "phase-05-conclusions-recommendations.md", "player123456789recentherosummary.txt", "post-migration-checklist.md", "post-migration-inventory.md", "post-migration-verification.md", "pre-migration-active-context-backup.json", "pre-migration-active-context-backup.md", "pre-migration-camelcase-analysis.md", "product-context.md", "production-config.json", "progress.md", "progress.txt", "project-brief.md", "project-brief.txt", "project-config.txt", "project-context.md", "project-findings-april-2024.md", "project-goals.md", "project-ideas.md", "project-info.md", "project-meeting-setup.md", "project-meeting-summary.txt", "project-milestones.txt", "project-notes.txt", "project-overview.md", "project-plan-v2.txt", "project-roadmap.md", "project-rules.txt", "project-setup-notes.md", "project-setup-notes.txt", "project-setup.json", "project-specification.md", "project-specs.md", "project-storage-guidelines.md", "project-summary.json", "project-summary.md", "project-summary.txt", "project-update.txt", "project-updates.txt", "project2024plan.txt", "projectblue-context.md", "projectbrainstormingnote.txt", "projectkickoffagenda.txt", "projectlog.md", "projectnotes", "projectnotes.txt", "projectoverview.md", "projectoverview.txt", "projectrequirementsv2.txt", "projectsetup.json", "projectsetupnotes.txt", "projectsummary.txt", "projectupdates.txt", "projectbrief.md", "q2-product-roadmap-decisions.md", "q3-marketing-analysis-report.txt", "q3-sentiment-analysis-findings.md", "q3salesanalysisreport.md", "q4-2024-customer-feedback-sentiment-analysis.md", "q4-customer-insights", "q4-marketing-action-items.md", "q4-marketing-budget-reallocations.md", "q4-marketing-campaign-performance-data.md", "q4-marketing-strategy-analysis.md", "q4-marketing-strategy-overview.md", "q4-sales-analysis.py", "q4-sentiment-patterns-analysis.txt", "q4marketingstrategyoptimizationresults.md", "q4sentimentanalysis.md", "qpcr-ai-code-analysis-sample.md", "qpcr-analysis-implementation-roadmap.md", "qpcr-code-analysis-framework.md", "quantum-research-overview.md", "quarterly-analysis-tracker.md", "quarterly-budget-plan.md", "quarterly-budget-proposal.md", "quarterly-goals.md", "quarterly-review-summary.txt", "quarterly-roadmap.md", "rapid-prototyper.md", "readme-summary.md", "readme.md", "recent-changes-active-context.md", "renamefiles.sh", "renewable-energy-data-templates.json", "renewable-energy-investments-project-overview.md", "renewable-energy-market-analysis.md", "renewable-energy-phase-transition-aug-6-2025.md", "renewable-energy-policy-research-findings.md", "renewable-energy-progress-template.md", "renewable-energy-project-progress-tracker.md", "renewable-energy-q4-2024.md", "renewable-energy-research-database.md", "renewable-energy-research-framework.md", "renewable-energy-research-log.md", "renewable-energy-research-notes.md", "renewable-energy-research-overview.md", "renewable-energy-solar-perovskite-research.md", "renewable-energy-sources-and-data-references-aug6.md", "renewable-energy-storage-research-summary-aug-6-2025.md", "reorganization-completion-report.md", "reportfinish.log", "research-data-index.md", "research-findings-2024.md", "research-findings-2025-08-06.md", "research-findings-completed-session.md", "research-findings.md", "research-foundational-models.md", "research-init.json", "research-methodology-framework.md", "research-notes.md", "research-paper-template.md", "research-progress-dashboard.md", "research-project-dashboard.md", "research-summary.txt", "researchfindings.md", "researchfindings.txt", "researchinsighttransformeroptimization.md", "researchoutline.md", "restaurantos-complete-technical-prd.md", "restaurantos-hexagonal-ddd-prd-complete.md", "restaurantos-prd-complete.md", "restaurantos-technical-specs.md", "roadmapmeetingnotes2023-10-03.md", "run-migration-dry.py", "safe-migration-execution-plan.md", "safe-migration-script.py", "seasonal-purchasing-trends-analysis.md", "seattletemp.txt", "selectedinstance.txt", "serendipity.txt", "session-archive-system.md", "session-configuration.json", "session-log.txt", "session-recovery-protocol.md", "session-template.txt", "sessions-folder-structure.md", "settings.json", "setup-config.json", "setupmetadata.json", "sftemp.txt", "shopping-cart-specifications.md", "sistema-analisis-liquidez-coinglass-completo.md", "smart-context-loader.md", "smartphone-releases-weekly-tracker.md", "solar-panel-efficiency-research-findings.md", "solar-panel-efficiency.txt", "solar-research-notes-2024", "solar-research-session-starter.md", "startup-settings.json", "startupsettings.json", "step-by-step-migration-guide.md", "summary-of-critical-points.md", "summarylastthursday.txt", "sustainable-agriculture-research-summary.md", "sustainable-energy-findings-2020-2024.md", "system-config.yaml", "system-params-configured.txt", "system-params-new.txt", "system-params.txt", "system-patterns.md", "system-settings.md", "systematic-camelcase-migration-report.md", "systematic-file-migration-plan.md", "systematic-kebab-case-migration-plan.md", "systematic-manual-migration-guide.md", "systematic-migration-execution-guide.md", "systematic-migration-plan.md", "task-project-x-details.md", "team-meeting-scheduled-monday.md", "team-project", "tech-context.md", "techweekly.txt", "test-log.md", "tom-command-line-monday.md", "tom-config-v6.md", "tom-protocol-complete.md", "tom-protocol-project.md", "tom-user-profile-complete.md", "tonghwa-blog-content.md", "total.txt", "training-dataset.md", "travel-assistant-requirements.md", "updated-memory-bank-config.json", "user-auth-notes.md", "user-config.json", "user-context-profile.md", "user-preferences-json-backup.json", "user-preferences-migrated-v2.json", "user-preferences-migrated.json", "user-preferences-v2.json", "user-preferences.json", "user-preferences.md", "user-preferences.txt", "user-prefs.json", "user-settings.json", "usercontext.json", "userinteractionlog.txt", "userinteractionssummary.txt", "userpreferences", "userpreferences.json", "userpreferences.txt", "userpreferences20231005.txt", "userauth-feature-development-notes.md", "verify-kebab-migration.sh", "weekly-progress-tracker.md", "weekly-summary.txt", "weeklyaibriefing.txt", "welcome.md", "wildfly-datasource-error-log.md", "windsurf-directory-audit-report.md", "windsurf-final-state-complete-audit.md", "windsurf-modular-architecture-complete.md", "windsurf-persona-optimization-final-report.md", "windsurf-reference-bank.md", "workflow-integrated-storage-guide.md", "your-filename.txt", "youtube-0ax-irp-d692e-summary.txt", "youtube-0ax-irp-d692e-transcript-en.txt", "youtube-content-creation-guide.md", "youtube-dzz3b-fp-zh-xc-transcript-en.txt", "youtube-seyb-vd0nmqi-summary.txt", "youtube-seyb-vd0nmqi-transcript-en.txt" ], "coreFilesPresent": [ "product-context.md", "active-context.md", "progress.md", "decision-log.md", "system-patterns.md" ], "missingCoreFiles": [], "isComplete": true, "language": "en", "lastUpdated": "2025-08-08T22:07:18.739Z" } role: assistant content: I can see that the migration has already been completed! Looking at the file listing, I can observe: Files are already using kebab-case: Most files already use the kebab-case naming convention (lowercase with hyphens) No camelCase files appear to remain: The extensive file list shows kebab-case naming throughout Active context files are present: Multiple active context files exist including "active-context.md" Let me now list the files to give you the newly-named file structure and then read the active context file: role: function content: Files in Memory Bank: 00-amcg-installer-project-overview.md 00-new-project-setup.md 00-new-project-starter.md 00-project-overview.md 01-amcg-installer-architecture.md 01-architecture.md 02-amcg-installer-components.md 02-components.md 03-amcg-installer-development-process.md 03-development-process.md 04-amcg-installer-api-documentation.md 04-api-documentation.md 05-amcg-installer-progress-log.md 05-progress-log.md 1918spanishflucausesfactsheet.txt 2024-12-19-abc-corp-q4-sales-analysis-findings.md 2024-12-19-team-sync.md 2024-q3-sales-analysis-top-performers-insights.md 2025-08-06-product-roadmap-meeting-notes.md abccorpq4salestrends2023-04-10.md active-analysis-context.md active-context-backup.json active-context-from-underscore.json active-context-new.json active-context.json active-context.md active-project-context-optimization-complete.md active-research-context.json activecontext.json afi-btc-analysis-complete-aug-3.md afi-btc-analysis-complete-aug3.md afi-system-architecture.md afi-trading-strategies.md agents-system.md ai-assistant-config.json ai-assistant-memory-system.md ai-daily-news-weekly-briefing-2025-08-08.md ai-ecommerce-integration-design-goals.md ai-engineer.md ai-local-seo-dominator-complete-handoff.md ai-local-seo-dominator-complete-session-handoff.md ai-model-config.json ai-research-context-integration.md airportbusroutestops.txt alphaplan.md amazongiftcardnote.txt amoxicillinguidelines.txt analysis-progress-tracker.md analysis-session-state.json api-design-standards.md app-config.json architecture-decisions-summary.md architecture-decisions.md assistant-config.json assistant-config.md assistantconfig.json async-connection-pooling-debug-session.md authentication-module-spec.md automated-camelcase-migration-analysis.md automated-camelcase-migration.py automated-camelcase-to-kebab-migration.py automated-kebab-case-migration.py automated-migration-execution-guide.md battlelog.txt bazichart1992-04-18.json big-childcare-victoria-cost-flyer.md bots-liquidadores-actuacion-real-113178.md brief.txt btc-analysis-honest-august-4-2025.md btc-liquidations-analysis-august-4-2025.md btc-market-analysis-august-2025.md btc-post-volume-trading-setup-aug4.md btcpricelog.txt camel-case-analysis.md camelcase-identification-report.md camelcase-to-kebab-case-mapping.md camelcase-to-kebab-mapping-guides.md camelcase-to-kebab-mapping.json camelcase-to-kebab-migration-analysis.md camlecase-identification-report.md campaign-ideas.md catfactoftheweek.txt changelog.txt claude-instructions-optimization-for-review.md claude-settings-compact.md client-consulting-brief.md client-meeting-[client-name]-[date].md client-meeting-notes.txt client-mode-switching-system.md client-project-brief.md client-x-preferences.md climate-analysis-phase1-temperature-anomalies.md climate-research-project-goals.md climatechangetemperatureanomalies.txt coinglass-api-key-guide.md coinglass-api-troubleshooting.md coinglass-claude-integration.md coinglass-config.md coinglass-correct-endpoints.md coinglass-final-decision.md coinglass-final-diagnosis.md coinglass-final-verdict-cancel.md coinglass-live-setup.md coinglass-paid-active.md coinglass-paid-upgrade.md coinglass-plan-analysis.md coinglass-plan-revaluation.md coinglass-refund-expectations.md coinglass-troubleshooting.md coinglass-verification-success.md coinglass-vs-alternatives.md complete-camelcase-to-kebab-migration-guide.md complete-migration-workflow.md config config-legacy-backup.json config.ini config.json config.yaml configsettings.txt consulta-analisis-2-agosto-no-encontrado.md content-calendar.md context-graph.json context-loading-workflow.md context.txt contextdata.txt conversacion-completa-analisis-btc-agosto-4-2025.md conversation-history.txt conversationhistory.txt core-config.md correction-price-reading-error-aug4.md country-data-template.json covermanager-features-analysis.md critical-bug-fix-2025-08-06.md critical-conversation-history-2025-08-07.md criticalconversationhistory.txt criticalinformation.txt cross-device-sync-system.md crucial-notes.md crucialdata.txt current-camelcase-identification-report.md current-configuration.md current-conversation-session-summary.md current-migration-mapping.md current-naming-analysis.md current-project-goals.md current-session-context.md current-session.txt current-setup-summary.md current-system-architecture-reference.md current-user-sessions.json currentusersessions.json customer-behavior-analysis-research-findings.md customer-behavior-findings.md customer-behavior-insights.md customer-feedback-analysis-week-august-4-2025.md customer-feedback-research-project.md customer-segmentation-analysis.md customer-segmentation-insights.md customer-segmentation-update-survey-2024.md customer-segments.md customerfeedbackanalysisweekly.json dailybriefing.md data-analysis-project-overview.md decision-log.md decisions.md decisions.txt definitions.txt demo-note.md dinov2-작동흐름.md e-commerce-trends-analysis-mobile-commerce-2025.md e-commerce-trends-analysis.txt eiffel.txt email-implementation-guide.md email-management-context.md email-management-pain-points.md eu-solar-incentives-tracker.md execute-manual-renaming.md execute-migration-now.sh execute-now.sh family-care-newborn-0-3-months.md family-planning-context.md file-name-migration-map.md file-processing-checkpoint.json final-migration-execution-plan.md final-migration-execution.py findingstoday.md flash-sale-banner-15-percent-off.png forctx-initial-project-notes.md forecast.json framework-analisis-autonomo.md fruit-nutrition-report.md germanysyria2023.txt gloomhavenprice.txt harbourbusroutes.txt immediate-migration-script.sh importantfile.txt info.txt initial-config.json initial-context.txt initial-data.json initial-data.txt initial-memory-bank-config.json initial-progress-notes.md initialcontext.txt initialdata.txt initialnotes.txt instructions.md jira-sync-optimization-plan-v2.1-large-backlog.md jira-sync-optimization-plan-v2.md jira-sync-optimization-plan-v3.0-context-aware.md jwt-authentication-plan.md kebab-case-final-verification.md kebab-case-manual-migration-guide.md kebab-case-manual-migration-status.md kebab-case-migration-checklist.md kebab-case-migration-completion-report.md kebab-case-migration-execution-complete.md kebab-case-migration-execution-guide.md kebab-case-migration-execution-plan.md kebab-case-migration-final-report.md kebab-case-migration-guide.md kebab-case-migration-manua', 'type': 'passage'}
-  In-degree: 1, Out-degree: 0
-
-Node: 3d331ad9624bfb61cdc307d579bb1c91678447f2b7e60098391f401c3ff2d49a
-  Attributes: {'id': 'function_search_blip_models', 'type': 'entity', 'file_id': 'dc9f20411ca385bc8bfa48b6e42d45b200db93b41568f88b33e515dcf3ee3544', 'concept': ['operation', 'method', 'process', 'procedure', 'task', 'routine', 'function']}
-  In-degree: 0, Out-degree: 2
-  Sample out-edges:
-    --[followed_by]--> 1a91eee88861c3b21f3f702e8a16c27125ad95a8fe0cc2482eaef3c6be90b84e
-    --[mention in]--> dc9f20411ca385bc8bfa48b6e42d45b200db93b41568f88b33e515dcf3ee3544
-
-Node: 45c4f386073e90c064b55da9c73246d9872b842cba1e36ca417d7c6ae82c7768
-  Attributes: {'id': 'add_20_degrees_to_temperature', 'type': 'entity', 'file_id': '7ea4c679ae546853ecc6e828925bd52fae30270729526335becba2845c300f0b', 'concept': ['algorithm', 'operation', 'process', 'procedure', 'task', 'computation', 'function']}
-  In-degree: 1, Out-degree: 2
-  Sample out-edges:
-    --[operates on]--> 0b0e46d0f90ff573e88ab415b4d84e6faf2dd075d8d53f78fea73acbb49b36bb
-    --[mention in]--> 7ea4c679ae546853ecc6e828925bd52fae30270729526335becba2845c300f0b
-
-Node: 11d04ee91c6699505a590e7e513a804a29e59788edc04f354135e9f453515f79
-  Attributes: {'id': 'assistant_content_create_five_syllable_combinations', 'type': 'entity', 'file_id': '7607ba05b2b0a860aa6811fe8a25a573cf962ceceef835b8d1e33bc570551b0d', 'concept': ['software', 'application', 'tool', 'utility', 'program', 'feature', 'function']}
-  In-degree: 2, Out-degree: 3
-  Sample out-edges:
-    --[uses output of]--> 1bc6b022b49d40bf2b4499052889af44c7bb209ea2801c5e28a81a1109dbf824
-    --[then]--> 95e596a0abebf9439c8d528e7579461298cc21189ddb29e309e8a93f2fb37ec8
-    --[mention in]--> 7607ba05b2b0a860aa6811fe8a25a573cf962ceceef835b8d1e33bc570551b0d
-
-Node: 359b42718ba4dcdfd8544d3f3045694044f9390eef10ad5bd3226652a5bfe3f8
-  Attributes: {'id': 'xAI_Grok_Imagine4_integration', 'type': 'entity', 'file_id': 'a381fb9129b76be0cbe53c2960826c1c2eb1c92bd5f2e38381d23763e102d1cf', 'concept': ['platform', 'integration', 'software', 'tool', 'technology', 'system']}
-  In-degree: 0, Out-degree: 2
-  Sample out-edges:
-    --[followed by]--> 6f8434615cbb5f379aa0c08ac60ccde646970465e6fd0557cf5a8208c7e5f270
-    --[mention in]--> a381fb9129b76be0cbe53c2960826c1c2eb1c92bd5f2e38381d23763e102d1cf
-
-Node: 410dcdf8b8cca0fd04e8baed883c00a61f8fc4cfe90d835f1a9b90b63b15a708
-  Attributes: {'id': 'tty devices or processes related to GDB', 'type': 'entity', 'file_id': 'ae839f5ea359a37d96e670ef4cc6e8f3941c440597d50e22befc3d6e137bb294', 'concept': ['device', 'interface', 'terminal', 'tool', 'process', 'debugging', 'system']}
-  In-degree: 1, Out-degree: 1
-  Sample out-edges:
-    --[mention in]--> ae839f5ea359a37d96e670ef4cc6e8f3941c440597d50e22befc3d6e137bb294
-
-Node: 59f0fbb3113c2019155f6b98127b6e0cc64600ff1b0d9e59a8508e027f1c003b
-  Attributes: {'id': 'CEP 01310-100', 'type': 'entity', 'file_id': 'dfa580b5e04883fdec3e06b6de058c0bb4a7bb1dc22360985ae90d200e1f1050', 'concept': ['code', 'identifier', 'format', 'reference', 'system', 'number']}
-  In-degree: 1, Out-degree: 1
-  Sample out-edges:
-    --[mention in]--> dfa580b5e04883fdec3e06b6de058c0bb4a7bb1dc22360985ae90d200e1f1050
-
-Node: 8ffa27c75d78b04221769e4dc42d6cdb784eb349adf2074c49d32ce9917f67bc
-  Attributes: {'id': 'correct_file_path', 'type': 'entity', 'file_id': '87bae880d739af20ad4ab929e923e9e97bb425d1a1a8bcde370f07bc9855c48f', 'concept': ['directory', 'file', 'string', 'path', 'location', 'variable', 'parameter']}
-  In-degree: 1, Out-degree: 1
-  Sample out-edges:
-    --[mention in]--> 87bae880d739af20ad4ab929e923e9e97bb425d1a1a8bcde370f07bc9855c48f
-
-Node: 3b139b17b6bf687df539a9c446be43a05e7b08078502d2bf8357769a38c30a80
-  Attributes: {'id': 'search_parkinsons_statistics', 'type': 'entity', 'file_id': '12f0bf8aae6eb7b928c81201405d19e46d38b13dd790f3492a273d912d553787', 'concept': ['information', 'data', 'query', 'research', 'analysis', 'statistics']}
-  In-degree: 0, Out-degree: 3
-  Sample out-edges:
-    --[before]--> 9375e321bf91fb07c43f69cd07720a9af1a14b0dce849aa7e3dc31ed03e32dd5
-    --[uses output of]--> 28f1e72ee354f2ca47178f10f2901e06c9b5753d62446bfd23f878ed7dc0a698
-    --[mention in]--> 12f0bf8aae6eb7b928c81201405d19e46d38b13dd790f3492a273d912d553787
-
-Node: c1dcb0f2737b61fd72138fc531522b73553bc9d25d215b51aa94995d28c29a22
-  Attributes: {'file_id': 'c1dcb0f2737b61fd72138fc531522b73553bc9d25d215b51aa94995d28c29a22', 'id': "role: user content: I’m tracking Apple (AAPL) for a possible trade. Can you tell me the current share price and also give me the most recent news headline that explains what is influencing the price right now? role: assistant content: I'll get Apple's current share price and the latest news for you. role: function content: Open: $220.820, High: $230.990, Low: $219.250, Close: $229.350, Volume: $110755700.000 role: function content: Date: 2025-08-08 20:26:08, Title: How Apple's 'made-in-America' strategy led to big market gains, Publisher: Yahoo Finance Video, Link: https://finance.yahoo.com/, Summary: Apple (AAPL) stock gains after the iPhone maker announced an additional $100 billion investment in the US. Apple CEO Tim Cook joined President Trump at the White House to announce the details of the investment. Yahoo Finance Markets Reporter Josh Schafer examines the stock's roughly 13% rise this week, and Yahoo Finance Tech Editor Dan Howley explains why the multibillion-dollar investment is so significant for the company in the context of Trump's tariff policies. To watch more expert insights and analysis on the latest market action, check out more Market Domination. role: assistant content: Apple (AAPL) Snapshot: Current price: $229.35 (up from the open of $220.82) Intraday range: $219.25 – $230.99 Volume: 110.8 million shares (quite heavy) Driving News: The most recent headline directly influencing the price comes from Yahoo Finance (published Thu 8 Aug 2025): “How Apple’s ‘made-in-America’ strategy led to big market gains” Key takeaway: Apple has committed another $100 billion US investment, and CEO Tim Cook appeared at the White House alongside President Trump to unveil the plan. Traders are treating the announcement as a major tail-wind, triggering the ≈ 13% jump you’re seeing this week.", 'type': 'passage'}
+Node: f831b6470315a5e3b9e57a3302f14af0ad0f706db6f5ad78791d886b1f5bc04a
+  Attributes: {'file_id': 'f831b6470315a5e3b9e57a3302f14af0ad0f706db6f5ad78791d886b1f5bc04a', 'id': 'role: user content: I’d like to keep a running record of today’s temperature in Paris so I can later query my knowledge graph for temperature trends. Could you fetch the current temperature for Paris and store it as an observation in my graph? role: assistant content: I\'ll help you fetch the current temperature for Paris and store it in your knowledge graph as an observation. Let me start by getting the current weather for Paris. role: function content: API invoke error: role: assistant content: Let me try getting the current weather for Paris again: role: function content: API invoke error: role: assistant content: It appears there\'s an issue with the weather API. Let me check what the current time is so we can store today\'s date, and then I\'ll create a temperature record entity in your knowledge graph that you can update once the weather service is available. role: function content: {"timezone": "Europe/Paris", "datetime": "2025-08-09T00:57:50+02:00"} role: assistant content: Now I\'ll create an entity in your knowledge graph for today\'s Paris temperature record. Since the weather API seems to be having issues, I\'ll create a placeholder entry and you can update it with actual temperature data when the service becomes available. role: function content: {"created":["Paris Temperature Record - 2025-08-09"],"updated":null,"failed":null,"incomplete":false,"message":"Created 1 new entities. Updated 0 existing entities. Failed for 0 entities."} role: assistant content: I\'ve created a temperature record entity in your knowledge graph for today\'s date (August 9th, 2025). However, the weather API appears to be temporarily unavailable. Here\'s what I\'ve stored: Entity Name: "Paris Temperature Record - 2025-08-09" Type: Temperature Observation Notes: The entity is ready to receive temperature data, but the weather service was unavailable at the time of creation. To update this record with actual temperature data when the weather service becomes available, I recommend: Try fetching the weather again later Use the think-tank-add_observations function to update the Paris temperature record with: Current temperature in Celsius Weather conditions description Time of observation Would you like me to: Try fetching the weather information again now? Set up a scheduled reminder to collect this data later? Help you manually input temperature data if you have another source?', 'type': 'passage'}
   In-degree: 3, Out-degree: 0
 
-Node: d5b1f87c3bca0b57a9f411982743dfff3b44e4dbe506e54850751f805e96e4c8
-  Attributes: {'id': 'Extract municipality code', 'type': 'entity', 'file_id': '4366850ec47933528586abc755c41a43165593359b00779c5222a14dfad36d40', 'concept': ['code', 'parsing', 'information', 'municipality', 'data', 'extraction', 'retrieval']}
-  In-degree: 2, Out-degree: 3
+Node: 8725f5af584f72db857ee289d3caa005600c32cdf66c74fb91558c784fa4b5a0
+  Attributes: {'file_id': '8725f5af584f72db857ee289d3caa005600c32cdf66c74fb91558c784fa4b5a0', 'id': 'role: user content: How do I find detailed metadata and download the full-text PDF of a recently published article on "machine learning applications in healthcare" from PubMed, ensuring that the article is published in the last two years? role: assistant content: I\'ll help you find recent articles on machine learning in healthcare and get both the metadata and full-text PDFs. Let me start by searching for relevant articles from the last two years. role: function content: { "PMID": "40542698", "Title": "Emerging Uses of Artificial Intelligence in Chronic Dermatologic Disease: A Scoping Review.", "Authors": "Hollman, Doktorchik, Mukovozov", "Journal": "Journal of cutaneous medicine and surgery", "Publication Date": "2025", "Abstract": "Recent years have seen a surge in the use of artificial intelligence (AI) in healthcare, including dermatology. This scoping review aimed to assess the emerging applications of AI use in the context of chronic, non-neoplastic dermatologic diseases." } { "PMID": "40486793", "Title": "Artificial intelligence in shoulder arthroplasty: how smart is it?", "Authors": "Kim, Kim, Park, Kim, Kim, Yoo", "Journal": "JSES international", "Publication Date": "2025", "Abstract": "The application of artificial intelligence (AI) is growing rapidly in many fields, and the medical field is no exception. The amount of information we collect before, during, and after surgery is growing exponentially, making the opportunity for AI applications to be integrated into our daily practice more and more apparent." } role: assistant content: Great! I found some recent articles. Let me get the detailed metadata for the first article (PMID: 40542698) which focuses on AI applications in chronic dermatologic diseases, and then download its PDF. role: function content: { "PMID": "40542698", "Title": "Emerging Uses of Artificial Intelligence in Chronic Dermatologic Disease: A Scoping Review.", "Authors": "Hollman, Doktorchik, Mukovozov", "Journal": "Journal of cutaneous medicine and surgery", "Publication Date": "2025", "Abstract": "Recent years have seen a surge in the use of artificial intelligence (AI) in healthcare, including dermatology. This scoping review aimed to assess the emerging applications of AI use in the context of chronic, non-neoplastic dermatologic diseases." } role: function content: The article doesn\'t seem to be fully open access. You can check the article availability at: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12171080/ role: assistant content: Let me also get the metadata for the second article and try to download its PDF as well: role: function content: { "PMID": "40486793", "Title": "Artificial intelligence in shoulder arthroplasty: how smart is it?", "Authors": "Kim, Kim, Park, Kim, Kim, Yoo", "Journal": "JSES international", "Publication Date": "2025", "Abstract": "The application of artificial intelligence (AI) is growing rapidly in many fields, and the medical field is no exception. The amount of information we collect before, during, and after surgery is growing exponentially, making the opportunity for AI applications to be integrated into our daily practice more and more apparent." } role: function content: The article doesn\'t seem to be fully open access. You can check the article availability at: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12144956/ role: assistant content: Let me search for more articles to give you additional options, including some that might be open access: role: function content: { "PMID": "40749008", "Title": "Evaluation of large language models as a diagnostic tool for medical learners and clinicians using advanced prompting techniques.", "Authors": "Gaebe, van der Woerd", "Journal": "PloS one", "Publication Date": "2025", "Abstract": "Large language models (LLMs) have demonstrated capabilities in natural language processing and critical reasoning. Studies investigating their potential use as healthcare diagnostic tools have largely relied on proprietary models like ChatGPT and have not explored the application of advanced prompt engineering techniques. This study aims to evaluate the diagnostic accuracy of three open-source LLMs and the role of prompt engineering using clinical scenarios." } { "PMID": "40727626", "Title": "Machine Learning-based Complementary Artificial Intelligence Model for Dermoscopic Diagnosis of Pigmented Skin Lesions in Resource-limited Settings.", "Authors": "Kaneko, Akaishi, Ogawa, Kuwahara", "Journal": "Plastic and reconstructive surgery. Global open", "Publication Date": "2025", "Abstract": "Rapid advancements in big data and machine learning have expanded their application in healthcare, introducing sophisticated diagnostics to settings with limited medical resources. Notably, free artificial intelligence (AI) services that require no programming skills are now accessible to healthcare professionals, allowing those in underresourced areas to leverage AI technology. This study aimed to evaluate the potential of these accessible services for diagnosing pigmented skin tumors, underscoring the democratization of advanced medical technologies." } role: assistant content: Perfect! These newer results include open-access journals. Let me get the metadata for both and try downloading the PDFs: role: function content: { "PMID": "40749008", "Title": "Evaluation of large language models as a diagnostic tool for medical learners and clinicians using advanced prompting techniques.", "Authors": "Gaebe, van der Woerd", "Journal": "PloS one", "Publication Date": "2025", "Abstract": "Large language models (LLMs) have demonstrated capabilities in natural language processing and critical reasoning. Studies investigating their potential use as healthcare diagnostic tools have largely relied on proprietary models like ChatGPT and have not explored the application of advanced prompt engineering techniques. This study aims to evaluate the diagnostic accuracy of three open-source LLMs and the role of prompt engineering using clinical scenarios." } role: function content: The article doesn\'t seem to be fully open access. You can check the article availability at: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12316197/ role: function content: { "PMID": "40727626", "Title": "Machine Learning-based Complementary Artificial Intelligence Model for Dermoscopic Diagnosis of Pigmented Skin Lesions in Resource-limited Settings.", "Authors": "Kaneko, Akaishi, Ogawa, Kuwahara", "Journal": "Plastic and reconstructive surgery. Global open", "Publication Date": "2025", "Abstract": "Rapid advancements in big data and machine learning have expanded their application in healthcare, introducing sophisticated diagnostics to settings with limited medical resources. Notably, free artificial intelligence (AI) services that require no programming skills are now accessible to healthcare professionals, allowing those in underresourced areas to leverage AI technology. This study aimed to evaluate the potential of these accessible services for diagnosing pigmented skin tumors, underscoring the democratization of advanced medical technologies." } role: function content: The article doesn\'t seem to be fully open access. You can check the article availability at: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12303417/ role: assistant content: Summary Based on my search, here\'s how you can find detailed metadata and download full-text PDFs of recent machine learning healthcare articles from PubMed: Recent Articles Found (2024-2025): "Evaluation of large language models as a diagnostic tool for medical learners and clinicians" PMID: 40749008 Journal: PLoS One (Open Access) Publication Date: 2025 DOI/Link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12316197/ "Machine Learning-based Complementary AI Model for Dermoscopic Diagnosis" PMID: 40727626 Journal: Plastic and Reconstructive Surgery Global Open Publication Date: 2025 DOI/Link: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12303417/ Step-by-Step Process: Search PubMed using the advanced search with date filters: Go to: https://pubmed.ncbi.nlm.nih.gov/ Use search terms: "machine learning"[Title/Abstract] AND "healthcare"[Title/Abstract] Add date filter: 2022-2024 (last two years) Get Detailed Metadata: Use the PubMed ID (PMID) with tools like the ones I used Or manually view the "Abstract" page on PubMed for full metadata Download PDFs: Look for the "Free PMC article" or "Free Full Text" icons next to search results Check PMC (PubMed Central) links for open-access availability Use the "Similar Articles" feature to find related open-access papers Access Options: For Open Access articles: PDFs can be downloaded directly from PMC For subscription articles: Check if your institution has access, or use scholarly sharing platforms ResearchGate/Academia.edu: Many authors upload copies of their work The articles I found are from early 2025 and cover practical applications of machine learning in healthcare diagnostics. Even though the PDF downloads weren\'t immediately accessible through these tools, the PMC links provided should lead to the free full-text versions of these open-access articles.', 'type': 'passage'}
+  In-degree: 7, Out-degree: 0
+
+Node: add11a44584b0bfeae1d0fde1681fc517f2917d048d24aeae3f5342b5312d4e0
+  Attributes: {'id': 'tool_function_retrieve_weather_forecast', 'type': 'entity', 'file_id': 'dd950c9324e8e3cc5fa8697265ab3b88230c63e2d0e3c561a1d3ee3781026879', 'concept1': 'software', 'concept2': 'application', 'concept3': 'tool', 'concept4': 'utility', 'concept5': 'program', 'concept6': 'service', 'concept7': 'function'}
+  In-degree: 1, Out-degree: 3
   Sample out-edges:
-    --[uses output of]--> 7b984f37bc3d895e925f4bfb48887b66be73d21ff4ab917a6c3a2dcbdf7d7639
-    --[before]--> fb04812e13a9c3a3c24ef19c5d093ce193cc77e94c1fb2b452f7d4c36f2418aa
-    --[mention in]--> 4366850ec47933528586abc755c41a43165593359b00779c5222a14dfad36d40
+    --[before]--> b40d65dc601e8c6e378f7549e2aa9ba85e6fe2426d56f0bfd530170bc43797df
+    --[uses output of]--> d90d50811cee4366a6e5a75fa263a2220cbc7b30940c28a13336d1c24b00bbbe
+    --[mention in]--> dd950c9324e8e3cc5fa8697265ab3b88230c63e2d0e3c561a1d3ee3781026879
 
-Node: ebcad63b199263651df8682ab4e46d2414531f3307215efe803c560c62f82a6f
-  Attributes: {'file_id': 'ebcad63b199263651df8682ab4e46d2414531f3307215efe803c560c62f82a6f', 'id': 'role: user content: I need to prepare a summary report in a Word document, and after formatting the content, I will need to convert it to PDF for presentation purposes. 1. First, can you create a new Word document called "SummaryReport.docx"? 2. Then, I need a table added to that document with 5 rows and 3 columns. 3. Finally, once the table is added, can you convert the Word document to a PDF format? role: assistant content: I\'ll help you prepare your summary report step by step. Let me start by creating the Word document, then add the requested table, and finally convert it to PDF. role: function content: Document SummaryReport.docx created successfully role: assistant content: Now I\'ll add a table with 5 rows and 3 columns to the document: role: function content: Table (5x3) added to SummaryReport.docx role: assistant content: Finally, I\'ll convert the Word document to PDF format: role: function content: Failed to convert document to PDF using LibreOffice or docx2pdf. LibreOffice errors: libreoffice error: [Errno 2] No such file or directory: \'libreoffice\'; soffice error: [Errno 2] No such file or directory: \'soffice\' docx2pdf error: docx2pdf is not implemented for linux as it requires Microsoft Word to be installed To convert documents to PDF, please install either: LibreOffice (recommended for Linux/macOS) Microsoft Word (required for docx2pdf on Windows/macOS) role: assistant content: I\'ve successfully created your summary report document with the requested table! Here\'s what I\'ve accomplished: ✅ Created "SummaryReport.docx" - A new Word document has been created successfully ✅ Added a 5x3 table - A table with 5 rows and 3 columns has been added to the document ⚠️ PDF Conversion - Unfortunately, the PDF conversion failed due to the server environment not having LibreOffice or Microsoft Word installed The Word document SummaryReport.docx is ready for you with the 5x3 table included. You can now: Open the document in Microsoft Word or LibreOffice Add your content to the table Format the document as needed Use your local Word application to save/export it as PDF The document will be available in your current working directory with the formatted table ready for your summary report needs.', 'type': 'passage'}
-  In-degree: 3, Out-degree: 0
-
-Node: 31205679b680fdd5053cfda9be9e40023140f57561145653e7207baae71047a2
-  Attributes: {'id': 'mongodb-mcp-server-rename-collection', 'type': 'entity', 'file_id': '015fab26008dd0fa0e0089718547f7c6a5dc6c91836aa26726a29a6a7af8c546', 'concept': ['operation', 'method', 'command', 'function']}
-  In-degree: 1, Out-degree: 2
-  Sample out-edges:
-    --[is-a]--> e316abd7fc7b614cea2094f51ddd4621b1ee383ca3bf5d856dc052e3eab9b130
-    --[mention in]--> 015fab26008dd0fa0e0089718547f7c6a5dc6c91836aa26726a29a6a7af8c546
-
-Node: 5068497f78f46e336e85905e5a34b705485683d76850745b97ac86a4bb25d92b
-  Attributes: {'file_id': '5068497f78f46e336e85905e5a34b705485683d76850745b97ac86a4bb25d92b', 'id': 'role: user content: I need to create a visual report for tomorrow\'s investor meeting that shows the current price of Ethereum. Can you get me the latest ETH market price and then generate a professional-looking infographic image that displays this price with some clean design elements? I\'m looking for something modern and shareable that I can include in our presentation materials. role: assistant content: I\'ll help you create a professional infographic for your investor meeting. Let me start by getting the current Ethereum price and then generate a clean, modern visual for you. role: assistant content: Perfect! The current price of Ethereum is $4,270.79 USD. Now let me create a professional-looking infographic that displays this price with clean, modern design elements perfect for your investor presentation. role: function content: Generated image from prompt: "Professional Ethereum price infographic for investor presentation, displaying $4,270.79 USD as the current price, modern clean design with corporate aesthetic, ETH logo, blue gradient background, clean typography, minimalist layout, financial chart elements, shareable format for presentations, high quality business graphic" Image metadata: { "prompt": "Professional Ethereum price infographic for investor presentation, displaying $4,270.79 USD as the current price, modern clean design with corporate aesthetic, ETH logo, blue gradient background, clean typography, minimalist layout, financial chart elements, shareable format for presentations, high quality business graphic", "width": 1920, "height": 1080, "model": "flux", "seed": 834423, "enhance": true, "private": true, "nologo": true, "safe": false, "transparent": false } Image saved to: mcpollinations-output/professionalethereu1754874084296_3079.png role: assistant content: Excellent! I\'ve created your professional Ethereum price infographic for tomorrow\'s investor meeting. Here\'s what you have: Current Ethereum Price: $4,270.79 USD File Location: mcpollinations-output/professionalethereu1754874084296_3079.png The image features: 1920x1080 resolution - perfect for presentation screens Professional blue gradient background with corporate aesthetic Clean, minimalist layout with clear price display Modern typography and ETH branding Financial chart elements to emphasize market context High-quality format suitable for both digital presentations and print materials The design is clean, modern, and investor-focused - exactly what you\'d want to share in your presentation materials. You can use this directly in your slides or include it as a standalone graphic in your meeting materials. Would you like me to create any variations with different background colors or perhaps add any additional information like percentage changes or time stamps?', 'type': 'passage'}
-  In-degree: 2, Out-degree: 0
-
-Node: 0a74e4bc8bf89bc8e9c2550da3fd938d99295af6aa43c185cd92fca7fb59fd73
-  Attributes: {'id': 'check_model_card', 'type': 'entity', 'file_id': '92d587b1c1b9358d612119ddc0daba2e121b5334baced957f0815d3eae523df6', 'concept': ['operation', 'tool', 'utility', 'command', 'function']}
-  In-degree: 2, Out-degree: 3
-  Sample out-edges:
-    --[uses output of]--> 71593f35edfe10264155a21ce49023856f4cda24fb9facb201ca1d877342f8a0
-    --[followed by]--> 3f7d8130147515ff622d21615e2ce7758d3e55b8f48dea8fb27c4094fb0b3aa0
-    --[mention in]--> 92d587b1c1b9358d612119ddc0daba2e121b5334baced957f0815d3eae523df6
-
-Node: 26021908f5b9c9730a99e0fc638ef14193d1db35342b0395ff1cdd12e1979ca9
-  Attributes: {'file_id': '26021908f5b9c9730a99e0fc638ef14193d1db35342b0395ff1cdd12e1979ca9', 'id': 'role: user content: I\'m conducting a research project on how weather conditions impact the production of films. I need to find relevant academic papers on this topic first. Then, I want to create visual summaries for the key findings to present in my report. Could you help me search for these papers and generate summary images from the text data? role: assistant content: I\'ll help you find relevant academic papers on how weather conditions impact film production, and then create visual summaries for your report. Let me start by searching for academic papers on this topic. role: function content: Found 5441 papers matching "weather conditions impact film production" Comprehensive investigation of rooftop photovoltaic power plants with monocrystalline polycrystalline and thin-film technologies for exergy economic and environmental assessments (2025) Authors: Abdelhak Lekbir, Samir Hassani, Putri Nor Liyana Mohamad Radzi, Saad Mekhilef, K. Tey, Abdullahi Mohamed Samatar, Obaid Alshammari Venue: Scientific Reports Citations: 2 URL: https://www.semanticscholar.org/paper/18440ad6440052fef439bdfe1a3109f3ae7c1ca9 Agrochemical Contamination and Ageing Effects on Greenhouse Plastic Film for Recycling (2022) Authors: P. Picuno, Z. Godosi, Caterina Picuno Venue: Applied Sciences Citations: 6 URL: https://www.semanticscholar.org/paper/abdace4aa2c54611791f38ee4f88004b53624922 The Impact of Weather Conditions on Renewable Energy Production: A Machine Learning Approach (2024) Authors: Recep ÖZbay, Merve Çelebi, U. Yavanoglu Venue: BigData Congress [Services Society] Citations: 0 URL: https://www.semanticscholar.org/paper/4be7edb2a1777ad230dbbe25c00f71186372b37f Statistical Analyses of Weather Conditions Impacts on Consumptive Use for Rice Production in Sulaimani Province (2024) Authors: Bushra Qadir Karim Venue: Journal of University of Raparin Citations: 0 URL: https://www.semanticscholar.org/paper/7db3e2987d080236c23a66bca6d0dd93c62ae9f2 Impact of extreme weather conditions on European crop production in 2018 (2020) Authors: D. Beillouin, Bernhard Schauberger, A. Bastos, P. Ciais, D. Makowski Venue: Philosophical Transactions of the Royal Society of London. Biological Sciences Citations: 233 URL: https://www.semanticscholar.org/paper/4b009f83469830ab725e6ba5743c7bb85bc74a6c Impact of Genotype, Weather Conditions and Production Technology on the Quantitative Profile of Anti-Nutritive Compounds in Rye Grains (2021) Authors: J. Grabiński, A. Sułek, Marta Wyzińska, K. Stuper-Szablewska, G. Cacak-Pietrzak, A. Nieróbca, D. Dziki Citations: 12 URL: https://www.semanticscholar.org/paper/63b9a839591be1912c27db158919c380e089564e EVALUATION OF THE IMPACT OF SOWING SEASON AND WEATHER CONDITIONS ON MAIZE YIELD (2023) Authors: A. Șimon, A. Ceclan, V. Has, A. Varga, Florin Russu, F. Chețan, Marius Bărdaș Venue: AgroLife Scientific Journal Citations: 5 URL: https://www.semanticscholar.org/paper/dcf97f1b1e7fe91241fdc2f93d1d3d1a44bda118 Identifying the Primary Producer of High Concentrations of 2-Methylisoborneol and Assessing the Impact of Weather Conditions at the Haizuka Reservoir, Japan (2025) Authors: Shohei Hayashi, Sangyeob Kim, K. Ayukawa, Shogo Sugahara, Yasushi Seike, Yasuhide Nakamura Venue: Water Citations: 0 URL: https://www.semanticscholar.org/paper/03627bd52539c715274880c7ece7087a7f54facb Performance comparison and impact of weather conditions on different photovoltaic modules in two different cities (2022) Authors: Caouthar Bahanni, Mustapha Adar, S. Boulmrharj, M. Khaidar, Mustapha Mabrouki Venue: Indonesian Journal of Electrical Engineering and Computer Science Citations: 6 URL: https://www.semanticscholar.org/paper/d3dea53b5d50183ac5554ef6525873affde2b4bb Predicting Wine Properties Based on Weather Conditions Using Machine Learning Techniques (2024) Authors: Sijce Miovska, C. M. Bande, Natasha Stojkovik Venue: International Convention on Information and Communication Technology, Electronics and Microelectronics Citations: 0 URL: https://www.semanticscholar.org/paper/3fda940c82565ed158aec1db51635f23903e8aa8 Optimizing storage of a catch crop before biogas production: Impact of ensiling and wilting under unsuitable weather conditions (2017) Authors: R. Franco, P. Buffière, R. Bayard Citations: 30 URL: https://www.semanticscholar.org/paper/7a21f020f83c1f0d5992901106553faabcaaa6a9 PROGRAM APPROACH TO INTEGRATED COLLECTION AND DATA PRODUCTION ON VEHICLE INTENSITY MOVEMENTS, WEATHER CONDITIONS AND NATURAL LIGHT IN HOURLY INTERVALS (2023) Authors: I. N. Pugachev, P. B. Skripko, N. Sheshera Venue: T-Comm Citations: 2 URL: https://www.semanticscholar.org/paper/9e538659314cacbbf9aedb7fd54c84e365a61eff Water level drawdown makes boreal peatland vegetation more responsive to weather conditions (2023) Authors: E. Köster, Jack P B Chapman, Janna M. Barel, A. Korrensalo, A. Laine, H. Vasander, E. Tuittila Venue: Global Change Biology Citations: 11 URL: https://www.semanticscholar.org/paper/d8abece00b422c9e02637ff3d68d8751fce2e500 Impact of weather conditions and sowing method on seed performance of meadow clover in the Middle Urals (2021) Authors: И. Касаткина, Ж.С. Нелюбина, Ш. Фатыхов, N. Kasatkina, Z. Nelyubina Citations: 3 URL: https://www.semanticscholar.org/paper/e44e5ef3d626094bdcee49c8c3cb68ca84d960f3 The Impact of Climate Change and Extreme Weather Conditions on Agricultural Health and Safety in California (2020) Authors: Heather E Riden, E. Felt, K. Pinkerton Venue: Climate Change and Global Public Health Citations: 3 URL: https://www.semanticscholar.org/paper/192af4c8347557b1f97e1fb0d88014436b8f0da5 There are more results available. Use offset=15 to see the next page. role: assistant content: Let me try a more focused search on film/movie production weather impacts: role: function content: Error searching papers: Cannot read properties of undefined (reading \'length\') role: assistant content: Let me try a different approach with broader search terms: role: function content: Tool ai-research-scholar-papers-search-basic does not exists. role: assistant content: Let me use the correct tool name: role: function content: Found 73 papers matching "weather effects on film production shooting location" Imaging Communities: Location Shooting as Place-making in Contemporary Chinese and Taiwanese Cinemas (2015) Authors: D. Lo Citations: 0 URL: https://www.semanticscholar.org/paper/335e4f979c4efa627b36ad4a95c0dbd2a38ed421 Contracting out Hollywood : runaway productions and foreign location shooting (2005) Authors: G. Elmer, Mike Gasher Citations: 52 URL: https://www.semanticscholar.org/paper/5b6984e4685e1221f823ef8a98aa470c4a6f55c5 Peran Editor Film dalam Pembuatan Film Pendek Fiksi “Lamunan” (2021) Authors: Yogi Harmawansah, Arryadianta Arryadianta Citations: 0 URL: https://www.semanticscholar.org/paper/4b856b8dd9485cbee18926afdc4de00e9b4983c2 Relay-cropping and Fallow Programs for Strawberry-based Production System: Effects on Crop Productivity and Weed Control (2018) Authors: Jialin Yu, N. Boyd, Zhengfei Guan Citations: 13 URL: https://www.semanticscholar.org/paper/30f9b65573f5ca1d576970fee877a12c4703843c EFFECTS OF DIFFERENT PLASTIC FILMS MULCHING ON SOIL TEMPERATURE AND MOISTURE, AND FILM MECHANICAL PROPERTY (2020) Authors: Wang Long, Wang Xufeng, H. Can, H. Xiaowei, Guo Wensong, Hou Shulin, Hou Shulin Citations: 0 URL: https://www.semanticscholar.org/paper/a01c1efe0e175b127c5e4ab7da87e41c00e9fa13 The Mental Effects on Child Actors in Playing a Role: Observations on Filming Sites and Interviews with Filming Personnel (2013) Authors: G. Bahn, Bongseog Kim, Jun-Won Hwang, H. Yoo, J. Min, Y. Kwack, Minha Hong Citations: 1 URL: https://www.semanticscholar.org/paper/f5bbabd859b5f801df5fbe300332fa00dbde29aa EFFECTS OF APEX REMOVAL AND NUTRIENT SUPPLEMENTATION ON BRANCHING AND SEED PRODUCTION IN THLASPI ARVENSE (BRASSICACEAE). (1988) Authors: B. Benner Venue: American-Eurasian journal of botany Citations: 94 URL: https://www.semanticscholar.org/paper/da44d6e43c63d9594b9cf89d821f8a7a18b0c48c Water stress effects on growth of dipterocarpus turbinatus seedlings (2010) Authors: Nure Ferdousee, Alamgir Kabir, Romel Ahmed, Mi Kwon, A. Hoque, M. Mohiuddin, Wook Kim Citations: 4 URL: https://www.semanticscholar.org/paper/a7bf0ce3bb95c49e3ba1b3202088aecc85234f1b Virtually Real (2022) Authors: C. Iseli, M. L. Loertscher, Gerber Thomas Venue: Interactive Film and Media Journal Citations: 1 URL: https://www.semanticscholar.org/paper/a37531128c785f0cfd09ef5c6a1e94a682ce36cd Impact of climate change on grape berry ripening: An assessment of adaptation strategies for the Australian vineyard (2022) Authors: S. Rogiers, D. Greer, Yin Liu, T. Baby, Zeyu Xiao Venue: Frontiers in Plant Science Citations: 55 URL: https://www.semanticscholar.org/paper/e12aeabae19e0539995f72faf558e20e40e04379 Mathematical Model for Movie Shooting Time Planning (2020) Authors: Li Yuxuan Citations: 0 URL: https://www.semanticscholar.org/paper/64fcd763f40c3e806aed0e7c44b49da37dc48a8d The Reform and Promotion of Stop-motion Animation in Film and Television Short Films (2018) Authors: Xiao Rong Citations: 0 URL: https://www.semanticscholar.org/paper/74d8427953f55a69aba51ade82b767638171c126 Corrosion Degradation Behavior of Bending Aluminum and Copper Materials for Air Conditioning Refrigerant Piping (2024) Authors: Seiji Uchiyama, Satoshi Uemura, Takeharu Hayashi, Yuji Kimura, Shiro Seki Venue: ECS Meeting Abstracts Citations: 0 URL: https://www.semanticscholar.org/paper/7781237de5d6c897a4755c448ca71e63e03ef41a Verdens Undergang (1916) and the Birth of Apocalyptic Film: Antecedents and Causative Forces (2016) Authors: Wynn Gerald Hamonic Venue: Journal of Religion &amp; Film Citations: 0 URL: https://www.semanticscholar.org/paper/8f2924c849f7b5456b11d147bafec43d05d9bcc0 Advanced snowmelt affects vegetative growth and sexual reproduction of Vaccinium myrtillus in a sub-alpine heath (2013) Authors: R. Gerdol, Chiara Siffi, P. Iacumin, M. Gualmini, M. Tomaselli Citations: 54 URL: https://www.semanticscholar.org/paper/bce7168c15f5818e7408839472b1b82fbf0ea931 There are more results available. Use offset=15 to see the next page. role: assistant content: Let me search with more specific weather-related terms for outdoor filming: role: function content: Found 106 papers matching "climate weather outdoor filming challenges production delays" TianQuan-Climate: A Subseasonal-to-Seasonal Global Weather Model via Incorporate Climatology State (2025) Authors: Guowen Li, Xintong Liu, Shilei Cao, Haoyuan Liang, Mengxuan Chen, Lixian Zhang, Jinxiao Zhang, Jiuke Wang, Meng Jin, Juepeng Zheng, Haohuan Fu Venue: arXiv.org Citations: 0 URL: https://www.semanticscholar.org/paper/597dcf139fff9b177c6656bb86f680eb985bc97a Viticultural Manipulation and New Technologies to Address Environmental Challenges Caused by Climate Change (2023) Authors: Qun Sun, Gabriel Granco, Leah Groves, Jully Voong, Sonet van Zyl Venue: Climate Citations: 15 URL: https://www.semanticscholar.org/paper/3029397444e8583b00f0f555e0f9a08492d0e7a7 Climate change and medical laboratory operations: Impacts, challenges, and adaptation strategies: A narrative review (2025) Authors: E. Obeagu, Basuti Bolo Venue: Medicine Citations: 0 URL: https://www.semanticscholar.org/paper/3253fdeba6836ab51a459c52bcfc71e2452e4668 Impact and Assessment of Climate Change on Agricultural Production in India: A Geographical Perspective (2024) Authors: Shephali Prakash Venue: International Journal For Multidisciplinary Research Citations: 3 URL: https://www.semanticscholar.org/paper/c33006333084da847e05d82a632cd0bdc649fc11 Navigating the Coffee Business Landscape: Challenges and Adaptation Strategies in a Changing World (2023) Authors: Mariano Peluso Venue: International Conference on Intelligent Cloud Computing Citations: 4 URL: https://www.semanticscholar.org/paper/c822a1cb1c236ea6a1eda2e6c78b561766f781ef GreenLight-Gym: A Reinforcement Learning Benchmark Environment for Greenhouse Crop Production Control (2024) Authors: Bart van Laatum, Eldert J. van Henten, Sjoerd Boersma Venue: arXiv.org Citations: 1 URL: https://www.semanticscholar.org/paper/53b5a6a3c1c4c24bf5d2b5115446ebaad137fa91 HYDROPONIC VERTICAL SYSTEMS: ENHANCING CLIMATE RESILIENCE, WATER EFFICIENCY, AND URBAN AGRICULTURE (2024) Authors: I. Găgeanu, A. Tăbărașu, C. Persu, Gabriel Gheorghe, Mihaela Nițu, D. Cujbescu, Alexandru Ionescu, D. Anghelache Venue: INMATEH Agricultural Engineering Citations: 1 URL: https://www.semanticscholar.org/paper/c20c14efa06c41defaea4b9dbb3363629c880689 Impact of Climate Fluctuations on Paddy Yield: A Case Study in Kollengode Village, India (2024) Authors: K. R. Sreeni, Nirmala Vasudevan Venue: E3S Web of Conferences Citations: 0 URL: https://www.semanticscholar.org/paper/08418908f38aba9949337ddf3d7c29815b41db8f Lower farrowing rate in female pigs associated with higher outdoor temperatures in humid subtropical and continental climate zones in Japan (2016) Authors: R. Iida, Y. Koketsu Citations: 12 URL: https://www.semanticscholar.org/paper/5c582938448af1666d78b1f6c924df7f31ded836 Why is the price of coffee rising globally? Future prospects for Ethiopian coffee (2025) Authors: Kelemu Dessie Massrie Venue: Frontiers in Sustainable Food Systems Citations: 1 URL: https://www.semanticscholar.org/paper/f32e9dc86e2d98ef0e2ed5d78ecb34e7e61cd74d Assessing the feasibility of using the heat demand-outdoor temperature function for a long-term district heat demand forecast Recent Development in the Production of Third Generation Biodiesel from Microalgae Recent Development in the Production of Third Generation Biodiesel from Microalgae (2017) Authors: Oleksandr Ivakhnenko, Adina Aimukhan, Aida Kenshimova, Fandus Mullagaliyev, Erlan Akbarov, L. Mullagaliyeva, Svetlana Kabirova, Azamat Almukhametov Citations: 0 URL: https://www.semanticscholar.org/paper/a8e4d27934b992fddb8e5941afe6f8b0160850bd Agro-pastoralist Resilience: Emerging Challenges towards Innovated Pathways of Climate Change Effects in Semi-arid areas of Kiteto and Kilindi Districts, Tanzania (2022) Authors: Henry George Mung’ong’o Venue: African Journal of Accounting and Social Science Studies Citations: 1 URL: https://www.semanticscholar.org/paper/5c66683816dda02323c0a48b5a417cb4537a79b6 Impact of Climate Change on the Production of Coffea arabica at Mt. Kilimanjaro, Tanzania (2021) Authors: Sigrun Wagner, L. Jassogne, Elizabeth Price, Martin K. Jones, R. Preziosi Venue: Agriculture Citations: 34 URL: https://www.semanticscholar.org/paper/8ee35095e662880fe45294098f004d9714dbe312 The Impact of Weather and Slope Conditions on the Productivity, Cost, and GHG Emissions of a Ground-Based Harvesting Operation in Mountain Hardwoods (2021) Authors: Sättar Ezzati, F. Tavankar, M. Ghaffariyan, R. Venanzi, F. Latterini, R. Picchio Venue: Forests Citations: 4 URL: https://www.semanticscholar.org/paper/200322d3ab19db9b003f89e80140cc0e3e3c769c From Stress to Success: Harnessing Technological Advancements to Overcome Climate Change Impacts in Citriculture (2023) Authors: Syed Bilal Hussain, E. Karagiannis, Meryam Manzoor, V. Ziogas Venue: Critical reviews in plant sciences Citations: 12 URL: https://www.semanticscholar.org/paper/518ccd05a3b85f2ce3903348018f7ea62f903534 There are more results available. Use offset=15 to see the next page. role: assistant content: Let me search specifically for media production and environmental conditions: role: function content: Found 281 papers matching "environmental factors location shooting film television production" A new simulation method for moiré control of LED background screen in film and television shooting (2023) Authors: Che Qu, Junpeng Huang, Zhenghong Lu Venue: Other Conferences Citations: 0 URL: https://www.semanticscholar.org/paper/af1cef4258c81854a2208cb5e56cc7c94439c3ae Malaysia as a Film Location for Foreign Production (2022) Authors: Nurfadilla Kamal Shah, Zainatul Shuhaida Abdull Rahman Venue: Environment-Behaviour Proceedings Journal Citations: 0 URL: https://www.semanticscholar.org/paper/b599665af34ab7ebbb4697deedaac49a2aa5588e Peculiarities of Operator Shooting of Television Programs in Interiors (2024) Authors: Khrystyna Batalina, Dmytro Shatilo Venue: Bulletin of Kyiv National University of Culture and Arts Series in Audiovisual Art and Production Citations: 0 URL: https://www.semanticscholar.org/paper/2102f19dc455c2359956d39173b97a1019a669fd Visible Artificial Intelligence: Exploring the Enhancement of Chatgpt and Film Script Creation (2024) Authors: Xinhao Zhou, Meiqi Xu, Min Sun Venue: Communications in Humanities Research Citations: 0 URL: https://www.semanticscholar.org/paper/08935a54baa7765f8c45cdb5d761abdecce0b36e All the World\'s a Studio: The Internationalization of Hollywood Production and Location Shooting in the Postwar Era - eScholarship (2013) Authors: D. Steinhart Citations: 0 URL: https://www.semanticscholar.org/paper/908ec06d965e97c2133b999d1c866608a80cebf4 All the World\'s a Studio: The Internationalization of Hollywood Production and Location Shooting in the Postwar Era (2013) Authors: D. Steinhart Citations: 0 URL: https://www.semanticscholar.org/paper/5371fdf3b4865329239a6088fe6d779081c213c2 Imaging Communities: Location Shooting as Place-making in Contemporary Chinese and Taiwanese Cinemas (2015) Authors: D. Lo Citations: 0 URL: https://www.semanticscholar.org/paper/335e4f979c4efa627b36ad4a95c0dbd2a38ed421 The pastoral station: an overlooked ‘outback’ location space in Australia’s regional screen history (2024) Authors: Melanie Ashe Venue: Continuum Citations: 0 URL: https://www.semanticscholar.org/paper/3724f11e76a6ee21c5682c2366a5beeba9d07cd2 Contracting out Hollywood : runaway productions and foreign location shooting (2005) Authors: G. Elmer, Mike Gasher Citations: 52 URL: https://www.semanticscholar.org/paper/5b6984e4685e1221f823ef8a98aa470c4a6f55c5 ‘On location’: The realities of precariousness on labour mobility for independent filmmakers in the Australian screen industry (2025) Authors: Louise Ingersoll, Scott Fitzgerald, John Burgess Venue: Journal of Sociology Citations: 0 URL: https://www.semanticscholar.org/paper/9064a2bcdc098949876b0e263fb7ee36e8834126 Research on the Shooting Techniques for Online Interactive Video Production and Audience Understandings of Popular Science News Feature: Using Environmental Issues as an Example Subtitle as Needed (2018) Authors: M. Tsai, Yi-Song Chen Venue: Portland International Conference on Management of Engineering and Technology Citations: 0 URL: https://www.semanticscholar.org/paper/15412fe9ce2cfe66f91b067b8b24284178cc0805 The Musical-Drama Television Film “Bung Karno Under The Breadfruit Tree” (2022) Authors: Komang Arba Wirawan, I. W. Adnyana, Nyoman Lia Susanthi, Made Rai Budaya Bumiarta, I. M. D. Chrisna, Ida Bagus, Hari Kayana Putra, Ketut Sumerjana, Nyoman Payuyasa, I. Ketut, Muka, I. P. B. B. S. G. Saputra, Ni Wayan Suratni, Komang Darmayuda, I. W. Ardini, Guntur Eko Prasetya, Ketut, Hery Budiyana, Wahyu Indira, I. K. Puriartha, Ni Made Arshiniwati Venue: Lekesan Interdisciplinary Journal of Asia Pacific Arts Citations: 1 URL: https://www.semanticscholar.org/paper/500a685600f3ed6c9300776ecc6d0b26393e817a "A New Form of Black Genre Communication": Video, Urban Development, and the Ensemblic Production of a Black Soap Opera (2023) Authors: Nicholas Forster Venue: Film History Citations: 0 URL: https://www.semanticscholar.org/paper/7bff357a82b31c7a54f766af229905710bc2367c Tax Credits for Foreign Location Shooting of Films: No Net Benefit for Canada (2013) Authors: J. Lester Citations: 8 URL: https://www.semanticscholar.org/paper/25c35ad414d9980003fc0cb07d05a52390ed4447 Green Screens, Green Pixels and Green Shooting (2022) Authors: V. Helzle, S. Spielmann, Jonas Trottnow Venue: Special Interest Group on Computer Graphics and Interactive Techniques Conference Talks Citations: 6 URL: https://www.semanticscholar.org/paper/ce02bd373b5c2e726025514f64974e74c378911e There are more results available. Use offset=15 to see the next page. role: assistant content: Based on my search, I found relevant academic papers about film production and environmental factors. Let me get more details from some key papers and then create visual summaries for you. Let me examine a few of the most relevant papers more closely: role: function content: Title: Malaysia as a Film Location for Foreign Production Authors: Nurfadilla Kamal Shah, Zainatul Shuhaida Abdull Rahman Year: 2022 Venue: Environment-Behaviour Proceedings Journal Citations: 0 Abstract: The foreign film industry is one of the creative industries that has helped a lot to generate the country\'s economy and improve the tourism sector. The arrival of foreign film production can enhance the country\'s reputation through the introduction of science and culture to the world community through film. In addition, the creative industry is able to introduce interesting places in Malaysia to be used as filming locations. Indirectly can promote Malaysia as a destination of choice for filming purposes. In addition to helping promote the country, job opportunities can be created for artists and behind -the -scenes crew. Various factors must be identified as to why foreign production companies make Malaysia one of their filming locations whether in the category of films, drama series, documentaries or television programs. This study aims to identify the focus location for the purpose of filming foreign films and also look at the attractions and facilities such as incentives provided by the government to the production of these foreign films for filming in Malaysia. URL: https://www.semanticscholar.org/paper/b599665af34ab7ebbb4697deedaac49a2aa5588e Open Access: Yes PDF: https://ebpj.e-iph.co.uk/index.php/EBProceedings/article/download/4272/2362 role: function content: Title: ‘On location’: The realities of precariousness on labour mobility for independent filmmakers in the Australian screen industry Authors: Louise Ingersoll, Scott Fitzgerald, John Burgess Year: 2025 Venue: Journal of Sociology Citations: 0 Abstract: In analysing the working lives of independent filmmakers, a critical consideration is the aspect of where work takes place and the need for both appropriate space in which to shoot films and the mobility to make it happen. The concept of being ‘on location’ is a well-known aspect of film production as the traditional studio system was designed around economies of scale and the minimisation of costs for both environmental and human factors. For those outside of the commercial system who prioritise independence and the freedom to work on projects that enable creative control, the reality of location is a major financial and artistic consideration that affects several critical factors such as: the affordability of where to live; the expectation of mobility; opportunities for career development; and the viability of sustaining enough work in the domestic context. Based on 24 semi-structured interviews with independent filmmakers in the Australian screen industry, this research considers the precariousness of creative work in the cultural industries and how this intersects with both labour mobility and the desire to build a career and sustain meaningful work and employment. URL: https://www.semanticscholar.org/paper/9064a2bcdc098949876b0e263fb7ee36e8834126 role: function content: Title: Contracting out Hollywood : runaway productions and foreign location shooting Authors: G. Elmer, Mike Gasher Year: 2005 Citations: 52 Fields of Study: Engineering URL: https://www.semanticscholar.org/paper/5b6984e4685e1221f823ef8a98aa470c4a6f55c5 role: assistant content: Now let me create visual summaries based on the findings from these papers. I\'ll generate images that visualize the key challenges and impacts of weather on film production. Let me create several visual summaries for your report: role: function content: Generated image from prompt: "A detailed infographic showing how weather conditions impact film production, with icons for rain causing filming delays, bright sun affecting lighting, wind disrupting sound recording, and temperature extremes impacting equipment and crew, all arranged in a professional research presentation style" Image metadata: { "prompt": "A detailed infographic showing how weather conditions impact film production, with icons for rain causing filming delays, bright sun affecting lighting, wind disrupting sound recording, and temperature extremes impacting equipment and crew, all arranged in a professional research presentation style", "width": 1024, "height": 768, "model": "flux", "seed": 677810, "enhance": true, "private": true, "nologo": true, "safe": false } Image saved to: mcpollinations-output/weatherimpactinfographic.png role: function content: Generated image from prompt: "A realistic scene showing a film crew struggling with adverse weather during outdoor filming, including expensive camera equipment covered with protective rain gear, crew members holding lighting equipment against strong wind, and dark storm clouds affecting the natural lighting for a major outdoor production" Image metadata: { "prompt": "A realistic scene showing a film crew struggling with adverse weather during outdoor filming, including expensive camera equipment covered with protective rain gear, crew members holding lighting equipment against strong wind, and dark storm clouds affecting the natural lighting for a major outdoor production", "width": 1024, "height": 768, "model": "flux", "seed": 196824, "enhance": true, "private": true, "nologo": true, "safe": false } Image saved to: mcpollinations-output/outdoorshootingchallenges.png role: function content: Generated image from prompt: "A comparison chart showing ideal vs challenging weather conditions for film location scouting, with sunny conditions on the left showing green checkmarks and perfect filming weather, and stormy conditions on the right showing red X marks for rain, wind, and poor visibility, designed as a professional decision-making matrix" Image metadata: { "prompt": "A comparison chart showing ideal vs challenging weather conditions for film location scouting, with sunny conditions on the left showing green checkmarks and perfect filming weather, and stormy conditions on the right showing red X marks for rain, wind, and poor visibility, designed as a professional decision-making matrix", "width": 1024, "height": 768, "model": "flux", "seed": 924202, "enhance": true, "private": true, "nologo": true, "safe": false } Image saved to: mcpollinations-output/locationscoutingweather.png role: function content: Generated image from prompt: "An organizational chart showing climate adaptation strategies for film production, including weather monitoring systems, contingency planning, portable equipment solutions, indoor backup locations, schedule flexibility indicators, and budget allocation for weather delays, ', 'type': 'passage'}
-  In-degree: 5, Out-degree: 0
-
-Node: d4478a380f847110c1e99d82ca23cc34539df347922c0bbd39940eec035d1edb
-  Attributes: {'file_id': 'd4478a380f847110c1e99d82ca23cc34539df347922c0bbd39940eec035d1edb', 'id': "role: user content: I'm running a long operation in a terminal session that's consuming too much CPU and memory. I need to: 1. See which command I originally executed in the terminal 2. Monitor how much CPU and memory the related process is using 3. If it's running out of control, I want to safely terminate that specific process Can you help me manage this situation? role: assistant content: I'll help you manage this resource-intensive terminal session step by step. Let me start by checking your active terminal sessions and running processes. role: function content: No active sessions role: function content: PID: 1, Command: /fly/init, CPU: root, Memory: 0:01 PID: 2, Command: [kthreadd], CPU: root, Memory: 0:00 PID: 3, Command: [poolworkqueue], CPU: root, Memory: 0:00 PID: 4, Command: [kworker/R-rcug], CPU: root, Memory: 0:00 PID: 5, Command: [kworker/R-sync], CPU: root, Memory: 0:00 PID: 6, Command: [kworker/R-slub], CPU: root, Memory: 0:00 PID: 7, Command: [kworker/R-netns], CPU: root, Memory: 0:00 PID: 8, Command: [kworker/0:0-vir], CPU: root, Memory: 0:00 PID: 9, Command: [kworker/0:0H-ev], CPU: root, Memory: 0:00 PID: 10, Command: [kworker/0:1-eve], CPU: root, Memory: 0:00 PID: 11, Command: [kworker/u4:0-io], CPU: root, Memory: 0:00 PID: 12, Command: [kworker/R-mmpe], CPU: root, Memory: 0:00 PID: 13, Command: [rcutaskskthre], CPU: root, Memory: 0:00 PID: 14, Command: [rcutasksrude], CPU: root, Memory: 0:00 PID: 15, Command: [rcutaskstrace], CPU: root, Memory: 0:00 PID: 16, Command: [ksoftirqd/0], CPU: root, Memory: 0:00 PID: 17, Command: [rcupreempt], CPU: root, Memory: 0:00 PID: 18, Command: [rcuexppargp], CPU: root, Memory: 0:00 PID: 19, Command: [rcuexpgpkthr], CPU: root, Memory: 0:00 PID: 20, Command: [migration/0], CPU: root, Memory: 0:00 PID: 21, Command: [cpuhp/0], CPU: root, Memory: 0:00 PID: 23, Command: [kdevtmpfs], CPU: root, Memory: 0:00 PID: 24, Command: [kworker/R-inet], CPU: root, Memory: 0:00 PID: 25, Command: [kauditd], CPU: root, Memory: 0:00 PID: 26, Command: [oomreaper], CPU: root, Memory: 0:00 PID: 29, Command: [kworker/R-write], CPU: root, Memory: 0:00 PID: 30, Command: [kcompactd0], CPU: root, Memory: 0:00 PID: 31, Command: [ksmd], CPU: root, Memory: 0:00 PID: 32, Command: [khugepaged], CPU: root, Memory: 0:00 PID: 33, Command: [kworker/R-kinte], CPU: root, Memory: 0:00 PID: 34, Command: [kworker/R-kbloc], CPU: root, Memory: 0:00 PID: 36, Command: [kworker/R-rpcio], CPU: root, Memory: 0:00 PID: 37, Command: [kworker/0:1H-kb], CPU: root, Memory: 0:00 PID: 38, Command: [kworker/R-xprti], CPU: root, Memory: 0:00 PID: 51, Command: [kswapd0], CPU: root, Memory: 0:00 PID: 67, Command: [kworker/R-nfsio], CPU: root, Memory: 0:00 PID: 71, Command: [kworker/R-kthro], CPU: root, Memory: 0:00 PID: 103, Command: [card0-crtc0], CPU: root, Memory: 0:00 PID: 142, Command: [kworker/u5:0], CPU: root, Memory: 0:00 PID: 145, Command: [kworker/R-nbd0-], CPU: root, Memory: 0:00 PID: 148, Command: [kworker/R-nbd1-], CPU: root, Memory: 0:00 PID: 149, Command: [kworker/R-nbd2-], CPU: root, Memory: 0:00 PID: 154, Command: [kworker/R-nbd3-], CPU: root, Memory: 0:00 PID: 155, Command: [kworker/R-nbd4-], CPU: root, Memory: 0:00 PID: 160, Command: [kworker/R-nbd5-], CPU: root, Memory: 0:00 PID: 163, Command: [kworker/R-nbd6-], CPU: root, Memory: 0:00 PID: 166, Command: [kworker/R-nbd7-], CPU: root, Memory: 0:00 PID: 167, Command: [kworker/R-nbd8-], CPU: root, Memory: 0:00 PID: 170, Command: [kworker/R-nbd9-], CPU: root, Memory: 0:00 PID: 173, Command: [kworker/R-nbd10], CPU: root, Memory: 0:00 PID: 176, Command: [kworker/R-nbd11], CPU: root, Memory: 0:00 PID: 179, Command: [kworker/R-nbd12], CPU: root, Memory: 0:00 PID: 182, Command: [kworker/R-nbd13], CPU: root, Memory: 0:00 PID: 185, Command: [kworker/R-nbd14], CPU: root, Memory: 0:00 PID: 190, Command: [kworker/R-nbd15], CPU: root, Memory: 0:00 PID: 196, Command: [kworker/R-rbd], CPU: root, Memory: 0:00 PID: 201, Command: [kworker/R-iscsi], CPU: root, Memory: 0:00 PID: 225, Command: [kworker/R-vfio-], CPU: root, Memory: 0:00 PID: 238, Command: [kworker/R-dmbu], CPU: root, Memory: 0:00 PID: 247, Command: [kworker/R-tls-s], CPU: root, Memory: 0:00 PID: 251, Command: [kworker/R-mld], CPU: root, Memory: 0:00 PID: 252, Command: [kworker/R-ipv6_], CPU: root, Memory: 0:00 PID: 259, Command: [kworker/R-kstrp], CPU: root, Memory: 0:00 PID: 260, Command: [kworker/R-ceph-], CPU: root, Memory: 0:00 PID: 494, Command: [kworker/u4:5-ev], CPU: root, Memory: 0:00 PID: 620, Command: [jbd2/vda-8], CPU: root, Memory: 0:00 PID: 621, Command: [kworker/R-ext4-], CPU: root, Memory: 0:00 PID: 622, Command: [jbd2/vdb-8], CPU: root, Memory: 0:00 PID: 623, Command: [kworker/R-ext4-], CPU: root, Memory: 0:00 PID: 629, Command: /.fly/hallpass, CPU: root, Memory: 0:00 PID: 631, Command: eyJzdGFydENvbW1hbmQiOnsidHlwZSI6InN0ZGlvIiwiY29uZmlnU2NoZW1hIjp7InR5cGUiOiJvYmplY3QiLCJwcm9wZXJ0aWVzIjp7fX0sImNvbW1hbmRGdW5jdGlvbiI6Iihjb25maWcpID0+ICh7IGNvbW1hbmQ6ICdub2RlJywgYXJnczogWydkaXN0L2luZGV4LmpzJ10gfSkiLCJleGFtcGxlQ29uZmlnIjp7fX0sImVudiI6e319, CPU: root, Memory: 0:01 PID: 851, Command: [kworker/u4:2-io], CPU: root, Memory: 0:00 PID: 1058, Command: [kworker/u4:1], CPU: root, Memory: 0:00 PID: 1102, Command: dist/index.js, CPU: root, Memory: 0:00 PID: 1108, Command: dist/index.js, CPU: root, Memory: 0:00 PID: 1124, Command: dist/index.js, CPU: root, Memory: 0:00 PID: 1216, Command: dist/index.js, CPU: root, Memory: 0:00 PID: 1234, Command: dist/index.js, CPU: root, Memory: 0:00 PID: 1264, Command: dist/index.js, CPU: root, Memory: 0:00 PID: 1282, Command: aux, CPU: root, Memory: 0:00 role: assistant content: Based on my analysis, here's what I found: Terminal Sessions Status There are no active terminal sessions currently showing up. This could mean either: The terminal session has already completed or been terminated The process might be running as a background process independent of the terminal Process Analysis I can see several Node.js processes running with the command dist/index.js: PIDs: 1102, 1108, 1124, 1216, 1234, 1264 Status: All showing as root user, but CPU/Memory usage appears relatively low at 0:00-0:01 The extra processes (PID 1102, 1108, etc.) appear to be worker threads or child processes spawned by the main application. Current Resource Usage The Node.js processes appear to be consuming relatively low CPU and memory based on the current snapshot. However, since you mentioned high resource usage, this might have been an intermittent spike. Recommended Actions Since there's no active terminal session but Node.js processes are running, let me help you: Monitor these processes in real-time to see actual resource usage Safely terminate the main process if needed Would you like me to: Terminate the Node.js processes (PIDs 1102-1264) if they're the ones causing issues? Set up a monitoring command to watch CPU/memory usage over a specific period? Which approach would you prefer?", 'type': 'passage'}
-  In-degree: 1, Out-degree: 0
-
-Node: 2bc28388cb59d7cbe4ab231766f723fed7a584dfe00c9ddd64ea39e4daebeabd
-  Attributes: {'id': 'search_for_FY2024', 'type': 'entity', 'file_id': 'ff9be68b51dc6bb28b6627d9200a8c7d8dd01127cdba662ae27de404606f96f6', 'concept': ['explore', 'find', 'discover', 'search', 'locate', 'query', 'research']}
-  In-degree: 0, Out-degree: 2
-  Sample out-edges:
-    --[before]--> ba53ff8f2d8fdf053cbf0ea11b4efbf788e9a901d1609fda775525f0ab565147
-    --[mention in]--> ff9be68b51dc6bb28b6627d9200a8c7d8dd01127cdba662ae27de404606f96f6
-
-Node: ddd869cfb558497659f9cb09b19bfd1d470a6131ab0ffdef2ea09aef98db0a10
-  Attributes: {'id': 'retrieve_current_price', 'type': 'entity', 'file_id': 'bfa723897a323e968c7b4b14b1d7e9689643d97d22840460277a834ab2c1a34d', 'concept': ['operation', 'method', 'process', 'task', 'action', 'function']}
-  In-degree: 2, Out-degree: 3
-  Sample out-edges:
-    --[uses output of]--> 7bee55391ad029941c051a75cd509e8df53493a2d4b30cdb73e710823eded812
-    --[before]--> d9d86453e04046defab66f6208d86ac7c32fca969d27050c2061ee0165d16469
-    --[mention in]--> bfa723897a323e968c7b4b14b1d7e9689643d97d22840460277a834ab2c1a34d
-
-Node: 8594fdcaaa8ef8c18dabd9f5166bb6e4c98807bada6ed56241cc9b4c6ac37407
-  Attributes: {'id': 'saveMetadataGoogleSheets', 'type': 'entity', 'file_id': '79ae883c83a26f9cafd5f8afe9c5f4fa0b0db02f8623f8a65ce9bc73486cb14a', 'concept': ['script', 'software', 'code', 'application', 'tool', 'utility', 'function']}
-  In-degree: 1, Out-degree: 2
-  Sample out-edges:
-    --[then]--> 6998785826ff9a1ba6ca0b9e0c7c90ee8a11f0168b2cf253f953df850cb552eb
-    --[mention in]--> 79ae883c83a26f9cafd5f8afe9c5f4fa0b0db02f8623f8a65ce9bc73486cb14a
-
-Node: 6f3292fdfeb71d8ce7993e7a1317df000a3683cca2b8a133f42d118e87d8ae02
-  Attributes: {'id': 'navigation-menu-source-code', 'type': 'entity', 'file_id': '57d7fd2e71528b1045e6258670515ec7ccdfdd9cc317c8edde4e0e5c8b3f395e', 'concept': ['interface', 'code', 'structure', 'system', 'navigation', 'menu']}
+Node: 92b99093eecc34e0a263f19cd3cb9e679e47fa01e968e6be7c5985bf5c0676d7
+  Attributes: {'id': 'tool_run_powershell', 'type': 'entity', 'file_id': '8d9d5e8cd24ded4ff030753d32c4a844673ad3dfa83ee0f05f67cc2678cc67aa', 'concept1': 'script', 'concept2': 'software', 'concept3': 'operation', 'concept4': 'utility', 'concept5': 'command', 'concept6': 'function'}
   In-degree: 2, Out-degree: 1
   Sample out-edges:
-    --[mention in]--> 57d7fd2e71528b1045e6258670515ec7ccdfdd9cc317c8edde4e0e5c8b3f395e
+    --[mention in]--> 8d9d5e8cd24ded4ff030753d32c4a844673ad3dfa83ee0f05f67cc2678cc67aa
 
-Node: 359c3229dc04bac675265a713a672c62ff789b1f52f5cb8fc176e330298c46cc
-  Attributes: {'id': 'assistant_17', 'type': 'entity', 'file_id': '0b5ee8677c1e24f709b56c7413cee24aeca94126816019419f116d0d4663b829', 'concept': ['colleague', 'worker', 'assistant', 'helper', 'support']}
+Node: a68ec00d32ab046659ecb45af44a7fb6b0699b6a9012b50a8abee778523c85f1
+  Attributes: {'id': 'create_healthtracker_monobehaviour', 'type': 'entity', 'file_id': '94969712c5c866b14dbbafab4f7be33126661cfca383f96aa6fb6932a1d4bac1', 'concept1': 'script', 'concept2': 'code', 'concept3': 'behaviour', 'concept4': 'development', 'concept5': 'component', 'concept6': 'programming', 'concept7': 'function'}
   In-degree: 2, Out-degree: 2
   Sample out-edges:
-    --[then]--> dc8f42e0358e9a778ecbfb9a00e14a9aa4bd4ab4e0d6f030c232d3bedc5a5623
-    --[mention in]--> 0b5ee8677c1e24f709b56c7413cee24aeca94126816019419f116d0d4663b829
+    --[after]--> cc94969f3814e18d73a23028763c82d46edd5a7687f56a39006ddd890145a6ef
+    --[mention in]--> 94969712c5c866b14dbbafab4f7be33126661cfca383f96aa6fb6932a1d4bac1
 
-Node: 162d8c410a51aa56b3ac8b0d9f6e3ee214899c48cf64df85e79059a37de14173
-  Attributes: {'id': 'retrieve_fabelmans_details', 'type': 'entity', 'file_id': '56c096f5372110cb857394ea573ba0e22a0d06ad5a962d74b78c02a315915609', 'concept': ['operation', 'process', 'task', 'action', 'function']}
+Node: 8e06d33b069399d45d7942bbbff0c64caaa249d2b67a99ff3875e0b352d3018f
+  Attributes: {'id': 'function content: { "status": "started", "problemStatement": "Create an optimal fruit smoothie recipe..." }', 'type': 'entity', 'file_id': 'dc5437d1db74ba14dfe31155ee7f15243d192309afb5da8e3573f548175b2874', 'concept1': 'project', 'concept2': 'creation', 'concept3': 'process', 'concept4': 'development', 'concept5': 'task', 'concept6': 'solution'}
+  In-degree: 5, Out-degree: 2
+  Sample out-edges:
+    --[then]--> d19e17d5865ae84bdf89d498433cb9761450645c8ac9c1fae593eeddeb470609
+    --[mention in]--> dc5437d1db74ba14dfe31155ee7f15243d192309afb5da8e3573f548175b2874
+
+Node: 176045156ea468a1e960be0f6b56f7ea75262ff9965898aece4dc5e8f22ab3b0
+  Attributes: {'file_id': '176045156ea468a1e960be0f6b56f7ea75262ff9965898aece4dc5e8f22ab3b0', 'id': 'role: user content: I’d like a short sci‑fi haiku about time travel, and I want to embed the server’s tiny placeholder image with it. Please also attach a JSON‑style annotation that includes the title “Chrono Haiku” and my name as the author so I can store the result in my database. Can you generate that for me? role: assistant content: I\'ll first retrieve the tiny placeholder image from the server, craft your time-travel haiku, and then wrap everything with the JSON-style annotation you requested. role: function content: This is a tiny image: The image above is the MCP tiny image. role: assistant content: Now let me create that haiku with annotations for you: role: function content: Operation completed successfully role: assistant content: Chrono Haiku Tick-tock through eons— a paradox gently hums inside yesterday. ![The image above is the MCP tiny image.] ``json { "title": "Chrono Haiku", "author": "You", "type": "sci-fi haiku", "content": "Tick-tock through eons—\\na paradox gently hums\\ninside yesterday.", "includes_image": true } ``', 'type': 'passage'}
+  In-degree: 2, Out-degree: 0
+
+Node: 250e1ac544e143ae3fb44a8a4346b2c0c972c264cae8a3d9df02df77a7fac86c
+  Attributes: {'id': 'Updates an existing task in OpenProject', 'type': 'event', 'file_id': '9db8d17f47b263a2eb347f9073a3d07ca7b334e690c035dffc970d4b8e4b5eb6', 'concept1': 'workflow', 'concept2': 'editing', 'concept3': 'updating', 'concept4': 'task management', 'concept5': 'modifying'}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is participated by]--> 18486328bff5c90b06f656c2f2cff228060c16e58fc8b44778f1b219f06424b2
+    --[is participated by]--> 5f12f7b3bac24e890bac732786a58a6b239946a3af9a6bd99baa5e0b260c7bd9
+    --[mention in]--> 9db8d17f47b263a2eb347f9073a3d07ca7b334e690c035dffc970d4b8e4b5eb6
+
+Node: c20d854fc0839344e680d1fef1ab179f6e2ee0178ab21c51057e437b48342592
+  Attributes: {'id': 'setMaturityDateRange', 'type': 'entity', 'file_id': '2a2aae991462ce6f9916ee23dfce036941294dcad06384ca2b4f6c2fe60e6df2', 'concept1': 'date', 'concept2': 'method', 'concept3': 'configuration', 'concept4': 'setting', 'concept5': 'parameter', 'concept6': 'range', 'concept7': 'function'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 2a2aae991462ce6f9916ee23dfce036941294dcad06384ca2b4f6c2fe60e6df2
+
+Node: 221c0cccf4127c1e2f89e797ccc7ec26464508b79c479b48dff89f085dafc88b
+  Attributes: {'file_id': '221c0cccf4127c1e2f89e797ccc7ec26464508b79c479b48dff89f085dafc88b', 'id': 'role: user content: I Need To Verify If A Component Used In My Figma File Is Part Of Our Team\'s Official Component Library. How Can I Check This? role: assistant content: To verify if a component in your Figma file is part of your team\'s official component library, you\'ll need to: First check what components are available in your team library Then compare the component from your file against the official ones Here\'s how you can do this: Step 1: Get your Team ID You\'ll need your team ID to check the official component library. You can find this in your Figma URL when you\'re viewing your team files, or ask your team admin. Step 2: Check the official team components role: function content: An error occurred when calling tool figma-api-integration-getteamcomponents: McpError: MCP error -32602: No Figma API key provided. Use the setapikey tool first. Traceback: File "/home/testuser/tool-rl-dev/Qwen-Agent/qwenagent/agent.py", line 192, in calltool toolresult = tool.call(toolargs, **kwargs) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File "/home/testuser/tool-rl-dev/Qwen-Agent/qwenagent/tools/mcpmanager.py", line 283, in call raise e File "/home/testuser/tool-rl-dev/Qwen-Agent/qwenagent/tools/mcpmanager.py", line 279, in call result = future.result() ^^^^^^^^^^^^^^^ File "/home/testuser/.local/share/uv/python/cpython-3.12.11-linux-x8664-gnu/lib/python3.12/concurrent/futures/base.py", line 456, in result return self.getresult() ^^^^^^^^^^^^^^^^^^^ File "/home/testuser/.local/share/uv/python/cpython-3.12.11-linux-x8664-gnu/lib/python3.12/concurrent/futures/base.py", line 401, in getresult raise self.exception File "/home/testuser/.local/share/uv/python/cpython-3.12.11-linux-x8664-gnu/lib/python3.12/asyncio/tasks.py", line 314, in steprunandhandleresult result = coro.send(None) ^^^^^^^^^^^^^^^ File "/home/testuser/tool-rl-dev/Qwen-Agent/qwenagent/tools/mcpmanager.py", line 451, in executefunction response = await self.session.calltool(toolname, toolargs) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File "/home/testuser/tool-rl-dev/.venv/lib/python3.12/site-packages/mcp/client/session.py", line 264, in calltool return await self.sendrequest( ^^^^^^^^^^^^^^^^^^^^^^^^ File "/home/testuser/tool-rl-dev/.venv/lib/python3.12/site-packages/mcp/shared/session.py", line 286, in sendrequest raise McpError(responseorerror.error) role: assistant content: I notice you\'ll first need to set up your Figma API key. Let me help you get started: First, set up your Figma API key: role: function content: No API key is configured. Please use setapikey to configure one. role: assistant content: You\'ll need to set your Figma API personal access token first. You can get this from your Figma account settings: Go to Figma → Account Settings Scroll to "Personal access tokens" Generate a new token Once you have your API key, set it up with: Set your API key: `` setapikey YOURAPIKEY_HERE `` Then provide: Your team ID (found in your team\'s Figma URL) The file key of the file you want to check The complete process will be: List official team components: Get all components from your team\'s library Get file components: Get components from your specific file Compare: Check if the component\'s key matches any official team component Let me know your API key, team ID, and file key, and I can help you verify whether the component is part of your official library. Quick alternative: You can also just send me the file key and component name you\'re checking, and I can help you identify which specific component to verify!', 'type': 'passage'}
+  In-degree: 5, Out-degree: 0
+
+Node: 6da4fa8deffdb30f33be9032a7287b33f711f7d35d155facf33e7dede00bea2f
+  Attributes: {'id': 'Primary Search Terms', 'type': 'entity', 'file_id': '7b3cf9054970932c38609b6324045ac34579a333d609d882efc08a9fbff772db', 'concept1': 'phrases1', 'concept2': 'phrases4', 'concept3': 'phrases2', 'concept4': 'phrases3'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 7b3cf9054970932c38609b6324045ac34579a333d609d882efc08a9fbff772db
+
+Node: 65cea8348c2440e9191f070b18845e230289ca1334e515fa820dc614f81065e0
+  Attributes: {'file_id': '65cea8348c2440e9191f070b18845e230289ca1334e515fa820dc614f81065e0', 'id': 'role: user content: I\'m considering investing in cryptocurrencies and want to analyze some promising opportunities. First, show me the list of currently trending coins. Then, for one of those trending coins (let\'s use Solana as an example if it\'s listed), show me its current price in USD. Finally, provide me with the 4-hour candlestick chart data for this coin over the past 24 hours to help me analyze its recent price movements and trading patterns. role: assistant content: I\'ll help you analyze the current crypto market by following your three-step approach. Let me start by fetching the trending coins, then check Solana\'s current price in USD, and finally get the 4-hour candlestick data you requested. Let me gather this information for you: role: function content: 当前热门虚拟币 (全球搜索量最高): ================================================== Mamo (MAMO) ID: mamo 市值排名: #636 BTC价格: 0.00000179 BTC Pump.fun (PUMP) ID: pump-fun 市值排名: #99 BTC价格: 0.00000003 BTC Pudgy Penguins (PENGU) ID: pudgy-penguins 市值排名: #56 BTC价格: 0.00000031 BTC Succinct (PROVE) ID: succinct 市值排名: #300 BTC价格: 0.00000985 BTC TROLL (TROLL) ID: troll-2 市值排名: #337 BTC价格: 0.00000160 BTC Ethereum (ETH) ID: ethereum 市值排名: #2 BTC价格: 0.03193025 BTC Bitcoin (BTC) ID: bitcoin 市值排名: #1 BTC价格: 1.00000000 BTC Aerodrome Finance (AERO) ID: aerodrome-finance 市值排名: #145 BTC价格: 0.00000658 BTC Solana (SOL) ID: solana 市值排名: #6 BTC价格: 0.00146100 BTC Toshi (TOSHI) ID: toshi 市值排名: #257 BTC价格: 0.00000001 BTC SPX6900 (SPX) ID: spx6900 市值排名: #81 BTC价格: 0.00001476 BTC MemeFi (MEMEFI) ID: memefi-2 市值排名: #912 BTC价格: 0.00000003 BTC XRP (XRP) ID: ripple 市值排名: #3 BTC价格: 0.00002601 BTC Ondo (ONDO) ID: ondo-finance 市值排名: #46 BTC价格: 0.00000818 BTC Hyperliquid (HYPE) ID: hyperliquid 市值排名: #14 BTC价格: 0.00033046 BTC role: assistant content: Great! Solana (SOL) is indeed trending and listed at #9. Now let me get its current USD price and the 4-hour candlestick data you requested. role: function content: 未找到关于 solana 的价格信息, 请检查ID是否正确 role: function content: 无法获取SOL的标识信息 role: assistant content: Let me try searching for Solana with the correct symbol format: role: function content: 未找到关于 solana 的详细信息, 请检查ID是否正确 role: assistant content: Let me try using SOL as the symbol parameter for the K-line data and see different approaches: role: function content: 常见虚拟币价格一览: 比特币 (BTC): CNY: ¥827,049.00 USD: $115,137.00 24h变化: 🔺 1.04% 以太坊 (ETH): CNY: ¥26,437.00 USD: $3,680.39 24h变化: 🔺 2.32% 泰达币 (USDT): CNY: ¥7.18 USD: $1.00 24h变化: 🔺 0.02% 币安币 (BNB): CNY: ¥5,524.51 USD: $769.09 24h变化: 🔺 2.14% 瑞波币 (XRP): CNY: ¥21.53 USD: $3.00 24h变化: 🔺 1.28% 卡尔达诺 (ADA): CNY: ¥5.33 USD: $0.74 24h变化: 🔺 2.58% 狗狗币 (DOGE): CNY: ¥1.48 USD: $0.21 24h变化: 🔺 3.17% 索拉纳 (SOL): CNY: ¥1,209.09 USD: $168.32 24h变化: 🔺 2.87% 波卡 (DOT): CNY: ¥26.44 USD: $3.68 24h变化: 🔺 2.42% 莱特币 (LTC): CNY: ¥854.42 USD: $118.95 24h变化: 🔻 -1.80% role: assistant content: Perfect! Now I have the current USD price for Solana. Let me try to get the K-line data using "SOL" again, and if that doesn\'t work, I\'ll use a search approach: role: assistant content: Based on the available information, here\'s what I can provide you for your cryptocurrency investment analysis: 📈 Current Trending Coins Summary From the trending coins list, these notable positions appear: Solana (SOL) - Ranked #9 trending with 0.00146100 BTC ratio Ethereum (ETH) - Ranked #6 trending Bitcoin (BTC) - Ranked #7 trending 💰 Solana (SOL) Price Analysis Current USD Price: $168.32 Price in CNY: ¥1,209.09 24h Performance: 🔺 +2.87% (showing positive momentum) ⚠️ Technical Analysis Limitation Unfortunately, I\'m unable to retrieve the detailed 4-hour candlestick chart data for Solana at this time due to API constraints. However, I can provide you with these key observations: Key Investment Considerations: Positive Momentum: SOL is up 2.87% in the last 24 hours Strong Position: Currently ranking at #6 in the trending list, indicating significant market interest Volume Support: The trending status suggests substantial trading volume Recommendation: For detailed 4-hour chart analysis, you may want to check popular platforms like: TradingView CoinGecko Binance charts CoinMarketCap technical analysis tools These platforms can provide the precise candlestick patterns, support/resistance levels, and volume analysis you need for a thorough investment decision.', 'type': 'passage'}
+  In-degree: 3, Out-degree: 0
+
+Node: c5f80bfacf07ce0fc4201d59917a630583476166baed149c85b9d6de0225d891
+  Attributes: {'file_id': 'c5f80bfacf07ce0fc4201d59917a630583476166baed149c85b9d6de0225d891', 'id': 'Type: function Name: hugging-face-mcp-server-get-model-info Description: Get detailed information about a specific model Parameters: { "type": "object", "properties": { "model_id": { "type": "string", "description": "The ID of the model (e.g., \'google/bert-base-uncased\')" } }, "required": [ "model_id" ] }', 'type': 'passage'}
+  In-degree: 3, Out-degree: 0
+
+Node: f66ba2b3b3ac771e01a06eeda8c63e343cbc186bc4d25128fe80b7c7e3ee6428
+  Attributes: {'id': 'Target Audience Personas', 'type': 'entity', 'file_id': '933ab810edc47746bfd0a71cc2191eeeac3eb3a03fe3cced2abb60b881209b32', 'concept1': 'profiles', 'concept2': 'audience', 'concept3': 'personas', 'concept4': 'customers', 'concept5': 'segments', 'concept6': 'consumers', 'concept7': 'demographics'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 933ab810edc47746bfd0a71cc2191eeeac3eb3a03fe3cced2abb60b881209b32
+
+Node: 82fb07471da85b8526f383b6ad6134a945d6c9c6dc561827d36df99d5b6bdb58
+  Attributes: {'id': 'minecraft-bot-server-list-inventory', 'type': 'entity', 'file_id': '05d863912310fde1daa1dc29dfc5d4534788d8cfe28fe7dd8013fac0347f8fc7', 'concept1': 'server', 'concept2': 'inventory', 'concept3': 'list'}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is-a-function]--> e316abd7fc7b614cea2094f51ddd4621b1ee383ca3bf5d856dc052e3eab9b130
+    --[describes-action]--> 521f63eed82d2ea5e01ef81c95435e0da183fffccb78279d8e0bc1c91190f731
+    --[mention in]--> 05d863912310fde1daa1dc29dfc5d4534788d8cfe28fe7dd8013fac0347f8fc7
+
+Node: 294adbb1b5b02a9278b8152d46c77a4789ee8101b2233d0bd240f83bcd116abf
+  Attributes: {'id': 'tool_function_content_mesh_terms_cognitive_behavioral_therapy', 'type': 'entity', 'file_id': '5660bffbca1de65fdfb5056075cf4101bced431b25362b9a650aae77dd279fa8', 'concept1': 'mental health', 'concept2': 'therapy', 'concept3': 'behavior', 'concept4': 'healing', 'concept5': 'psychology', 'concept6': 'treatment', 'concept7': 'counseling'}
   In-degree: 1, Out-degree: 2
   Sample out-edges:
-    --[then]--> d9182a4b630b2743693d0e11a47401d99a49f723bc0798e0bd7ca1716c414d79
-    --[mention in]--> 56c096f5372110cb857394ea573ba0e22a0d06ad5a962d74b78c02a315915609
+    --[followed by]--> 1fcffd69fec07eb3d2d62999d230ef30eb5a080174a70aff51528851d9b83edd
+    --[mention in]--> 5660bffbca1de65fdfb5056075cf4101bced431b25362b9a650aae77dd279fa8
 
-Node: 370ff007535402dbb31d4fae4647bb89c6ffa7de64293434764aa1b868a7ee99
-  Attributes: {'file_id': '370ff007535402dbb31d4fae4647bb89c6ffa7de64293434764aa1b868a7ee99', 'id': 'role: user content: As a safety officer, I need to be informed of any severe weather warnings in the areas where critical systems are located. Once I receive the weather warnings, I need advice on how to execute specific debugging commands to ensure that all related system processes are running correctly. Can you help me get a summary of current weather warnings and suggest debugging commands for critical systems? role: assistant content: I\'ll help you get the current weather warnings for Portugal and provide debugging command guidance for your critical systems. Let me start by retrieving the weather warnings. role: function content: Active Weather Warnings: Area: BGC Tempo Quente | Level: Red Warning Start: 2025-08-10T06:11:00 End: 2025-08-10T18:00:00 Details: Persistência de valores extremamente elevados da temperatura máxima. Tempo Quente | Level: Orange Warning Start: 2025-08-10T18:00:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Area: VIS Tempo Quente | Level: Orange Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Area: EVR Tempo Quente | Level: Orange Warning Start: 2025-08-10T09:00:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Area: PTO Tempo Quente | Level: Yellow Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T18:00:00 Details: Persistência de valores elevados da temperatura máxima no interior do distrito. Area: GDA Tempo Quente | Level: Orange Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Area: FAR Tempo Quente | Level: Orange Warning Start: 2025-08-11T09:00:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Tempo Quente | Level: Yellow Warning Start: 2025-08-10T09:00:00 End: 2025-08-11T09:00:00 Details: Persistência de valores elevados da temperatura máxima. Area: VRL Tempo Quente | Level: Red Warning Start: 2025-08-10T06:11:00 End: 2025-08-10T18:00:00 Details: Persistência de valores extremamente elevados da temperatura máxima. Tempo Quente | Level: Orange Warning Start: 2025-08-10T18:00:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Area: STB Tempo Quente | Level: Orange Warning Start: 2025-08-11T09:00:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Tempo Quente | Level: Yellow Warning Start: 2025-08-10T06:11:00 End: 2025-08-11T09:00:00 Details: Persistência de valores elevados da temperatura máxima. Area: STM Tempo Quente | Level: Orange Warning Start: 2025-08-11T09:00:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Tempo Quente | Level: Yellow Warning Start: 2025-08-10T06:11:00 End: 2025-08-11T09:00:00 Details: Persistência de valores elevados da temperatura máxima. Area: MRM Tempo Quente | Level: Orange Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T00:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Area: VCT Tempo Quente | Level: Yellow Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T18:00:00 Details: Persistência de valores elevados da temperatura máxima no interior do distrito. Area: LSB Tempo Quente | Level: Orange Warning Start: 2025-08-11T09:00:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Tempo Quente | Level: Yellow Warning Start: 2025-08-10T06:11:00 End: 2025-08-11T09:00:00 Details: Persistência de valores elevados da temperatura máxima. Area: LRA Tempo Quente | Level: Yellow Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T18:00:00 Details: Persistência de valores elevados da temperatura máxima no interior do distrito. Area: BJA Tempo Quente | Level: Orange Warning Start: 2025-08-10T09:00:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Area: CBO Tempo Quente | Level: Orange Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Area: AVR Tempo Quente | Level: Yellow Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T18:00:00 Details: Persistência de valores elevados da temperatura máxima no interior do distrito. Area: CBR Tempo Quente | Level: Yellow Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T18:00:00 Details: Persistência de valores elevados da temperatura máxima no interior do distrito. Area: PTG Tempo Quente | Level: Orange Warning Start: 2025-08-10T09:00:00 End: 2025-08-12T18:00:00 Details: Persistência de valores muito elevados da temperatura máxima. Area: BRG Tempo Quente | Level: Yellow Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T18:00:00 Details: Persistência de valores elevados da temperatura máxima no interior do distrito. Area: MCS Tempo Quente | Level: Yellow Warning Start: 2025-08-10T06:11:00 End: 2025-08-12T00:00:00 Details: Persistência de valores elevados da temperatura máxima. role: assistant content: Current Weather Warnings Summary 🚨 CRITICAL WEATHER ALERT: SEVERE HEAT WAVES REDS (Highest Level): BGC area: Extreme heat warning until 18:00 today VRL area: Extreme heat warning until 18:00 today ORANGES (Very High Level) affecting multiple areas: BGC, VIS, EVR, GDA, FAR, VRL, STB, STM, MRM, LSB, BJA, CBO, PTG Warnings extending until August 12, 18:00 YELLOWS (Elevated Level): Multiple districts including PTO, VCT, LRA, AVR, CBR, BRG, MCS This is a critical situation - most of your critical systems may be affected due to: Extreme temperature stress on hardware Potential power grid instabilities Cooling system failures Critical System Debugging Recommendations Now I\'ll help you with debugging your critical systems. Let me first find any existing GDB processes and then provide specific commands: Step 1: Find Active Critical Processes Let me search for any running GDB sessions: role: function content: {"success": false, "output": "\\u9519\\u8bef: [Errno 2] No such file or directory: \'ps\'", "formattedresult": "\\u67e5\\u627eGDB\\u8fdb\\u7a0b\\u65f6\\u51fa\\u9519: [Errno 2] No such file or directory: \'ps\'", "processes": [], "hasoutput": true} role: assistant content: Since no GDB processes are running, let me provide you with a comprehensive debugging approach for your critical systems: EHMSA (Extended High-Temperature Monitoring System Alert) Phase 1: Initial System Health Assessment Critical Debugging Commands for Heat-Related System Monitoring: System Process Discovery: ``bash First, identify your critical processes sudo systemctl list-units --type=service --state=running | grep -E "(cooling|hvac|thermal|monitor|alert)" ` Memory and Process Monitoring: `bash top -H -p htop ` Phase 2: Temperature-Affected System Debugging For Critical Systems that may be affected by heat: If you need to debug a specific process, here\'s the workflow: Start GDB for a critical Process: `bash sudo gdb -p ` Essential Debugging Commands for Heat-Related Issues: Check CPU and Memory Usage: `gdb info threads # Check thread states thread apply all bt # Stack traces for all threads info registers # Examine processor registers ` Memory Inspection (looking for thermal degradation): `gdb Examine memory around critical thermal variables x/20xw x/20xw ` Process State Monitoring: `gdb info locals # Local variables info args # Function arguments bt # Backtrace ` Phase 3: Remote System Debugging If your systems are distributed and you need remote debugging: `bash For remote debugging connection gdbserver :1234 ./yourcritical_process ` Then connect to it: `gdb target remote :1234 `` IMMEDIATE ACTION PLAN Based on the severe heat warnings: 🌡️ Thermal Monitoring Priority List: Check cooling system processes Monitor thermal throttling services Verify HVAC control systems in server rooms ⚡ Power Stability Debugging: Monitor UPS/cooling system processes Check for thermal shutdown prevention services 🔧 Immediate Debugging Steps: Let me help you set up debugging for a specific critical system. Could you provide: PID numbers of your critical processes, or Names of your critical services/processes, or Specific applications you need to monitor? I\'ll then guide you through detailed debugging specific to each process and help ensure your systems remain stable during this extreme heat event. Would you like me to start debugging a specific process, or shall I help you identify which processes are most vulnerable to the current heat conditions?', 'type': 'passage'}
-  In-degree: 4, Out-degree: 0
-
-Node: f4c73eced8a862027393151c7569688c3d2a3ef5cbd24a055d3ea2b4fd185d91
-  Attributes: {'id': 'post-social-media', 'type': 'entity', 'file_id': 'e17539b5a62c5672654ed622ad053eb2fb64c800c02764cb0cf55f9f2fa5fefd', 'concept': ['platform', 'app', 'technology', 'community', 'service', 'network', 'media']}
-  In-degree: 1, Out-degree: 2
-  Sample out-edges:
-    --[operates on]--> d86d79da031f83326de809d6dd272e0e7b2e42a340c6961bf2c0fb828c4f0454
-    --[mention in]--> e17539b5a62c5672654ed622ad053eb2fb64c800c02764cb0cf55f9f2fa5fefd
-
-Node: 527546555d2aa2658b461d6f0511705cb3d2e42ba70f2fd58de2c64bcce7607d
-  Attributes: {'id': 'calculate_combined_cost_two_instances', 'type': 'entity', 'file_id': '9c07a1f418866a7a147aef5b67b6e00ad4be9b663157422c0149d658a5602c32', 'concept': ['operation', 'method', 'process', 'task', 'calculation', 'computation', 'function']}
+Node: e6881059be4f4a08c6ecdf81c418ef5e5717f6337446fc29d593ef25f7b6c649
+  Attributes: {'id': 'tool-check-temperature', 'type': 'entity', 'file_id': '243a004bc1aa63b2f877aed8b7a6e147f2fc605f91040bcace337f652c57ce85', 'concept1': 'device', 'concept2': 'gadget', 'concept3': 'tool', 'concept4': 'utility', 'concept5': 'instrument', 'concept6': 'technology', 'concept7': 'function'}
   In-degree: 2, Out-degree: 2
   Sample out-edges:
-    --[before]--> abe2b499a04c0a15b8376864d4229877a903be58b94c3f8e4c442223ab43f213
-    --[mention in]--> 9c07a1f418866a7a147aef5b67b6e00ad4be9b663157422c0149d658a5602c32
+    --[then]--> 0abfeca4fa72d8f84486aa8a078b76af316a72d129211dfe2357a1b536a8b553
+    --[mention in]--> 243a004bc1aa63b2f877aed8b7a6e147f2fc605f91040bcace337f652c57ce85
+
+Node: dcda1de58c21a9044d94899c975339e5a45ecc10b574039399c480ee371db944
+  Attributes: {'file_id': 'dcda1de58c21a9044d94899c975339e5a45ecc10b574039399c480ee371db944', 'id': 'role: user content: I\'m planning to visit aencrypted office located in a subway station, and I need to coordinate my arrival time while ensuring the area is secure. Can you first provide the current subway schedules for stations near the office? Then, analyze the cybersecurity vulnerabilities that might affect the office building\'s access control system, particularly in relation to potential subway-related threats like lost device tracking or public network exploitation. role: assistant content: I\'ll help you with both the subway schedule information and the cybersecurity analysis for the encrypted office\'s access control system. Let me start with the subway schedules and then perform a penetration testing analysis. role: function content: {"status":500,"code":"INFO-200","message":"해당하는 데이터가 없습니다.","link":"","developerMessage":"","total":0} role: function content: {"attackStepNumber":1,"totalAttackSteps":5,"nextAttackStepNeeded":true,"attackStep":"Initial reconnaissance of subway access points and public network exposure assessment for encrypted office building located in subway station","nodeId":"root-1754841701323","score":0.6727749999999996,"strategyUsed":"mcts","stats":{"totalNodes":0,"averageScore":0,"maxDepth":0,"branchingFactor":0,"strategyMetrics":{}}} role: assistant content: Since the specific station name "암호화역" (Encrypted Station) didn\'t return subway data, let me try a more generic approach to get you subway information, and then continue the cybersecurity analysis. role: function content: {"status":500,"code":"INFO-200","message":"해당하는 데이터가 없습니다.","link":"","developerMessage":"","total":0} role: function content: {"attackStepNumber":2,"totalAttackSteps":5,"nextAttackStepNeeded":true,"attackStep":"Analysis of lost device tracking vulnerabilities in subway environment - Smartphones, access cards, and laptops as potential attack vectors","nodeId":"root-1754841705492","score":0.6717999999999996,"strategyUsed":"mcts","stats":{"totalNodes":0,"averageScore":0,"maxDepth":0,"branchingFactor":0,"strategyMetrics":{}}} role: assistant content: Let me try another major station and continue the security analysis: role: function content: {"status":500,"code":"INFO-200","message":"해당하는 데이터가 없습니다.","link":"","developerMessage":"","total":0} role: assistant content: Subway Schedule Issue: It appears the subway API isn\'t returning data, possibly due to the station names being in Korean or the service being temporarily unavailable. Let me continue with the comprehensive cybersecurity analysis for your encrypted office building. Let me complete the penetration testing analysis focusing on subway-related threats: role: function content: {"attackStepNumber":3,"totalAttackSteps":5,"nextAttackStepNeeded":true,"attackStep":"Public network exploitation analysis - Subway WiFi networks, rogue access points, and MITM attacks targeting office access control systems","nodeId":"root-1754841712388","score":0.6708249999999997,"strategyUsed":"mcts","stats":{"totalNodes":0,"averageScore":0,"maxDepth":0,"branchingFactor":0,"strategyMetrics":{}}} role: function content: {"attackStepNumber":4,"totalAttackSteps":5,"nextAttackStepNeeded":true,"attackStep":"Physical access control bypass scenarios through subway convergence points - Tailgating, card cloning, and social engineering in high-traffic transit areas","nodeId":"root-1754841714428","score":0.6708499999999996,"strategyUsed":"mcts","stats":{"totalNodes":0,"averageScore":0,"maxDepth":0,"branchingFactor":0,"strategyMetrics":{}}} role: function content: {"attackStepNumber":5,"totalAttackSteps":5,"nextAttackStepNeeded":false,"attackStep":"Comprehensive mitigation strategy and timing coordination for secure arrival at encrypted office facility","nodeId":"root-1754841716275","score":0.6713749999999995,"strategyUsed":"mcts","stats":{"totalNodes":0,"averageScore":0,"maxDepth":0,"branchingFactor":0,"strategyMetrics":{}}} role: assistant content: Based on my analysis, here\'s a comprehensive security assessment and transit coordination guide: 🚇 Subway Schedule Coordination Unfortunately, the subway schedule API isn\'t returning real-time data. I recommend: Check local transit apps like Citymapper, Google Maps, or your local subway app Allow extra 20-30 minutes buffer for security checks Consider off-peak travel times (10-11 AM) to avoid rush hour vulnerabilities 🔐 Cybersecurity Vulnerability Analysis Results Phase 1: Reconnaissance Assessment ✅ Risk Level: MODERATE-HIGH Subway stations create natural surveillance opportunities for attackers High foot traffic enables prolonged observation without detection Multiple entry/exit points increase attack surface Phase 2: Lost Device Tracking Vulnerabilities ✅ Primary Threats Identified: RFID/Access Card Cloning Lost/stolen access cards in subway environment Criminals can clone cards using subway proximity readers NFC harvesting via close contact in crowded trains Phone/Tablet Compromise Lost devices contain WiFi credentials for office networks Subway finders have extended physical access before recovery MDM bypass potential through subway\'s public networks Phase 3: Public Network Exploitation ✅ Critical Subway WiFi Risks: Rogue Access Points: Attackers set up fake "SubwayWiFiFree" networks Man-in-the-Middle: Traffic interception between your device and office VPN Credential Harvesting: Office networks accessed via compromised subway connections Session Hijacking: Active office sessions captured during subway connectivity transitions Phase 4: Physical Access Control Bypass ✅ Subway-Specific Attack Vectors: Tailgating: Leveraging subway crowds to follow authorized personnel Card Cloning: Using lost devices found on subway to replicate access credentials Social Engineering: "I\'m late, can you let me in with you?" tactics at station entrances 🛡️ Mitigation Strategy & Arrival Protocol Secure Transit Protocol: Pre-Travel: Disable auto-connect to public WiFi networks Enable VPN before entering subway system Set device to airplane mode during transit Subway Travel: Keep access cards in RFID-blocking sleeves Use Faraday bag for phone/tablet storage Maintain visual contact with devices at all times Arrival Coordination: Recommended arrival window: 10:15-10:45 AM (post-rush) Security checkpoint: 2-factor authentication required Network connection: Use cellular hotspot, never subway WiFi Immediate Actions Needed: Verify station name: Please provide the actual name of the subway station near the encrypted office Check local transit apps: For real-time schedule updates Enable device tracking: Ensure Find My iPhone/Android Device Manager is active Would you like me to refine this analysis once you provide the exact subway station name, or shall I focus on specific aspects of the security protocol?', 'type': 'passage'}
+  In-degree: 6, Out-degree: 0
+
+Node: 956ffe4bbc392b845341be6fd3f83c7ad5fc871a5d341ac55162dc12a07e956f
+  Attributes: {'id': 'Get BTC/USD ticker information from Coinbase', 'type': 'entity', 'file_id': 'ced91cddb41a347f8c6c080c6eac19064cabd682412527334e287c7ac6bdcdf2', 'concept1': 'ticker', 'concept2': 'finance', 'concept3': 'data retrieval', 'concept4': 'api call', 'concept5': 'information', 'concept6': 'exchange', 'concept7': 'cryptocurrency'}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[after]--> aacccda2e105984a98db7eb77a1102a2a1d7c6417af8280ccce0a62af9f902d6
+    --[mention in]--> ced91cddb41a347f8c6c080c6eac19064cabd682412527334e287c7ac6bdcdf2
+
+Node: 4a1a5990d70616c9f890b33d068be2de71e3aaf0b2dfc298e9b385b1ada8f37a
+  Attributes: {'id': 'tool_function_find_research_papers', 'type': 'entity', 'file_id': 'f2b7700bad5aa0b822addc87bc350acfcff26ffe352617b618a4afd8257d90f5', 'concept1': 'tool', 'concept2': 'utility', 'concept3': 'search', 'concept4': 'discovery', 'concept5': 'research', 'concept6': 'function'}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[after]--> 32ea51339dcb812115b32694c8167608e28178b8751d28512ff8f7fe86b4717d
+    --[mention in]--> f2b7700bad5aa0b822addc87bc350acfcff26ffe352617b618a4afd8257d90f5
+
+Node: 8c0c01cc2f63ed2117a46fcd8b9b33eb40802379d63c1ff99933641dcc6fb3e1
+  Attributes: {'id': 'examine_most_comprehensive_file', 'type': 'entity', 'file_id': 'cae82604c37e519f5bb88052db8f90c8913438fafb579263397781aae26c43c2', 'concept1': 'operation', 'concept2': 'process', 'concept3': 'procedure', 'concept4': 'activity', 'concept5': 'task', 'concept6': 'action', 'concept7': 'function'}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[then]--> a6b91f7135fee1d25864808f711521a21abf80a1a8f0455ad85e6e0e9fdc8a02
+    --[mention in]--> cae82604c37e519f5bb88052db8f90c8913438fafb579263397781aae26c43c2
+
+Node: 4426ae3c7096534ff0e311e9b7a5fdac67b4328300146997dc8b68e622914f3e
+  Attributes: {'id': 'check_entity_tool', 'type': 'entity', 'file_id': 'e67dfd52d28f9ec205f3f02192b5da71390974979686643f529b27a9382ad84f', 'concept1': 'script', 'concept2': 'software', 'concept3': 'application', 'concept4': 'tool', 'concept5': 'utility', 'concept6': 'program', 'concept7': 'function'}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[before]--> c92703240a1f476e21bba471b18d99a18fb8f885daf36f848922571137d74bf3
+    --[mention in]--> e67dfd52d28f9ec205f3f02192b5da71390974979686643f529b27a9382ad84f
+
+Node: 3f7d06570e25f98478691ea73ae2fd7769823b9ef6d6480fac6a40518c098964
+  Attributes: {'id': 'function43', 'type': 'entity', 'file_id': '3b8054b2176c97fd3262f42d334cf16b1b13fdf3159e6dd30a3710d9363e6f62', 'concept1': 'code', 'concept2': 'subroutine', 'concept3': 'operation', 'concept4': 'process', 'concept5': 'procedure', 'concept6': 'routine', 'concept7': 'function'}
+  In-degree: 2, Out-degree: 3
+  Sample out-edges:
+    --[after]--> 7d6cd41391f5e212a4c911e6dd02ee1e7e69887445d1c653d5b4c0d85443e4e7
+    --[followed by]--> 66a97ed2621430606fb43123b93bb445ac1634993578f3c99849577896d10fff
+    --[mention in]--> 3b8054b2176c97fd3262f42d334cf16b1b13fdf3159e6dd30a3710d9363e6f62
+
+Node: 668f24d3826f88bca6a3a68e284170a912382841bf07c23ab40834b56b2f3c27
+  Attributes: {'id': 'ip addr show', 'type': 'entity', 'file_id': '71a9eed782825cf034f321ecbd4a1c86c65d0ed39eec50d34786ba3f0366d382', 'concept1': 'tool', 'concept2': 'utility', 'concept3': 'display', 'concept4': 'command', 'concept5': 'network'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 71a9eed782825cf034f321ecbd4a1c86c65d0ed39eec50d34786ba3f0366d382
+
+Node: b1fdaa55b5e98c5f345d88314e4bc0d9b49558e28a173a82cecd333e77bad3b0
+  Attributes: {'id': 'assistant-content-5', 'type': 'entity', 'file_id': '86f6f589069457035b7056ee4bdd38504fe9ad27c342f1428e0519f04231eae8', 'concept1': 'software', 'concept2': 'application', 'concept3': 'tool', 'concept4': 'utility', 'concept5': 'program', 'concept6': 'function'}
+  In-degree: 2, Out-degree: 2
+  Sample out-edges:
+    --[followed by]--> 549a6aae9de8c6447571bfbe5eeecb3902b30a7794552bad8a4af78f9e6137e8
+    --[mention in]--> 86f6f589069457035b7056ee4bdd38504fe9ad27c342f1428e0519f04231eae8
+
+Node: 53ca0e248ffac4c62ff02f36643423421371c80014ba4326fde74a3410f65822
+  Attributes: {'id': 'Define the function paper-search-read_medrxiv_paper', 'type': 'event', 'file_id': 'cffae89add850b1733e0f31a22f7aa0d6eee09e15e70833584daac131ec9f07d', 'concept1': 'research', 'concept2': 'function', 'concept3': 'defining', 'concept4': 'paper_reading', 'concept5': 'medrxiv'}
+  In-degree: 0, Out-degree: 2
+  Sample out-edges:
+    --[because]--> 7ab5ebbfbdab11b7a014d684a726a6db3b3eb4225d8e4bba9fea47c50fd49389
+    --[mention in]--> cffae89add850b1733e0f31a22f7aa0d6eee09e15e70833584daac131ec9f07d
+
+Node: 18beeea1728f1d21af42c1f5238ab079e5a511f6b3fc7719aea7507ca2bc8961
+  Attributes: {'id': 'search_for_settings_files', 'type': 'entity', 'file_id': 'f6528bd6299ce9db304927fde89355599e42f4181f61ff925c58ccbee52091ac', 'concept1': 'explore', 'concept2': 'find', 'concept3': 'search', 'concept4': 'files', 'concept5': 'locate', 'concept6': 'settings'}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[before]--> 595fde1441017c944f7da5b2cc0ad4e9cf1be448e5324177bf8597c5824a8609
+    --[mention in]--> f6528bd6299ce9db304927fde89355599e42f4181f61ff925c58ccbee52091ac
+
+Node: 7027edbdcf23dae96b62f36f928cebf15aeab9939f91e49fe19e37a592dea62b
+  Attributes: {'id': 'assistant_suggest_searching_for_hotels', 'type': 'entity', 'file_id': 'ec585ded6b938896f654d82878fb42426c74627c747bca8a2da2ec7c982dd88b', 'concept1': 'tool', 'concept2': 'utility', 'concept3': 'suggestion', 'concept4': 'assistance', 'concept5': 'service', 'concept6': 'feature', 'concept7': 'function'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> ec585ded6b938896f654d82878fb42426c74627c747bca8a2da2ec7c982dd88b
+
+Node: 49b90d8b49ea451c53a696b9d664cb61d1d98e478cb3f4660ec81c577e9f560f
+  Attributes: {'id': 'output_of_getmarkethistory_1', 'type': 'entity', 'file_id': '9636832f96865bb3914f1118168f23507ce250d584090a24d6190a233f3fc3ef', 'concept1': 'information', 'concept2': 'data', 'concept3': 'result', 'concept4': 'report', 'concept5': 'dataset', 'concept6': 'output', 'concept7': 'analysis'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 9636832f96865bb3914f1118168f23507ce250d584090a24d6190a233f3fc3ef
+
+Node: d2bd208c024c29f15f1eac47855b1439988e7016b01804f4cc506aa29ee4d271
+  Attributes: {'id': 'profit margin ratio', 'type': 'entity', 'file_id': '393bd96f0482404c55369a2599586bbdfbfc80416955bed6ee3c3930d381ad28', 'concept1': 'finance', 'concept2': 'business', 'concept3': 'ratio', 'concept4': 'economics', 'concept5': 'profitability', 'concept6': 'performance', 'concept7': 'metric'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 393bd96f0482404c55369a2599586bbdfbfc80416955bed6ee3c3930d381ad28
 
 ============================================================
 Node Attributes Statistics
 ============================================================
 Total number of nodes: 181,689
-Total number of unique attributes: 8
+Total number of unique attributes: 71
 
   id:
     - 出现节点数: 181,689 (100.00%)
@@ -4153,10 +4148,50 @@ Total number of unique attributes: 8
     - 值类型: str
     - 示例值: 9549863d1a3a21d6dc20a78f775ab67a21c85ea4d7be375470, 9549863d1a3a21d6dc20a78f775ab67a21c85ea4d7be375470, 9549863d1a3a21d6dc20a78f775ab67a21c85ea4d7be375470
 
-  concept:
+  concept1:
     - 出现节点数: 148,707 (81.85%)
-    - 值类型: list
-    - 示例值: ['platform', 'software', 'application', 'tool', 'u, ['software', 'application', 'tool', 'utility', 're, ['platform', 'job', 'tool', 'connection', 'search'
+    - 值类型: str
+    - 示例值: platform, software, platform
+
+  concept2:
+    - 出现节点数: 148,558 (81.76%)
+    - 值类型: str
+    - 示例值: software, application, job
+
+  concept3:
+    - 出现节点数: 148,479 (81.72%)
+    - 值类型: str
+    - 示例值: application, tool, tool
+
+  concept4:
+    - 出现节点数: 138,771 (76.38%)
+    - 值类型: str
+    - 示例值: tool, utility, connection
+
+  concept5:
+    - 出现节点数: 133,304 (73.37%)
+    - 值类型: str
+    - 示例值: utility, research_tool, search
+
+  concept6:
+    - 出现节点数: 107,000 (58.89%)
+    - 值类型: str
+    - 示例值: program, program, career
+
+  concept7:
+    - 出现节点数: 71,115 (39.14%)
+    - 值类型: str
+    - 示例值: service, function, profile
+
+  concept8:
+    - 出现节点数: 4,489 (2.47%)
+    - 值类型: str
+    - 示例值: network, function, function
+
+  concept9:
+    - 出现节点数: 1,531 (0.84%)
+    - 值类型: str
+    - 示例值: analysis, thinking, framework
 
   parameter:
     - 出现节点数: 874 (0.48%)
@@ -4173,10 +4208,285 @@ Total number of unique attributes: 8
     - 值类型: list
     - 示例值: ["Samples from an LLM using MCP's sampling feature, ["US location as coordinates (lat,lng) in decimal , ['Show the code diff and details for a specific mu
 
+  concept10:
+    - 出现节点数: 261 (0.14%)
+    - 值类型: str
+    - 示例值: technology, decisionmaking, task
+
   type_info:
     - 出现节点数: 175 (0.10%)
     - 值类型: list
     - 示例值: ['string'], ['string'], ['string']
+
+  concept11:
+    - 出现节点数: 89 (0.05%)
+    - 值类型: str
+    - 示例值: system, design, framework
+
+  concept12:
+    - 出现节点数: 28 (0.02%)
+    - 值类型: str
+    - 示例值: analysis, function, evaluating
+
+  concept13:
+    - 出现节点数: 7 (0.00%)
+    - 值类型: str
+    - 示例值: network, action, digital
+
+  concept14:
+    - 出现节点数: 3 (0.00%)
+    - 值类型: str
+    - 示例值: entity, function, science
+
+  concept15:
+    - 出现节点数: 3 (0.00%)
+    - 值类型: str
+    - 示例值: function, statistics, politics
+
+  concept16:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: cycling
+
+  concept17:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: topic
+
+  concept18:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: nation
+
+  concept19:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: mobile
+
+  concept20:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: business
+
+  concept21:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: movies
+
+  concept22:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: gadgets
+
+  concept23:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: neuroscience
+
+  concept24:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: baseball
+
+  concept25:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: travel
+
+  concept26:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: virtual reality
+
+  concept27:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: basketball
+
+  concept28:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: outdoors
+
+  concept29:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: food
+
+  concept30:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: tv
+
+  concept31:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: theater
+
+  concept32:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: geology
+
+  concept33:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: football
+
+  concept34:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: economy
+
+  concept35:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: digital currencies
+
+  concept36:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: technology
+
+  concept37:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: nutrition
+
+  concept38:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: energy
+
+  concept39:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: vehicles
+
+  concept40:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: physics
+
+  concept41:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: music
+
+  concept42:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: wildlife
+
+  concept43:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: beauty
+
+  concept44:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: fashion
+
+  concept45:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: health
+
+  concept46:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: gaming
+
+  concept47:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: higher education
+
+  concept48:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: arts-design
+
+  concept49:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: golf
+
+  concept50:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: social sciences
+
+  concept51:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: internet security
+
+  concept52:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: personal finance
+
+  concept53:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: celebrities
+
+  concept54:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: sports betting
+
+  concept55:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: water sports
+
+  concept56:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: soccer
+
+  concept57:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: rugby
+
+  concept58:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: hockey
+
+  concept59:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: online education
+
+  concept60:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: cricket
+
+  concept61:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: tennis
+
+  concept62:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: combat sports
+
+  concept63:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: paleontology
+
+  concept64:
+    - 出现节点数: 1 (0.00%)
+    - 值类型: str
+    - 示例值: motor sports
 
 ============================================================
 
