@@ -42,9 +42,9 @@ python test_build.py
 在噪声图上生成检测查询（噪声点和干净点上的复杂查询检测），在干净图上生成增删改相关的查询。
 
 查询分为几类：
-- **complex1**: 复杂查询类型1
-- **complex2**: 复杂查询类型2（判断题）
-- **management**: 管理查询（增删改）
+- **complex1**: 复杂查询类型1  1/16
+- **complex2**: 复杂查询类型2（判断题） 1w - 200 
+- **management**: 管理查询（增删改）1w - 2k
 
 ```bash
 cd pipeline/query_gen
@@ -52,6 +52,7 @@ python qgen_test_noise
 python management_test.py
 ```
 
+在 query_module 执行噪声图查询
 ### 5. 清洗查询结果
 
 清洗查询结果数据。

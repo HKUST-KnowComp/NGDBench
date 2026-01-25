@@ -1,0 +1,858 @@
+[
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'function_content_2'})-[:follows]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "function_content_2",
+      "REL_TYPE": "follows"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept6": "support",
+          "concept5": "helper",
+          "concept4": "assistant",
+          "concept3": "tool",
+          "concept2": "resource",
+          "concept1": "aid",
+          "file_id": "e25084abe810550f99e523add1ee89ac7420aa3c6af4615b36904ab03c1c1f65",
+          "parameter": [
+            "influencer_username"
+          ],
+          "id": "assistant_content_1",
+          "_node_id": "ec898ca1b555f36fdc1c965ab6bacd6db131a9e57f3b518de5240a641bd421b5"
+        }
+      },
+      {
+        "m": {
+          "concept6": "function",
+          "concept5": "program",
+          "concept4": "utility",
+          "concept3": "tool",
+          "concept2": "application",
+          "concept1": "software",
+          "file_id": "f0563851fbb4640340cc4b784bac060f30944076a99fb0c5ca38b4f7a6b5e71e",
+          "id": "browserType.launch_2",
+          "_node_id": "ba70053f3017ba62ee01aeecefa0916ec1e555d3e95d381df995d6c4cbc998f0"
+        }
+      },
+      {
+        "m": {
+          "concept6": "system",
+          "concept5": "support",
+          "concept4": "helper",
+          "concept3": "assistant",
+          "concept2": "tool",
+          "concept1": "interface",
+          "file_id": "a43d804d44b3e6140d46da63a0f78c24495b6a8224e5462e29c992c4045e88d5",
+          "id": "assistant_content_0",
+          "_node_id": "926be512e4abfaa60703ca1dc2cdcdfeb05530dce42825444573f8270be67f22"
+        }
+      },
+      {
+        "m": {
+          "concept7": "options",
+          "concept6": "framework",
+          "concept5": "system",
+          "concept4": "settings",
+          "concept3": "configuration",
+          "concept2": "parameters",
+          "concept1": "rules",
+          "file_id": "ce41d7c2393bd5009a0c854e7d5d66c3109a6a11aacf5498be4d3bb9fc87e2fa",
+          "id": "assistant_content_check_configuration",
+          "_node_id": "e0686cbac90b666ac9bf6a3b8382cdbc0863d61deb023ec1524de1fb73e4120f"
+        }
+      },
+      {
+        "m": {
+          "concept7": "analysis",
+          "concept6": "strategy",
+          "concept5": "approach",
+          "concept4": "thinking",
+          "concept3": "process",
+          "concept2": "method",
+          "concept1": "reasoning",
+          "file_id": "c7de5f08a8303a5a7db6a077b1f69ae61eaae71fffa2047770fc93974f122090",
+          "id": "systems_thinking_1",
+          "_node_id": "44fe1a1c0de214bc5be8d96b3f432d8f32f8f50a319b139064f8599951b71252"
+        }
+      },
+      {
+        "m": {
+          "concept7": "function",
+          "concept6": "system",
+          "concept5": "process",
+          "concept4": "utility",
+          "concept3": "tool",
+          "concept2": "application",
+          "concept1": "software",
+          "file_id": "7fbac7ee1bc24568e1fbd3952f4dfef47e8a2506de68d95e079325f5852b73e9",
+          "id": "think-tank-upsertentities_2",
+          "_node_id": "7ae3fbce1c5452f3c0be92286410273306ad53ec7718414ff53e980cb463f693"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'tool3'})-[:saves_as]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "tool3",
+      "REL_TYPE": "saves_as"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept7": "markdown",
+          "concept6": "document",
+          "concept5": "content",
+          "concept4": "data",
+          "concept3": "resource",
+          "concept2": "file",
+          "concept1": "record",
+          "file_id": "e83f00f0de6ad1eeca1b82c8e35d1f779b21b523fc293291db155cb3f55a0ab8",
+          "id": "lodash-com-docs-4-17-21-20250809.md",
+          "_node_id": "33ea535ac69c2de812a1a7b754f219e6dee5c2913441b450aaccf95360d72b3a"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'tool4'})-[:searches_for]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "tool4",
+      "REL_TYPE": "searches_for"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept7": "gallery",
+          "concept6": "photography",
+          "concept5": "collection",
+          "concept4": "visuals",
+          "concept3": "panels",
+          "concept2": "images",
+          "concept1": "solar",
+          "file_id": "19b1e4e124be1c685569d797cffcd1f0208946294677e0d4b26093af706d166b",
+          "id": "Unsplash Solar Panels collection",
+          "_node_id": "664c5a97e0f67eaf4848e77e139ccf65dc7979d4b293b0d33fb0b98d7deb45c8"
+        }
+      },
+      {
+        "m": {
+          "concept6": "article",
+          "concept5": "content",
+          "concept4": "url",
+          "concept3": "news",
+          "concept2": "link",
+          "concept1": "source",
+          "file_id": "7f49cbe61269d7826f8bc49d9a07c5a61ab46c0f2676f95b3825afd9d845d33f",
+          "id": "specific Bitcoin news article URL",
+          "_node_id": "0d96d6b109b1c43ff529846253ade028e0fd1204e6b18ce6aeb84f779d87549c"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'function_content_1'})-[:provides_location]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "function_content_1",
+      "REL_TYPE": "provides_location"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept6": "hotel",
+          "concept5": "destination",
+          "concept4": "building",
+          "concept3": "tower",
+          "concept2": "accommodation",
+          "concept1": "lodging",
+          "file_id": "ff489eeeede6dd81f6a4294b5d18272a6d27231089c28f290639683ed7d426c9",
+          "id": "hotel_in_fukuoka_tower",
+          "_node_id": "5d64a67a548562c9dfc7e538af6edf464e4d10b88b5408d3d39d108fc821e848"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'tool2'})-[:formats_recipe]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "tool2",
+      "REL_TYPE": "formats_recipe"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept7": "recipe",
+          "concept6": "ingredient",
+          "concept5": "baking",
+          "concept4": "dessert",
+          "concept3": "creation",
+          "concept2": "treat",
+          "concept1": "cooking",
+          "file_id": "e2085e85818229f103da16644a4aef5a33ad91f3af1e6aeef70296f7a1307b9c",
+          "id": "chocolate cake recipe",
+          "_node_id": "63a6002f6beecd8cc33a815486cea1421cb4aa1cc062690b09846b70c9155358"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'function_content_5'})-[:then]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "function_content_5",
+      "REL_TYPE": "then"
+    },
+    "answer": [
+      {
+        "cnt": 5,
+        "m_list": [
+          {
+            "concept6": "system",
+            "concept5": "module",
+            "concept4": "component",
+            "concept3": "content",
+            "concept2": "data",
+            "concept1": "information",
+            "file_id": "d3c8e52cb15fcdf94f81f6141af8bdd25099f6e638ee04d2d9137a006515b40d",
+            "id": "assistant_content",
+            "_node_id": "4807b50d48afc04b89820c8c0fabfa5fa6133584641115c5c4489bbf12d48f6d"
+          },
+          {
+            "concept6": "function",
+            "concept5": "module",
+            "concept4": "component",
+            "concept3": "utility",
+            "concept2": "tool",
+            "concept1": "software",
+            "file_id": "81c21cb9ef8bd8a01f0f6c966f6a5534a279a5e5aa277a154ed6507cd971e317",
+            "id": "assistant_content_2",
+            "_node_id": "89a6e69925a60c5334035b74275f42a73df43671dd6fb80e814584622d691546"
+          },
+          {
+            "concept6": "system",
+            "concept5": "module",
+            "concept4": "feature",
+            "concept3": "component",
+            "concept2": "utility",
+            "concept1": "tool",
+            "file_id": "cfcbc16f691017e47a88df0ea2866951b73040292fd9745bed53b2e03998566d",
+            "id": "assistant_content_10",
+            "_node_id": "9cfa276d6e066e981b41b892afdf380d5428c5ad80b5a0068b29ca3b87f3a717"
+          },
+          {
+            "concept7": "output",
+            "concept6": "processing",
+            "concept5": "structure",
+            "concept4": "content",
+            "concept3": "finalization",
+            "concept2": "data",
+            "concept1": "information",
+            "file_id": "698095dcb5a7316afdcf83fa7850de491f2cf84f30b2f609e0e009b892634bb6",
+            "id": "assistant_content_final",
+            "_node_id": "98fca261cca42b7af4cbb12b53ba186b37785ef3111876ac8d57dc7d644ab59d"
+          },
+          {
+            "concept5": "stage",
+            "concept4": "phase",
+            "concept3": "development",
+            "concept2": "process",
+            "concept1": "iteration",
+            "file_id": "35a43005f7043ca3c5973364b9929921b09e29c14281ac26f2a8be7b858a7e45",
+            "id": "assistant_content_stage_2",
+            "_node_id": "95279534c9e35f881a20d469e8621b69ef86541d667e091352e17e26005b3bfc"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'fetch_json_33'})-[:mention_in]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "fetch_json_33",
+      "REL_TYPE": "mention_in"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "file_id": "c02c0d9506778e8070589e74bf3a4b7b5d859c3f3da4ba5177f2a2cb46e961a7",
+            "id": "role: user content: I'm trying to research how different news outlets are covering a breaking story about the latest tech layoffs. There's a Hacker News API endpoint (https://hacker-news.firebaseio.com/v0/topstories.json) that lists the current top stories, and I need to find the discussion thread about tech layoffs. Then, once I locate the correct story ID from that JSON list, I want to get the actual Hacker News discussion page to see what people are saying. Finally, I'll also need the text content from a major news outlet's article that's linked in that discussion, but without any HTML formatting so I can easily extract quotes for my analysis. role: assistant content: I'll help you research the tech layoffs coverage step by step. Let me start by fetching the top stories from Hacker News to find the relevant discussion thread. role: function content: [44807868,44800746,44807154,44807410,44798166,44807210,44807002,44802886,44802414,44804411,44806862,44798410,44796526,44801027,44798189,44800185,44766771,44795825,44798553,44796953,44765981,44804230,44802916,44806996,44793446,44801399,44801486,44798695,44807480,44776695,44782260,44784163,44804043,44798434,44799479,44807419,44778810,44799494,44775804,44806669,44799452,44768745,44805483,44776505,44798215,44794508,44770215,44803885,44796698,44797917,44792005,44797834,44787902,44794943,44797408,44794271,44766031,44789068,44799834,44792441,44778149,44806136,44805472,44807216,44799218,44803196,44805261,44794926,44767727,44798035,44771116,44802063,44799756,44806537,44800943,44807063,44773992,44765904,44785636,44787374,44790422,44790271,44768778,44786005,44773965,44801690,44785080,44787631,44799869,44764465,44797466,44766551,44804761,44785224,44804743,44766875,44786367,44783155,44782596,44769547,44802887,44805951,44791984,44805565,44800051,44807215,44771569,44785107,44800730,44784498,44749211,44805245,44805490,44801980,44784141,44784743,44805019,44758463,44787343,44754697,44798705,44806797,44755394,44805436,44806379,44799194,44806747,44787143,44785562,44802939,44762035,44806726,44804644,44755827,44783566,44786462,44758068,44784297,44802365,44805730,44797050,44802252,44782046,44757249,44778936,44790944,44798040,44771268,44786962,44792399,44801884,44801867,44803801,44788065,44804914,44797784,44781116,44736025,44805361,44785238,44799715,44799468,44746347,44777766,44787611,44794615,44803124,44760411,44785016,44775563,44785292,44779428,44786514,44799861,44759172,44769009,44780353,44780878,44767163,44801851,44775830,44797334,44805344,44806033,44803027,44801916,44806026,44780377,44792286,44785759,44800563,44777055,44803570,44803065,44777760,44739944,44806042,44766893,44786843,44774567,44805748,44805740,44791554,44765730,44765600,44789668,44794138,44735059,44740325,44803572,44790984,44772177,44788783,44787053,44803358,44781523,44745490,44791262,44777274,44795582,44807131,44803041,44767508,44767959,44765498,44769039,44737738,44805191,44800238,44800213,44746621,44765562,44744121,44739315,44768714,44767702,44745727,44799290,44764696,44766326,44719222,44754092,44777869,44741078,44804784,44745441,44768513,44767775,44794911,44755654,44743631,44791301,44783298,44805745,44800267,44789640,44780544,44792419,44801459,44804438,44784312,44774104,44771808,44772729,44762397,44773919,44780540,44740617,44780552,44764568,44734450,44791356,44725306,44733341,44774027,44746583,44762859,44801923,44745067,44739494,44736967,44732508,44721932,44775485,44775700,44779178,44743432,44804739,44793168,44792003,44793653,44776434,44783266,44730544,44773998,44803779,44781189,44736854,44772249,44793369,44766962,44748934,44796597,44743034,44793246,44762959,44757792,44705445,44716653,44802985,44766508,44787780,44766758,44797628,44726347,44802885,44767125,44695015,44738228,44724259,44761548,44738216,44783344,44720285,44755279,44792291,44783862,44799998,44786402,44767555,44780515,44767433,44759171,44764376,44779169,44799794,44802205,44720619,44805178,44710651,44783717,44767928,44787228,44788544,44781805,44799427,44805672,44760583,44762856,44759152,44792306,44772917,44735843,44747000,44745984,44806830,44792470,44790919,44762299,44764823,44801282,44729865,44766718,44744454,44769145,44801172,44733800,44767858,44747229,44713716,44796281,44785964,44804568,44782469,44750462,44759417,44767304,44746529,44789435,44798093,44706653,44778087,44745820,44757794,44792686,44752897,44762880,44765292,44788883,44762026,44707062,44792517,44747786,44747204,44718211,44768677,44788270,44800061,44790385,44788157,44759918,44725764,44792249,44765807,44792176,44783729,44787738,44793922,44793413,44764261,44705960,44758957,44787699,44802878,44754492,44745897,44791143,44734515,44745539,44732020,44746603,44789903,44797112,44754523,44773690,44739556,44753298,44730691,44745347,44797767,44779839,44699174,44757247,44742373,44750563,44794404,44745555,44732593,44796184,44726641,44790316,44720077,44796693,44801061,44792184,44790191,44768048,44750416,44769338,44711163,44737676,44793378,44746948,44789964,44761299,44727756,44710256,44747634,44744715,44779017,44780106,44731424,44739632,44787684,44759904,44776863,44737296,44758132,44756103,44706409,44771060,44794503,44788997,44796956,44788972,44795207,44759406,44797833,44788740,44778764,44744079,44760561,44776086,44731116,44788321,44788300,44797651,44698087,44736101,44791800,44755644,44747457,44787831,44739618,44722950,44697689,44740034,44724072,44762022,44759382] role: assistant content: This gives us the top 500 story IDs. Next, I'll get the story details for the top stories to find the one about tech layoffs. Let me start with the most popular ones: role: function content: Tool fetch_json does not exists. role: function content: Tool fetch_json does not exists. role: function content: Tool fetch_json does not exists. role: assistant content: I need to use the correct tool name. Let me try again with fetch_json from the fetch-mcp-server: role: function content: {\"by\":\"divamgupta\",\"descendants\":59,\"id\":44807868,\"kids\":[44807922,44807476,44807122,44806821,44806757,44807307,44806734,44806961,44807590,44806825,44807532,44807444,44806906,44807422,44806884,44806817,44806882,44807009,44807534,44807443,44806727,44806745,44807428],\"score\":22,\"time\":1754456676,\"title\":\"Show HN: Kitten TTS – 25MB CPU-Only, Open-Source TTS Model\",\"type\":\"story\",\"url\":\"https://github.com/KittenML/KittenTTS\"} role: function content: {\"by\":\"lackoftactics\",\"descendants\":605,\"id\":44800746,\"kids\":[44804397,44801714,44804034,44800988,44801737,44802321,44800874,44801381,44801998,44807382,44807852,44801063,44800876,44802493,44805075,44802963,44805574,44801245,44800850,44803712,44801016,44801210,44800818,44801839,44803389,44807027,44804412,44801921,44806432,44800859,44804468,44802231,44801408,44801135,44801090,44801924,44801032,44801341,44802247,44801237,44801729,44807316,44806981,44805510,44806775,44805750,44802690,44800858,44801118,44804999,44801024,44802718,44801056,44802091,44801220,44804032,44801272,44803492,44805154,44806803,44801319,44801307,44805249,44803155,44801573,44801556,44806323,44806180,44804157,44805704,44801323,44801228,44803494,44805682,44805969,44804373,44805538,44803536,44802083,44801489,44801886,44803706,44804092,44802144,44803691,44800917,44806771,44802833,44803375,44801015,44801802,44802398,44805946,44802095,44802246,44800949,44803073,44802206,44802082,44801375,44805216,44802766,44802179,44800908,44801369,44801866,44801656,44800788,44801200,44801440,44800846,44800838,44801033,44806662,44800968,44802125],\"score\":1593,\"text\":\"https:&#x2F;&#x2F;openai.com&#x2F;index&#x2F;introducing-gpt-oss&#x2F;\",\"time\":1754413322,\"title\":\"Open models by OpenAI\",\"type\":\"story\",\"url\":\"https://openai.com/open-models/\"} role: assistant content: Let me check a few more stories to find one related to tech layoffs: role: function content: {\"by\":\"pabs3\",\"descendants\":4,\"id\":44807410,\"kids\":[44807607],\"score\":25,\"time\":1754452142,\"title\":\"The Amaranth hardware description language\",\"type\":\"story\",\"url\":\"https://amaranth-lang.org/docs/amaranth/latest/intro.html#the-amaranth-language\"} role: function content: {\"by\":\"bradleyg223\",\"descendants\":427,\"id\":44798166,\"kids\":[44798564,44807909,44799022,44804956,44799882,44804860,44804455,44798295,44798740,44799500,44805021,44800702,44800218,44798923,44806254,44798310,44798527,44800967,44799596,44802830,44801944,44799601,44799352,44806545,44802265,44800764,44806773,44806750,44798789,44803383,44798519,44804205,44800014,44799611,44801337,44801814,44806759,44799970,44799841,44803631,44802504,44804229,44801478,44805756,44805298,44798604,44804679,44802962,44807219,44800232,44806463,44802010,44798958,44799782,44803277,44799497,44800328,44798904,44799633,44799374,44800461,44799058,44799960,44798742,44799995,44800819,44798260,44799208,44800133,44802868,44802711,44801825,44805613,44800008,44799421,44802717,44802514,44800694,44801359,44799216,44798450,44799181,44799691,44798795,44799162],\"score\":1212,\"time\":1754402932,\"title\":\"Genie 3: A new frontier for world models\",\"type\":\"story\",\"url\":\"https://deepmind.google/discover/blog/genie-3-a-new-frontier-for-world-models/\"} role: assistant content: Let me continue searching for tech layoffs-related stories. I'll check a few more from the list: role: function content: {\"by\":\"meetpateltech\",\"descendants\":268,\"id\":44800185,\"kids\":[44800421,44803441,44800499,44801340,44800824,44802039,44804965,44800496,44800427,44800311,44801703,44802033,44800479,44800598,44807110,44802525,44800290,44801864,44803704,44801273,44802408,44806504,44802438,44804063,44803674,44801755,44801290,44801535,44803764],\"score\":710,\"time\":1754411285,\"title\":\"Claude Opus 4.1\",\"type\":\"story\",\"url\":\"https://www.anthropic.com/news/claude-opus-4-1\"} role: function content: {\"by\":\"paulwilsonn\",\"descendants\":206,\"id\":44766771,\"kids\":[44807926,44805556,44805363,44807554,44806495,44802953,44805803,44768641,44802128,44806809,44805939,44806780,44805994,44804726,44805336,44806384,44802850,44807696,44807168,44802202,44767052,44807126,44804797,44803340,44802601,44805457,44802941,44806683,44802314,44786880,44805881,44805267,44805908,44802435,44767758,44802913,44807688,44803140,44806929,44805915,44805841,44806886,44805708,44802064,44766992],\"score\":164,\"text\":\"Open source is usually seen as a win - for learning, visibility, and the community. But have you ever regretted it?Maybe it became a burden to maintain, attracted the wrong users, or got used in ways you didn’t expect.Would love to hear your experience - good or bad.\",\"time\":1754134620,\"title\":\"Ask HN: Have you ever regretted open-sourcing something?\",\"type\":\"story\"} role: assistant content: Let me check a few more to find one that's specifically about layoffs. I'll check some that might be related based on their context: role: function content: {\"by\":\"Jiahang\",\"descendants\":398,\"id\":44795825,\"kids\":[44804921,44796249,44795924,44796042,44796613,44796173,44797949,44795883,44795964,44796357,44801696,44805043,44806420,44799982,44806167,44797012,44796333,44800530,44798119,44806036,44797742,44796000,44797109,44801626,44806140,44805069,44797527,44798283,44795990,44805869,44797240,44803283,44802059,44798185,44804098,44797396,44796724,44804149,44796102,44798439,44799206,44797185,44806720,44798738,44796614,44796158,44801583,44799920,44796006,44796879,44796090,44801774,44796803,44796546,44796508,44798300,44797211,44796751,44796762,44797443,44804628,44795934],\"score\":1004,\"time\":1754384514,\"title\":\"uBlock Origin Lite now available for Safari\",\"type\":\"story\",\"url\":\"https://apps.apple.com/app/ublock-origin-lite/id6745342698\"} role: assistant content: Let me check another batch to find the tech layoffs story. I'll look for stories with titles that mention layoffs: role: function content: {\"by\":\"devonnull\",\"descendants\":23,\"id\":44806996,\"kids\":[44807311,44807712,44807298,44807347,44807045,44807317],\"score\":40,\"time\":1754447650,\"title\":\"US tech rules the European market\",\"type\":\"story\",\"url\":\"https://proton.me/blog/us-tech-rules-europe\"} role: function content: {\"by\":\"mempko\",\"descendants\":189,\"id\":44802916,\"kids\":[44803998,44803212,44804181,44804156,44807709,44807043,44803756,44806616,44805656,44807877,44806496,44803569,44807697,44804859,44807619,44804145,44804417,44804375,44804753,44807315,44807070,44807185,44806957,44806793,44804614,44804525,44803833,44806599],\"score\":187,\"time\":1754421565,\"title\":\"AI is propping up the US economy\",\"type\":\"story\",\"url\":\"https://www.bloodinthemachine.com/p/the-ai-bubble-is-so-big-its-propping\"} role: assistant content: Let me check a few more that might be related to layoffs. I'll look further down the list: role: function content: {\"by\":\"maytc\",\"descendants\":95,\"id\":44793446,\"kids\":[44793827,44802363,44802918,44793764,44793943,44802874,44805214,44793978,44796038,44806440,44802664,44796967,44794043,44795053,44794152,44802592,44793761,44793776],\"score\":219,\"text\":\"&gt; Your organization “xxx” has $xxx Anthropic API credits that will expire on September 03, 2025 UTC.&gt;&gt; To ensure uninterrupted service, we recommend enabling auto-reload for your organization. When enabled, we’ll automatically add credits when your balance reaches a specified minimum. You can enable auto-reload in the Anthropic Console.\",\"time\":1754358220,\"title\":\"Tell HN: Anthropic expires paid credits after a year\",\"type\":\"story\"} role: assistant content: Let me try searching for stories that might contain \"layoffs\", \"lay off\", \"job cuts\", or similar terms. I'll check a broader range of stories: role: function content: {\"by\":\"rrampage\",\"descendants\":723,\"id\":44785636,\"kids\":[44786039,44786015,44790753,44787305,44787277,44788445,44786983,44806948,44786446,44786874,44791267,44788693,44788294,44786759,44788007,44787154,44786958,44798897,44786237,44806106,44792917,44789679,44788233,44789976,44787911,44795986,44787743,44797049,44787267,44801542,44792256,44793083,44787921,44788182,44796706,44792275,44794697,44787293,44787573,44788678,44786860,44796248,44796167,44790225,44795305,44793220,44792585,44787713,44797854,44791067,44789656,44792440,44796117,44789725,44797178,44792567,44787182,44788087,44788890,44786615,44786982,44786873,44786059,44791694,44797562,44787676,44787558,44794759,44793685,44787450,44786930,44786667,44788238,44788261,44789553,44786384,44787815,44787694,44786491,44787129,44790185,44795604,44797444,44788049,44787138,44786130,44786064,44786011,44788572,44789084,44797198],\"score\":1252,\"time\":1754314770,\"title\":\"Perplexity is using stealth, undeclared crawlers to evade no-crawl directives\",\"type\":\"story\",\"url\":\"https://blog.cloudflare.com/perplexity-is-using-stealth-undeclared-crawlers-to-evade-website-no-crawl-directives/\"} role: function content: {\"by\":\"pydry\",\"id\":44784043,\"parent\":44783892,\"text\":\"&gt;And also when &quot;the rich&quot; have more profit, they now want to spend that profit on thingsIn general those things that &quot;the rich&quot; buy are scarce assets - stocks, housing, land, etc. all of which keep getting bidded up in price. This does not generate jobs.&gt;spawns new luxury good industries.Trickle down never worked.&gt;Of course, the news cycle and the sob stories always revolve around people losing their existing jobs, but there is new jobs around that previously didnt exist. Jobs that people previously never thought was even &quot;a job&quot;.The number of jobs available is politically not technologically determined. AI doesn&#x27;t automatically destroy jobs in aggregate but this is what the economy is currently programmed to do (via the mechanism of higher interest rates), so this is what companies are chasing with AI.\",\"time\":1754304032,\"type\":\"comment\"} role: assistant content: Let me continue searching for tech layoffs stories by checking some more IDs: role: function content: {\"by\":\"zdw\",\"descendants\":2,\"id\":44782260,\"kids\":[44807585,44782529],\"score\":10,\"time\":1754283792,\"title\":\"When Disney Went Digital\",\"type\":\"story\",\"url\":\"https://animationobsessive.substack.com/p/when-disney-went-digital\"} role: assistant content: Let me try a more targeted approach. I'll search through more of the story IDs systematically. Let me check some middle-range ones: role: function content: {\"by\":\"IshKebab\",\"id\":44750000,\"kids\":[44763631],\"parent\":44745045,\"text\":\"I think the best way to do this would be to use something deterministic like instruction counts for the actual pass&#x2F;fail. You can include wall time for information.\",\"time\":1753995157,\"type\":\"comment\"} role: assistant content: I notice that 44750000 is not a valid story ID from our list. Let me try a different approach by checking for stories that might be related to layoffs. Since the HN stories are ordered by recency and popularity, let me check a few more that might be relevant: role: function content: {\"by\":\"cratermoon\",\"descendants\":1,\"id\":44805245,\"kids\":[44805260],\"score\":14,\"time\":1754432900,\"title\":\"Titan sub implosion caused by bonkers \\\"toxic workplace environment\\\"\",\"type\":\"story\",\"url\":\"https://arstechnica.com/science/2025/08/titan-sub-implosion-caused-by-absolutely-bonkers-toxic-workplace-environment/\"} role: function content: {\"by\":\"lapetitejort\",\"descendants\":0,\"id\":44789964,\"score\":3,\"time\":1754333548,\"title\":\"PastVu: Historical Photographs on Current Maps\",\"type\":\"story\",\"url\":\"https://pastvu.com/?_nojs=1\"} role: assistant content: Let me try picking stories at random from the list to find the layoffs discussion, and also check recent stories. Based on the typical pattern, layoffs discussions often have \"X is laying off\" or \"layoffs at X\" in the title: Let me search more systematically through current stories. Let me check if there's a way to search through more stories efficiently by looking at ones that are more likely to be layoffs-related: role: function content: {\"by\":\"saikatsg\",\"descendants\":40,\"id\":44761299,\"kids\":[44763471,44762925,44762899,44763679,44762337,44762884,44762169,44764717,44762360,44761649,44763671,44763798,44762963,44761622],\"score\":130,\"time\":1754076525,\"title\":\"Deep Agents\",\"type\":\"story\",\"url\":\"https://blog.langchain.com/deep-agents/\"}",
+            "_node_id": "c02c0d9506778e8070589e74bf3a4b7b5d859c3f3da4ba5177f2a2cb46e961a7"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'unity-mcp-integration-geteditorstate'})-[:before]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "unity-mcp-integration-geteditorstate",
+      "REL_TYPE": "before"
+    },
+    "answer": [
+      {
+        "cnt": 18,
+        "m_list": [
+          {
+            "concept3": "phrase3",
+            "concept2": "phrase1",
+            "concept1": "phrase2",
+            "file_id": "5cf902fc8428aadcc5659f138aa5996bc234c3cabba7003e9c65c36579d0ead1",
+            "id": "verifyconnection",
+            "return": [
+              "{ \"connected\": false, \"timestamp\": \"2025-08-04T20:56:55.546Z\", \"message\": \"Unity Editor is not connected. Please ensure the Unity Editor is running with the MCP plugin.\" }"
+            ],
+            "_node_id": "17b1fdf931a6d6ecf49a0ee0798677da26f4dee2878b8ac99f1b1f9b8be54ba1"
+          },
+          {
+            "concept6": "function",
+            "concept5": "programming",
+            "concept4": "scripts",
+            "concept3": "utility",
+            "concept2": "tool",
+            "concept1": "code",
+            "file_id": "1dced9aad5ebdcfa815281343f0ef6eae1a9f1ae2dadfd481f7040c641dece32",
+            "id": "find_playercontroller_scripts",
+            "_node_id": "518c49fdecfa2928af131b7220c7d9c3e472bc9e9ccb8c380686aa29b2b9060d"
+          },
+          {
+            "concept5": "function",
+            "concept4": "command",
+            "concept3": "action",
+            "concept2": "execution",
+            "concept1": "operation",
+            "file_id": "16c4f52f6eb956acaae8c9b92362e1391eec1af9e763a020a3bb03bd12c2c9dd",
+            "id": "executeeditorcommand",
+            "_node_id": "062ee3d3c43bcdc97b3d427939aa7ab23de0190b3bd78963506943a6171bec85"
+          },
+          {
+            "concept7": "function",
+            "concept6": "validate",
+            "concept5": "check",
+            "concept4": "confirm",
+            "concept3": "connection",
+            "concept2": "ensure",
+            "concept1": "test",
+            "file_id": "6690e26e8709cff5bd8f2115b5f52b96f68d98ef0bf9c12b6606cc0c55a94b9e",
+            "id": "verify_connection",
+            "_node_id": "5a6135bd704e5367435b7188d8d7e094198a1866b2cb036a3b0b97f1e8c51ccc"
+          },
+          {
+            "concept7": "function",
+            "concept6": "command",
+            "concept5": "task",
+            "concept4": "process",
+            "concept3": "utility",
+            "concept2": "operation",
+            "concept1": "script",
+            "file_id": "b15c4e3a83e5cfc76e4cb6838e98be6ae84e322a4d1c143bd3472676f20d0425",
+            "id": "list-all-text-files-in-assets-resources-configuration",
+            "_node_id": "a4fe194eac316e4c35ddc2e7024b024e401941242d83126ba3c5b8123ee4f27f"
+          },
+          {
+            "concept7": "health",
+            "concept6": "programming",
+            "concept5": "medical",
+            "concept4": "tools",
+            "concept3": "scripts",
+            "concept2": "search",
+            "concept1": "code",
+            "file_id": "1055acdd34d4ec1cdec3a791b67fb4c2f13ff7b042aea8bc083d39dbb31d7c44",
+            "id": "search-health-related-scripts",
+            "_node_id": "0563b37987ced2a1e638e42be55b407a2bf2a86bf7403f66af4dc5449e8b1db3"
+          },
+          {
+            "concept6": "function",
+            "concept5": "process",
+            "concept4": "utility",
+            "concept3": "tool",
+            "concept2": "code",
+            "concept1": "script",
+            "file_id": "be7711ced0f6b1e531abc3d5ecb1930f5919208c7e3760c1fa648307bb3d540b",
+            "id": "create_audit_script",
+            "_node_id": "51d4a789a858f016cabb19bdc79ef5d1f5d5e543754f0344d723033dc87f24e5"
+          },
+          {
+            "concept6": "function",
+            "concept5": "utility",
+            "concept4": "tool",
+            "concept3": "application",
+            "concept2": "calculator",
+            "concept1": "software",
+            "file_id": "52089fb45b78f1e8524441246b4530346b1ecd583420ab966331142e1dd7f604",
+            "id": "math-tool-calculate-remaining-health",
+            "_node_id": "46757e6dac80d2ababfec4e3f0a4fb6dd0d4e011f38a6a26396b21c7a69b5868"
+          },
+          {
+            "concept7": "function",
+            "concept6": "system",
+            "concept5": "feature",
+            "concept4": "utility",
+            "concept3": "tool",
+            "concept2": "application",
+            "concept1": "software",
+            "file_id": "416d16f362dfac0f3b628f3cb51e004cd7d1712e58dfa9e53fccb6aa8e8da90a",
+            "id": "tool-function-verifyconnection",
+            "_node_id": "2292cecbe9e8adcb76b0b60a76c1d1ffdd4c789fe9d9813aa06732d9ef8dcb57"
+          },
+          {
+            "concept7": "malfunction",
+            "concept6": "system",
+            "concept5": "故障",
+            "concept4": "error",
+            "concept3": "problem",
+            "concept2": "issue",
+            "concept1": "bug",
+            "file_id": "b3c06453a884744843cdd9b8a9a0d4fe77e8c86b099f286e195c2ced907c1c08",
+            "id": "mcp-manager-error",
+            "_node_id": "652392ea9f45955043c55dbbc7f48edcef33089983b059242e51038e5c2c90c9"
+          },
+          {
+            "concept7": "function",
+            "concept6": "program",
+            "concept5": "utility",
+            "concept4": "tool",
+            "concept3": "application",
+            "concept2": "software",
+            "concept1": "script",
+            "file_id": "a474f5b872c881bb938fb864cfc7a3009d7cbea2e3870bb52e1176f9200e5421",
+            "id": "csv-read-tool",
+            "_node_id": "9d12ce99328a204cc21b45a4ee3a8a090459c18e2368da21df40d5928f0ba4f0"
+          },
+          {
+            "concept7": "function",
+            "concept6": "component",
+            "concept5": "asset",
+            "concept4": "utility",
+            "concept3": "tool",
+            "concept2": "resource",
+            "concept1": "script",
+            "file_id": "2200d8ab31ff5ef796ece8795f463078f42837386ee67982229a80a7fbbb728f",
+            "id": "search-prefab-assets",
+            "_node_id": "97d639728be1feac4d05501f41dbd7147a30fa01b07c6a03940c88c18169f01a"
+          },
+          {
+            "concept6": "exploration",
+            "concept5": "research",
+            "concept4": "discovery",
+            "concept3": "search",
+            "concept2": "inquiry",
+            "concept1": "investigation",
+            "file_id": "d2783d359acc0e5d60b2d5ef02ea058442d417c4b9dc1816a7baeb058ede063a",
+            "id": "asset-search-action-genre",
+            "_node_id": "e3eb29afa99b01e1a945fd988614d97f11ef1b47ddf1f1e989242a4a5cd65630"
+          },
+          {
+            "concept7": "function",
+            "concept6": "routine",
+            "concept5": "task",
+            "concept4": "activity",
+            "concept3": "procedure",
+            "concept2": "process",
+            "concept1": "operation",
+            "file_id": "615a25c5a41e1192f984d9555a1f8caf6460b91e6a77d65010e1392658db6b36",
+            "id": "check_project_structure",
+            "_node_id": "ffbb4abfd0a12900cb840e4e02b468b0614aa94ed63e3b43e2f1b69c0ff91e8c"
+          },
+          {
+            "concept6": "function",
+            "concept5": "command",
+            "concept4": "process",
+            "concept3": "utility",
+            "concept2": "tool",
+            "concept1": "operation",
+            "file_id": "2fc89d91d495986f6f5f1864199184b5f32740d316400601e18ac7b74501fb2e",
+            "id": "read-config-file",
+            "_node_id": "37dc65d8d60711b52f0d5fe339b98314b16e456f565da0d6ea6788daea17aac7"
+          },
+          {
+            "concept7": "process",
+            "concept6": "connection",
+            "concept5": "link",
+            "concept4": "utility",
+            "concept3": "tool",
+            "concept2": "verification",
+            "concept1": "integration",
+            "file_id": "d608f413bb93cfb751f5577658775281ecf75a55eb48e4a686832b9ac027c6ad,fc898ed1b910d4bb4fb0c5d2fdb14ad36c0619b633ec81508a48bad4b2e321ab",
+            "id": "unity-mcp-integration-verify_connection",
+            "concept9": "function",
+            "_node_id": "c6d2a44154e19addac3d07db4ca58d0ec2a28ffdd6bcd17d25d16302eb02aa85",
+            "concept8": "check"
+          },
+          {
+            "concept7": "solution",
+            "concept6": "automation",
+            "concept5": "development",
+            "concept4": "process",
+            "concept3": "tool",
+            "concept2": "code",
+            "concept1": "script",
+            "file_id": "f5f45c39319b7279bdfa67a0e80f068d65a88375d54ab83205801526205b4b7c",
+            "id": "create-script-to-identify-problematic-gameobjects",
+            "_node_id": "4515a16b8b57f4f1666fc6cd665e189b6044610dff78dde1fde242fde9ac01bb"
+          },
+          {
+            "concept6": "function",
+            "concept5": "feature",
+            "concept4": "process",
+            "concept3": "utility",
+            "concept2": "tool",
+            "concept1": "integration",
+            "file_id": "04853f221702a543c77937929f6ada19b197c56b236c72bd1c55cb1141fd9e17",
+            "id": "unity-mcp-integration-findassetsbytype",
+            "_node_id": "a429e3ac11a076a139da3c749b19280480fd5c50c4551853b4b4d1e01401d43e"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'tool2'})-[:due_to]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "tool2",
+      "REL_TYPE": "due_to"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "concept6": "status",
+            "concept5": "user",
+            "concept4": "access",
+            "concept3": "session",
+            "concept2": "login",
+            "concept1": "authentication",
+            "file_id": "5d4e99be5862b38641ca2d366be051d2240dc7ab42743fd4c4b13abe8a5c6b03",
+            "id": "Not logged in",
+            "_node_id": "c9e9e4f78e2281247b50381ed4e086a8296e0c592feaf25f46919b0269fad13b"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'function_content_2'})-[:attempts_to]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "function_content_2",
+      "REL_TYPE": "attempts_to"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "concept4": "phrase3",
+            "concept3": "phrase1",
+            "concept2": "phrase2",
+            "concept1": "phrase4",
+            "file_id": "8f6c15e6d819386f6175f08a51489b8207975cc45ead85c967366a3d73f25ab3",
+            "id": "backtrace",
+            "_node_id": "a77f1587365de53b67394ff6e50800661fb6f5a436d4637a6fc79ed8b135f383"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'tool4'})-[:error]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "tool4",
+      "REL_TYPE": "error"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "concept7": "malfunction",
+            "concept6": "error",
+            "concept5": "problem",
+            "concept4": "glitch",
+            "concept3": "failure",
+            "concept2": "issue",
+            "concept1": "bug",
+            "file_id": "87ccc8ad92fd5992b23fdbf7edb37f427c9e270cb79661114f26740fc3e20980",
+            "id": "Error creating text: Not connected to Figma.",
+            "_node_id": "08c0ac81dabbe0af52c1ad08bcbb7a4a4e0276cdec19360f26b3f5ebea75e9f0"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'function_content_2'})-[:subdirectory_created]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "function_content_2",
+      "REL_TYPE": "subdirectory_created"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "concept5": "research",
+            "concept4": "event",
+            "concept3": "academic",
+            "concept2": "conference",
+            "concept1": "machine learning",
+            "file_id": "b08ea629a8ab94f4f67e755d5c5dbfd371d278922dccf505568c0cedd52d796b",
+            "id": "research2024/academicpapers/projectdocs/markdowns/2023articles/myarticles/projectdocs/2023papers/projectnotes/projectnotes/Q4Research/monthlyreports/webmddownloads/projectX/ProjectReports/research_markdowns/ICML",
+            "_node_id": "ae3416164b2127c14476fdcccc0238768e050e4dc208f3ba8d2b6d99863cb594"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'function_content_2'})-[:Failed_to_set_download_directory]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "function_content_2",
+      "REL_TYPE": "Failed_to_set_download_directory"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "concept7": "message",
+            "concept6": "system",
+            "concept5": "access",
+            "concept4": "error",
+            "concept3": "failure",
+            "concept2": "file",
+            "concept1": "directory",
+            "file_id": "0115b2c9eb5304d69c8f4a3404598e2c6db58e4367a75160e8c1c153cb1ce8ed",
+            "id": "ENOENT: no such file or directory, access '/workspaces/project-analysis'",
+            "_node_id": "a4b7472dc84a1b24b5403b64ac1b2972e642671c18ec6ae7a075651c374688bd"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'tool3'})-[:analyzes]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "tool3",
+      "REL_TYPE": "analyzes"
+    },
+    "answer": [
+      {
+        "cnt": 4,
+        "m_list": [
+          {
+            "concept6": "self-portrait",
+            "concept5": "photo",
+            "concept4": "trend",
+            "concept3": "expression",
+            "concept2": "image",
+            "concept1": "capture",
+            "file_id": "9e0d241f011b1c96b1e0288bd8395077f6cbef86be874f8dbcb0877d728533f4",
+            "id": "selfie",
+            "_node_id": "8d4557293391ecf241192ea86af195d40060254a17bed739fdc57e837ecb92a0"
+          },
+          {
+            "concept6": "research",
+            "concept5": "approach",
+            "concept4": "process",
+            "concept3": "experiment",
+            "concept2": "technique",
+            "concept1": "methodology",
+            "file_id": "10ca1275c4bc9c707557a7de6cfac427797f8d314fb1856d7c3ef7b167a5d6a6",
+            "id": "experimental methodology",
+            "_node_id": "e94cf9460c4a9aaef5a2595e9cf5160f0559801650223ef8c1d76860aca17fe0"
+          },
+          {
+            "concept7": "motifs",
+            "concept6": "concepts",
+            "concept5": "topics",
+            "concept4": "ideas",
+            "concept3": "subjects",
+            "concept2": "themes",
+            "concept1": "narratives",
+            "file_id": "e4c07bf4d971cd13385e0fb0b371192bb2315d092ddda9115bde403977034163",
+            "id": "themes",
+            "_node_id": "0a258462e48d7cef8376316316de6e585a366bb618d16a5d5ff5861aa18cabe1"
+          },
+          {
+            "concept6": "network",
+            "concept5": "ledger",
+            "concept4": "technology",
+            "concept3": "cryptocurrency",
+            "concept2": "protocol",
+            "concept1": "blockchain",
+            "file_id": "7d21642f4b286d03e12079e6b8f656d51b23b1caf21e364f7bb86f00ad8c05a8",
+            "id": "Bitcoin SV blockchain",
+            "_node_id": "cad5f21de0a41adf3da0dda6c5b25cfda567e649fdc295430c8b9391a914b57d"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'tool4'})-[:provided_weather_information]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "tool4",
+      "REL_TYPE": "provided_weather_information"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "concept6": "place",
+            "concept5": "location",
+            "concept4": "destination",
+            "concept3": "city",
+            "concept2": "town",
+            "concept1": "resort",
+            "file_id": "9e9e31bacc97064dffcea1212054dd1b737b852b5f7fb5abbab99aac4ae3bf0b",
+            "id": "Tulum, Mexico",
+            "_node_id": "677ed333bb579e171f25f9f89445a7edffebd7d8788d12b8535b0fdc5d785f21"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:with]->(b:entity) MATCH (a)-[:with]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "entity",
+      "REL1": "with",
+      "REL2": "with"
+    },
+    "answer": [
+      {
+        "cnt": 4
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:of_the_function]->(b:event) MATCH (a)-[:of_the_function]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "event",
+      "REL1": "of_the_function",
+      "REL2": "of_the_function"
+    },
+    "answer": [
+      {
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:part_of]->(b:entity) MATCH (a)-[:part_of]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "entity",
+      "REL1": "part_of",
+      "REL2": "part_of"
+    },
+    "answer": [
+      {
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:at_the_same_time]->(b:entity) MATCH (a)-[:at_the_same_time]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "entity",
+      "REL1": "at_the_same_time",
+      "REL2": "at_the_same_time"
+    },
+    "answer": [
+      {
+        "cnt": 5
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:than]->(b:entity) MATCH (a)-[:than]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "entity",
+      "REL1": "than",
+      "REL2": "than"
+    },
+    "answer": [
+      {
+        "cnt": 1
+      }
+    ]
+  }
+]

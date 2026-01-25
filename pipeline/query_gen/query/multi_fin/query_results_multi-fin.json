@@ -1,0 +1,739 @@
+[
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'worker rights'})-[:safeguard]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "worker rights",
+      "REL_TYPE": "safeguard"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "file_id": "216df5bd6bb4b29ddc0973b7ea26fd1792b9a7f4abe8138ce6e685c17b67be07",
+            "id": "during the transition",
+            "_node_id": "5850c8d60e5ca83cc2d5c722643214441a124f738c4438c89c21d10f7c32fb1c"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'environmental impact'})-[:has_concept]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "environmental impact",
+      "REL_TYPE": "has_concept"
+    },
+    "answer": [
+      {
+        "cnt": 8,
+        "m_list": [
+          {
+            "file_id": "concept_file",
+            "id": "change",
+            "_node_id": "a55108a840d1095eba2e0d7833f5dbeb60585ca12faa7cc39b0bcbe9e875dc89"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "pollution",
+            "_node_id": "6985288575ac12dc3fd93e1e4f68c41957a1c4edaf01221adfb95fca4f35e61f"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "sustainability",
+            "_node_id": "3c329ff77b0a72a4a4b1663e35ce7a25b2dd5f55a2f78227698d161dace5e265"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "damage",
+            "_node_id": "c24fea58d1b9c01b987f925ec2df5da2058a2342d2345c39651c4a54c30904e3"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "impact",
+            "_node_id": "66dc3dedb558ed12491b9fe3235698eefff435c6070f30d657bbe87d5b966af1"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "consequence",
+            "_node_id": "4e6503288723ef37167a7f924f9a9d22a824fd5ec6f523dbffaeec54f6eaf829"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "effect",
+            "_node_id": "7ea52b4195ce5b70a8fa360d5db67a4a62c3f418edbae6da2aeb828c98df8b5f"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "ecology",
+            "_node_id": "1dc46819fad7914b5aeedace4a2eceaf69680b8723d4e63314928783572e6e97"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'Briceno-Garmendia'})-[:mention_in]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "Briceno-Garmendia",
+      "REL_TYPE": "mention_in"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "file_id": "a6f16be697412947204eed9341d6064f57184f5ac5809dc526d5e1c050b482e9",
+            "id": "ng. South African Journal of Sciences, 9(10). N O F the interacademy Decarbonisation of Transport in Africa: Opportunities, Challenges and Policy Options Briceno-Garmendia, C., Qiao, W. & Foster, V., 2023. The Economics of ELECTRIC VEHICLES for Passenger Transportation. [Online] Available at: https://openknowledge.worldbank. org/server/api/core/bitstreams/86921282-e616-4e32-a824-2349461bbcaf/content [Accessed 2 12 2023]. Briter Bridges, 2023. Africa Investment Report 2023, Guildford: Briter Bridges. Brookings, 2023. Urban economic growth in Africa: A case study of Nairobi City County, Kenya. [Online] Available at: https://www.brookings.edu/articles/urban-economic-growth- in-africa-a-case-study-of-nairobi-city-county-kenya/ [Accessed 25 January 2024]. C40 Cities, 2016. Cities100: Addis Ababa - Sub-Saharan Africa’s First Light-Rail Train. [Online] Available at: https://www.c40.org/case-studies/ -s-first-light-rail-train/#:~:text=In%20September%202015%2C%20Addis%20 Ababa,first%20lightrail%20train%20( ). [Accessed 25 January 2024]. Cash, K., 2022. EVerything you need to know about African EV manufacturing. [Online] Available at: https://energyforgrowth.org/article/ -ev-manufacturing/ [Accessed December 21 2023]. Chen, G., Diagana, O. & Pimenta, S., 2023. Five reasons to get excited about the Bus Rapid Transit in Dakar, Senegal. [Online] Available at: https://blogs.worldbank.org/ voices/five-reasons-get-excited-about-bus-rapid-transit-dakar-senegal [Accessed 25 January 2024]. Climate, c., 2023. State of Climate Action report finds progress lags on every measure except EV sales. [Online] Available at: https://climatechampions.unfccc.int/ -action-report-finds-progress-lags-on-every-measure-except-ev-sales/ Accessed 2 12 2023]. Collett, K. A. & Hirmer, S. A., 2021. Data needed to decarbonize paratransit in Sub-Saharan Africa. Nature Sustainability, 4(7), pp. 562-564. Continental Battery System, 2023. Can Lithium Batteries Be Recycled?. [Online] Available at: https://www.continentalbattery.com/blog/ #:~:text=Lead%2Dacid%20batteries%20have%20a,the%20difficult%2C%20 costly%20recycling%20process. Crisis24, 2023. Alternating Current: Southern Africa’s Issue with Load Shedding. [Online] Available at: https://crisis24.garda.com/insights-intelligence/insights/articles/ -southern-africas-issue-with-load-shedding [Accessed 25 January 2024]. Deeb, N. E. et al., 2022. INFRASTRUCTURE MATTERS: ACTIVE MOBILITY, PUBLIC TRANSPORT, AND ECONOMIC GROWTH IN AFRICAN CITIES, Nairobi: UN-HABITAT. Dewast, L., 2019. ‘Our children are gasping’ - Senegal’s toxic air battle. [Online] Available at: https://www.bbc.com/news/ , M. O. et al., 2022. Exploring the role of electric vehicles in Africa’s energy transition: A Nigerian case study. iScience, 25(3). Dioha, M. O., Lukuyu, J., Virgüez, E. & Caldeira, K., 2022. Guiding the deployment of electric vehicles in the developing world. Environmental Research Letters, Volume 17. DiSA, 2024. MyCiTi. [Online] Available at: http://disabilityinfosa.co.za/mobility-impairments/ transport-services-vehicle-hire/#:~:text=or%20call%201020-,MyCiTi,%2C%20 surfboards%2C%20prams%20and%20bicycles [Accessed 12 February 2024]. N O F the interacademy Decarbonisation of Transport in Africa: Opportunities, Challenges and Policy , M., 2022. Building place-based innovation capabilities for productivity in Africa. [Online] Available at: https://www.wipo.int/edocs/pubdocs/en/ -productivity-in-sub-saharan-africa-global-innovation-index-2022-15th-edition.pdf [Accessed 25 January 2024]. Droppa, D., 2023. R200,000 City Blitz becomes South Africa’s cheapest electric car. [Online] Available at: https://www.timeslive.co.za/motoring/new-models/ -city-blitz-becomes-south-africas-cheapest-electric-car/?utm_campaign=SMA%20 n e w s & u t m _ s o u r c e = h s _ e m a i l & u t m _ m e d i u m = e m a i l & _ h s e n c = p 2 A N q t z - _ P8i0WtBEQso8N6lmK2x7rr5CAYztIWVxQGbsMqRVvFxFYI4pklalPo [Accessed 25 January 2024]. EASAC, 2019. Decarbonisation of transport: options and challenges, Jägerberg: EASAC. Elmasry, H., Esawey, M. E. & Osama, A., 2024. An Evaluation of the Safety and Environmental Impacts of Microcars. [Online] Available at: https://trid.trb.org/View/2317348 [Accessed 25 January 2024]. European Cyclists’ Federation, 2015. A Global High Shift Cycling Scenario: Cycling could save cities $25 trillion and 10% of transport CO2 emissions by 2050. [Online] Available at: https://ecf.com/news-and-events/news/ -cities-25-trillion-and-10 [Accessed 15 April 2024]. European Environment Agency, 2018. Electric vehicles from life cycle and circular economy perspectives TERM 2018: Transport and Environment Reporting Mechanism (TERM) report, Luxembourg: EEA. EV Africa, 2024. Affordable Electric Cars. [Online] Available at: https://ev.africa/ [Accessed 13 March 2024]. EV Roaming Foundation, 2024. Why is roaming important for the EV industry and governments?. [Online] Available at: https://evroaming.org/faq/ EVBox, 2023. Are electric car batteries bad for the environment?. [Online] Available at: https://blog.evbox.com/ev-battery-environmental-impact [Accessed 2 June 2023]. FIA Foundation, 2022. SUB-SAHARAN MOTORCYCLE BOOM PUTS LIVES AT RISK, WARNS NEW FIA FOUNDATION REPORT, s.l.: Fia Foundation. Forbes, 2018. Smart transportation: A key building block for a smart city. [Online] Available at: https://www.forbesindia.com/blog/infrastructure/ -for-a-smart-city/ [Accessed 10 December 2023]. Friedrich Ebert Stiftung, 2020. Towards the Just City in Kenya, Nairobi: Kenya Office. Füßl, L., Thomas, B. & Booysen, M. J., 2022. “Harnessing nature: Using solar and wind power with stationary battery storage for electric minibus taxis”. 2022 IEEE Vehicle Power and Propulsion Conference ( ), Merced, CA, USA, pp. 1-5. Gallizzi, B., 2022. What is the lifetime cost of an electric vehicle?. [Online] Available at: https://www.uswitch.com/electric-car/ev-charging/ / [Accessed 19 December 2023]. Geels, F. W., 2019. Socio-technical transitions to sustainability: a review of criticisms and elaborations of the Multi-Level Perspective. Current Opinion in Environmental Sustainability, Volume 39, pp. Pages 187–201. N O F the interacademy Decarbonisation of Transport in Africa: Opportunities, Challenges and Policy Options Giliomee, et al., 2023. Simulating mobility to plan for electric minibus taxis in Sub-Saharan Africa’s paratransit. Transportation Research Part D, 118(103728). Giliomee, J. et al., 2023. Simulating mobility to plan for electric minibus taxis in Sub-Saharan Africa’s paratransit. Transportation Research Part D: Transport and Environment, Volume 118. Giliomee, J. et al., n.d. “Using solar PV and stationary storage to buffer the impact of electric minibus charging in grid-constrained sub-Saharan Africa”, under review. GIZ, 2022. Climate Strategies for Transport in Africa. [Online] Available at: https:// .org/publications/ndc-lts-transport-africa/ Gomez-Ibanez, J., 2015. Lagos Metropolitan Area Transportation Authority (LAMATA). [Online] Available at: https://hbsp.harvard.edu/product/KS1156- -ENG [Accessed 2 12 2023]. Goodrich, G., 2022. The Rise of Electric Vehicles: How Can Africa Prevent Fuel Duty Losses Experienced in the West?. [Online] Available at: https://energycapitalpower.com/the-rise- of-electric-vehicles-how-can-africa-prevent-fuel-duty-losses-experienced-in-the-west/ [Accessed 24 August 2023]. Government of Senegal, 2023. Emerging Senegal. [Online] Available at: https://www. presidence.sn/en/pse/emerging-senegal [Accessed 12 December 2023]. GSMA, 2023. Powering Mobility: The Rise of Digital Transportation in Africa, s.l.: GSMA. Guzek, M. et al., 2024. Electric Vehicles—An Overview of Current Issues—Part 1—Environmental Impact, Source of Energy, Recycling, and Second Life of Battery. Energies, 17(1), p. 249. Guzmán, S., Dobrovich, G., Balm, A. & Meattle, C., 2022. The State of Climate Finance in Africa: Climate Finance Needs of African Countries. [Online] Available at: https://www. climatepolicyinitiative.org/wp-content/uploads/2022/06/ -Countries-1.pdf [Accessed 2 12 2023]. Hernandez, D. O., Okyere, S. A., Nieto, M. & Michihiro, K., 2021. Walking off the beaten path: Everyday walking environment and practices in informal settlements in Freetown. Research in Transportation Business & Management, 40(3). Hull, C., Giliomee, J., Visser, M. & Booysen, M., 2023. Electric vehicle adoption intention among paratransit owners and drivers in South Africa. Transport Policy, Volume 146, pp. Pages 137-149. IAP , 2021. Decarbonisation of Transport in Africa: A Transport Planning Perspective Workshop Summary Report, s.l.: s.n. IEA, IRENA, UNSD, World Bank and WHO, 2023. Tracking 7: The Energy Progress Report, Washington DC: World Bank. IEA, 2022. Global EV Outlook 2022: Securing supplies for an electric future, s.l.: International Energy Agency. IEA, 2022. The Role of Critical Minerals in Clean Energy Transitions. [Online] Available at: https://iea.blob.core.windows.net/assets/ffd2a83b-8c30-4e9d-980a-52b6d9a86fdc/ TheRoleof CriticalMineralsinCleanEnergyTransitions.pdf [Accessed 7 June 2023]. IEA, 2023. Global EV Outlook 2023, s.l.: s.n. IEA, 2023. Transport. [Online] Available at: https://www.iea.org/energy-system/transport [Accessed 23 November 2023]. N O F the interacademy Decarbonisation of Transport in Africa: Opportunities, Challenges and Policy , 2015. Guidelines for a just transition towards environmentally sustainable economies and societies for all. [Online] Available at: https://www.ilo.org/wcmsp5/groups/public/--- ed_emp/---emp_ent/documents/publication/wcms_432859.pdf [Accessed 2 June 2023]. ILO, 2021. Frequently Asked Questions on just transition. [Online] Available at: https://www.ilo. org/global/topics/green-jobs/WCMS_824102/lang--en/index.htm [Accessed 2 June 2023]. International Labour Organization, 2022. Skills for Decarbonisation, s.l.: ILO and OECD. International Science Council, 2019. Frameworks for understanding transformations to sustainability – the ‘Multi-Level Perspective’ in socio-technical transitions research. [Online] Available at: chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https:// transformationstosustainability.org/assets/uploads/2019/10/GIP02228_ISC_brief_ Pr3Final_WEB. Trade Administration, 2024. South Africa - Country Commercial Guide. [Online] Available at: https://www.trade.gov/country-commercial-guides/ #:~:text=Under%20the%20South%20African%20Automotive,and%20 global%20vehicle%20production%20ranking. [Accessed 15 April 2024]. International Transport Forum, 2022. GENDER EQUALITY AND THE ROLE OF WOMEN IN DECARBONISING TRANSPORT. [Online] Available at: https://www.itf-oecd.org/sites/ default/files/docs/gender-equality-women-decarbonising-transport.pdf [Accessed 2 June 2023]. IOA, 2022. Electric vehicles are Africa’s future… but economics will determine how smooth the transition is from petrol. [Online] Available at: https://www.inonafrica.com/2022/11/01/ -is-from-petrol/ [Accessed 24 August 2023]. IPCC, 2014. Rural Areas. [Online] Available at: chrome-extension:// efaidnbmnnnibpcajpcglclefindmkaj/https://www.ipcc.ch/site/assets/uploads/2018/02/ WGIIAR5-Chap9_FINAL. , 2022. Climate Change 2022: Mitigation of Climate Change, s.l.: IPCC AR6 WG III. ITDP , 2017. Dar es Salaam, Tanzania Wins 2018 Sustainable Transport Award. [Online] Available at: https://www.itdp.org/2017/07/07/dar-es-salaam-wins-2018-sta/ [Accessed 12 Febuary 2024]. ITDP , 2017. TOD Standard. [Online] Available at: https://tod.itdp.org/tod-standard.html [Accessed 16 March 2024]. ITDP , 2019. In Cairo, ITDP Works to Improve Transport Access for Women. [Online] Available at: https://africa.itdp.org/in-cairo-itdp-works-to-improve-transport-access-for-women/ [Accessed 24 January 2024]. , 2019. Scaling up sustainable urban mobility in East African cities. [Online] Available at: https://africa.itdp.org/ -in-dar-es-salaam/. ITDP , 2023. Bus sector modernisation a crucial precursor to electrification. [Online] Available at: https://africa.itdp.org/bus-sector-modernisation-a-crucial-precursor-to-electrification/ [Accessed 25 January 2024]. Jenkins, J., Mokuwa, E., Peters, K. & Richards, P ., 2021. Rural–urban connectivity strengthens agrarian peace: Evidence from a study of gender and motorcycle taxis in Sierra Leone. Journal of Agrarian Change. N O F the interacademy Decarbonisation of Transport in Africa: Opportunities, Challenges and Policy Options Kalisa, E. & Sudmant, A., 2022. How COVID-19 lockdowns and car-free days affected air pollution in Rwanda’s capital. [Online] Available at: https://infonile.org/en/2022/04/ how-covid-19-lockdowns-and-car-free-days-affected-air-pollution-in-rwandas-capital/ [Accessed 12 September 2023]. Kalisa, E., Sudmant, A., Ruberambuga, R. & Bower, J., 2021. From car-free days to cities: Reflections on clean urban transport in Rwanda. [Online] Available at: https:// www.theigc.org/sites/default/files/2021/08/Kalisa-et-al-June-2021-Policy-Brief.pdf [Accessed 25 January 2024]. Kaori, N. & Malgrace, A., 2023. Africa’s Urban Transport Leaders Unite to Launch the African Association of Urban Transport Authorities (AAUTA) in Abidjan. [Online] Available at: https://www.ssatp.org/news-events/ -urban-transport [Accessed 21 December 2023]. Kendall, A. et al., 2023. Electric Vehicle Lithium-ion Batteries in Lower- and Middle-income Countries: Life Cycle, Nairobi: UNEP and UC Davis Institute of Transport Studies. KenInvest, 2023. Kenya’s Renewable Power Generation Hits 86pct Of Total Output. [Online] Available at: https://www.invest.go.ke/2023/01/11/ -hits-86pct-total-output/#:~:text=%E2%80%9CAs%20a%20result%20of%20 investments,the%20financial%20year%20ending%202022. [Accessed 31 January 2024]. Kenya National Assembly, 2022. National Automotive Policy (NAP). [Online] Available at: https://repository.kippra.or.ke/bitstream/handle/123456789/3811/Sessional%20 paper%20no%201%20of%202022%20on%20National%20Automotive%20policy%20 Feb%202022.pdf?sequence=1&isAllowed=y KIPPRA, 2020. Enhancing Accessibility in Transport Infrastructure by PWDs. [Online] Available at: https://kippra.or.ke/ / [Accessed 08 March 2024]. Kiruga, M., 2019. African cities grapple with two-wheeled transport conundrum. [Online] Available at: https://www.theafricareport.com/15049/ -transport-conundrum/ [Accessed 24 March 2024]. Kithome, D., 2019. Environmental Protection – Africa’s Clean Mobility Initiative on common Continental Regulatory Framework. [Online] Available at: https://www.arso-oran. org/?p=5762 [Accessed 7 June 2023]. Kithome, D., 2021. What are the harmonized African standards for the automotive sector all about?. [Online] Available at: https://www.arso-oran.org/?m=202105 [Accessed 16 November 2023]. Kumar, A. et al., 2016. Using ‘design thinking’ to enhance urban re-development: a case study from India. Engineering Project Organization Journal, 6(2-4), pp. 155-165. Kurczveil, T., López, P . Á. & Schnieder, E., 2014. Implementation of an Energy Model and a Charging Infrastructure in SUMO. s.l., s.n. Lacock, S., Plessis, A. A. d. & Booysen, M. J., 2023. Electric Vehicle Drivetrain Efficiency and the Multi-Speed Transmission Question. World Electric Vehicle Journal, 14(12), p. 342. Lacock, S., Plessis, A. A. d. & Booysen, M. J., 2023. Using Driving-Cycle Data to Retrofit and Electrify Sub-Saharan Africa’s Existing Minibus Taxis for a Circular Economy. World Electric Vehicle Journal, 14(10), p. 296. Lewis, N., 2023. A battery swap scheme is turning Africa’s roads electric, s.l.: . N O F the interacademy Decarbonisation of Transport in Africa: Opportunities, Challenges and Policy , D. v. & El-Geneidy, A., 2016. Enjoying loyalty: The relationship between service quality, customer satisfaction, and behavioral intentions in public transit. Research in Transportation Economics, Volume 59, pp. 50-59. Lim, X., 2021. Millions of electric car batteries will retire in the next decade. What happens to them?. [Online] Available at: https://www.theguardian.com/environment/2021/aug/20/ electric-car-batteries-what-happens-to-them [Accessed 17 November 2023]. Liu, Z. et al., 2021. Comparing total cost of ownership of battery electric vehicles and internal combustion engine vehicles. Policy Energy, Volume 158. Macharia, S., 2023. How Ampersand electric motorcycles are sparking change in East Africa. [Online] Available at: https://aakenyaautonews.co.ke/ -are-sparking-change-in-east-africa/ [Accessed 25 March 2024]. Mckinsey, 2022. Power to move: Accelerating the electric transport transition in sub-Saharan Africa, s.l.: McKinsey & Company. Medina-Molinaa, C., Perez-Macías, N. & Gismera-Tierno, L., 2022. The multi-level perspective and micromobility services. Journal of Innovation and Knowledge, 7(2). Ministry of Environment and Forestry, 2021. National Climate Change Action Plan . [Online] Available at: https://napglobalnetwork.org/wp-content/uploads/2022/01/ napgn-en-2022-kenya-NCCAP-2018-2022-Implemantation-Status-Report.pdf [Accessed 7 June 2023]. Ministry of Trade and Industry, 2019. The Ghana Automative Development Policy. [Online] Available at: https://rome.mfa.gov.gh/uploads/SectionImagWithLinks/3286_AUTO_ Brochure_NEW.pdf [Accessed 16 November 2023]. MordorIntelligence, 2023. AFRICA ELECTRIC VEHICLE MARKET SIZE & SHARE ANALYSIS - GROWTH TRENDS & FORECASTS (2023–2028). [Online] Available at: https://www. mordorintelligence.com/industry-reports/africa-electric-vehicle-market [Accessed 31 May 2023]. Mwaura, N. & Kost, C., 2017. How sustainable mobility can transform Africa’s cities. [Online] Available at: https://www.urbanet.info/sustainable-mobility-africas-cities/ [Accessed 15 May 2023]. NADDC, 2023. Nigerian Automotive Industry Development Plan. [Online] Available at: https://www.nipc.gov.ng/product/ -development-plan/ [Accessed 21 November 2023]. Naidoo, P ., 2023. Load shedding may cost SA R899m a day, Sarb says. [Online] Available at: https://www.moneyweb.co.za/news/south-africa/ -sarb-says/ Niina, K. & Annin, M., 2023. Africa’s Urban Transport Leaders Unite to Launch the African Association of Urban Transport Authorities (AAUTA). [Online] Available at: https://www. ssatp.org/news-events/ -transport [Accessed 2 12 2023]. Nissan Motor Corporation, 2016. Nissan and Eaton broaden xStorage residential energy storage portfolio as pre-orders commence in Europe. [Online] Available at: https://global. nissannews.com/en/releases/ -portfolio-as-pre-orders-commence-in-europe [Accessed 17 November 2023]. N O F the interacademy Decarbonisation of Transport in Africa: Opportunities, Challenges and Policy Options Nyarko, K., Whale, J. & Urmee, T., 2023. Drivers and challenges of off-grid renewable energy-based projects in West Africa: A review. Heliyon, 9(6). Odhiambo, C., Waweru, S. & Namasaka, A., 2023. Trends in Kenya’s Electric Mobility Transition: Opportunities and Challenges. [Online] Available at: https://practiceguides. chambers.com/practice-guides/alternative-energy-power-2023/kenya/ [Accessed 09 November 2023]. Oseni, M. O., 2019. Costs of unreliable electricity to African firms. [Online] Available at: https://energyforgrowth.org/article/costs-of-unreliable-electricity-to-african-firms/ [Accessed 25 January 2024]. Piper, A., 2023. UPLIFTING THE HIGH-GROWTH SCALE-UP OF STARTUPS IN AFRICA. [Online] Available at: https://wearevuka.com/press-release/ -up-of-startups-in-africa/ [Accessed 25 January 2024]. Platzer, K., 2021. SUSTAINABLE TRANSPORT DEVELOPMENT. [Online] Available at: https://sdgs.un.org/sites/default/files/2021-10/Transportation%20Report%20 2021_FullReport_Digital.pdf [Accessed 2 12 2023]. Powering Renewable Energy Opportunities, 2023. Accelerating e-mobility in Africa, s.l.: PREO. Prieto-Curiel, R., Patino, J. E. & Anderson, B., 2023. Scaling of the morphology of African cities. PNAS, 120(9). Pucher, J. & Buehler, R., 2008. Cycling for Everyone: Lessons from Europe. [Online] Available at: https://www.researchgate.net/publication/241529683_Cycling_for_Everyone_ Lessons_from_ , S. S. & Aziz, M., 2022. Utilization of Electric Vehicles for Vehicle-to-Grid Services: Progress and Perspectives. Energies, 15(2), p. 589. ReportLinker, 2023. Africa Automotive Market Size & Share Analysis - Growth Trends & Forecasts (2023–2028). [Online] Available at: https://uk.finance.yahoo.com/ news/africa-automotive-market-size-share-161600834.html?guccounter=1&guce_ referrer=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8&guce_referrer_sig= [Accessed 21 December 2023]. Republic of Rwanda, 2021. Strategic Paper on Electric Mobility Adaptation in Rwanda. [Online] Available at: https://www.mininfra.gov.rw/fileadmin/user_upload/Mininfra/ Publications/Laws_Orders_and_Instructions/Transport/16062021_Strategic_Paper_for_e- mobility_adaptation_in_Rwanda-Final.pdf [Accessed 13 September 2023]. Rim, B. et al., 2021. Morocco’s Decarbonization Pathway - Part II: Updated Decarbonization Scenarios. [Online] Available at: https://ideas.repec.org/p/ocp/ppaper/pb21-19.html [Accessed 21 November 2023]. Rix, A., Abraham, C. & Booysen, M., 2022. Why taxi tracking trumps tracking passengers with apps in planning for the electrification of Africa’s paratransit. iScience, 16 September.25(9). ROAM, 2023. Roam Launches Africa’s First Roam Hub: A Multi-Purpose Electric Motorcycle Charging Station. [Online] Available at: https://www.roam-electric.com/post/ -the-roam-hub [Accessed 25 March 2024]. ROAM, 2024. The standard for electric mobility in Africa. [Online] Available at: https://www. roam-electric.com/ [Accessed 15 April 2024]. N O F the interacademy Decarbonisation of Transport in Africa: Opportunities, Challenges and Policy , J.-P ., 2020. The Geography of Transport Systems. 5th Edition ed. s.l.:Routledge. Rwanda National Police, 2022. Campaign to reduce air pollution launched in Kigali, Kigali: s.n. Saghir, J. & Santoro, J., 2018. Urbanization in Sub-Saharan Africa. [Online] Available at: https://www.csis.org/analysis/urbanization-sub-saharan-africa [Accessed 12 12 2023]. Sambo, A. S., 2023. “Sustainable Development of Electric Vehicles in Nigeria: Charging Stations, Research & Development and the Way Forward in a Situation of Electricity Inadequacy” PowerPoint, IAP-NASAC Decarbonisation of Transport in Africa Physical Working Group Meeting. [Online]. Scott, B., Hunter, P ., Benham, H. & Folland, R., 2023. Driving Change: How Electric Vehicles Can Rise in the Global South, s.l.: Power Shift Africa. Siemens, 2023. E-mobility: Sustainable mobility solutions in sub-Saharan Africa. [Online] Available at: https://www.siemens-stiftung.org/en/foundation/social-entrepreneurship/e- mobility/ [Accessed 2 12 2023]. Sietchiping, R., Permezel, M. J. & Ngomsi, C., 2012. Transport and mobility in sub-Saharan African cities: An overview of practices, lessons and options for improvements. Volume 29 (Issue 3, June 2012), pp. Pages 183-189. SitatiI, C. N., OludheI, C., OyakeI, L. & Mbandi, A. M., 2022. A street-level assessment of greenhouse gas emissions associated with traffic congestion in the city of Nairobi, Kenya. Clean Air Journal, 32(1). SLOCAT, 2021. Multilateral Development Banks work on sustainable transport. [Online] Available at: https://slocat.net/mdb-sustainable-transport/ [Accessed 18 12 2023]. SLOCAT, 2021. Paratransit as a Complement to Formal Transport Networks. [Online] Available at: https://tcc-gsr.com/in-focus/ [Accessed 15 March 2024]. SLOCAT, 2021. Tracking Trends in a Time of Change: The Need for Radical Action Towards Sustainable Transport Decarbonisation. [Online] Available at: https://tcc-gsr.com/ /africa/ [Accessed 2 12 2023]. SLOCAT. 2022. Raising Ambition for Transport in African Countries’ Climate Strategies. [Online] Available at: https://slocat.net/ -strategies/ [Accessed 31 July 2023]. Stellenbosch University, 2023. SU & partners retrofit first minibus taxi in SA to run on electricity. [Online] Available at: https://www.sun.ac.za/english/Lists/news/DispForm. aspx?ID=10106 [Accessed 15 April 2024]. Sub-Saharan Africa Transport Policy Program (SSATP), 2015. Policies for sustainable accessibility and mobility in urban areas of Africa. [Online] Available at: https:// openknowledge.worldbank.org/server/api/core/bitstreams/ /content [Accessed 22 May 2023]. SuM4All, 2022. E-mobility in low-income countries in Africa: Finance, Governance, and Equity, Washington DC: Sustainable Mobility for All (SuM4AllTM) initiative. Sustainable Mobility for All, 2022. E-MOBILITY IN LOW-INCOME COUNTRIES IN AFRICA: Finance, Governance and Equity. [Online] Available at: https://www.sum4all.org/data/ files/e-mobility_in_low-income_countries_in_africa-finance_governance_and_equity.pdf [Accessed 31 May 2023]. N O F the interacademy Decarbonisation of Transport in Africa: Opportunities, Challenges and Policy Options Sustainable Transport Award, 2018. 2018: Dar es Salaam, Tanzania. [Online] Available at: https://www.staward.org/past-winners/ , P . et al., 2022. Total cost of ownership of internal combustion engine and electric vehicles: A real-world comparison for the case of Thailand. Energy Reports, Volume 8, pp. 545-553. Systems Change Lab, 2023. Shift to public, shared and non-motorized transport. [Online] Available at: https://systemschangelab.org/transport/ -transport#indicator-988 [Accessed 19 May 2023]. Teye, J., 2018. Urbanization and migration in Africa. [Online] Available at: https:// www.researchgate.net/publication/333303201_ENVIRONMENTAL_CHANGE_AND_ MIGRATION_IN_ United Nations, n.d. Goal 13: Take urgent action to combat climate change and its impacts. [Online] Available at: https://www.un.org/sustainabledevelopment/ / [Accessed 16 September 2023]. The World Bank, 2017. The Urban Transport Crisis in Emerging Economies. [Online] Available at: https://openknowledge.worldbank.org/bitstream/ handle/10986/28428/9781464810533. , I., 2023. Distribution of carbon dioxide emissions produced by the transportation sector worldwide in 2021, by subsector. [Online] Available at: https://www.statista.com/ statistics/1185535/transport-carbon-dioxide-emissions-breakdown/ [Accessed 15 May 2023]. Africa, 2023. Rwanda bus lanes to be tested early 2024. [Online] Available at: https:// www.trtafrika.com/africa/ , 2022. What are carbon markets and why are they important?. [Online] Available at: https://climatepromise.undp.org/news-and-stories/ -they-important [Accessed 2 12 2023]. UNEP , 2016. Mobilizing Sustainable Transport for Development: Analysis and Policy Recommendations from the United Nations Secretary-General’s High-Level Advisory Group on Sustainable Transport, New York City: s.n. UNEP , 2017. Used Vehicles: A Global Overview. [Online] Available at: https://unece.org/ DAM/trans/doc/2017/itc/UNEP-ITC_Background_Paper-Used_Vehicle_Global_Overview. pdf [Accessed 16 November 2023]. UNEP , 2022. In face of rising air pollution, Rwanda turns to electric vehicles. [Online] Available at: https://www.unep.org/news-and-stories/story/ -vehicle",
+            "_node_id": "a6f16be697412947204eed9341d6064f57184f5ac5809dc526d5e1c050b482e9"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'uYilo e-mobility initiative'})-[:has_concept]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "uYilo e-mobility initiative",
+      "REL_TYPE": "has_concept"
+    },
+    "answer": [
+      {
+        "cnt": 6,
+        "m_list": [
+          {
+            "file_id": "concept_file",
+            "id": "technology",
+            "_node_id": "7301badb93d9b543fcf3d03edc74488206bcf0b75415df8e94f373a2e9c6b84b"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "collaboration",
+            "_node_id": "7ce08964d88f37cea7f5604099566ffcb7365a9aed5f3ffddc29e24f789056bf"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "project",
+            "_node_id": "bae753a176c2857d369ffbcbf11fc2ffb3bb785ec0bdf556329aaae860cb259a"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "development",
+            "_node_id": "61fd53edbb3e8fd5243e46b44c43fd6d707aebfab1e004ea05d5faa44016b884"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "initiative",
+            "_node_id": "534b4d2518227e012da93b04b74d74c4bb437a1f842c4557ccdba735cf2a089d"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "program",
+            "_node_id": "872b67d8d9fc21dee7c816f8e5fe5eda8e6e621fabca30e1796243dc2a0c0e22"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'sustainable mobility solutions'})-[:has_concept]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "sustainable mobility solutions",
+      "REL_TYPE": "has_concept"
+    },
+    "answer": [
+      {
+        "cnt": 7,
+        "m_list": [
+          {
+            "file_id": "concept_file",
+            "id": "eco-friendly",
+            "_node_id": "6044c4307b4f784c3e5d459ecc2f90dcb68bffe00b1a747503af3d36f0d6f401"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "alternatives",
+            "_node_id": "534b65ecf444d460645b8d7f3cd69ccbf2f279ce1505089dfa164c9d565b40e2"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "innovation",
+            "_node_id": "ae8f3243c37ee142b4100c9c544e5674ec1b8bea22958a5cac7f7e2daee615db"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "mobility",
+            "_node_id": "32fb62b74872ed27afa2f9edad9913c1090c23c965bbdb8511200667d57703a6"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "sustainability",
+            "_node_id": "3c329ff77b0a72a4a4b1663e35ce7a25b2dd5f55a2f78227698d161dace5e265"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "transportation",
+            "_node_id": "fb3e62939705b2ef8f74e7b47c67f067abd496b09e1b25ed39c1fe386602c4f5"
+          },
+          {
+            "file_id": "concept_file",
+            "id": "solutions",
+            "_node_id": "177cf18ae44f367c6cd140a1679d6795b1a0254539db0c7c1dff3db4a5e7d4d5"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:has_concept]->(b:concept) MATCH (a)-[:has_concept]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "concept",
+      "REL1": "has_concept",
+      "REL2": "has_concept"
+    },
+    "answer": [
+      {
+        "cnt": 113107
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:means]->(b:entity) MATCH (a)-[:means]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "entity",
+      "REL1": "means",
+      "REL2": "means"
+    },
+    "answer": [
+      {
+        "cnt": 3
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:mention_in]->(b:passage) MATCH (a)-[:mention_in]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "passage",
+      "REL1": "mention_in",
+      "REL2": "mention_in"
+    },
+    "answer": [
+      {
+        "cnt": 17654
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:mention_in]->(b:passage) MATCH (a)-[:mention_in]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "passage",
+      "REL1": "mention_in",
+      "REL2": "mention_in"
+    },
+    "answer": [
+      {
+        "cnt": 17654
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:has_concept]->(b:concept) MATCH (a)-[:has_concept]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "concept",
+      "REL1": "has_concept",
+      "REL2": "has_concept"
+    },
+    "answer": [
+      {
+        "cnt": 113107
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:has_concept]->(b:concept) MATCH (a)-[:has_concept]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "concept",
+      "REL1": "has_concept",
+      "REL2": "has_concept"
+    },
+    "answer": [
+      {
+        "cnt": 113107
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:mention_in]->(b:passage) MATCH (a)-[:mention_in]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "passage",
+      "REL1": "mention_in",
+      "REL2": "mention_in"
+    },
+    "answer": [
+      {
+        "cnt": 14846
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:mention_in]->(b:passage) MATCH (a)-[:mention_in]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "passage",
+      "REL1": "mention_in",
+      "REL2": "mention_in"
+    },
+    "answer": [
+      {
+        "cnt": 14846
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:mention_in]->(b:passage) MATCH (a)-[:mention_in]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "passage",
+      "REL1": "mention_in",
+      "REL2": "mention_in"
+    },
+    "answer": [
+      {
+        "cnt": 14846
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T001",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:mention_in]->(b:passage) MATCH (a)-[:mention_in]->(b) RETURN count(*) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "passage",
+      "REL1": "mention_in",
+      "REL2": "mention_in"
+    },
+    "answer": [
+      {
+        "cnt": 17654
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T002",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:is_each_day_that]->(b:event) MATCH (a)-[:is_each_day_that]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "event",
+      "REL1": "is_each_day_that",
+      "REL2": "is_each_day_that"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "dd00c5d209f148c026b8bd43a46b73caec8374f465b87a0e7e55c7eda34637d4",
+          "id": "Pricing Date",
+          "_node_id": "9b94bf6e8d392b16e4d367b7de3cb5c79be1979c8a6af246f5943f419f663134"
+        },
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T002",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:affects]->(b:entity) MATCH (a)-[:affects]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "entity",
+      "REL1": "affects",
+      "REL2": "affects"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "bb17e89bf13957aaa61b77b128c6f05a7e62adb929e0e473dfad6f36052d86fd",
+          "id": "Failure to comply with restrictive covenants",
+          "_node_id": "4d19d6c15b76e2a3a434e91fb5537be69d3e3f434535999d39c68eac5b60ec66"
+        },
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T002",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:references]->(b:event) MATCH (a)-[:references]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "event",
+      "REL1": "references",
+      "REL2": "references"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "8b63f22785c6694c568956553b2440a0f5e2cc567ec1e0b0b4941386d163f84f",
+          "id": "Reference Price A",
+          "_node_id": "045d5dbd552cbf06be434ede152c5ec4f63bf63f16c0f9802279875ad80abde6"
+        },
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T002",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:affects]->(b:entity) MATCH (a)-[:affects]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "entity",
+      "REL1": "affects",
+      "REL2": "affects"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "bb17e89bf13957aaa61b77b128c6f05a7e62adb929e0e473dfad6f36052d86fd",
+          "id": "Failure to comply with restrictive covenants",
+          "_node_id": "4d19d6c15b76e2a3a434e91fb5537be69d3e3f434535999d39c68eac5b60ec66"
+        },
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T002",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:in]->(b:entity) MATCH (a)-[:in]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "entity",
+      "REL1": "in",
+      "REL2": "in"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "a746a24d07dad96b67524f466c68148db3a6222ec0e2a26252b2abb9bb9adc06",
+          "id": "JD Logistics officially released its Delivered with Original Package (DWOP)",
+          "_node_id": "bd7d8ce0b0681f04511a5c7172782312b251e73a6b8b3a44103bbb9d8c1c1218"
+        },
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T002",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:Description]->(b:event) MATCH (a)-[:Description]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "event",
+      "REL1": "Description",
+      "REL2": "Description"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "8b63f22785c6694c568956553b2440a0f5e2cc567ec1e0b0b4941386d163f84f",
+          "id": "Reference Price B",
+          "_node_id": "8344d1ee6360b9203a996a46867cc6146683207b7e51f64b39b470183482d2ef"
+        },
+        "cnt": 10
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T002",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:is_each_day_that]->(b:event) MATCH (a)-[:is_each_day_that]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "event",
+      "REL1": "is_each_day_that",
+      "REL2": "is_each_day_that"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "dd00c5d209f148c026b8bd43a46b73caec8374f465b87a0e7e55c7eda34637d4",
+          "id": "Pricing Date",
+          "_node_id": "9b94bf6e8d392b16e4d367b7de3cb5c79be1979c8a6af246f5943f419f663134"
+        },
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T002",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:entity)-[:could_result_in]->(b:event) MATCH (a)-[:could_result_in]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "event",
+      "REL1": "could_result_in",
+      "REL2": "could_result_in"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "7ca511c6b8462eab92ea1ba8f056a57ef5839e18c24057b7c20545823c80addc",
+          "id": "Failure to accurately forecast consumer demand",
+          "_node_id": "e3302c613d8542076d37827dbe5e8e9aa86f7b2c1c8672519881ab69f2e5c29a"
+        },
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T002",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:result]->(b:event) MATCH (a)-[:result]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "event",
+      "REL1": "result",
+      "REL2": "result"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "c9244f91d785f45aa851c0cbf0cbaba99b4a0de3bac9b7d6effe0359bceb0da8",
+          "id": "Stress Testing of the Spring Festival Gala Red Envelope Project",
+          "_node_id": "da3daeb0b7bdd8870e482f00b1fcbf0ffe0f916f625984404d22ead6cd3ec68e"
+        },
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_into_aggregation_T002",
+    "template_type": "basic_expand_into_aggregation",
+    "query": "MATCH (a:event)-[:in]->(b:entity) MATCH (a)-[:in]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "entity",
+      "REL1": "in",
+      "REL2": "in"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "a746a24d07dad96b67524f466c68148db3a6222ec0e2a26252b2abb9bb9adc06",
+          "id": "JD Logistics officially released its Delivered with Original Package (DWOP)",
+          "_node_id": "bd7d8ce0b0681f04511a5c7172782312b251e73a6b8b3a44103bbb9d8c1c1218"
+        },
+        "cnt": 1
+      }
+    ]
+  },
+  {
+    "template_id": "basic_filter_aggregation_T001",
+    "template_type": "basic_filter_aggregation",
+    "query": "MATCH (a:entity)-[r:not_required_to_attest]-(b:entity) WHERE r.concepts <> 'val_6930' RETURN count(a) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "entity",
+      "REL_TYPE": "not_required_to_attest",
+      "REL_PROP": "concepts",
+      "OP": "<>",
+      "VALUE": "val_6930"
+    },
+    "answer": [
+      {
+        "cnt": 2
+      }
+    ]
+  },
+  {
+    "template_id": "basic_filter_aggregation_T001",
+    "template_type": "basic_filter_aggregation",
+    "query": "MATCH (a:entity)-[r:rejects]-(b:entity) WHERE r._edge_id <> 'val_5476' RETURN count(a) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "entity",
+      "REL_TYPE": "rejects",
+      "REL_PROP": "_edge_id",
+      "OP": "<>",
+      "VALUE": "val_5476"
+    },
+    "answer": [
+      {
+        "cnt": 4
+      }
+    ]
+  },
+  {
+    "template_id": "basic_filter_aggregation_T001",
+    "template_type": "basic_filter_aggregation",
+    "query": "MATCH (a:entity)-[r:assures]-(b:entity) WHERE r.concepts <> 'val_6379' RETURN count(a) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "entity",
+      "REL_TYPE": "assures",
+      "REL_PROP": "concepts",
+      "OP": "<>",
+      "VALUE": "val_6379"
+    },
+    "answer": [
+      {
+        "cnt": 2
+      }
+    ]
+  },
+  {
+    "template_id": "basic_filter_aggregation_T001",
+    "template_type": "basic_filter_aggregation",
+    "query": "MATCH (a:entity)-[r:abolished]-(b:entity) WHERE r.concepts <> 'val_2738' RETURN count(a) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "entity",
+      "REL_TYPE": "abolished",
+      "REL_PROP": "concepts",
+      "OP": "<>",
+      "VALUE": "val_2738"
+    },
+    "answer": [
+      {
+        "cnt": 2
+      }
+    ]
+  },
+  {
+    "template_id": "basic_filter_aggregation_T001",
+    "template_type": "basic_filter_aggregation",
+    "query": "MATCH (a:entity)-[r:did_not_find]-(b:entity) WHERE r._edge_id <> 'val_4559' RETURN count(a) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "entity",
+      "REL_TYPE": "did_not_find",
+      "REL_PROP": "_edge_id",
+      "OP": "<>",
+      "VALUE": "val_4559"
+    },
+    "answer": [
+      {
+        "cnt": 2
+      }
+    ]
+  },
+  {
+    "template_id": "basic_filter_aggregation_T001",
+    "template_type": "basic_filter_aggregation",
+    "query": "MATCH (a:entity)-[r:sources]-(b:entity) WHERE r.concepts <> 'val_2777' RETURN count(a) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "entity",
+      "REL_TYPE": "sources",
+      "REL_PROP": "concepts",
+      "OP": "<>",
+      "VALUE": "val_2777"
+    },
+    "answer": [
+      {
+        "cnt": 2
+      }
+    ]
+  },
+  {
+    "template_id": "basic_filter_aggregation_T001",
+    "template_type": "basic_filter_aggregation",
+    "query": "MATCH (a:entity)-[r:approximate]-(b:entity) WHERE r._edge_id <> 'val_7980' RETURN count(a) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "entity",
+      "REL_TYPE": "approximate",
+      "REL_PROP": "_edge_id",
+      "OP": "<>",
+      "VALUE": "val_7980"
+    },
+    "answer": [
+      {
+        "cnt": 4
+      }
+    ]
+  },
+  {
+    "template_id": "basic_filter_aggregation_T001",
+    "template_type": "basic_filter_aggregation",
+    "query": "MATCH (a:entity)-[r:shall_always_maintain]-(b:entity) WHERE r._edge_id <> 'val_1591' RETURN count(a) AS cnt",
+    "parameters": {
+      "LABEL1": "entity",
+      "LABEL2": "entity",
+      "REL_TYPE": "shall_always_maintain",
+      "REL_PROP": "_edge_id",
+      "OP": "<>",
+      "VALUE": "val_1591"
+    },
+    "answer": [
+      {
+        "cnt": 2
+      }
+    ]
+  },
+  {
+    "template_id": "basic_filter_aggregation_T001",
+    "template_type": "basic_filter_aggregation",
+    "query": "MATCH (a:event)-[r:could_result_in]-(b:entity) WHERE r._edge_id <> 'val_2066' RETURN count(a) AS cnt",
+    "parameters": {
+      "LABEL1": "event",
+      "LABEL2": "entity",
+      "REL_TYPE": "could_result_in",
+      "REL_PROP": "_edge_id",
+      "OP": "<>",
+      "VALUE": "val_2066"
+    },
+    "answer": [
+      {
+        "cnt": 1
+      }
+    ]
+  }
+]

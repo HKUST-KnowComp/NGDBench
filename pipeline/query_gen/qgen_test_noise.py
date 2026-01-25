@@ -1,7 +1,15 @@
 import json
 import os
+import sys
 import argparse
 import logging
+
+# 添加 pipeline 目录到路径，以便导入 handler 模块
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PIPELINE_DIR = os.path.dirname(CURRENT_DIR)
+if PIPELINE_DIR not in sys.path:
+    sys.path.insert(0, PIPELINE_DIR)
+
 from generator.noise_query_gen import NoiseQueryGenerator
 from handler.cleaner import extract_and_clean_answers, clean_judge_query_answers
 

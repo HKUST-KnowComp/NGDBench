@@ -6,10 +6,10 @@ from generator.query_generator import QueryGenerator
 logger = logging.getLogger(__name__)
 
 # 默认连接配置（可被命令行参数覆盖）
-DEFAULT_NEO4J_URI = "bolt://localhost:7690"
+DEFAULT_NEO4J_URI = "bolt://localhost:7692"
 DEFAULT_NEO4J_USER = "neo4j"
 DEFAULT_NEO4J_PASSWORD = "fei123456"
-DEFAULT_DATASET = "mcp"
+DEFAULT_DATASET = "ldbcfin"
 
 
 def test_query_generator(uri: str, user: str, password: str, dataset: str):

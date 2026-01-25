@@ -4,6 +4,62 @@ import os
 from typing import List, Dict, Any, Union, Optional
 from openai import OpenAI
 
+# 可复用的 CRITICAL REQUIREMENTS 常量
+_CRITICAL_REQUIREMENTS_TEMPLATE = """***CRITICAL REQUIREMENTS:***
+1. **ONLY return the {content_type} of each {item_type}**
+2. **DO NOT include any explanations, comments, or additional text**
+3. **DO NOT include {item_type} numbers, prefixes, or any other metadata**
+4. **DO NOT include phrases like 'This {item_type}...', 'The {item_type}...', or any introductory text**
+5. **Each line should contain ONLY the pure {content_type} of the corresponding {item_type}**
+6. **Return one {content_type} per {item_type} in order, separated by newlines**
+7. **NO numbers, NO prefixes, NO extra words - ONLY the {content_name} itself**
+"""
+
+# System message 中的强调部分模板
+_SYSTEM_CRITICAL_TEMPLATE = "**CRITICAL: You MUST ONLY return the pure {content_type} of {item_type_plural}. DO NOT include any explanations, comments, numbers, prefixes, or any other text. Each response line should contain ONLY the {content_name} itself.**"
+
+
+def _get_critical_requirements(content_type: str, item_type: str = "query", content_name: str = None) -> str:
+    """
+    生成 CRITICAL REQUIREMENTS 文本
+    
+    Args:
+        content_type: 返回内容的类型，如 "natural language description/translation", "question stem/translation"
+        item_type: 项目类型，如 "query", "query pair"
+        content_name: 内容名称，用于第7条，如 "translation", "question stem", "description"
+    
+    Returns:
+        CRITICAL REQUIREMENTS 文本
+    """
+    if content_name is None:
+        content_name = content_type.split('/')[0] if '/' in content_type else content_type
+    return _CRITICAL_REQUIREMENTS_TEMPLATE.format(
+        content_type=content_type,
+        item_type=item_type,
+        content_name=content_name
+    )
+
+
+def _get_system_critical_emphasis(content_type: str, item_type_plural: str = "queries", content_name: str = None) -> str:
+    """
+    生成 system message 中的强调部分
+    
+    Args:
+        content_type: 返回内容的类型
+        item_type_plural: 项目类型的复数形式
+        content_name: 内容名称
+    
+    Returns:
+        System message 强调文本
+    """
+    if content_name is None:
+        content_name = content_type.split('/')[0] if '/' in content_type else content_type
+    return _SYSTEM_CRITICAL_TEMPLATE.format(
+        content_type=content_type,
+        item_type_plural=item_type_plural,
+        content_name=content_name
+    )
+
 def add_nlp_descriptions(input_file: str, output_file: str, 
                         api_key: str = None, 
                         base_url: str = None,
@@ -98,13 +154,24 @@ def _get_normal_descriptions_batch(client: OpenAI, queries: List[str], model: st
     for i, query in enumerate(queries, 1):
         prompt += f"Query {i}:\n{query}\n\n"
     
-    prompt += "Please provide one natural language description per query in order, separated by newlines, without adding numbers:"
+    prompt += _get_critical_requirements(
+        content_type="natural language description/translation",
+        item_type="query",
+        content_name="translation"
+    )
+    prompt += "\nPlease provide one natural language description per query in order, separated by newlines, without adding numbers:"
     
     try:
+        system_content = (
+            "You are a professional database query analysis expert, skilled at converting Cypher queries into concise natural language descriptions. "
+            "When min() or max() is applied to strings, it means lexicographic (alphabetical) ordering. "
+            f"{_get_system_critical_emphasis('translation/description', 'queries', 'translation')} "
+            "Please respond in English."
+        )
         response = client.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a professional database query analysis expert, skilled at converting Cypher queries into concise natural language descriptions. When min() or max() is applied to strings, it means lexicographic (alphabetical) ordering. Please respond in English."},
+                {"role": "system", "content": system_content},
                 {"role": "user", "content": prompt}
             ]
         )
@@ -145,10 +212,13 @@ def _get_judge_descriptions_batch(client: OpenAI, query_pairs: List[Dict[str, st
     prompt += "The template_query typically checks for a specific relationship or condition. "
     prompt += "You need to formulate a question that asks: 'Does the query result correctly represent this condition?'\n\n"
     
-    prompt += "Example:\n"
+    prompt += "Example1:\n"
     prompt += "Template Query: MATCH (a:Medium), (b:Medium) WHERE a.mediumType = b.mediumType AND a <> b WITH a, b RETURN a, collect(b.mediumType) AS bs\n"
-    prompt += "Question Stem: Judge each pair, for Medium node a, is the collect b.mediumType belongs to Medium nodes b that are not the same node and have the same mediumType as a?\n\n"
-    
+    prompt += "Question Stem: For Medium node a, is the collect b.mediumType belongs to Medium nodes b that are not the same node and have the same mediumType as a?\n\n"
+    prompt += "Example2:\n"
+    prompt += "Template Query: MATCH (a:Person) WHERE (a)-[:Person_Guarantee_Person]->(:Person) WITH a RETURN collect(a.personName)[0..5] AS values\n"
+    prompt += "Question Stem: Are the five Person nodes acting as guarantors for other Person nodes?\n\n"
+
     prompt += "Guidelines:\n"
     prompt += "- The question should be clear and concise, asking about whether the query result correctly represents the condition checked by the template_query.\n"
     prompt += "- Analyze what the template_query is checking (relationships, properties, conditions, etc.) and formulate a question about that.\n"
@@ -160,13 +230,24 @@ def _get_judge_descriptions_batch(client: OpenAI, query_pairs: List[Dict[str, st
         template_query = query_pair.get("template_query", "")
         prompt += f"Query {i}:\n{template_query}\n\n"
     
-    prompt += "Please provide one question stem per query in order, separated by newlines, without adding numbers:"
+    prompt += _get_critical_requirements(
+        content_type="question stem/translation",
+        item_type="query",
+        content_name="question stem"
+    )
+    prompt += "\nPlease provide one question stem per query in order, separated by newlines, without adding numbers:"
     
     try:
+        system_content = (
+            "You are a professional database query analysis expert, skilled at converting Cypher queries into clear judgment questions. "
+            "You understand the semantic meaning of queries and can formulate precise question stems that ask whether the query result correctly represents the intended condition. "
+            f"{_get_system_critical_emphasis('question stem/translation', 'queries', 'question stem')} "
+            "Please respond in English."
+        )
         response = client.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a professional database query analysis expert, skilled at converting Cypher queries into clear judgment questions. You understand the semantic meaning of queries and can formulate precise question stems that ask whether the query result correctly represents the intended condition. Please respond in English."},
+                {"role": "system", "content": system_content},
                 {"role": "user", "content": prompt}
             ]
         )
@@ -216,13 +297,24 @@ def _get_manage_descriptions_batch(client: OpenAI, query_pairs: List[Dict[str, s
         prompt += f"Template query: {template_query}\n"
         prompt += f"Post-validation query: {post_validation_query}\n\n"
     
-    prompt += "Please provide one natural language question per pair in order, separated by newlines, without adding numbers:"
+    prompt += _get_critical_requirements(
+        content_type="natural language question/translation",
+        item_type="query pair",
+        content_name="question"
+    )
+    prompt += "\nPlease provide one natural language question per pair in order, separated by newlines, without adding numbers:"
     
     try:
+        system_content = (
+            "You are a professional database query analysis expert, skilled at converting Cypher queries into natural language questions. "
+            "You understand data operations (create, modify, delete) and can formulate clear questions that describe operations and ask for computed results. "
+            f"{_get_system_critical_emphasis('question/translation', 'query pairs', 'question')} "
+            "Please respond in English."
+        )
         response = client.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a professional database query analysis expert, skilled at converting Cypher queries into natural language questions. You understand data operations (create, modify, delete) and can formulate clear questions that describe operations and ask for computed results. Please respond in English."},
+                {"role": "system", "content": system_content},
                 {"role": "user", "content": prompt}
             ]
         )
@@ -352,14 +444,28 @@ def check_and_fix_nlp_batch(client: OpenAI, query_nlp_pairs: List[tuple], model:
         prompt += f"Query {i}:\n{query}\n"
         prompt += f"Current NLP: {nlp if nlp else '(empty)'}\n\n"
     
+    critical_req = _get_critical_requirements(
+        content_type="improved/fixed natural language description/translation",
+        item_type="query",
+        content_name="description"
+    )
+    # 为 check_and_fix 模式添加第8条特殊要求
+    critical_req += "8. **If a description is already good, return it unchanged (but still ONLY the description, nothing else)**\n\n"
+    prompt += critical_req
     prompt += "Please provide one improved NLP description per query in order, separated by newlines, without adding numbers. "
     prompt += "If a description is already good, return it unchanged."
     
     try:
+        system_content = (
+            "You are a professional database query analysis expert, skilled at reviewing and improving natural language descriptions of Cypher queries. "
+            "You check for accuracy, completeness, and naturalness. "
+            f"{_get_system_critical_emphasis('improved description/translation', 'queries', 'description')} "
+            "Please respond in English."
+        )
         response = client.chat.completions.create(
             model=model,
             messages=[
-                {"role": "system", "content": "You are a professional database query analysis expert, skilled at reviewing and improving natural language descriptions of Cypher queries. You check for accuracy, completeness, and naturalness. Please respond in English."},
+                {"role": "system", "content": system_content},
                 {"role": "user", "content": prompt}
             ]
         )

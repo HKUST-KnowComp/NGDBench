@@ -676,6 +676,38 @@ class QueryBuilder:
                     'prop_value_pairs': prop_value_pairs
                 })
         
+        # 识别硬编码标签的情况：当模板中有 PROP_ID 和 VALUE 但没有 LABEL 参数时
+        # 从模板字符串中提取硬编码的标签（如 :entity）
+        if 'PROP_ID' in params and 'VALUE' in params:
+            # 检查是否已经有 LABEL 相关的参数组
+            has_label_param = any('LABEL' in group.get('label_param', '') or 
+                                 group.get('label_param', '') in ['L', 'L1', 'L2', 'L3', 'L4'] 
+                                 for group in groups)
+            
+            if not has_label_param:
+                # 从模板字符串中提取硬编码的标签
+                # 匹配模式: (var:label {$PROP_ID: $VALUE}) 或 (:label {$PROP_ID: $VALUE})
+                hardcoded_labels = []
+                # 查找所有硬编码的标签，例如 :entity, :passage 等
+                # 匹配 (var:label {$PROP_ID: $VALUE}) 或 (var:label {$PROP_ID:$VALUE})
+                pattern = r':(\w+)\s*\{[^}]*\$PROP_ID[^}]*\$VALUE[^}]*\}'
+                matches = re.findall(pattern, template.template)
+                if matches:
+                    hardcoded_labels.extend(matches)
+                
+                # 去重
+                hardcoded_labels = list(set(hardcoded_labels))
+                
+                # 如果找到了硬编码的标签，创建一个参数组
+                if hardcoded_labels:
+                    # 使用第一个找到的硬编码标签
+                    hardcoded_label = hardcoded_labels[0]
+                    groups.append({
+                        'label_param': hardcoded_label,  # 直接使用标签名，而不是参数名
+                        'prop_value_pairs': [('PROP_ID', 'VALUE')],
+                        'is_hardcoded': True  # 标记这是硬编码的标签
+                    })
+        
         return groups
     
     def _fill_params_from_sampled_node(self, template: Template, group: Dict[str, Any], 
@@ -696,9 +728,17 @@ class QueryBuilder:
         
         label_param = group['label_param']
         prop_value_pairs = group['prop_value_pairs']
+        is_hardcoded = group.get('is_hardcoded', False)
         
+        # 如果是硬编码标签，label_param 直接就是标签名（如 "entity"）
+        if is_hardcoded:
+            label = label_param
+            # 验证标签是否存在
+            if label not in self.schema.labels:
+                logger.warning(f"硬编码标签 {label} 不存在于schema中")
+                return False
         # 如果标签参数已经填充，使用已填充的标签
-        if label_param in params_used:
+        elif label_param in params_used:
             label = params_used[label_param]
         else:
             # 选择一个标签

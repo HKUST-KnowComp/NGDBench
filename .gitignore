@@ -138,6 +138,7 @@ pipeline/data_analyser/buffer/*
 data_gen/graph_gen/graph_buffer/*
 query_gen/query/*
 query_gen/query/archive/*
+query_gen/query/reserve/*
 query_gen/query_parse/output/*
 
 # 保留 example_data 目录及内容

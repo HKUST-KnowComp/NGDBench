@@ -1455,39 +1455,51 @@ class NoiseQueryGenerator(QueryGenerator):
                     if hasattr(self.builder, 'excluded_labels') and self.builder.excluded_labels:
                         noisy_labels = [lb for lb in noisy_labels if lb not in self.builder.excluded_labels]
                     
-                    for noisy_label in noisy_labels[:10]:  # 最多尝试10个标签
+                    # 随机选择标签和节点，而不是固定使用前N个，这样可以每次生成不同的查询
+                    max_label_attempts = min(10, len(noisy_labels))
+                    selected_labels = random.sample(noisy_labels, min(max_label_attempts, len(noisy_labels))) if noisy_labels else []
+                    
+                    for noisy_label in selected_labels:
                         if params_used:
                             break
                         noisy_node_ids = self.noise_loader.noisy_nodes[noisy_label]
-                        for node_id in noisy_node_ids[:5]:  # 每个标签最多尝试5个节点
+                        # 随机选择节点，而不是固定使用前5个
+                        max_node_attempts = min(5, len(noisy_node_ids))
+                        if max_node_attempts > 0:
+                            selected_nodes = random.sample(noisy_node_ids, max_node_attempts)
+                            for node_id in selected_nodes:
+                                try:
+                                    query, params = self.builder.build_query_from_noise_node(
+                                        template_obj, noisy_label, node_id
+                                    )
+                                    if query:
+                                        template_query = query
+                                        params_used = params
+                                        break
+                                except Exception as e:
+                                    logger.debug(f"使用噪声节点构建查询失败: {e}")
+                                    continue
+                
+                # 策略2: 如果策略1失败，尝试使用噪声边构建查询
+                if not template_query and self.noise_loader.noisy_edges:
+                    # 随机选择边，而不是固定使用前20条，这样可以每次生成不同的查询
+                    max_edge_attempts = min(20, len(self.noise_loader.noisy_edges))
+                    if max_edge_attempts > 0:
+                        selected_edges = random.sample(self.noise_loader.noisy_edges, max_edge_attempts)
+                        for edge in selected_edges:
+                            if template_query:
+                                break
                             try:
-                                query, params = self.builder.build_query_from_noise_node(
-                                    template_obj, noisy_label, node_id
+                                query, params = self.builder.build_query_from_noise_edge(
+                                    template_obj, edge[0], edge[1]
                                 )
                                 if query:
                                     template_query = query
                                     params_used = params
                                     break
                             except Exception as e:
-                                logger.debug(f"使用噪声节点构建查询失败: {e}")
+                                logger.debug(f"使用噪声边构建查询失败: {e}")
                                 continue
-                
-                # 策略2: 如果策略1失败，尝试使用噪声边构建查询
-                if not template_query and self.noise_loader.noisy_edges:
-                    for edge in self.noise_loader.noisy_edges[:20]:  # 最多尝试20条边
-                        if template_query:
-                            break
-                        try:
-                            query, params = self.builder.build_query_from_noise_edge(
-                                template_obj, edge[0], edge[1]
-                            )
-                            if query:
-                                template_query = query
-                                params_used = params
-                                break
-                        except Exception as e:
-                            logger.debug(f"使用噪声边构建查询失败: {e}")
-                            continue
                 
                 # 策略3: 如果前两种策略都失败，使用普通构建方法，但验证是否包含噪声
                 if not template_query:

@@ -192,7 +192,33 @@ def clean_normal_answer(
             })
         return cleaned_pairs
     
-    # 情况5：其他情况，保持原样或返回列表
+    # 情况5：检查是否是 [{"key": "value"}, {"key": "value"}] 格式，其中值是简单类型（字符串、数字、布尔值、None）
+    # 这种情况需要提取为 ["value", "value"] 或 [value, value]
+    is_single_key_simple_type = True
+    if len(answer) > 0:
+        first_item = answer[0]
+        if isinstance(first_item, dict) and len(first_item) == 1:
+            first_key = list(first_item.keys())[0]
+            first_value = first_item[first_key]
+            # 第一个值是简单类型（字符串、数字、布尔值、None）
+            if isinstance(first_value, (str, int, float, bool)) or first_value is None:
+                # 检查所有元素是否都是这种格式
+                for item in answer:
+                    if not isinstance(item, dict) or len(item) != 1:
+                        is_single_key_simple_type = False
+                        break
+                    key = list(item.keys())[0]
+                    value = item[key]
+                    # 值必须是简单类型（包括 None）
+                    if not (isinstance(value, (str, int, float, bool)) or value is None):
+                        is_single_key_simple_type = False
+                        break
+                if is_single_key_simple_type:
+                    # 提取所有值组成列表
+                    cleaned_values = [item[list(item.keys())[0]] for item in answer]
+                    return cleaned_values
+    
+    # 情况6：其他情况，保持原样或返回列表
     return answer
 
 
@@ -322,9 +348,9 @@ def clean_judge_query_answers(
     功能：
     1. 剔除 unique_in_template_answers 和 unique_in_anti_template_answers 都为空列表的数据
     2. 剔除 unique_in_template_answers 或 unique_in_anti_template_answers 里面只有一项且某个字段值为空列表的数据
-    3. 对于 unique_in_template_answers 和 unique_in_anti_template_answers 里面包含 "a" 和 "bs" 字段的答案：
-       - "a" 字段只保留 "_node_id"
-       - "bs" 字段去重（保留去重后的唯一值或前5个结果）
+    3. 对于 unique_in_template_answers 和 unique_in_anti_template_answers 里面包含的答案：
+       - 如果包含 "a" 和 "b" 字段（pair类型）："a" 和 "b" 字段都只保留 "_node_id"
+       - 如果包含 "a" 和 "bs" 字段："a" 字段只保留 "_node_id"，"bs" 字段去重（保留去重后的唯一值或前5个结果）
     4. 将 unique_in_template_answers 和 unique_in_anti_template_answers 合并为 CandidateSet 字段：
        - unique_in_template_answers → CandidateSet.valid_answer
        - unique_in_anti_template_answers → CandidateSet.invalid_answer
@@ -439,6 +465,10 @@ def _clean_judge_answers(answers: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     - "a" 字段只保留 "_node_id"
     - "bs" 字段去重（保留去重后的唯一值或前5个结果）
     
+    对于包含 "a" 和 "b" 字段的答案（pair类型）：
+    - "a" 字段只保留 "_node_id"
+    - "b" 字段只保留 "_node_id"
+    
     Args:
         answers: 答案列表
     
@@ -462,6 +492,15 @@ def _clean_judge_answers(answers: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             else:
                 # 如果没有 _node_id，保留空字典或移除该字段
                 cleaned_answer["a"] = {}
+        
+        # 处理 "b" 字段：只保留 "_node_id"（用于pair类型的答案）
+        if "b" in cleaned_answer and isinstance(cleaned_answer["b"], dict):
+            b_dict = cleaned_answer["b"]
+            if "_node_id" in b_dict:
+                cleaned_answer["b"] = {"_node_id": b_dict["_node_id"]}
+            else:
+                # 如果没有 _node_id，保留空字典或移除该字段
+                cleaned_answer["b"] = {}
         
         # 处理 "bs" 字段：去重并保留前5个
         if "bs" in cleaned_answer and isinstance(cleaned_answer["bs"], list):

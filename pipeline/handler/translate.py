@@ -311,7 +311,7 @@ if __name__ == "__main__":
     
     # 方式2：批量翻译（通过代码调用）
     translate_all(
-        normal_file="query/ldbc_snb_finbench/noise_execution_step1_ldbcfin_results.json",
+        normal_file="query/ldbc_snb_finbench/noise_query_execution_step1_ldbcfin.json",
         judge_file="query/ldbc_snb_finbench/noise_judge_query_results_step2_ldbcfin.json",
         manage_file="query/ldbc_snb_finbench/management_query_ldbc_fin.json"
     )
@@ -352,7 +352,7 @@ if __name__ == "__main__":
         # 批量处理模式：使用默认文件路径
         print("使用批量处理模式，翻译所有三个文件...")
         translate_all(
-            normal_file="../query_gen/query/ldbc_snb_finbench/noise_execution_step1_ldbcfin_results.json",
+            normal_file="../query_gen/query/ldbc_snb_finbench/noise_query_execution_step1_ldbcfin.json",
             judge_file="../query_gen/query/ldbc_snb_finbench/noise_judge_query_results_step2_ldbcfin.json",
             manage_file="../query_gen/query/ldbc_snb_finbench/management_query_ldbc_fin.json",
             chunk_size=10,
