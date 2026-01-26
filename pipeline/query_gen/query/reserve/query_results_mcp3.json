@@ -1,0 +1,877 @@
+[
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'generateImage'})-[:then]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "generateImage",
+      "REL_TYPE": "then"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "concept": [
+              "technique",
+              "method",
+              "tool",
+              "process",
+              "approach",
+              "function"
+            ],
+            "file_id": "7643faccd40de838bef2411a8d5f403b7647c101f1d979cea2852cdb48da7781",
+            "id": "getExpertOpinion",
+            "_node_id": "cce268d89a851925a21043369fb99f3b9cc404b4a62d0dba23eccb801ae1f066"
+          }
+        ]
+      }
+    ]
+  },
+  
+  {
+    "template_id": "anti_T003",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:include_booking_details]->(:entity) OR (a)-[:details]->(:entity) RETURN a.return",
+    "parameters": {
+      "REL1": "include_booking_details",
+      "REL2": "details",
+      "RET_PROP": "return"
+    },
+    "answer": [
+      {
+        "a.return": [
+          "[\"flux\", \"kontext\", \"turbo\"]"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_value_21"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_result"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T003",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:provides_exchange_rate_for]->(:entity) OR (a)-[:primarily_focusing_on]->(:entity) RETURN a.return",
+    "parameters": {
+      "REL1": "provides_exchange_rate_for",
+      "REL2": "primarily_focusing_on",
+      "RET_PROP": "return"
+    },
+    "answer": [
+      {
+        "a.return": [
+          "[\"flux\", \"kontext\", \"turbo\"]"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_value_21"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_result"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T003",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:operateson]->(:entity) OR (a)-[:provides_storage]->(:entity) RETURN a.return",
+    "parameters": {
+      "REL1": "operateson",
+      "REL2": "provides_storage",
+      "RET_PROP": "return"
+    },
+    "answer": [
+      {
+        "a.return": [
+          "[\"flux\", \"kontext\", \"turbo\"]"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_value_21"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_result"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T003",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:gets_current_time_in_New_York]->(:entity) OR (a)-[:attempted_but_failed_due_to]->(:entity) RETURN a.parameter",
+    "parameters": {
+      "REL1": "gets_current_time_in_New_York",
+      "REL2": "attempted_but_failed_due_to",
+      "RET_PROP": "parameter"
+    },
+    "answer": [
+      {
+        "a.parameter": [
+          "addArguments"
+        ]
+      },
+      {
+        "a.parameter": [
+          "yarn install"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T003",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:for_object_item_definitions]->(:entity) OR (a)-[:finds_Bitcoin_price]->(:entity) RETURN a.return",
+    "parameters": {
+      "REL1": "for_object_item_definitions",
+      "REL2": "finds_Bitcoin_price",
+      "RET_PROP": "return"
+    },
+    "answer": [
+      {
+        "a.return": [
+          "[\"flux\", \"kontext\", \"turbo\"]"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_value_21"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_result"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T003",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:has_theme]->(:entity) OR (a)-[:provides_insights_into]->(:entity) RETURN a.return",
+    "parameters": {
+      "REL1": "has_theme",
+      "REL2": "provides_insights_into",
+      "RET_PROP": "return"
+    },
+    "answer": [
+      {
+        "a.return": [
+          "[\"flux\", \"kontext\", \"turbo\"]"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_value_21"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_result"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T003",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:to_search_the_entire_Assets_folder]->(:entity) OR (a)-[:silently_installs]->(:entity) RETURN a.parameter",
+    "parameters": {
+      "REL1": "to_search_the_entire_Assets_folder",
+      "REL2": "silently_installs",
+      "RET_PROP": "parameter"
+    },
+    "answer": [
+      {
+        "a.parameter": [
+          "addArguments"
+        ]
+      },
+      {
+        "a.parameter": [
+          "yarn install"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T003",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:yield]->(:entity) OR (a)-[:notes]->(:entity) RETURN a.return",
+    "parameters": {
+      "REL1": "yield",
+      "REL2": "notes",
+      "RET_PROP": "return"
+    },
+    "answer": [
+      {
+        "a.return": [
+          "[\"flux\", \"kontext\", \"turbo\"]"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_value_21"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_result"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T003",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:finds_Bitcoin_price]->(:entity) OR (a)-[:Dictionary_with_F1_race_results_information]->(:entity) RETURN a.return",
+    "parameters": {
+      "REL1": "finds_Bitcoin_price",
+      "REL2": "Dictionary_with_F1_race_results_information",
+      "RET_PROP": "return"
+    },
+    "answer": [
+      {
+        "a.return": [
+          "[\"flux\", \"kontext\", \"turbo\"]"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_value_21"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_result"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T003",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:regenerate_until]->(:entity) OR (a)-[:returns_error_responses]->(:entity) RETURN a.return",
+    "parameters": {
+      "REL1": "regenerate_until",
+      "REL2": "returns_error_responses",
+      "RET_PROP": "return"
+    },
+    "answer": [
+      {
+        "a.return": [
+          "[\"flux\", \"kontext\", \"turbo\"]"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_value_21"
+        ]
+      },
+      {
+        "a.return": [
+          "temperature_result"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T004",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT a.concept = 'val_4394' RETURN count(a) AS cnt",
+    "parameters": {
+      "PROP": "concept",
+      "OP": "=",
+      "VALUE": "val_4394"
+    },
+    "answer": [
+      {
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T004",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT a.concept = 'val_6343' RETURN count(a) AS cnt",
+    "parameters": {
+      "PROP": "concept",
+      "OP": "=",
+      "VALUE": "val_6343"
+    },
+    "answer": [
+      {
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T004",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT a.concept = 'val_3789' RETURN count(a) AS cnt",
+    "parameters": {
+      "PROP": "concept",
+      "OP": "=",
+      "VALUE": "val_3789"
+    },
+    "answer": [
+      {
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T004",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT a.return = 'val_4199' RETURN count(a) AS cnt",
+    "parameters": {
+      "PROP": "return",
+      "OP": "=",
+      "VALUE": "val_4199"
+    },
+    "answer": [
+      {
+        "cnt": 609
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T004",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT a.concept = 'val_3262' RETURN count(a) AS cnt",
+    "parameters": {
+      "PROP": "concept",
+      "OP": "=",
+      "VALUE": "val_3262"
+    },
+    "answer": [
+      {
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T004",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT a.parameter = 'val_3992' RETURN count(a) AS cnt",
+    "parameters": {
+      "PROP": "parameter",
+      "OP": "=",
+      "VALUE": "val_3992"
+    },
+    "answer": [
+      {
+        "cnt": 825
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T004",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT a.concept = 'val_9855' RETURN count(a) AS cnt",
+    "parameters": {
+      "PROP": "concept",
+      "OP": "=",
+      "VALUE": "val_9855"
+    },
+    "answer": [
+      {
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T004",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT a.concept = 'val_6338' RETURN count(a) AS cnt",
+    "parameters": {
+      "PROP": "concept",
+      "OP": "=",
+      "VALUE": "val_6338"
+    },
+    "answer": [
+      {
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T004",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT a.parameter = 'val_4898' RETURN count(a) AS cnt",
+    "parameters": {
+      "PROP": "parameter",
+      "OP": "=",
+      "VALUE": "val_4898"
+    },
+    "answer": [
+      {
+        "cnt": 825
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T004",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT a.concept = 'val_1353' RETURN count(a) AS cnt",
+    "parameters": {
+      "PROP": "concept",
+      "OP": "=",
+      "VALUE": "val_1353"
+    },
+    "answer": [
+      {
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T007",
+    "template_type": "anti",
+    "query": "MATCH (a:entity {id: 'general airport-related offenses'}), (b:entity) WHERE NOT (a)-[:message]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "general airport-related offenses",
+      "REL_TYPE": "message"
+    },
+    "answer": [
+      {
+        "a": {
+          "concept": [
+            "law",
+            "offense",
+            "security",
+            "violation",
+            "crime",
+            "regulation"
+          ],
+          "file_id": "0db111d97b7686a35987574060aeb751f79cb14bf7cb73ae16a5bb8e51bcc691",
+          "id": "general airport-related offenses",
+          "_node_id": "a81298cb916ce507b6c6e7d7b6f91fa2eea0ce71ff71c3cc6779d2ff618d5669"
+        },
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T007",
+    "template_type": "anti",
+    "query": "MATCH (a:entity {id: 'mindbridge-listImageModels'}), (b:entity) WHERE NOT (a)-[:only_supports_US_locations]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "mindbridge-listImageModels",
+      "REL_TYPE": "only_supports_US_locations"
+    },
+    "answer": [
+      {
+        "a": {
+          "concept": [
+            "software",
+            "application",
+            "tool",
+            "utility",
+            "list",
+            "function"
+          ],
+          "file_id": "7b5e305667d590672ae8982b0766bb7e78b71c55aaae1b98bcff88cd2ce458de",
+          "id": "mindbridge-listImageModels",
+          "return": [
+            "[\"flux\", \"kontext\", \"turbo\"]"
+          ],
+          "_node_id": "d0af770a86b638ab9750bb195d323442c042eae715a48078d7c34dd0fce0cb97"
+        },
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T007",
+    "template_type": "anti",
+    "query": "MATCH (a:entity {id: 'different search terms'}), (b:entity) WHERE NOT (a)-[:ensures]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "different search terms",
+      "REL_TYPE": "ensures"
+    },
+    "answer": [
+      {
+        "a": {
+          "concept": [
+            "phrases",
+            "keywords",
+            "search",
+            "query",
+            "criteria",
+            "terms"
+          ],
+          "file_id": "0db111d97b7686a35987574060aeb751f79cb14bf7cb73ae16a5bb8e51bcc691",
+          "id": "different search terms",
+          "_node_id": "4704e94bb22d4d2d2beb09ec2e1e621c7f6d46ad5f01b33b583edaad17ab73b6"
+        },
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T007",
+    "template_type": "anti",
+    "query": "MATCH (a:entity {id: 'decisionStatement_Choose_the_foundational_architectural_pattern_that_balances_consistency_availability_and_partition_tolerance_for_real_time_multi_agent_collaboration_with_data_integrity_requirements'}), (b:entity) WHERE NOT (a)-[:to_pull_Weibo_and_Douyin_ranking]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "decisionStatement_Choose_the_foundational_architectural_pattern_that_balances_consistency_availability_and_partition_tolerance_for_real_time_multi_agent_collaboration_with_data_integrity_requirements",
+      "REL_TYPE": "to_pull_Weibo_and_Douyin_ranking"
+    },
+    "answer": [
+      {
+        "a": {
+          "concept": [
+            "consistency",
+            "system",
+            "architecture",
+            "pattern",
+            "design",
+            "balance"
+          ],
+          "file_id": "ae8a46dd849ed55c67e3e190063445a5ecb13462dbb536c03b590f3971ea3c2c",
+          "id": "decisionStatement_Choose_the_foundational_architectural_pattern_that_balances_consistency_availability_and_partition_tolerance_for_real_time_multi_agent_collaboration_with_data_integrity_requirements",
+          "_node_id": "f10291522e254b5279785d3903337d84c2d5f878963bdf69af234d0559a83e51"
+        },
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T007",
+    "template_type": "anti",
+    "query": "MATCH (a:entity {id: 'function_tool_search_common_breeds'}), (b:entity) WHERE NOT (a)-[:requiresSelector]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "function_tool_search_common_breeds",
+      "REL_TYPE": "requiresSelector"
+    },
+    "answer": [
+      {
+        "a": {
+          "concept": [
+            "algorithm",
+            "software",
+            "application",
+            "tool",
+            "utility",
+            "search",
+            "function"
+          ],
+          "file_id": "500819fcff054988b65b2b39dd43491201dba792b18b19257621d8671e23748c",
+          "id": "function_tool_search_common_breeds",
+          "_node_id": "6de5b40cae93f6f48abdf249a1e02b1de43370f965ee217635a17773f24a0160"
+        },
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T007",
+    "template_type": "anti",
+    "query": "MATCH (a:entity {id: 'scale_area'}), (b:entity) WHERE NOT (a)-[:get_reactions_from]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "scale_area",
+      "REL_TYPE": "get_reactions_from"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "7b05fdfed4e6e99b5e106d5c54de63ac888bf6cc93cc57c22f0853c8f49276a6",
+          "concept": [
+            "space",
+            "region",
+            "scope",
+            "area",
+            "dimension",
+            "size"
+          ],
+          "id": "scale_area",
+          "_node_id": "d0ad6821c7326d076cd0830632abfa208f3115c454cd44e731ea6a76e0c2d628"
+        },
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T007",
+    "template_type": "anti",
+    "query": "MATCH (a:entity {id: 'extract-visible-price'}), (b:entity) WHERE NOT (a)-[:state_after_blocking]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "extract-visible-price",
+      "REL_TYPE": "state_after_blocking"
+    },
+    "answer": [
+      {
+        "a": {
+          "concept": [
+            "phrase2",
+            "phrase1",
+            "phrase3"
+          ],
+          "file_id": "bd17900fa6ab6310c807c409aa79847105d6921fae9094f60aafcce3e7db7f5e",
+          "id": "extract-visible-price",
+          "_node_id": "0fb1930a3f1ec1a97dc359f9c390edee6b18a6f4acda345eac66d31b719004dc"
+        },
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T007",
+    "template_type": "anti",
+    "query": "MATCH (a:entity {id: 'ColumnAnalysis'}), (b:entity) WHERE NOT (a)-[:extracts_key_components_of]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "ColumnAnalysis",
+      "REL_TYPE": "extracts_key_components_of"
+    },
+    "answer": [
+      {
+        "a": {
+          "file_id": "cae55d83f32ad5cd5839c357c37364a2563c91591d49893ea8af1d6532dac36b",
+          "concept": [
+            "evaluation",
+            "technique",
+            "inspection",
+            "method",
+            "data analysis",
+            "filtering",
+            "processing"
+          ],
+          "id": "ColumnAnalysis",
+          "_node_id": "b7fd995b101077e64b0ee2b3090fe8f0988d78408d48bb87230fbf8d012f44c7"
+        },
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T007",
+    "template_type": "anti",
+    "query": "MATCH (a:entity {id: 'analysisType_weighted_criteria'}), (b:entity) WHERE NOT (a)-[:causality]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "analysisType_weighted_criteria",
+      "REL_TYPE": "causality"
+    },
+    "answer": [
+      {
+        "a": {
+          "concept": [
+            "algorithm",
+            "technique",
+            "method",
+            "process",
+            "approach",
+            "system",
+            "strategy"
+          ],
+          "file_id": "ae8a46dd849ed55c67e3e190063445a5ecb13462dbb536c03b590f3971ea3c2c",
+          "id": "analysisType_weighted_criteria",
+          "_node_id": "09ed6bf73c9b8e0480072b00d76e32d55ff1e63b615f398bab92fa5e270313e2"
+        },
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T007",
+    "template_type": "anti",
+    "query": "MATCH (a:entity {id: 'tool_function_content_pokemon_search_passimian'}), (b:entity) WHERE NOT (a)-[:checked_current_directory_structure]->(b) RETURN a, count(b) AS cnt",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "tool_function_content_pokemon_search_passimian",
+      "REL_TYPE": "checked_current_directory_structure"
+    },
+    "answer": [
+      {
+        "a": {
+          "concept": [
+            "tool",
+            "search",
+            "content",
+            "pokemon",
+            "feature",
+            "function"
+          ],
+          "file_id": "32abef623645ebe68d7f2f5f7fd9e067c4721af38761cb0074b332713b7ef47e",
+          "id": "tool_function_content_pokemon_search_passimian",
+          "_node_id": "46753b540dcaa529dd4181d298fe225ee0fab944d8d84001a42739cc03c3f55c"
+        },
+        "cnt": 137776
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T008",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:checks_content_of]->(:entity) OR (a)-[:cleaned_up_excessive_detail_in_the_History_section]->(:entity) RETURN count(a) AS cnt",
+    "parameters": {
+      "REL1": "checks_content_of",
+      "REL2": "cleaned_up_excessive_detail_in_the_History_section"
+    },
+    "answer": [
+      {
+        "cnt": 137775
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T008",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:converts_angle_to_radians]->(:entity) OR (a)-[:provides_details]->(:entity) RETURN count(a) AS cnt",
+    "parameters": {
+      "REL1": "converts_angle_to_radians",
+      "REL2": "provides_details"
+    },
+    "answer": [
+      {
+        "cnt": 137774
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T008",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:calculates_total]->(:entity) OR (a)-[:reads_data]->(:entity) RETURN count(a) AS cnt",
+    "parameters": {
+      "REL1": "calculates_total",
+      "REL2": "reads_data"
+    },
+    "answer": [
+      {
+        "cnt": 137775
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T008",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:indicates_NXDOMAIN]->(:entity) OR (a)-[:constant]->(:entity) RETURN count(a) AS cnt",
+    "parameters": {
+      "REL1": "indicates_NXDOMAIN",
+      "REL2": "constant"
+    },
+    "answer": [
+      {
+        "cnt": 137775
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T008",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:update]->(:entity) OR (a)-[:may_be_unstable_for]->(:entity) RETURN count(a) AS cnt",
+    "parameters": {
+      "REL1": "update",
+      "REL2": "may_be_unstable_for"
+    },
+    "answer": [
+      {
+        "cnt": 137774
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T008",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:happens_after]->(:entity) OR (a)-[:introduced]->(:entity) RETURN count(a) AS cnt",
+    "parameters": {
+      "REL1": "happens_after",
+      "REL2": "introduced"
+    },
+    "answer": [
+      {
+        "cnt": 137767
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T008",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:retrieves_information]->(:entity) OR (a)-[:converts_from]->(:entity) RETURN count(a) AS cnt",
+    "parameters": {
+      "REL1": "retrieves_information",
+      "REL2": "converts_from"
+    },
+    "answer": [
+      {
+        "cnt": 137775
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T008",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:explains_origin_of_the_name_Aurora]->(:entity) OR (a)-[:is_string_property_of]->(:entity) RETURN count(a) AS cnt",
+    "parameters": {
+      "REL1": "explains_origin_of_the_name_Aurora",
+      "REL2": "is_string_property_of"
+    },
+    "answer": [
+      {
+        "cnt": 137775
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T008",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:invalid]->(:entity) OR (a)-[:hasSteps]->(:entity) RETURN count(a) AS cnt",
+    "parameters": {
+      "REL1": "invalid",
+      "REL2": "hasSteps"
+    },
+    "answer": [
+      {
+        "cnt": 137775
+      }
+    ]
+  },
+  {
+    "template_id": "anti_T008",
+    "template_type": "anti",
+    "query": "MATCH (a:entity) WHERE NOT (a)-[:authenticates]->(:entity) OR (a)-[:has_args_path]->(:entity) RETURN count(a) AS cnt",
+    "parameters": {
+      "REL1": "authenticates",
+      "REL2": "has_args_path"
+    },
+    "answer": [
+      {
+        "cnt": 137775
+      }
+    ]
+  }
+]

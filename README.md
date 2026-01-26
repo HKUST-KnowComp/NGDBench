@@ -37,22 +37,28 @@ cd pipeline/db_builder
 python test_build.py
 ```
 
-### 4. 生成检测查询
-
+### 4 生成检测查询
+#### 4.1 
 在噪声图上生成检测查询（噪声点和干净点上的复杂查询检测），在干净图上生成增删改相关的查询。
 
 查询分为几类：
-- **complex1**: 复杂查询类型1  1/16
+- **complex1**: 复杂查询类型1  1/16 （分三类模版： 不含agg的查询，含有agg的查询，链式查询返回abd的 ）
 - **complex2**: 复杂查询类型2（判断题） 1w - 200 
-- **management**: 管理查询（增删改）1w - 2k
+- **management**: 管理查询（增删改）1w - 2k （见下一节）
 
 ```bash
 cd pipeline/query_gen
 python qgen_test_noise
-python management_test.py
+
 ```
 
-在 query_module 执行噪声图查询
+在 query_module 执行噪声图查询（complex1和complex2需要）
+往干净图运行生成的文件里加入噪声图上的运行结果
+
+#### 4.2
+
+
+
 ### 5. 清洗查询结果
 
 清洗查询结果数据。
@@ -64,7 +70,8 @@ cd pipeline/handler
 python translate.py
 ```
 
-**注意**: 记得修改文件名。
+**注意**: 记得修改文件名; 
+由于模版为了可拓展性没有加返回限制，所以complex1的query可能都是return a结尾的，最后要给查询加上属性 return a._node_id(对于ldbc数据集是_node_id，对于primekg可以是x_id,x_type,x_name三个一起返回)
 
 ## Neo4j 使用
 

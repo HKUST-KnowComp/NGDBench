@@ -118,21 +118,21 @@ def add_nlp_descriptions(input_file: str, output_file: str,
     print(f"处理完成，结果已保存到 {output_file}")
 
 
-def get_nlp_descriptions_batch(client: OpenAI, queries: Union[List[str], List[Dict[str, str]]], model: str, mode: str = "normal") -> List[str]:
+def get_nlp_descriptions_batch(client: OpenAI, queries: Union[List[str], List[Dict[str, str]]], model: str, mode: str = "normal") -> Union[List[str], List[Dict[str, str]]]:
     """
     批量获取查询的自然语言描述
     
     Args:
         client: OpenAI客户端实例
-        queries: 查询列表。当 mode="normal" 时，为字符串列表；当 mode="judge" 时，为包含 "template_query" 和 "anti_template_query" 的字典列表；当 mode="manage" 时，为包含 "template_query" 和 "post_validation_query" 的字典列表
+        queries: 查询列表。当 mode="normal" 时，为字符串列表；当 mode="judge" 时，为包含 "template_query" 和 "anti_template_query" 的字典列表；当 mode="manage" 时，为包含 "operate_query" 和 "valid_query" 的字典列表
         model: 模型名称
         mode: 模式，可选 "normal"、"judge" 或 "manage"，默认为 "normal"
             - "normal": 普通查询描述模式
             - "judge": 判断题模式，将查询对转化为判断题题干
-            - "manage": 管理查询模式，将模板查询和后置验证查询转化为自然语言问题
+            - "manage": 管理查询模式，将操作查询和验证查询分别转化为自然语言描述
         
     Returns:
-        自然语言描述列表
+        自然语言描述列表。当 mode="manage" 时，返回包含 "operate_nlp" 和 "valid_nlp" 的字典列表；否则返回字符串列表
     """
     if not queries:
         return []
@@ -278,37 +278,43 @@ def _get_judge_descriptions_batch(client: OpenAI, query_pairs: List[Dict[str, st
         return [""] * len(query_pairs)
 
 
-def _get_manage_descriptions_batch(client: OpenAI, query_pairs: List[Dict[str, str]], model: str) -> List[str]:
-    """管理查询模式：将模板查询和后置验证查询转化为自然语言问题"""
+def _get_manage_descriptions_batch(client: OpenAI, query_pairs: List[Dict[str, str]], model: str) -> List[Dict[str, str]]:
+    """管理查询模式：将操作查询和验证查询分别转化为自然语言描述"""
     # 构建提示词
-    prompt = "You are given two Cypher queries:\n\n"
-    prompt += "A template query that creates or modifies graph data.\n"
-    prompt += "A post-validation query that reads from the graph and computes a result.\n\n"
-    prompt += "Your task is to generate a natural language question that:\n"
-    prompt += "1. First describes the data operation implied by the template query (e.g., creating nodes or relationships, including key properties and values).\n"
-    prompt += "2. Then asks for the result computed by the post-validation query.\n\n"
-    prompt += "The question should be concise, accurate, and expressed in natural language.\n"
-    prompt += "Do not mention Cypher, queries, or database operations explicitly.\n\n"
+    prompt = "You are given pairs of Cypher queries:\n\n"
+    prompt += "1. An operate query that creates or modifies graph data (e.g., CREATE, DELETE, SET, MERGE operations).\n"
+    prompt += "2. A validation query that reads from the graph and computes a result.\n\n"
+    prompt += "Your task is to generate TWO separate natural language descriptions for each pair:\n"
+    prompt += "- operate_nlp: A concise description of what the operate query does (e.g., 'Insert a Loan node with interestRate 0.008').\n"
+    prompt += "- valid_nlp: A concise question describing what the validation query asks (e.g., 'What is the average interestRate of all Loan nodes?').\n\n"
+    prompt += "Guidelines:\n"
+    prompt += "- Keep descriptions concise and clear.\n"
+    prompt += "- Do not mention Cypher, queries, or database operations explicitly.\n"
+    prompt += "- Use natural language that clearly describes the operation and the question.\n"
+    prompt += "- For operate_nlp, focus on what data is being created/modified/deleted and key properties.\n"
+    prompt += "- For valid_nlp, focus on what result is being asked for.\n\n"
     
     for i, query_pair in enumerate(query_pairs, 1):
-        template_query = query_pair.get("template_query", "")
-        post_validation_query = query_pair.get("post_validation_query", "")
+        operate_query = query_pair.get("operate_query", "")
+        valid_query = query_pair.get("valid_query", "")
         prompt += f"Pair {i}:\n"
-        prompt += f"Template query: {template_query}\n"
-        prompt += f"Post-validation query: {post_validation_query}\n\n"
+        prompt += f"Operate query: {operate_query}\n"
+        prompt += f"Validation query: {valid_query}\n\n"
     
-    prompt += _get_critical_requirements(
-        content_type="natural language question/translation",
-        item_type="query pair",
-        content_name="question"
-    )
-    prompt += "\nPlease provide one natural language question per pair in order, separated by newlines, without adding numbers:"
+    prompt += "***CRITICAL REQUIREMENTS:***\n"
+    prompt += "1. **Return TWO lines per pair: first line is operate_nlp, second line is valid_nlp**\n"
+    prompt += "2. **DO NOT include any explanations, comments, or additional text**\n"
+    prompt += "3. **DO NOT include pair numbers, prefixes, or any other metadata**\n"
+    prompt += "4. **Each line should contain ONLY the pure natural language description**\n"
+    prompt += "5. **Format: one pair per two lines, separated by newlines**\n"
+    prompt += "6. **NO numbers, NO prefixes, NO extra words - ONLY the descriptions themselves**\n\n"
+    prompt += "Please provide the descriptions in order, with two lines per pair (operate_nlp, then valid_nlp), separated by newlines:"
     
     try:
         system_content = (
-            "You are a professional database query analysis expert, skilled at converting Cypher queries into natural language questions. "
-            "You understand data operations (create, modify, delete) and can formulate clear questions that describe operations and ask for computed results. "
-            f"{_get_system_critical_emphasis('question/translation', 'query pairs', 'question')} "
+            "You are a professional database query analysis expert, skilled at converting Cypher queries into natural language descriptions. "
+            "You understand data operations (create, modify, delete) and can formulate clear descriptions for both operations and validation queries. "
+            "**CRITICAL: You MUST return TWO lines per pair - first line is operate_nlp, second line is valid_nlp. DO NOT include any explanations, comments, numbers, prefixes, or any other text.** "
             "Please respond in English."
         )
         response = client.chat.completions.create(
@@ -322,19 +328,29 @@ def _get_manage_descriptions_batch(client: OpenAI, query_pairs: List[Dict[str, s
         descriptions_text = response.choices[0].message.content.strip()
         # 按行分割描述，去除可能的编号前缀
         lines = descriptions_text.split('\n')
-        descriptions = []
+        cleaned_lines = []
         for line in lines:
             line = line.strip()
             if not line:
                 continue
             # 去除可能的编号前缀
-            line = re.sub(r'^(\d+[\.\)、]?\s*|查询\d+[:：]?\s*|Pair\s*\d+[:：]?\s*)', '', line, flags=re.IGNORECASE)
+            line = re.sub(r'^(\d+[\.\)、]?\s*|查询\d+[:：]?\s*|Pair\s*\d+[:：]?\s*|operate_nlp[:：]?\s*|valid_nlp[:：]?\s*)', '', line, flags=re.IGNORECASE)
             if line:
-                descriptions.append(line)
+                cleaned_lines.append(line)
+        
+        # 每两行组成一个 pair (operate_nlp, valid_nlp)
+        descriptions = []
+        for i in range(0, len(cleaned_lines), 2):
+            operate_nlp = cleaned_lines[i] if i < len(cleaned_lines) else ""
+            valid_nlp = cleaned_lines[i + 1] if i + 1 < len(cleaned_lines) else ""
+            descriptions.append({
+                "operate_nlp": operate_nlp,
+                "valid_nlp": valid_nlp
+            })
         
         # 确保返回的描述数量与查询对数量一致
         while len(descriptions) < len(query_pairs):
-            descriptions.append("")
+            descriptions.append({"operate_nlp": "", "valid_nlp": ""})
         descriptions = descriptions[:len(query_pairs)]
         
         return descriptions
@@ -342,7 +358,7 @@ def _get_manage_descriptions_batch(client: OpenAI, query_pairs: List[Dict[str, s
     except Exception as e:
         print(f"调用LLM时出错: {e}")
         # 返回空描述列表
-        return [""] * len(query_pairs)
+        return [{"operate_nlp": "", "valid_nlp": ""} for _ in query_pairs]
 
 
 def check_and_fix_nlp_descriptions(input_file: str, output_file: str,

@@ -9,7 +9,9 @@ import json
 import random
 import re
 import logging
-from typing import Dict, List, Any, Optional, Tuple, Set
+import subprocess
+import os
+from typing import Dict, List, Any, Optional, Tuple, Set, Union
 from dataclasses import dataclass, field
 from neo4j import GraphDatabase
 
@@ -24,6 +26,21 @@ from .query_generator import (
     logger
 )
 
+# 导入数据库构建器
+import sys
+from pathlib import Path
+# 添加 pipeline 目录到路径，以便导入 db_builder
+# manage_generator.py 在 pipeline/query_gen/generator/，需要向上3级到 pipeline
+pipeline_dir = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(pipeline_dir))
+# 直接导入 build_base 模块，避免通过 __init__.py
+import importlib.util
+build_base_path = pipeline_dir / "db_builder" / "build_base.py"
+spec = importlib.util.spec_from_file_location("build_base", build_base_path)
+build_base = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(build_base)
+Neo4jGraphBuilder = build_base.Neo4jGraphBuilder
+
 # 配置日志
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -35,11 +52,20 @@ class ManagementTemplate:
     operation: str  # 操作类型：CREATE, MERGE, DELETE, SET, FOREACH
     difficulty: int
     title: str
-    pre_validation: str  # 前置验证查询
-    template: str  # 操作查询
-    post_validation: str  # 后置验证查询
+    pre_validation: str  # 前置验证查询（旧格式，兼容性保留）
+    template: Union[str, List[str]]  # 操作查询（支持单个字符串或字符串列表，batch格式）
+    post_validation: str  # 后置验证查询（旧格式，兼容性保留）
+    validation: str  # 验证查询（新格式，在每次 template 查询前后运行）
     parameters: Dict[str, str]  # 参数定义
     example: str
+    
+    def is_batch(self) -> bool:
+        """判断是否为 batch 格式（template 为列表）"""
+        return isinstance(self.template, list)
+    
+    def has_validation(self) -> bool:
+        """判断是否有 validation 查询（新格式）"""
+        return bool(self.validation and self.validation.strip())
 
 
 @dataclass
@@ -50,29 +76,37 @@ class ManagementQueryResult:
     title: str
     template_id: str  # 基于 operation 和 difficulty 生成
     
-    # 前置验证结果
+    # 前置验证结果（兼容旧格式）
     pre_validation_query: str
     pre_validation_params: Dict[str, Any]
     pre_validation_answer: List[Dict]
     pre_validation_success: bool
     
-    # 操作执行结果
-    template_query: str
+    # 操作执行结果（支持单个查询或 batch 查询列表）
+    template_query: Union[str, List[str]]  # batch 格式时为列表
     template_params: Dict[str, Any]
-    template_success: bool
+    template_success: Union[bool, List[bool]]  # batch 格式时为列表
     
-    # 后置验证结果
+    # 后置验证结果（兼容旧格式）
     post_validation_query: str
     post_validation_params: Dict[str, Any]
     post_validation_answer: List[Dict]
     post_validation_success: bool
     
-    # 整体是否成功（所有三个查询都成功）
-    overall_success: bool = False
+    # 验证查询结果（新格式）：记录每次 validation 查询的结果
+    validation_queries: Optional[List[str]] = None  # 每次执行的 validation 查询（已填充参数）
+    validation_answers: Optional[List[List[Dict]]] = None  # 每次 validation 查询的结果
+    validation_successes: Optional[List[bool]] = None  # 每次 validation 查询是否成功
+    validation_errors: Optional[List[Optional[str]]] = None  # 每次 validation 查询的错误信息
+    # 顺序：初始 validation -> template[0] -> validation -> template[1] -> validation -> ...
     
-    # 错误信息（有默认值的字段放在最后）
-    pre_validation_error: Optional[str] = None
-    template_error: Optional[str] = None
+    # 有默认值的字段放在最后
+    template_queries_executed: Optional[List[str]] = None  # batch 格式时记录所有执行的查询
+    # 每个 template 查询的执行结果（与 template_queries_executed 对齐）
+    template_answers: Optional[List[List[Dict]]] = None
+    overall_success: bool = False  # 整体是否成功（所有查询都成功）
+    pre_validation_error: Optional[str] = None  # 错误信息
+    template_error: Optional[Union[str, List[str]]] = None  # batch 格式时为列表
     post_validation_error: Optional[str] = None
 
 
@@ -96,16 +130,44 @@ class ManagementTemplateLoader:
             templates_list = operation_group.get('templates', [])
             
             for template_data in templates_list:
-                template = ManagementTemplate(
-                    operation=operation,
-                    difficulty=template_data.get('difficulty', 1),
-                    title=template_data.get('title', ''),
-                    pre_validation=template_data.get('pre_validation', ''),
-                    template=template_data.get('template', ''),
-                    post_validation=template_data.get('post_validation', ''),
-                    parameters=template_data.get('parameters', {}),
-                    example=template_data.get('example', '')
-                )
+                # 支持 template 为字符串或列表（batch 格式）
+                template_field = template_data.get('template', '')
+                # 获取 validation 字段（新格式），如果没有则使用空字符串
+                validation_query = template_data.get('validation', '')
+                # 兼容旧格式：如果没有 validation，尝试使用 pre_validation 和 post_validation
+                if not validation_query:
+                    pre_val = template_data.get('pre_validation', '')
+                    post_val = template_data.get('post_validation', '')
+                    # 如果旧格式存在，可以合并或使用其中一个（这里使用 post_validation 作为 validation）
+                    validation_query = post_val if post_val else pre_val
+                
+                # 如果 template 是列表，保持为列表；如果是字符串，保持为字符串
+                if isinstance(template_field, list):
+                    # batch 格式：template 是字符串列表
+                    template = ManagementTemplate(
+                        operation=operation,
+                        difficulty=template_data.get('difficulty', 1),
+                        title=template_data.get('title', ''),
+                        pre_validation=template_data.get('pre_validation', ''),
+                        template=template_field,  # 保持为列表
+                        post_validation=template_data.get('post_validation', ''),
+                        validation=validation_query,  # 新格式的 validation
+                        parameters=template_data.get('parameters', {}),
+                        example=template_data.get('example', '')
+                    )
+                else:
+                    # 单个查询格式：template 是字符串
+                    template = ManagementTemplate(
+                        operation=operation,
+                        difficulty=template_data.get('difficulty', 1),
+                        title=template_data.get('title', ''),
+                        pre_validation=template_data.get('pre_validation', ''),
+                        template=template_field,  # 保持为字符串
+                        post_validation=template_data.get('post_validation', ''),
+                        validation=validation_query,  # 新格式的 validation
+                        parameters=template_data.get('parameters', {}),
+                        example=template_data.get('example', '')
+                    )
                 self.templates.append(template)
         
         logger.info(f"加载了 {len(self.templates)} 个管理操作模板")
@@ -147,34 +209,41 @@ class ManagementQueryBuilder:
     def build_queries(
         self, 
         template: ManagementTemplate
-    ) -> Tuple[Optional[str], Optional[str], Optional[str], Dict[str, Any]]:
+    ) -> Tuple[Optional[Union[str, List[str]]], Optional[Union[str, List[str]]], Optional[str], Optional[str], Dict[str, Any]]:
         """
-        根据模板构建三个查询（pre_validation, template, post_validation）
+        根据模板构建查询（pre_validation, template, post_validation, validation）
         
         Returns:
-            (pre_validation_query, template_query, post_validation_query, params_used)
-            如果构建失败，返回的查询为 None
+            (pre_validation_query, template_query(s), post_validation_query, validation_query, params_used)
+            - 如果 template 是 batch 格式，template_query 返回列表
+            - validation_query 是新格式的验证查询
+            - 如果构建失败，返回的查询为 None
         """
         # 创建一个临时的 Template 对象用于参数生成
         from .query_generator import Template
         
-        # 检查 pre_validation 和 post_validation 是否包含聚合函数
-        # 如果包含，需要创建一个包含聚合函数的模板，以便正确过滤ID属性
-        validation_queries = template.pre_validation + " " + template.post_validation
-        has_aggregate = any(func in validation_queries.upper() 
+        # 检查验证查询是否包含聚合函数
+        # 优先使用新格式的 validation，如果没有则使用旧格式的 pre_validation + post_validation
+        validation_query_str = template.validation if template.has_validation() else (template.pre_validation + " " + template.post_validation)
+        has_aggregate = any(func in validation_query_str.upper() 
                           for func in ['COUNT', 'SUM', 'AVG', 'MAX', 'MIN', 'COLLECT'])
         
         # 检查是否包含需要数值属性的聚合函数（AVG, SUM）
-        has_numeric_aggregate = any(func in validation_queries.upper() 
+        has_numeric_aggregate = any(func in validation_query_str.upper() 
                                   for func in ['AVG', 'SUM'])
         
         # 使用 template 字段来生成参数（因为三个查询共享参数）
         # 如果验证查询包含聚合函数，将验证查询合并到模板字符串中，
         # 这样 _is_aggregate_query 方法就能通过检查模板字符串识别出聚合查询
-        template_str = template.template
+        # 对于 batch 格式，需要将所有 template 查询合并
+        if template.is_batch():
+            template_str = " ".join(template.template)  # batch 格式：合并所有查询
+        else:
+            template_str = template.template  # 单个查询格式
+        
         if has_aggregate:
             # 将验证查询合并到模板字符串中，以便 _is_aggregate_query 能识别
-            template_str = template.template + " " + validation_queries
+            template_str = template_str + " " + validation_query_str
         
         temp_template = Template(
             id=f"{template.operation}_{template.difficulty}",
@@ -206,31 +275,102 @@ class ManagementQueryBuilder:
             if param_type == "list":
                 value = self._generate_list_param(param_name, template, params_used)
             else:
-                value = self.query_builder._generate_param_value(
-                    param_name, 
-                    temp_template, 
-                    params_used
-                )
+                # 检查是否为带数字的参数（VALUE1-5, VAL1-5, AID1-5, BID1-5等）
+                value = self._generate_indexed_param(param_name, param_type, temp_template, params_used)
+                if value is None:
+                    # 回退到原有的参数生成方法
+                    value = self.query_builder._generate_param_value(
+                        param_name, 
+                        temp_template, 
+                        params_used
+                    )
             if value is None:
                 logger.warning(f"无法生成参数 {param_name}，跳过该模板")
-                return None, None, None, {}
+                return None, None, None, None, {}
             params_used[param_name] = value
         
-        # 替换三个查询中的参数
+        # 替换查询中的参数
         pre_validation_query = self._replace_parameters(
             template.pre_validation, 
             params_used
         )
-        template_query = self._replace_parameters(
-            template.template, 
-            params_used
-        )
+        
+        # 处理 template 查询（支持 batch 格式）
+        if template.is_batch():
+            # batch 格式：替换每个查询中的参数
+            template_queries = [
+                self._replace_parameters(query, params_used)
+                for query in template.template
+            ]
+            template_query = template_queries
+        else:
+            # 单个查询格式
+            template_query = self._replace_parameters(
+                template.template, 
+                params_used
+            )
+        
         post_validation_query = self._replace_parameters(
             template.post_validation, 
             params_used
         )
         
-        return pre_validation_query, template_query, post_validation_query, params_used
+        # 构建新格式的 validation 查询
+        validation_query = None
+        if template.has_validation():
+            validation_query = self._replace_parameters(
+                template.validation,
+                params_used
+            )
+        
+        return pre_validation_query, template_query, post_validation_query, validation_query, params_used
+    
+    def _generate_indexed_param(self, param_name: str, param_type: str, 
+                                temp_template, current_params: Dict[str, Any]) -> Optional[Any]:
+        """
+        生成带数字索引的参数值（VALUE1-5, VAL1-5, AID1-5, BID1-5等）
+        这些参数遵循相同的模式，只是索引不同
+        """
+        import re
+        
+        # 匹配带数字的参数名：VALUE1, VAL2, AID3, BID4等
+        match = re.match(r'^([A-Z_]+)(\d+)$', param_name)
+        if not match:
+            return None  # 不是带数字的参数，返回None让调用者使用原有方法
+        
+        base_name = match.group(1)  # 基础名称：VALUE, VAL, AID, BID等
+        index = int(match.group(2))  # 索引：1, 2, 3, 4, 5等
+        
+        # 处理 VALUE1-5, VALUE2-5 等（对应 VALUE）
+        if base_name in ('VALUE', 'VAL'):
+            # 使用原有的 VALUE/VAL 生成逻辑，但确保每次生成不同的值
+            # 如果已经有 VALUE 或 VAL，基于它生成不同的值
+            base_param = 'VALUE' if base_name == 'VALUE' else 'VAL'
+            if base_param in current_params:
+                base_value = current_params[base_param]
+                # 如果是数值类型，生成不同的数值
+                if isinstance(base_value, (int, float)):
+                    if param_type in ('integer', 'long', 'int'):
+                        return base_value + index * random.randint(1, 10)
+                    elif param_type in ('float', 'double'):
+                        return base_value + index * random.uniform(0.1, 1.0)
+                # 如果是字符串类型，生成不同的字符串
+                elif isinstance(base_value, str):
+                    return f"{base_value}_{index}"
+            # 如果没有基础值，使用原有方法生成，但传入修改后的参数名
+            return self.query_builder._generate_param_value(base_param, temp_template, current_params)
+        
+        # 处理 AID1-5, BID1-5 等（对应 AID, BID）
+        elif base_name in ('AID', 'BID', 'CID'):
+            # 使用原有的 AID/BID 生成逻辑
+            return self.query_builder._generate_param_value(base_name, temp_template, current_params)
+        
+        # 处理其他带数字的参数（如 ID1-5, NAME1-5等）
+        elif base_name in ('ID', 'NAME', 'GID', 'MID'):
+            return self.query_builder._generate_param_value(base_name, temp_template, current_params)
+        
+        # 其他未知的带数字参数，返回None让调用者使用原有方法
+        return None
     
     def _generate_list_param(self, param_name: str, template: ManagementTemplate, 
                              current_params: Dict[str, Any]) -> Optional[List[Any]]:
@@ -353,9 +493,13 @@ class ManageGenerator:
         uri: str = "bolt://localhost:7687",
         user: str = "neo4j",
         password: str = "password",
-        template_path: str = "query_template/template_managemet.json",
+        template_path: str = "query_template/template_managemet_batch.json",  # 默认使用新格式的 batch 模板文件
         exclude_internal_id_as_return: bool = True,
-        dataset: Optional[str] = None
+        dataset: Optional[str] = None,
+        database_backup_path: Optional[str] = None,
+        database_name: str = "neo4j",
+        neo4j_admin_path: Optional[str] = None,
+        graph_file: Optional[str] = None
     ):
         """
         初始化管理操作查询生成器
@@ -367,6 +511,10 @@ class ManageGenerator:
             template_path: 模板文件路径
             exclude_internal_id_as_return: 是否在返回属性中排除内部ID字段
             dataset: 数据集名称
+            database_backup_path: 数据库备份路径（用于neo4j-admin restore）
+            database_name: 数据库名称，默认为"neo4j"
+            neo4j_admin_path: neo4j-admin命令的完整路径，如果为None则使用系统PATH中的neo4j-admin
+            graph_file: 图文件路径（.gpickle或.graphml），用于在恢复数据库后重新构建数据库
         """
         self.uri = uri
         self.user = user
@@ -388,6 +536,15 @@ class ManageGenerator:
         
         # 结果存储
         self.results: List[ManagementQueryResult] = []
+        
+        # 数据库恢复相关
+        self.database_backup_path: Optional[str] = None  # 数据库备份路径（如果使用文件备份）
+        self.use_database_restore: bool = True  # 是否在每个 batch 后恢复数据库
+        self.database_name = database_name  # 保存数据库名称
+        self.graph_file: Optional[str] = graph_file  # 图文件路径，用于在恢复数据库后重新构建
+        
+        # 数据库构建器实例（用于恢复数据库）
+        self.db_builder = None
     
     def connect(self):
         """连接到Neo4j数据库"""
@@ -402,6 +559,13 @@ class ManageGenerator:
         """初始化所有组件"""
         if not self.driver:
             self.connect()
+        
+        # 初始化数据库构建器（用于恢复数据库）
+        self.db_builder = Neo4jGraphBuilder(
+            uri=self.uri,
+            user=self.user,
+            password=self.password
+        )
         
         # 分析Schema
         self.schema = SchemaAnalyzer(self.driver)
@@ -424,6 +588,51 @@ class ManageGenerator:
             driver=self.driver  # 传递 driver 用于节点采样
         )
         self.executor = QueryExecutor(self.driver)
+    
+    def restore_database(self):
+        """
+        恢复数据库到初始状态
+        
+        使用 Neo4jGraphBuilder 的 _prepare_database(recreate=True) 方法来清空数据库。
+        如果提供了 graph_file，则在清空后使用 build_from_file 重新构建数据库。
+        每次 batch 运行之后调用此方法重新准备数据库。
+        """
+        if not self.use_database_restore:
+            return
+        
+        try:
+            # 确保数据库构建器已初始化
+            if not self.db_builder:
+                self.db_builder = Neo4jGraphBuilder(
+                    uri=self.uri,
+                    user=self.user,
+                    password=self.password
+                )
+            
+            # 使用 Neo4jGraphBuilder 的 _prepare_database 方法清空数据库
+            logger.info("正在使用 Neo4jGraphBuilder 重新准备数据库（清空所有数据）...")
+            self.db_builder._prepare_database(recreate=True)
+            logger.info("数据库已清空完成")
+            
+            # 如果提供了 graph_file，则重新构建数据库
+            if self.graph_file:
+                graph_path = Path(self.graph_file)
+                if graph_path.exists():
+                    logger.info(f"正在从图文件重新构建数据库: {graph_path}")
+                    summary = self.db_builder.build_from_file(
+                        file_path=graph_path,
+                        dataset_name=self.dataset,
+                        recreate_database=False  # 已经清空过了，不需要再次清空
+                    )
+                    logger.info(f"数据库重新构建完成: {summary}")
+                else:
+                    logger.warning(f"图文件不存在: {graph_path}，跳过数据库重建")
+            else:
+                logger.info("未提供 graph_file，跳过数据库重建")
+            
+        except Exception as e:
+            logger.warning(f"数据库恢复过程中发生异常: {e}，继续执行...")
+            # 不抛出异常，允许继续执行
     
     def generate_samples(
         self,
@@ -517,35 +726,192 @@ class ManageGenerator:
                     stats['usage_count'] += 1
                     
                     # 构建查询
-                    pre_query, template_query, post_query, params_used = self.builder.build_queries(template)
+                    build_result = self.builder.build_queries(template)
+                    if len(build_result) == 5:
+                        pre_query, template_query, post_query, validation_query, params_used = build_result
+                    else:
+                        # 兼容旧格式（4个返回值）
+                        pre_query, template_query, post_query, params_used = build_result
+                        validation_query = None
 
-                    if not pre_query or not template_query or not post_query:
+                    if not template_query:
                         stats['failure_count'] += 1
                         logger.debug(f"构建查询失败: {template_id}")
                         continue
                     
+                    # 检查是否有新格式的 validation 查询
+                    has_validation = template.has_validation() and validation_query
+                    
+                    # 检查是否为 batch 格式
+                    is_batch = template.is_batch()
+                    
                     # 额外过滤：如果查询中出现针对 ID 相关属性的聚合（如 avg(a.companyId)），则跳过该样本
-                    if (
-                        self._has_id_aggregate(pre_query)
-                        or self._has_id_aggregate(template_query)
-                        or self._has_id_aggregate(post_query)
-                    ):
+                    if is_batch:
+                        # batch 格式：检查所有 template 查询和 validation 查询
+                        template_queries_to_check = template_query if isinstance(template_query, list) else [template_query]
+                        validation_to_check = validation_query if has_validation else ''
+                        has_id_agg = (
+                            self._has_id_aggregate(pre_query) or
+                            self._has_id_aggregate(post_query) or
+                            self._has_id_aggregate(validation_to_check) or
+                            any(self._has_id_aggregate(q) for q in template_queries_to_check)
+                        )
+                    else:
+                        # 单个查询格式
+                        validation_to_check = validation_query if has_validation else ''
+                        has_id_agg = (
+                            self._has_id_aggregate(pre_query) or
+                            self._has_id_aggregate(template_query) or
+                            self._has_id_aggregate(post_query) or
+                            self._has_id_aggregate(validation_to_check)
+                        )
+                    
+                    if has_id_agg:
                         stats['failure_count'] += 1
                         logger.debug(f"查询包含针对 ID 属性的聚合，跳过该样本: {template_id}")
                         continue
                     
-                    # 依次执行三个查询
-                    # 1. 执行前置验证（允许结果为空，因为COUNT等聚合函数可能返回0）
-                    pre_success, pre_answer, pre_error = self.executor.execute(pre_query, allow_empty=True)
-                    
-                    # 2. 执行操作（CREATE/DELETE/SET等操作可能不返回结果，允许空结果）
-                    template_success, _, template_error = self.executor.execute(template_query, allow_empty=True)
-                    
-                    # 3. 执行后置验证（允许结果为空，因为COUNT等聚合函数可能返回0）
-                    post_success, post_answer, post_error = self.executor.execute(post_query, allow_empty=True)
-                    
-                    # 判断整体是否成功
-                    overall_success = pre_success and template_success and post_success
+                    # 执行查询流程
+                    if is_batch:
+                        # Batch 格式执行流程（新格式）：
+                        # 1. 运行初始 validation 查询（如果存在）
+                        # 2. 对每个 template 查询：
+                        #    - 执行 template 查询
+                        #    - 执行 validation 查询
+                        # 3. 恢复数据库
+                        
+                        # 初始化验证查询结果列表
+                        validation_queries_list: List[str] = []
+                        validation_answers_list: List[List[Dict]] = []
+                        validation_successes_list: List[bool] = []
+                        validation_errors_list: List[Optional[str]] = []
+                        
+                        # 1. 执行初始 validation 查询（如果存在）
+                        if has_validation:
+                            v_success, v_answer, v_error = self.executor.execute(validation_query, allow_empty=True)
+                            validation_queries_list.append(validation_query)
+                            validation_answers_list.append(v_answer)
+                            validation_successes_list.append(v_success)
+                            validation_errors_list.append(v_error)
+                            if not v_success:
+                                stats['failure_count'] += 1
+                                logger.debug(f"初始 validation 查询失败: {template_id}")
+                                continue
+                        
+                        # 兼容旧格式：执行前置验证（如果存在且没有新格式的 validation）
+                        if not has_validation and pre_query and pre_query.strip():
+                            pre_success, pre_answer, pre_error = self.executor.execute(pre_query, allow_empty=True)
+                        else:
+                            pre_success, pre_answer, pre_error = True, [], None
+                        
+                        # 2. 执行 template 列表中的每个操作，并在每个操作后执行 validation
+                        template_queries_list = template_query if isinstance(template_query, list) else [template_query]
+                        template_successes: List[bool] = []
+                        template_errors: List[Optional[str]] = []
+                        template_executed_queries: List[str] = []
+                        template_answers: List[List[Dict]] = []
+                        
+                        for template_q in template_queries_list:
+                            # 执行 template 查询
+                            t_success, t_answer, t_error = self.executor.execute(template_q, allow_empty=True)
+                            template_successes.append(t_success)
+                            template_errors.append(t_error)
+                            template_executed_queries.append(template_q)
+                            template_answers.append(t_answer)
+                            
+                            # 如果 template 查询失败，跳过后续 validation
+                            if not t_success:
+                                continue
+                            
+                            # 执行 validation 查询（如果存在）
+                            if has_validation:
+                                v_success, v_answer, v_error = self.executor.execute(validation_query, allow_empty=True)
+                                validation_queries_list.append(validation_query)
+                                validation_answers_list.append(v_answer)
+                                validation_successes_list.append(v_success)
+                                validation_errors_list.append(v_error)
+                        
+                        # 所有 template 查询都成功才算成功
+                        template_success = all(template_successes)
+                        template_error = template_errors if not template_success else None
+                        
+                        # 兼容旧格式：执行后置验证（如果存在且没有新格式的 validation）
+                        if not has_validation and post_query and post_query.strip():
+                            post_success, post_answer, post_error = self.executor.execute(post_query, allow_empty=True)
+                        else:
+                            post_success, post_answer, post_error = True, [], None
+                        
+                        # 判断整体是否成功
+                        if has_validation:
+                            # 新格式：所有 template 和 validation 都成功
+                            all_validations_success = all(validation_successes_list) if validation_successes_list else True
+                            overall_success = template_success and all_validations_success
+                        else:
+                            # 旧格式：pre_validation, template, post_validation 都成功
+                            overall_success = pre_success and template_success and post_success
+                        
+                        # 恢复数据库（无论成功失败都要恢复，确保下一个 batch 在干净数据库上运行）
+                        if overall_success or self.use_database_restore:
+                            self.restore_database()
+                    else:
+                        # 单个查询格式（新格式）：
+                        # 1. 运行初始 validation 查询（如果存在）
+                        # 2. 执行 template 查询
+                        # 3. 执行 validation 查询（如果存在）
+                        
+                        # 初始化验证查询结果列表
+                        validation_queries_list: List[str] = []
+                        validation_answers_list: List[List[Dict]] = []
+                        validation_successes_list: List[bool] = []
+                        validation_errors_list: List[Optional[str]] = []
+                        
+                        # 1. 执行初始 validation 查询（如果存在）
+                        if has_validation:
+                            v_success, v_answer, v_error = self.executor.execute(validation_query, allow_empty=True)
+                            validation_queries_list.append(validation_query)
+                            validation_answers_list.append(v_answer)
+                            validation_successes_list.append(v_success)
+                            validation_errors_list.append(v_error)
+                            if not v_success:
+                                stats['failure_count'] += 1
+                                logger.debug(f"初始 validation 查询失败: {template_id}")
+                                continue
+                        
+                        # 兼容旧格式：执行前置验证（如果存在且没有新格式的 validation）
+                        if not has_validation and pre_query and pre_query.strip():
+                            pre_success, pre_answer, pre_error = self.executor.execute(pre_query, allow_empty=True)
+                        else:
+                            pre_success, pre_answer, pre_error = True, [], None
+                        
+                        # 2. 执行操作（CREATE/DELETE/SET/MERGE等），记录执行结果
+                        t_success, t_answer, t_error = self.executor.execute(template_query, allow_empty=True)
+                        template_success = t_success
+                        template_error = t_error
+                        template_executed_queries = [template_query]  # 单个查询也记录为列表格式
+                        template_answers = [t_answer]
+                        
+                        # 3. 执行 validation 查询（如果存在）
+                        if has_validation and t_success:
+                            v_success, v_answer, v_error = self.executor.execute(validation_query, allow_empty=True)
+                            validation_queries_list.append(validation_query)
+                            validation_answers_list.append(v_answer)
+                            validation_successes_list.append(v_success)
+                            validation_errors_list.append(v_error)
+                        
+                        # 兼容旧格式：执行后置验证（如果存在且没有新格式的 validation）
+                        if not has_validation and post_query and post_query.strip():
+                            post_success, post_answer, post_error = self.executor.execute(post_query, allow_empty=True)
+                        else:
+                            post_success, post_answer, post_error = True, [], None
+                        
+                        # 判断整体是否成功
+                        if has_validation:
+                            # 新格式：template 和所有 validation 都成功
+                            all_validations_success = all(validation_successes_list) if validation_successes_list else True
+                            overall_success = template_success and all_validations_success
+                        else:
+                            # 旧格式：pre_validation, template, post_validation 都成功
+                            overall_success = pre_success and template_success and post_success
                     
                     if overall_success:
                         # 创建结果对象
@@ -554,20 +920,26 @@ class ManageGenerator:
                             difficulty=template.difficulty,
                             title=template.title,
                             template_id=template_id,
-                            pre_validation_query=pre_query,
+                            pre_validation_query=pre_query or '',
                             pre_validation_params=params_used,
                             pre_validation_answer=pre_answer,
                             pre_validation_success=pre_success,
                             pre_validation_error=pre_error,
-                            template_query=template_query,
+                            template_query=template_query,  # batch 格式时为列表，单个格式时为字符串
                             template_params=params_used,
-                            template_success=template_success,
-                            template_error=template_error,
-                            post_validation_query=post_query,
+                            template_success=template_success if not is_batch else template_successes,  # batch 格式时为列表
+                            template_queries_executed=template_executed_queries,  # 记录所有执行的查询
+                            template_answers=template_answers,
+                            template_error=template_error,  # batch 格式时为列表
+                            post_validation_query=post_query or '',
                             post_validation_params=params_used,
                             post_validation_answer=post_answer,
                             post_validation_success=post_success,
                             post_validation_error=post_error,
+                            validation_queries=validation_queries_list if has_validation else None,
+                            validation_answers=validation_answers_list if has_validation else None,
+                            validation_successes=validation_successes_list if has_validation else None,
+                            validation_errors=validation_errors_list if has_validation else None,
                             overall_success=overall_success
                         )
                         
@@ -580,7 +952,13 @@ class ManageGenerator:
                             record = self._build_export_record(result)
                             if not first_stream_record:
                                 stream_file.write(',\n')
-                            json.dump(record, stream_file, ensure_ascii=False, default=str)
+                            # 格式化 JSON 记录，添加缩进
+                            formatted_json = json.dumps(record, ensure_ascii=False, indent=2, default=str)
+                            # 为每条记录添加缩进（因为它在数组中）
+                            indented_lines = []
+                            for line in formatted_json.split('\n'):
+                                indented_lines.append('  ' + line)  # 添加2个空格缩进
+                            stream_file.write('\n'.join(indented_lines))
                             stream_file.flush()
                             first_stream_record = False
                         
@@ -593,12 +971,19 @@ class ManageGenerator:
                         stats['failure_count'] += 1
                         # 输出详细的失败信息，帮助调试
                         failure_reasons = []
-                        if not pre_success:
-                            failure_reasons.append(f"pre_validation失败: {pre_error}")
+                        if has_validation:
+                            # 新格式：检查 validation 失败
+                            if validation_successes_list and not all(validation_successes_list):
+                                failed_validations = [i for i, s in enumerate(validation_successes_list) if not s]
+                                failure_reasons.append(f"validation失败: 索引 {failed_validations}")
+                        else:
+                            # 旧格式：检查 pre/post validation
+                            if not pre_success:
+                                failure_reasons.append(f"pre_validation失败: {pre_error}")
+                            if not post_success:
+                                failure_reasons.append(f"post_validation失败: {post_error}")
                         if not template_success:
                             failure_reasons.append(f"template失败: {template_error}")
-                        if not post_success:
-                            failure_reasons.append(f"post_validation失败: {post_error}")
                         
                         logger.warning(f"查询执行失败 [{template_id}]: {', '.join(failure_reasons)}")
                 
@@ -675,19 +1060,40 @@ class ManageGenerator:
                     return next(iter(row.values()))
             return answer
 
-        return {
-            "pre_validation": {
-                "query": r.pre_validation_query,
-                "answer": _extract_scalar_answer(r.pre_validation_answer),
-            },
+        # 处理 batch 格式的 template_query
+        if isinstance(r.template_query, list):
+            # batch 格式：template 是查询列表
+            template_queries = r.template_query
+        else:
+            # 单个查询格式：转换为列表以保持一致性
+            template_queries = [r.template_query]
+        
+        # 处理 validation 查询结果（新格式）
+        validation_export = None
+        if r.validation_queries and r.validation_answers:
+            validation_export = []
+            for i, (vq, va) in enumerate(zip(r.validation_queries, r.validation_answers)):
+                validation_export.append({
+                    "query": vq,
+                    "answer": _extract_scalar_answer(va),
+                    "index": i  # 记录这是第几次 validation（0=初始，1=第一次template后，...）
+                })
+        
+        # 构建结果字典，只包含需要的字段
+        # 移除 pre_validation 和 post_validation
+        # 移除 template 的 answers 字段
+        result_dict = {
             "template": {
-                "query": r.template_query,
-            },
-            "post_validation": {
-                "query": r.post_validation_query,
-                "answer": _extract_scalar_answer(r.post_validation_answer),
+                "query": template_queries,  # 始终返回列表格式
+                # 不再记录 template 查询的输出（answers）
             },
         }
+        
+        # 如果有新格式的 validation，添加到结果中
+        if validation_export:
+            result_dict["validation"] = validation_export
+        
+        return result_dict
 
     def export_results(self, output_path: str):
         """一次性导出全部结果到JSON文件（与流式输出格式保持一致）"""
@@ -698,6 +1104,8 @@ class ManageGenerator:
     
     def close(self):
         """关闭连接"""
+        if self.db_builder:
+            self.db_builder.close()
         if self.driver:
             self.driver.close()
             logger.info("连接已关闭")

@@ -1,0 +1,93 @@
+[
+    {
+        "type": "basic_aggregation",
+        "templates": [
+            {
+                "id": "T006",
+                "template": "MATCH (a:$LABEL1 {$PROP1: $VALUE}), (b:$LABEL2) WHERE NOT (a)-[:$REL]->(b) WITH b ORDER BY b.$PROP_ID LIMIT 32 RETURN b.$PROP_ID",
+                "anti_template": "MATCH (a:$LABEL1 {$PROP1: $VALUE}), (b:$LABEL2) WHERE (a)-[:$REL]->(b) WITH b ORDER BY b.$PROP_ID LIMIT 32 RETURN b.$PROP_ID",
+                "parameters": {
+                    "LABEL1": "string",
+                    "LABEL2": "string",
+                    "PROP1": "string",
+                    "VALUE": "string",
+                    "REL": "string",
+                    "PROP_ID": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "nested_loop",
+        "templates": [
+            {
+                "id": "T010",
+                "template": "MATCH (a:$LABEL1) WHERE (a)-[:$REL_TYPE]->(:$LABEL2) WITH a RETURN collect(a.$RETURN_PROP)[0..1] AS values",
+                "anti_template": "MATCH (a:$LABEL1) WHERE NOT (a)-[:$REL_TYPE]->(:$LABEL2) WITH a RETURN collect(a.$RETURN_PROP)[0..1] AS values",
+                "parameters": {
+                    "LABEL1": "string",
+                    "LABEL2": "string",
+                    "REL_TYPE": "string",
+                    "RETURN_PROP": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "anti",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (a:$LABEL) WHERE NOT a.$PROP $OP $VALUE WITH a ORDER BY a.$PROP_ID LIMIT 10 RETURN a.$PROP_ID",
+                "anti_template": "MATCH (a:$LABEL) WHERE a.$PROP $OP $VALUE WITH a ORDER BY a.$PROP_ID LIMIT 10 RETURN a.$PROP_ID",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP": "string",
+                    "OP": "string",
+                    "VALUE": "string",
+                    "PROP_ID": "string"
+                }
+            },
+            {
+                "id": "T005",
+                "template": "MATCH (a:$LABEL) WHERE NOT a.$PROP $OP $VALUE WITH a RETURN collect(a.$RET_PROP)[0..1] AS vals",
+                "anti_template": "MATCH (a:$LABEL) WHERE a.$PROP $OP $VALUE WITH a RETURN collect(a.$RET_PROP)[0..1] AS vals",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP": "string",
+                    "OP": "string",
+                    "VALUE": "string",
+                    "RET_PROP": "string"
+                }
+            },
+            {
+                "id": "T009",
+                "template": "MATCH (a:$LABEL) WHERE NOT (a)-[:$REL1]->(:$LABEL2) OR (a)-[:$REL2]->(:$LABEL3) WITH a RETURN collect(a.$RET_PROP)[0..1] AS vals",
+                "parameters": {
+                    "LABEL": "string",
+                    "LABEL2": "string",
+                    "LABEL3": "string",
+                    "REL1": "string",
+                    "REL2": "string",
+                    "RET_PROP": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "triadic",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (a:$LABEL1)-[:$REL]-()-[:$REL]-(b:$LABEL2) WHERE NOT (a)-[:$REL]-(b) WITH b ORDER BY b.$PROP_ID LIMIT 10 RETURN b.$PROP_ID",
+                "anti_template": "MATCH (a:$LABEL1)-[:$REL]-()-[:$REL]-(b:$LABEL2) WHERE (a)-[:$REL]-(b) WITH b ORDER BY b.$PROP_ID LIMIT 10 RETURN b.$PROP_ID",
+                "parameters": {
+                    "LABEL1": "string",
+                    "LABEL2": "string",
+                    "REL": "string",
+                    "PROP_ID": "string"
+                }
+            }
+        ]
+    }
+]

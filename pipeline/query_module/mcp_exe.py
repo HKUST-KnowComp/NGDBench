@@ -161,9 +161,24 @@ def process_queries(executor: MCPDatabaseExecutor, queries: List[Dict[str, Any]]
             all_node_ids = query_node_ids | answer_node_ids
             print(f"  总共 {len(all_node_ids)} 个唯一节点id")
             
-            # 4. 查询这些节点的mention_in关系，获取目标节点id
-            mention_in_target_ids = get_mention_in_target_ids(executor, all_node_ids)
-            print(f"  找到 {len(mention_in_target_ids)} 个mention_in目标节点id")
+            # 4. 分别查询 query_node_ids 和 answer_node_ids 的 mention_in 关系，便于调试和验证
+            query_mention_in = get_mention_in_target_ids(executor, query_node_ids) if query_node_ids else []
+            answer_mention_in = get_mention_in_target_ids(executor, answer_node_ids) if answer_node_ids else []
+            
+            print(f"  query_node_ids ({len(query_node_ids)} 个) 的 mention_in 关系: {len(query_mention_in)} 个目标节点")
+            if answer_node_ids:
+                # 区分 entity 节点和 passage 节点
+                entity_answer_ids = [aid for aid in answer_node_ids if len(aid) < 100 and not aid.startswith('role:')]
+                passage_answer_ids = [aid for aid in answer_node_ids if len(aid) >= 100 or aid.startswith('role:')]
+                print(f"  answer_node_ids ({len(answer_node_ids)} 个) 的 mention_in 关系: {len(answer_mention_in)} 个目标节点")
+                if entity_answer_ids:
+                    print(f"    - entity 节点: {len(entity_answer_ids)} 个")
+                if passage_answer_ids:
+                    print(f"    - passage 节点: {len(passage_answer_ids)} 个（通常没有 mention_in 关系）")
+            
+            # 5. 合并所有 mention_in 目标节点id（去重）
+            mention_in_target_ids = sorted(list(set(query_mention_in) | set(answer_mention_in)))
+            print(f"  合并后找到 {len(mention_in_target_ids)} 个唯一的mention_in目标节点id")
             
             # 5. 构建结果
             result_item = {
@@ -208,7 +223,7 @@ def main():
     password = "fei123456"
     
     # 输入和输出文件路径
-    input_json_file = "../query_gen/query_results_mcp2.json"
+    input_json_file = "../query_gen/query_results_mcp1.json"
     output_json_file = "mcp_execution_results.json"
     
     # 创建MCP数据库执行器

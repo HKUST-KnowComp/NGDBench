@@ -503,7 +503,15 @@ class QueryBuilder:
         
         id_prop_info = concept_label_info.properties["id"]
         if id_prop_info.sample_values:
-            return random.choice(id_prop_info.sample_values)
+            # 如果是 mcp 或 multi-fin 数据集，过滤掉以数字结尾的值
+            if self.dataset in ("mcp", "multi_fin"):
+                filtered_values = [v for v in id_prop_info.sample_values 
+                                 if not (isinstance(v, str) and v and v[-1].isdigit())]
+                if filtered_values:
+                    return random.choice(filtered_values)
+                return None
+            else:
+                return random.choice(id_prop_info.sample_values)
         
         return None
     
@@ -967,6 +975,21 @@ class QueryBuilder:
                     if self.excluded_return_props:
                         node_dict = {k: v for k, v in node_dict.items() 
                                    if k not in self.excluded_return_props}
+                    
+                    # 如果是 mcp 或 multi-fin 数据集，排除 id 属性以数字结尾的节点
+                    if self.dataset in ("mcp", "multi_fin") and node_dict:
+                        # 检查所有可能的 id 属性（id, node_id, entity_id 等）
+                        id_props = ["id", "node_id", "entity_id"]
+                        should_exclude = False
+                        for id_prop in id_props:
+                            if id_prop in node_dict:
+                                id_value = node_dict[id_prop]
+                                if isinstance(id_value, str) and id_value and id_value[-1].isdigit():
+                                    should_exclude = True
+                                    break
+                        if should_exclude:
+                            continue
+                    
                     if node_dict:
                         nodes.append(node_dict)
                 
@@ -1132,6 +1155,11 @@ class QueryBuilder:
                             candidates &= valid_ends
 
             if not candidates:
+                # 如果约束太严格导致没有候选，回退到所有可用标签
+                # 这样可以避免因为约束过严而导致参数生成失败
+                logger.debug(f"参数 {param_name} 的约束太严格，回退到所有可用标签")
+                if labels:
+                    return random.choice(labels)
                 return None
             return random.choice(list(candidates))
         
@@ -1139,6 +1167,9 @@ class QueryBuilder:
         elif param_name.startswith('REL') and param_name != 'REL_PROP' or param_name in ('R1', 'R2', 'R3', 'REL', 'R'):
             # 随机选择一个关系类型
             rel_types = list(self.schema.relationships.keys())
+            # 如果是 mcp 或 multi_fin 数据集，排除 mention_in
+            if self.dataset in ("mcp", "multi_fin"):
+                rel_types = [rt for rt in rel_types if rt != "mention_in"]
             if not rel_types:
                 return None
             
@@ -1193,6 +1224,9 @@ class QueryBuilder:
             # 收集所有有属性的关系类型
             rels_with_props = []
             for rt, rel_info in self.schema.relationships.items():
+                # 如果是 mcp 或 multi_fin 数据集，排除 mention_in
+                if self.dataset in ("mcp", "multi_fin") and rt == "mention_in":
+                    continue
                 if rel_info.properties:
                     rels_with_props.append(rt)
             
@@ -1983,6 +2017,10 @@ class QueryGenerator:
         self.schema = SchemaAnalyzer(self.driver)
         self.schema.analyze()
         
+        # 如果是 mcp 或 multi-fin 数据集，过滤掉 id 属性中以数字结尾的 sample_values
+        if self.dataset in ("mcp", "multi_fin"):
+            self._filter_id_samples_ending_with_digit()
+        
         # 加载模版
         self.template_loader = TemplateLoader(self.template_path)
         self.template_loader.load()
@@ -2003,6 +2041,30 @@ class QueryGenerator:
             driver=self.driver,  # 传递 driver 用于节点采样
         )
         self.executor = QueryExecutor(self.driver)
+    
+    def _filter_id_samples_ending_with_digit(self):
+        """
+        过滤掉所有 id 属性中以数字结尾的 sample_values
+        用于 mcp 和 multi-fin 数据集
+        """
+        if not self.schema:
+            return
+        
+        # 遍历所有 label
+        for label_name, label_info in self.schema.labels.items():
+            # 遍历所有属性
+            for prop_name, prop_info in label_info.properties.items():
+                # 检查是否是 id 相关属性
+                if prop_name.lower() in ("id", "node_id", "entity_id"):
+                    # 过滤掉以数字结尾的字符串值
+                    original_count = len(prop_info.sample_values)
+                    prop_info.sample_values = [
+                        v for v in prop_info.sample_values
+                        if not (isinstance(v, str) and v and v[-1].isdigit())
+                    ]
+                    filtered_count = len(prop_info.sample_values)
+                    if original_count != filtered_count:
+                        logger.info(f"过滤 {label_name}.{prop_name}: {original_count} -> {filtered_count} 个样本值")
     
     def get_target_sample_count(self) -> int:
         """获取目标采样数量（边数/16）"""

@@ -820,7 +820,7 @@ class GraphPerturbation:
         """
         应用属性噪声 - 对节点属性进行扰动
         
-        对于数值属性：将数值变为极大或极小
+        对于数值属性：将数值乘以随机倍数因子 [10, 100, 1000, 10000] 或 [1/10, 1/100, 1/1000, 1/10000]
         对于字符串属性：使用拼写错误注入（类似 _introduce_typo）
         
         Args:
@@ -869,23 +869,17 @@ class GraphPerturbation:
                 
                 # 判断属性类型并应用相应的扰动
                 if isinstance(attr_value, (int, float)):
-                    # 数值属性：变为极大或极小
-                    if isinstance(attr_value, int):
-                        # 整数：随机选择极大或极小
-                        if random.random() > 0.5:
-                            # 极大值：使用系统最大整数或一个很大的数
-                            new_value = 2**31 - 1  # 32位整数最大值
-                        else:
-                            # 极小值：使用系统最小整数或一个很小的数
-                            new_value = -(2**31)  # 32位整数最小值
-                    else:
-                        # 浮点数：随机选择极大或极小
-                        if random.random() > 0.5:
-                            # 极大值：使用一个很大的浮点数
-                            new_value = 1e308  # 接近浮点数最大值
-                        else:
-                            # 极小值：使用一个很小的浮点数
-                            new_value = -1e308  # 接近浮点数最小值
+                    # 数值属性：乘以随机倍数因子
+                    # 倍数因子选项：放大 [10, 100, 1000, 10000] 或缩小 [1/10, 1/100, 1/1000, 1/10000]
+                    multipliers = [10, 100, 1000, 10000, 0.1, 0.01, 0.001, 0.0001]
+                    multiplier = random.choice(multipliers)
+                    new_value = attr_value * multiplier
+                    
+                    # 如果原值是整数且结果也是整数，保持为整数；否则转为浮点数
+                    if isinstance(attr_value, int) and isinstance(new_value, float):
+                        # 检查是否为整数（考虑浮点误差）
+                        if abs(new_value - round(new_value)) < 1e-10:
+                            new_value = int(round(new_value))
                     
                     new_attrs[attr_name] = new_value
                     modified = True

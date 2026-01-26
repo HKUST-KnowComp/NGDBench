@@ -14,7 +14,7 @@ from pathlib import Path
 from build_base import Neo4jGraphBuilder
 
 
-NEO4J_URI = "bolt://localhost:7690"
+NEO4J_URI = "bolt://localhost:7693"
 NEO4J_USER = "neo4j"
 NEO4J_PASSWORD = "fei123456"
 
@@ -26,9 +26,9 @@ GRAPH_PATH = (
     / "data_gen"
     / "graph_gen"
     / "graph_buffer"
-    / "mcp_tragectory_cleaned_normalized_no_concepts.gpickle"
+    / "ldbc_snb_finbench_noise_20260126_201401.gpickle"
 )
-DATASET_NAME = "mcp"
+DATASET_NAME = "ldbcfin"
 
 
 def main() -> None:

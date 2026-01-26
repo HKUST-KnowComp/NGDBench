@@ -4,21 +4,7 @@
         "templates": [
             {
                 "id": "T001code",
-                "template": "MATCH (f:entity {$PROP_ID: $VALUE}) MATCH (f)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'code') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
-                "parameters": {
-                    "PROP_ID": "string",
-                    "VALUE": "string",
-                    "REL_TYPE": "string"
-                }
-            }
-        ]
-    },
-    {
-        "type": "basic",
-        "templates": [
-            {
-                "id": "T002",
-                "template": "MATCH (n:entity {$PROP_ID: $VALUE})-[:$REL_TYPE]->(m) RETURN m",
+                "template": "MATCH (f:entity) MATCH (f)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'code') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
                 "parameters": {
                     "PROP_ID": "string",
                     "VALUE": "string",
@@ -26,25 +12,21 @@
                 }
             },
             {
-                "id": "T003",
-                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[:$REL1]->(b:entity) MATCH (a)-[:$REL2]->(b) RETURN a, b",
+                "id": "T002movie",
+                "template": "MATCH (f:entity) MATCH (f)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'movie') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
                 "parameters": {
                     "PROP_ID": "string",
                     "VALUE": "string",
-                    "REL1": "string",
-                    "REL2": "string"
+                    "REL_TYPE": "string"
                 }
             },
             {
-                "id": "T004",
-                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[r:$REL_TYPE]-(b:entity) WHERE r.$REL_PROP $OP $VALUE RETURN a",
+                "id": "T002tool",
+                "template": "MATCH (f:entity) MATCH (f)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'tool') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
                 "parameters": {
-                    "LABEL1": "string",
-                    "LABEL2": "string",
-                    "REL_TYPE": "string",
-                    "REL_PROP": "string",
-                    "OP": "string",
-                    "VALUE": "string"
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string"
                 }
             }
         ]

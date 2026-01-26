@@ -24,7 +24,8 @@ def execute_judge_queries_on_noise_graph(
     input_file: str,
     uri: str = "bolt://localhost:7693",
     user: str = "neo4j",
-    password: str = "fei123456"
+    password: str = "fei123456",
+    max_unique_answers: int = 20
 ) -> str:
     """
     在噪声图上执行 judge 类型文件的 template_query 和 anti_template_query，
@@ -35,6 +36,7 @@ def execute_judge_queries_on_noise_graph(
         uri: 数据库连接 URI，默认为噪声图端口 7693
         user: 数据库用户名
         password: 数据库密码
+        max_unique_answers: 每个查询结果中最多返回的答案数量，默认 20
     
     Returns:
         输出文件路径
@@ -88,6 +90,15 @@ def execute_judge_queries_on_noise_graph(
                 print(f"  执行 anti_template_query...")
                 anti_template_results = executor.execute_query(anti_template_query)
                 cleaned_anti_template_results = _clean_judge_answers(anti_template_results)
+                
+                # 限制返回的结果数量，避免返回太多结果
+                if len(cleaned_template_results) > max_unique_answers:
+                    cleaned_template_results = cleaned_template_results[:max_unique_answers]
+                    print(f"  ⚠ valid_answer 结果过多，已限制为前 {max_unique_answers} 条")
+                
+                if len(cleaned_anti_template_results) > max_unique_answers:
+                    cleaned_anti_template_results = cleaned_anti_template_results[:max_unique_answers]
+                    print(f"  ⚠ invalid_answer 结果过多，已限制为前 {max_unique_answers} 条")
                 
                 # 组织成 NoiseCandidateSet 格式
                 item["NoiseCandidateSet"] = {
@@ -164,8 +175,17 @@ def main():
                         # 如果都不存在，使用原始路径（让后续代码报错）
                         input_file = os.path.abspath(input_file)
         
+        # 检查是否有 max_unique_answers 参数
+        max_unique_answers = 20  # 默认值
+        if len(sys.argv) > 2:
+            try:
+                max_unique_answers = int(sys.argv[2])
+            except ValueError:
+                print(f"警告：无法解析 max_unique_answers 参数 '{sys.argv[2]}'，使用默认值 {max_unique_answers}")
+        
         print(f"处理 judge 类型文件: {input_file}")
-        output_file = execute_judge_queries_on_noise_graph(input_file, uri, user, password)
+        print(f"max_unique_answers: {max_unique_answers}")
+        output_file = execute_judge_queries_on_noise_graph(input_file, uri, user, password, max_unique_answers=max_unique_answers)
         print(f"结果已保存到: {output_file}")
     else:
         # 默认行为：执行原有的噪声查询

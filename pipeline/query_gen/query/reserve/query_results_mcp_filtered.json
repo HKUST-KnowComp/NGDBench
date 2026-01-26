@@ -1,0 +1,397 @@
+[
+  {
+    "template_id": "concept_T001code",
+    "template_type": "concept",
+    "query": "MATCH (f:entity) MATCH (f)-[:suggests_saving]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'code') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
+    "parameters": {
+      "PROP_ID": "id",
+      "VALUE": "val_8582",
+      "REL_TYPE": "suggests_saving"
+    },
+    "answer": [
+      {
+        "TargetFunction": "assistant_content_4",
+        "CountOfCodeProviders": 1,
+        "ListOfCodeProviders": [
+          "standalone Node.js file"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "concept_T001code",
+    "template_type": "concept",
+    "query": "MATCH (f:entity) MATCH (f)-[:provides_information_for]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'code') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
+    "parameters": {
+      "PROP_ID": "id",
+      "VALUE": "val_1394",
+      "REL_TYPE": "provides_information_for"
+    },
+    "answer": [
+      {
+        "TargetFunction": "function_CEP_found",
+        "CountOfCodeProviders": 1,
+        "ListOfCodeProviders": [
+          "function_get_temperature"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'Table at index 0 formatted successfully.'})-[:follows]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "Table at index 0 formatted successfully.",
+      "REL_TYPE": "follows"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept6": "document element",
+          "concept5": "structure",
+          "concept4": "layout",
+          "concept3": "table",
+          "concept2": "data",
+          "concept1": "spreadsheet",
+          "file_id": "b854c673d88ff2704b1e7917e98aa15be60313b2198c5732d823bea0a01e31e8",
+          "id": "Table (5x4) added to Q1SalesReport_2024.docx",
+          "_node_id": "0c779860219e10f502f2888210aa5363211d78cfdbc3e83a1879e0cbaff15296"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "concept_T002tool",
+    "template_type": "concept",
+    "query": "MATCH (f:entity) MATCH (f)-[:provides_instructions_for]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'tool') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
+    "parameters": {
+      "PROP_ID": "id",
+      "VALUE": "val_5814",
+      "REL_TYPE": "provides_instructions_for"
+    },
+    "answer": [
+      {
+        "TargetFunction": "manual_service_count_calculation_guidance",
+        "CountOfCodeProviders": 1,
+        "ListOfCodeProviders": [
+          "running_services_count_command"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "concept_T002tool",
+    "template_type": "concept",
+    "query": "MATCH (f:entity) MATCH (f)-[:independently_of]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'tool') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
+    "parameters": {
+      "PROP_ID": "id",
+      "VALUE": "val_4723",
+      "REL_TYPE": "independently_of"
+    },
+    "answer": [
+      {
+        "TargetFunction": "install_langgraph",
+        "CountOfCodeProviders": 3,
+        "ListOfCodeProviders": [
+          "install_uv_package_manager_macos",
+          "install_uv_package_manager_windows",
+          "install_crewai_cli"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "nested_loop_T005",
+    "template_type": "nested_loop",
+    "query": "MATCH (n:entity) WHERE (n)-[:failed_due_to]->(:entity {id: 'error with timeline parameter'}) RETURN n.id",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "error with timeline parameter",
+      "REL1": "failed_due_to"
+    },
+    "answer": [
+      {
+        "n.id": "getuserrecent_tweets"
+      }
+    ]
+  },
+  {
+    "template_id": "nested_loop_T005",
+    "template_type": "nested_loop",
+    "query": "MATCH (n:entity) WHERE (n)-[:before]->(:entity {id: 'extract-visible-price'}) RETURN n.id",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "extract-visible-price",
+      "REL1": "before"
+    },
+    "answer": [
+      {
+        "n.id": "playwright-navigate"
+      }
+    ]
+  },
+  {
+    "template_id": "concept_T002tool",
+    "template_type": "concept",
+    "query": "MATCH (f:entity) MATCH (f)-[:be_passed_to]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'tool') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
+    "parameters": {
+      "PROP_ID": "id",
+      "VALUE": "val_9486",
+      "REL_TYPE": "be_passed_to"
+    },
+    "answer": [
+      {
+        "TargetFunction": "数学表达式",
+        "CountOfCodeProviders": 1,
+        "ListOfCodeProviders": [
+          "计算器(calc-mcp)"
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'generate_test_file'})-[:followed_by]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "generate_test_file",
+      "REL_TYPE": "followed_by"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept7": "pause",
+          "concept6": "cessation",
+          "concept5": "recording",
+          "concept4": "session",
+          "concept3": "interruption",
+          "concept2": "end",
+          "concept1": "halt",
+          "file_id": "0e0ef896213f821fc74edb7c42988479b6923bdeb9af4d4c1b65e86437c27401",
+          "id": "stop_recording_session",
+          "_node_id": "8e27f6cda07e2a5cd8da4ffd8af226f41fe3ca23a331d5e9f2c2f99376b2c59b"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'search-for-lighting-scripts'})-[:after]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "search-for-lighting-scripts",
+      "REL_TYPE": "after"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept3": "phrase3",
+          "concept2": "phrase1",
+          "concept1": "phrase2",
+          "file_id": "5cf902fc8428aadcc5659f138aa5996bc234c3cabba7003e9c65c36579d0ead1",
+          "id": "verifyconnection",
+          "return": [
+            "{ \"connected\": false, \"timestamp\": \"2025-08-04T20:56:55.546Z\", \"message\": \"Unity Editor is not connected. Please ensure the Unity Editor is running with the MCP plugin.\" }"
+          ],
+          "_node_id": "17b1fdf931a6d6ecf49a0ee0798677da26f4dee2878b8ac99f1b1f9b8be54ba1"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'execute-test-code'})-[:mention_in]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "execute-test-code",
+      "REL_TYPE": "mention_in"
+    },
+    "answer": [
+      {
+        "m": {
+          "file_id": "5cf902fc8428aadcc5659f138aa5996bc234c3cabba7003e9c65c36579d0ead1",
+          "id": "role: user content: I'm developing a VR training simulation and I need to create a dynamic lighting system that adjusts based on time of day. However, I want to reuse some lighting scripts I wrote for a previous project that had similar functionality. Can you help me search for any existing C# lighting scripts in my Unity project, examine the code in those scripts to understand their current implementation, and then execute some test code in the editor that creates a simple test scene with a directional light to verify the lighting behavior before I integrate it into my VR project? role: assistant content: I'll help you search for existing lighting scripts, examine their code, and create a test scene to verify lighting behavior. Let's start by exploring your Unity project. First, let's verify the connection to Unity and check the current project state: role: function content: { \"connected\": false, \"timestamp\": \"2025-08-06T05:13:38.729Z\", \"message\": \"Unity Editor is not connected. Please ensure the Unity Editor is running with the MCP plugin.\" } role: assistant content: It appears the Unity Editor isn't currently connected. Let me get the editor state to confirm: role: function content: An error occurred when calling tool unity-mcp-integration-geteditorstate: McpError: MCP error -32603: Unity Editor is not connected. Please first verify the connection using the verifyconnection tool, and ensure the Unity Editor is running with the MCP plugin and that the WebSocket connection is established. Traceback: File \"/home/testuser/tool-rl-dev/Qwen-Agent/qwenagent/agent.py\", line 192, in calltool toolresult = tool.call(toolargs, **kwargs) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File \"/home/testuser/tool-rl-dev/Qwen-Agent/qwenagent/tools/mcpmanager.py\", line 283, in call raise e File \"/home/testuser/tool-rl-dev/Qwen-Agent/qwenagent/tools/mcpmanager.py\", line 279, in call result = future.result() ^^^^^^^^^^^^^^^ File \"/home/testuser/.local/share/uv/python/cpython-3.12.11-linux-x8664-gnu/lib/python3.12/concurrent/futures/base.py\", line 456, in result return self.getresult() ^^^^^^^^^^^^^^^^^^^ File \"/home/testuser/.local/share/uv/python/cpython-3.12.11-linux-x8664-gnu/lib/python3.12/concurrent/futures/base.py\", line 401, in getresult raise self.exception File \"/home/testuser/.local/share/uv/python/cpython-3.12.11-linux-x8664-gnu/lib/python3.12/asyncio/tasks.py\", line 314, in steprunandhandleresult result = coro.send(None) ^^^^^^^^^^^^^^^ File \"/home/testuser/tool-rl-dev/Qwen-Agent/qwenagent/tools/mcpmanager.py\", line 451, in executefunction response = await self.session.calltool(toolname, toolargs) ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ File \"/home/testuser/tool-rl-dev/.venv/lib/python3.12/site-packages/mcp/client/session.py\", line 264, in calltool return await self.sendrequest( ^^^^^^^^^^^^^^^^^^^^^^^^ File \"/home/testuser/tool-rl-dev/.venv/lib/python3.12/site-packages/mcp/shared/session.py\", line 286, in sendrequest raise McpError(responseor_error.error) role: assistant content: The Unity Editor isn't connected to the MCP server. To proceed with this task, you'll need to: Start Unity Editor Install the Unity MCP Plugin (if not already installed) Establish the connection between Unity Editor and the MCP server However, I can still help you prepare for when the connection is established. Let me outline the steps we'll take once Unity is connected: Plan for When Unity is Connected: Search for lighting scripts in your project Examine existing lighting implementations Create a test scene with directional lighting Test dynamic lighting behavior What You'll Need to Do: In Unity Editor: Open your Unity project Ensure the MCP plugin is installed and running Verify the WebSocket connection is established Once connected, I will: Search for all C# scripts related to lighting using patterns like \"light\", \"sun\", \"time\", \"day\" in filenames Read and analyze the content of relevant lighting scripts Create a test scene with: A directional light representing the sun Test script to simulate time-of-day changes Camera setup for VR compatibility Execute code to adjust lighting parameters (color, intensity, rotation) based on simulated time Would you like me to prepare a simple lighting test script in advance that you can use once Unity is connected? This would include a basic day/night cycle implementation that we can refine based on your existing scripts. Also, please connect Unity to the MCP server and let me know when it's ready, then I can execute the full search and testing sequence.",
+          "_node_id": "5cf902fc8428aadcc5659f138aa5996bc234c3cabba7003e9c65c36579d0ead1"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'stop_recording_session'})-[:uses_output_of]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "stop_recording_session",
+      "REL_TYPE": "uses_output_of"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept7": "function",
+          "concept6": "task",
+          "concept5": "execution",
+          "concept4": "activity",
+          "concept3": "procedure",
+          "concept2": "process",
+          "concept1": "operation",
+          "file_id": "0e0ef896213f821fc74edb7c42988479b6923bdeb9af4d4c1b65e86437c27401",
+          "id": "record_manual_interactions",
+          "_node_id": "1db346e325f753607d9b07a06bcf53660103c1e739e8b36322e40b10f6c5322b"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'generate_local_image'})-[:before]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "generate_local_image",
+      "REL_TYPE": "before"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept7": "function",
+          "concept6": "output",
+          "concept5": "generation",
+          "concept4": "process",
+          "concept3": "creation",
+          "concept2": "utility",
+          "concept1": "tool",
+          "file_id": "37bdd90d79b80010a09d156ccb8a7acdf2cf75a144dfd9ecd8905c4af4b1331b",
+          "id": "generate_web_image",
+          "_node_id": "b9a75258c63b917f8e0488c28909146fb5cab5ddc1648b373592f6f44ff1dbaa"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_T002",
+    "template_type": "basic",
+    "query": "MATCH (n:entity {id: 'check_models'})-[:followed_by]->(m) RETURN m",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "check_models",
+      "REL_TYPE": "followed_by"
+    },
+    "answer": [
+      {
+        "m": {
+          "concept7": "function",
+          "concept6": "generation",
+          "concept5": "feature",
+          "concept4": "process",
+          "concept3": "creation",
+          "concept2": "utility",
+          "concept1": "tool",
+          "file_id": "1a5c1e6540f01bfcbd6b74691bd0931037701329ad987b3e785920b99c6b2241",
+          "id": "generate_description",
+          "_node_id": "e63f35a3d15cf89ebe7511031bc6576f560cc957e16b1ebf89ff23a396ebafcf"
+        }
+      },
+      {
+        "m": {
+          "concept5": "representation",
+          "concept4": "thumbnail",
+          "concept3": "image",
+          "concept2": "visual",
+          "concept1": "preview",
+          "file_id": "790be8edfb65d6466f712d69a33fd63003e9c3a70e0b2c449acec3964dde694b",
+          "id": "preview_image",
+          "_node_id": "8f0596c5ed0b72d9af815167de06bf8bd58a50da59a541d34f2415f5b9dd0b90"
+        }
+      },
+      {
+        "m": {
+          "concept7": "function",
+          "concept6": "action",
+          "concept5": "task",
+          "concept4": "procedure",
+          "concept3": "process",
+          "concept2": "method",
+          "concept1": "operation",
+          "file_id": "7d281e23eab41150f5bf229501b4b9943c38c385b000c62c27ac227461564de5",
+          "id": "generate_and_save_full_image",
+          "_node_id": "8d93ec0a8b79acb521826bdeaac7d23c8705196b54d12239fea033ceee209002"
+        }
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'Successfully switched to mode architect'})-[:uses_output_of]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "Successfully switched to mode architect",
+      "REL_TYPE": "uses_output_of"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "concept6": "status",
+            "concept5": "malfunction",
+            "concept4": "state",
+            "concept3": "error",
+            "concept2": "problem",
+            "concept1": "issue",
+            "file_id": "31d712d729268c7cf8e7b5ab71fe213f92db91fd5a4eeed217d37fe98a8f8467",
+            "id": "Mode manager not initialized",
+            "_node_id": "8cc239ece4941bed93aea9005dd5c9265e2a9116c79e600827666bdaefa1d1c6"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "template_id": "basic_expand_aggregation_T001",
+    "template_type": "basic_expand_aggregation",
+    "query": "MATCH (n:entity {id: 'generateImage'})-[:then]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
+    "parameters": {
+      "entity": "entity",
+      "PROP_ID": "id",
+      "VALUE": "generateImage",
+      "REL_TYPE": "then"
+    },
+    "answer": [
+      {
+        "cnt": 1,
+        "m_list": [
+          {
+            "concept": [
+              "technique",
+              "method",
+              "tool",
+              "process",
+              "approach",
+              "function"
+            ],
+            "file_id": "7643faccd40de838bef2411a8d5f403b7647c101f1d979cea2852cdb48da7781",
+            "id": "getExpertOpinion",
+            "_node_id": "cce268d89a851925a21043369fb99f3b9cc404b4a62d0dba23eccb801ae1f066"
+          }
+        ]
+      }
+    ]
+  }
+]

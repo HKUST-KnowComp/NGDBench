@@ -235,32 +235,48 @@ class GraphInspector:
             print(f"  {node_label}: degree={deg}")
         print()
 
-    def sample_nodes(self, n: int = 30):
-        """随机采样节点并显示详情"""
+    def sample_nodes(self, n: int = 30, output_file: str = None):
+        """随机采样节点并显示详情
+
+        Args:
+            n (int): 采样节点数
+            output_file (str): 如果给定，则把输出保存到此文件，否则输出到控制台
+        """
         import random
-        G = self.graph
-        all_nodes = list(G.nodes())
-        sample_size = min(n, len(all_nodes))
-        sampled = random.sample(all_nodes, sample_size)
-        
-        print("=" * 60)
-        print(f"Sample Nodes ({sample_size} nodes)")
-        print("=" * 60)
-        
-        for node in sampled:
-            data = G.nodes[node]
-            print(f"\nNode: {node}")
-            print(f"  Attributes: {dict(data)}")
-            print(f"  In-degree: {G.in_degree(node)}, Out-degree: {G.out_degree(node)}")
+        import sys
+        from contextlib import redirect_stdout
+
+        def _run_sample_nodes():
+            G = self.graph
+            all_nodes = list(G.nodes())
+            sample_size = min(n, len(all_nodes))
+            sampled = random.sample(all_nodes, sample_size)
             
-            # 显示部分出边
-            out_edges = list(G.out_edges(node, data=True))[:3]
-            if out_edges:
-                print(f"  Sample out-edges:")
-                for u, v, edata in out_edges:
-                    rel = edata.get('label') or edata.get('relation') or 'N/A'
-                    print(f"    --[{rel}]--> {v}")
-        print()
+            print("=" * 60)
+            print(f"Sample Nodes ({sample_size} nodes)")
+            print("=" * 60)
+            
+            for node in sampled:
+                data = G.nodes[node]
+                print(f"\nNode: {node}")
+                print(f"  Attributes: {dict(data)}")
+                print(f"  In-degree: {G.in_degree(node)}, Out-degree: {G.out_degree(node)}")
+                
+                # 显示部分出边
+                out_edges = list(G.out_edges(node, data=True))[:3]
+                if out_edges:
+                    print(f"  Sample out-edges:")
+                    for u, v, edata in out_edges:
+                        rel = edata.get('label') or edata.get('relation') or 'N/A'
+                        print(f"    --[{rel}]--> {v}")
+            print()
+        
+        if output_file:
+            with open(output_file, 'w', encoding='utf-8') as f:
+                with redirect_stdout(f):
+                    _run_sample_nodes()
+        else:
+            _run_sample_nodes()
 
     def full_analysis(self, output_file: str = None):
         """
