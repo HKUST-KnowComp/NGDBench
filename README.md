@@ -1,6 +1,6 @@
 # NGDB Benchmark
 
-## Our dataset is available at [https://huggingface.co/datasets/FeifeiCS/NGDBench](https://huggingface.co/datasets/FeifeiCS/NGDBench)
+Our dataset is available at [https://huggingface.co/datasets/FeifeiCS/NGDBench](https://huggingface.co/datasets/FeifeiCS/NGDBench)
 ## 目录
 
 - [用户指南](#用户指南)
