@@ -41,7 +41,11 @@ def extract_node_ids_from_query(query: str) -> Set[str]:
 
 def extract_node_ids_from_answer(answer: List[Dict[str, Any]]) -> Set[str]:
     """
-    从answer中提取所有节点的id
+    从answer中提取所有节点的id。
+    answer_node_ids 会包含任意嵌套层级中的节点 id，例如：
+    - 顶层或嵌套对象中的 "id" 字段（如 b_list 里每项的 "id": "function_tool_get_images_Beagle"）
+    - 以 ".id" 结尾的返回字段（如 "a.id", "b.id", "m.id"）
+    - 以及下列特殊字段名。
     
     Args:
         answer: 查询结果列表
@@ -50,24 +54,64 @@ def extract_node_ids_from_answer(answer: List[Dict[str, Any]]) -> Set[str]:
         节点id集合
     """
     node_ids = set()
-    
+
+    # 在某些查询结果中，节点id不会出现在字段名为"id"的字典中，
+    # 而是出现在如 ProviderID、TargetFunction、ListOfMemoryFunctions、
+    # ListOfCodeProviders、"a.id" 等字段中，这些也需要视为节点id。
+    special_single_id_keys = {
+        "ProviderID",      # 如: "ProviderID": "from_previous_thought"
+        "TargetFunction",  # 如: "TargetFunction": "pythonCode"
+        "a.id",
+        "b.id",            # 如 collect(b) 返回的 b_list 中对应 b.id
+        "m.id",
+        "ComputeNode",     # 如: "ComputeNode": "Intel"
+        "StorageProvider", # 如: "StorageProvider": "rebalance workforce"
+    }
+    special_list_id_keys = {
+        "ListOfMemoryFunctions",  # 如: ["thought", ...]
+        "ListOfCodeProviders",    # 如: ["original Python code for this step"]
+        "m_list",
+        "n_list"
+    }
+
+    def is_id_key(key: str) -> bool:
+        """键名为 'id' 或以 '.id' 结尾的视为节点 id 字段"""
+        return key == "id" or (isinstance(key, str) and key.endswith(".id"))
+
     def extract_from_value(value: Any):
-        """递归提取节点id"""
+        """递归提取节点id（含嵌套结构如 b_list 中的 id、function_tool_get_images_Beagle 等）"""
         if isinstance(value, dict):
-            # 如果字典中有id字段，提取它
-            if 'id' in value:
-                node_ids.add(str(value['id']))
+            # 字典中的 "id" 字段（含嵌套对象，如 b_list 里每项的 "id": "function_tool_get_images_Beagle"）
+            if "id" in value and value["id"] is not None:
+                node_ids.add(str(value["id"]))
+
+            # 以 ".id" 结尾的键（如 a.id, b.id, m.id）
+            for key, v in value.items():
+                if is_id_key(key) and v is not None:
+                    node_ids.add(str(v))
+
+            # 处理特殊的单值 id 字段（如 ProviderID / TargetFunction / "a.id"）
+            for key in special_single_id_keys:
+                if key in value and value[key] is not None:
+                    node_ids.add(str(value[key]))
+
+            # 处理特殊的列表 id 字段（如 ListOfMemoryFunctions / ListOfCodeProviders）
+            for key in special_list_id_keys:
+                if key in value and isinstance(value[key], list):
+                    for item in value[key]:
+                        if item is not None:
+                            node_ids.add(str(item))
+
             # 递归处理字典中的所有值
             for v in value.values():
                 extract_from_value(v)
         elif isinstance(value, list):
-            # 递归处理列表中的每个元素
             for item in value:
                 extract_from_value(item)
-    
+
     for item in answer:
         extract_from_value(item)
-    
+
     return node_ids
 
 
@@ -185,7 +229,7 @@ def process_queries(executor: MCPDatabaseExecutor, queries: List[Dict[str, Any]]
                 'template_id': template_id,
                 'template_type': query_data.get('template_type', ''),
                 'query': query_text,
-                'parameters': query_data.get('parameters', {}),
+                'answer': answer,
                 'query_node_ids': sorted(list(query_node_ids)),
                 'answer_node_ids': sorted(list(answer_node_ids)),
                 'mention_in_nodes': mention_in_target_ids,
@@ -203,7 +247,7 @@ def process_queries(executor: MCPDatabaseExecutor, queries: List[Dict[str, Any]]
                 'template_id': template_id,
                 'template_type': query_data.get('template_type', ''),
                 'query': query_text,
-                'parameters': query_data.get('parameters', {}),
+                'answer': answer,
                 'query_node_ids': [],
                 'answer_node_ids': [],
                 'mention_in_nodes': [],
@@ -218,13 +262,13 @@ def main():
     """主函数：提取节点并查找mention_in关系"""
     # 数据库连接配置
     # 根据实际情况修改端口和认证信息
-    uri = "bolt://localhost:7690"  # 根据实际MCP数据库端口修改
+    uri = "bolt://localhost:7689"  # 根据实际MCP数据库端口修改
     user = "neo4j"
     password = "fei123456"
     
     # 输入和输出文件路径
-    input_json_file = "../query_gen/query_results_mcp1.json"
-    output_json_file = "mcp_execution_results.json"
+    input_json_file = "query_results_multi_fin_keep.json"
+    output_json_file = "multi_fin_keep_execution_results.json"
     
     # 创建MCP数据库执行器
     executor = MCPDatabaseExecutor(uri, user, password)

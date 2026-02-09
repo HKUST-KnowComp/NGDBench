@@ -1,0 +1,226 @@
+============================================================
+Sample Nodes (30 nodes)
+============================================================
+
+Node: gene/protein:3988
+  Attributes: {'label': 'gene/protein', 'node_type': 'gene/protein', 'node_id': '3988', 'name': 'LIPA', 'source': 'NCBI'}
+  In-degree: 170, Out-degree: 170
+  Sample out-edges:
+    --[protein_protein]--> gene/protein:9586
+    --[protein_protein]--> gene/protein:7316
+    --[disease_protein]--> disease:5010
+
+Node: gene/protein:7534
+  Attributes: {'label': 'gene/protein', 'node_type': 'gene/protein', 'node_id': '7534', 'name': 'YWHAZ', 'source': 'NCBI'}
+  In-degree: 655, Out-degree: 655
+  Sample out-edges:
+    --[protein_protein]--> gene/protein:55167
+    --[protein_protein]--> gene/protein:28954
+    --[protein_protein]--> gene/protein:120892
+
+Node: disease:8202
+  Attributes: {'label': 'disease', 'node_type': 'disease', 'node_id': '8202', 'name': 'Parotidomegaly, hereditary bilateral', 'source': 'MONDO'}
+  In-degree: 3, Out-degree: 3
+  Sample out-edges:
+    --[disease_phenotype_positive]--> effect/phenotype:464
+    --[disease_phenotype_positive]--> effect/phenotype:6
+    --[disease_disease]--> disease:3847
+
+Node: gene/protein:126123
+  Attributes: {'label': 'gene/protein', 'node_type': 'gene/protein', 'node_id': '126123', 'name': 'IZUMO2', 'source': 'NCBI'}
+  In-degree: 6, Out-degree: 6
+  Sample out-edges:
+    --[cellcomp_protein]--> cellular_component:16021
+    --[pathway_protein]--> pathway:R-HSA-1300645
+    --[anatomy_protein_present]--> anatomy:473
+
+Node: gene/protein:106481094
+  Attributes: {'label': 'gene/protein', 'node_type': 'gene/protein', 'node_id': '106481094', 'name': 'RN7SL630P', 'source': 'NCBI'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[anatomy_protein_present]--> anatomy:945
+
+Node: biological_process:51136
+  Attributes: {'label': 'biological_process', 'node_type': 'biological_process', 'node_id': '51136', 'name': 'regulation of NK T cell differentiation', 'source': 'GO'}
+  In-degree: 5, Out-degree: 5
+  Sample out-edges:
+    --[bioprocess_bioprocess]--> biological_process:51137
+    --[bioprocess_bioprocess]--> biological_process:51138
+    --[bioprocess_bioprocess]--> biological_process:46637
+
+Node: biological_process:21511
+  Attributes: {'label': 'biological_process', 'node_type': 'biological_process', 'node_id': '21511', 'name': 'spinal cord patterning', 'source': 'GO'}
+  In-degree: 2, Out-degree: 2
+  Sample out-edges:
+    --[bioprocess_bioprocess]--> biological_process:3002
+    --[bioprocess_protein]--> gene/protein:5649
+
+Node: anatomy:2436
+  Attributes: {'label': 'anatomy', 'node_type': 'anatomy', 'node_id': '2436', 'name': 'primary visual cortex', 'source': 'UBERON'}
+  In-degree: 11728, Out-degree: 11728
+  Sample out-edges:
+    --[anatomy_anatomy]--> anatomy:35014
+    --[anatomy_protein_present]--> gene/protein:7105
+    --[anatomy_protein_present]--> gene/protein:8813
+
+Node: anatomy:16885
+  Attributes: {'label': 'anatomy', 'node_type': 'anatomy', 'node_id': '16885', 'name': 'epithelium of terminal part of digestive tract', 'source': 'UBERON'}
+  In-degree: 2, Out-degree: 2
+  Sample out-edges:
+    --[anatomy_anatomy]--> anatomy:3929
+    --[anatomy_anatomy]--> anatomy:3354
+
+Node: biological_process:42710
+  Attributes: {'label': 'biological_process', 'node_type': 'biological_process', 'node_id': '42710', 'name': 'biofilm formation', 'source': 'GO'}
+  In-degree: 5, Out-degree: 5
+  Sample out-edges:
+    --[bioprocess_bioprocess]--> biological_process:44010
+    --[bioprocess_bioprocess]--> biological_process:44399
+    --[bioprocess_bioprocess]--> biological_process:90605
+
+Node: drug:DB01078
+  Attributes: {'label': 'drug', 'node_type': 'drug', 'node_id': 'DB01078', 'name': 'Deslanoside', 'source': 'DrugBank'}
+  In-degree: 495, Out-degree: 495
+  Sample out-edges:
+    --[drug_protein]--> gene/protein:476
+    --[drug_drug]--> drug:DB01181
+    --[drug_drug]--> drug:DB00468
+
+Node: biological_process:42865
+  Attributes: {'label': 'biological_process', 'node_type': 'biological_process', 'node_id': '42865', 'name': 'pyochelin catabolic process', 'source': 'GO'}
+  In-degree: 7, Out-degree: 7
+  Sample out-edges:
+    --[bioprocess_bioprocess]--> biological_process:19336
+    --[bioprocess_bioprocess]--> biological_process:46700
+    --[bioprocess_bioprocess]--> biological_process:1901565
+
+Node: drug:DB02513
+  Attributes: {'label': 'drug', 'node_type': 'drug', 'node_id': 'DB02513', 'name': 'Thymol', 'source': 'DrugBank'}
+  In-degree: 14, Out-degree: 14
+  Sample out-edges:
+    --[drug_drug]--> drug:DB00266
+    --[drug_drug]--> drug:DB00498
+    --[drug_drug]--> drug:DB00682
+
+Node: biological_process:35436
+  Attributes: {'label': 'biological_process', 'node_type': 'biological_process', 'node_id': '35436', 'name': 'triose phosphate transmembrane transport', 'source': 'GO'}
+  In-degree: 3, Out-degree: 3
+  Sample out-edges:
+    --[bioprocess_bioprocess]--> biological_process:15711
+    --[bioprocess_bioprocess]--> biological_process:98656
+    --[bioprocess_bioprocess]--> biological_process:15717
+
+Node: cellular_component:44538
+  Attributes: {'label': 'cellular_component', 'node_type': 'cellular_component', 'node_id': '44538', 'name': 'host cell periphery', 'source': 'GO'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[cellcomp_cellcomp]--> cellular_component:33643
+
+Node: drug:DB11059
+  Attributes: {'label': 'drug', 'node_type': 'drug', 'node_id': 'DB11059', 'name': 'Carboxymethylcellulose', 'source': 'DrugBank'}
+  In-degree: 399, Out-degree: 399
+  Sample out-edges:
+    --[drug_protein]--> gene/protein:6513
+    --[drug_drug]--> drug:DB11622
+    --[drug_drug]--> drug:DB00908
+
+Node: cellular_component:35580
+  Attributes: {'label': 'cellular_component', 'node_type': 'cellular_component', 'node_id': '35580', 'name': 'specific granule lumen', 'source': 'GO'}
+  In-degree: 63, Out-degree: 63
+  Sample out-edges:
+    --[cellcomp_cellcomp]--> cellular_component:34774
+    --[cellcomp_protein]--> gene/protein:26
+    --[cellcomp_protein]--> gene/protein:30
+
+Node: pathway:R-HSA-170145
+  Attributes: {'label': 'pathway', 'node_type': 'pathway', 'node_id': 'R-HSA-170145', 'name': 'Phosphorylation of proteins involved in the G2/M transition by Cyclin A:Cdc2 complexes', 'source': 'REACTOME'}
+  In-degree: 4, Out-degree: 4
+  Sample out-edges:
+    --[pathway_pathway]--> pathway:R-HSA-69273
+    --[pathway_protein]--> gene/protein:890
+    --[pathway_protein]--> gene/protein:8900
+
+Node: anatomy:2246
+  Attributes: {'label': 'anatomy', 'node_type': 'anatomy', 'node_id': '2246', 'name': 'dorsal thoracic nucleus', 'source': 'UBERON'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[anatomy_anatomy]--> anatomy:11777
+
+Node: molecular_function:33411
+  Attributes: {'label': 'molecular_function', 'node_type': 'molecular_function', 'node_id': '33411', 'name': 'UAA codon-amino acid adaptor activity', 'source': 'GO'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[molfunc_molfunc]--> molecular_function:30533
+
+Node: anatomy:15149
+  Attributes: {'label': 'anatomy', 'node_type': 'anatomy', 'node_id': '15149', 'name': 'ventral hair', 'source': 'UBERON'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[anatomy_anatomy]--> anatomy:1037
+
+Node: biological_process:42783
+  Attributes: {'label': 'biological_process', 'node_type': 'biological_process', 'node_id': '42783', 'name': 'evasion of host immune response', 'source': 'GO'}
+  In-degree: 9, Out-degree: 9
+  Sample out-edges:
+    --[bioprocess_bioprocess]--> biological_process:52163
+    --[bioprocess_bioprocess]--> biological_process:42785
+    --[bioprocess_bioprocess]--> biological_process:42786
+
+Node: anatomy:4318
+  Attributes: {'label': 'anatomy', 'node_type': 'anatomy', 'node_id': '4318', 'name': 'distal phalanx of pedal digit 4', 'source': 'UBERON'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[anatomy_anatomy]--> anatomy:14486
+
+Node: biological_process:14889
+  Attributes: {'label': 'biological_process', 'node_type': 'biological_process', 'node_id': '14889', 'name': 'muscle atrophy', 'source': 'GO'}
+  In-degree: 4, Out-degree: 4
+  Sample out-edges:
+    --[bioprocess_bioprocess]--> biological_process:14890
+    --[bioprocess_bioprocess]--> biological_process:14891
+    --[bioprocess_bioprocess]--> biological_process:43500
+
+Node: biological_process:45920
+  Attributes: {'label': 'biological_process', 'node_type': 'biological_process', 'node_id': '45920', 'name': 'negative regulation of exocytosis', 'source': 'GO'}
+  In-degree: 11, Out-degree: 11
+  Sample out-edges:
+    --[bioprocess_bioprocess]--> biological_process:1929
+    --[bioprocess_bioprocess]--> biological_process:1903306
+    --[bioprocess_bioprocess]--> biological_process:1903542
+
+Node: drug:DB09071
+  Attributes: {'label': 'drug', 'node_type': 'drug', 'node_id': 'DB09071', 'name': 'Tasimelteon', 'source': 'DrugBank'}
+  In-degree: 1819, Out-degree: 1819
+  Sample out-edges:
+    --[drug_protein]--> gene/protein:1544
+    --[drug_protein]--> gene/protein:1576
+    --[drug_protein]--> gene/protein:4544
+
+Node: gene/protein:100128017
+  Attributes: {'label': 'gene/protein', 'node_type': 'gene/protein', 'node_id': '100128017', 'name': 'TULP3P1', 'source': 'NCBI'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[anatomy_protein_present]--> anatomy:473
+
+Node: effect/phenotype:31459
+  Attributes: {'label': 'effect/phenotype', 'node_type': 'effect/phenotype', 'node_id': '31459', 'name': 'Soft tissue neoplasm', 'source': 'HPO'}
+  In-degree: 6, Out-degree: 6
+  Sample out-edges:
+    --[phenotype_phenotype]--> effect/phenotype:6756
+    --[phenotype_phenotype]--> effect/phenotype:20135
+    --[phenotype_phenotype]--> effect/phenotype:31460
+
+Node: drug:DB11003
+  Attributes: {'label': 'drug', 'node_type': 'drug', 'node_id': 'DB11003', 'name': 'Anthrax vaccine', 'source': 'DrugBank'}
+  In-degree: 398, Out-degree: 398
+  Sample out-edges:
+    --[drug_drug]--> drug:DB01254
+    --[drug_drug]--> drug:DB09053
+    --[drug_drug]--> drug:DB08935
+
+Node: molecular_function:98607
+  Attributes: {'label': 'molecular_function', 'node_type': 'molecular_function', 'node_id': '98607', 'name': 'methylselenocysteine deselenhydrase activity', 'source': 'GO'}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[molfunc_molfunc]--> molecular_function:16846
+

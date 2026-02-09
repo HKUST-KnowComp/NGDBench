@@ -1,5 +1,6 @@
 # NGDB Benchmark
 
+## Our dataset is available at [https://huggingface.co/datasets/FeifeiCS/NGDBench](https://huggingface.co/datasets/FeifeiCS/NGDBench)
 ## 目录
 
 - [用户指南](#用户指南)
@@ -109,87 +110,11 @@ finally:
     executor.close()
 ```
 
-### Docker 容器配置
-
-目前已有的数据库容器如下：
-
-#### 金融文档数据
-
-```bash
-docker run -d \
-  --name neo4j-520 \
-  -p 7689:7687 \
-  -e NEO4J_AUTH=neo4j/fei123456 \
-  neo4j:5.20.0
-```
-
-#### MCP 数据
-
-```bash
-docker run -d \
-  --name neo4j-mcp \
-  -p 7690:7687 \
-  -e NEO4J_AUTH=neo4j/fei123456 \
-  neo4j:5.20.0
-```
-
-#### LDBC BI 数据
-
-```bash
-docker run -d \
-  --name neo4j-ldbcbi \
-  -p 7691:7687 \
-  -e NEO4J_AUTH=neo4j/fei123456 \
-  neo4j:5.20.0
-```
-
-#### LDBC Fin 数据
-
-```bash
-docker run -d \
-  --name neo4j-ldbcfin \
-  -p 7692:7687 \
-  -e NEO4J_AUTH=neo4j/fei123456 \
-  neo4j:5.20.0
-```
-
-#### LDBC Fin Noise 数据
-
-```bash
-docker run -d \
-  --name neo4j-ldbcfin-noise \
-  -p 7693:7687 \
-  -e NEO4J_AUTH=neo4j/fei123456 \
-  neo4j:5.20.0
-```
-
-#### LDBC Fin Manage 数据
-
-```bash
-docker run -d \
-  --name neo4j-ldbcfin-manage \
-  -p 7694:7687 \
-  -e NEO4J_AUTH=neo4j/fei123456 \
-  neo4j:5.20.0
-```
-
-## 数据生成模块状态
-
-### 已完成功能
-
-- ✅ 随机不完整性生成已完成
-- ✅ 随机噪声生成已完成
-- ✅ 语义扰动已完成（仅在 PrimeKG 数据集上测试过）
-- ✅ `pipeline/data_analyser`（包含数据加载器）正在工作
-  - 关于如何使用数据加载器，可以参考 `dataload_toolkit.py` 文件中的测试代码
-  - 在 `data_analyser` 模块中，有一个 `buffer` 目录存储 `ldbc_snb_bi_graph.gpickle`，但由于文件过大已被 gitignore
-  - 可以在 CPU8 机器上访问：`/data/ylivm/ngdb_benchmark/pipeline/data_analyser/buffer`
-  - 实际上从头生成 gpickle 文件只需要几分钟
 
 ### 待完成功能
 
-- 🚧 查询生成模块（下一步重要工作）
-- 🚧 拓扑扰动（当前阶段暂不考虑）
+- 🚧 
+- 🚧 
 
 ## 使用指南
 
@@ -202,4 +127,4 @@ docker run -d \
 - **GPU8**: `/data/ylivm/ngdb_benchmark/data_gen/perturbed_dataset`
 - **扰动记录**: `/data/ylivm/ngdb_benchmark/data_gen/perturb_record`
 
-在 `data_analyser` 模块中，有一个 `buffer` 目录存储 `ldbc_snb_bi_graph.gpickle`，但由于文件过大已被 gitignore。可以在机器上访问（实际上从头生成 gpickle 文件只需要几分钟）。
+

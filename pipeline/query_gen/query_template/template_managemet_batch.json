@@ -3,22 +3,31 @@
     "operation": "CREATE",
     "templates": [
       {
-        "difficulty": 1,
-        "title": "创建节点并验证全局聚合",
+        "difficulty": 16,
+        "title": "批量创建节点并建立关系（不同属性值）",
         "template": [
-          "CREATE (n:$LABEL {$PROP: $VALUE})",
-          "CREATE (n:$LABEL {$PROP: $VALUE})",
-          "CREATE (n:$LABEL {$PROP: $VALUE})",
-          "CREATE (n:$LABEL {$PROP: $VALUE})",
-          "CREATE (n:$LABEL {$PROP: $VALUE})"
+          "CREATE (n:$LABEL {$PROP: $VALUE1})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})",
+          "CREATE (n:$LABEL {$PROP: $VALUE2})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})",
+          "CREATE (n:$LABEL {$PROP: $VALUE3})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})",
+          "CREATE (n:$LABEL {$PROP: $VALUE4})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})",
+          "CREATE (n:$LABEL {$PROP: $VALUE5})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})"
         ],
         "parameters": {
+          "GROUP_LABEL": "string",
+          "REL": "string",
           "LABEL": "string",
+          "GROUP_PROP": "string",
           "PROP": "string",
-          "VALUE": "string"
+          "VALUE1": "string",
+          "VALUE2": "string",
+          "VALUE3": "string",
+          "VALUE4": "string",
+          "VALUE5": "string",
+          "GID": "string",
+          "PROP_ID": "string"
         },
-        "example": "创建一个节点并观察该标签下某属性平均值的变化。",
-        "validation": "MATCH (a:$LABEL) RETURN avg(a.$PROP) AS avg_value"
+        "example": "批量创建具有不同属性值的节点并建立关系，验证所属分组的成员数量是否增加。",
+        "validation": "MATCH (g:$GROUP_LABEL)<-[:$REL]-(n:$LABEL) RETURN g.$GROUP_PROP, count(n) AS cnt"
       },
       {
         "difficulty": 2,
@@ -42,6 +51,47 @@
         },
         "example": "创建节点并建立关系，验证所属分组的成员数量是否增加。",
         "validation": "MATCH (g:$GROUP_LABEL)<-[:$REL]-(n:$LABEL) RETURN g.$GROUP_PROP, count(n) AS cnt"
+      },
+      {
+        "difficulty": 7,
+        "title": "合并并验证连接过滤后的 Top 收集",
+        "template": [
+          "MERGE (n:$L2 {$PROP_ID: $VALUE}) SET n.$BP = $NEW_VAL",
+          "MERGE (n:$L2 {$PROP_ID: $VALUE}) SET n.$BP = $NEW_VAL",
+          "MERGE (n:$L2 {$PROP_ID: $VALUE}) SET n.$BP = $NEW_VAL",
+          "MERGE (n:$L2 {$PROP_ID: $VALUE}) SET n.$BP = $NEW_VAL",
+          "MERGE (n:$L2 {$PROP_ID: $VALUE}) SET n.$BP = $NEW_VAL"
+        ],
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "BP": "string",
+          "NEW_VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "合并更新 Join 目标节点的属性，验证 Top-10 列表的更新。",
+        "validation": "MATCH (a:$L1) CALL {WITH a MATCH (b:$L2) WHERE a.$P1 = b.$P2 RETURN b.$BP AS val ORDER BY b.$BP DESC LIMIT 10} RETURN a, val"
+      },
+      {
+        "difficulty": 1,
+        "title": "创建节点并验证全局聚合",
+        "template": [
+          "CREATE (n:$LABEL {$PROP: $VALUE})",
+          "CREATE (n:$LABEL {$PROP: $VALUE})",
+          "CREATE (n:$LABEL {$PROP: $VALUE})",
+          "CREATE (n:$LABEL {$PROP: $VALUE})",
+          "CREATE (n:$LABEL {$PROP: $VALUE})"
+        ],
+        "parameters": {
+          "LABEL": "string",
+          "PROP": "string",
+          "VALUE": "string"
+        },
+        "example": "创建一个节点并观察该标签下某属性平均值的变化。",
+        "validation": "MATCH (a:$LABEL) RETURN avg(a.$PROP) AS avg_value"
       },
       {
         "difficulty": 3,
@@ -337,33 +387,6 @@
         },
         "example": "批量创建具有不同数值属性值的节点，验证该标签下属性总和的变化。",
         "validation": "MATCH (a:$LABEL) RETURN sum(a.$PROP) AS total"
-      },
-      {
-        "difficulty": 16,
-        "title": "批量创建节点并建立关系（不同属性值）",
-        "template": [
-          "CREATE (n:$LABEL {$PROP: $VALUE1})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})",
-          "CREATE (n:$LABEL {$PROP: $VALUE2})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})",
-          "CREATE (n:$LABEL {$PROP: $VALUE3})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})",
-          "CREATE (n:$LABEL {$PROP: $VALUE4})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})",
-          "CREATE (n:$LABEL {$PROP: $VALUE5})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})"
-        ],
-        "parameters": {
-          "GROUP_LABEL": "string",
-          "REL": "string",
-          "LABEL": "string",
-          "GROUP_PROP": "string",
-          "PROP": "string",
-          "VALUE1": "string",
-          "VALUE2": "string",
-          "VALUE3": "string",
-          "VALUE4": "string",
-          "VALUE5": "string",
-          "GID": "string",
-          "PROP_ID": "string"
-        },
-        "example": "批量创建具有不同属性值的节点并建立关系，验证所属分组的成员数量是否增加。",
-        "validation": "MATCH (g:$GROUP_LABEL)<-[:$REL]-(n:$LABEL) RETURN g.$GROUP_PROP, count(n) AS cnt"
       }
     ]
   },

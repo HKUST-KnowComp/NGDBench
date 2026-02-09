@@ -395,6 +395,26 @@ class QueryBuilder:
         self.dataset = dataset
         # 数据库驱动，用于采样节点
         self.driver = driver
+        # 各 label 的节点总数缓存，用于随机 SKIP 以分散采样区域、减少重复查询
+        self._label_count_cache: Dict[str, int] = {}
+    
+    def _get_label_count(self, label: str) -> int:
+        """获取指定 label 的节点总数（带缓存），用于随机 SKIP 分散采样"""
+        if label in self._label_count_cache:
+            return self._label_count_cache[label]
+        if not self.driver:
+            return 0
+        try:
+            with self.driver.session() as session:
+                query = f"MATCH (n:`{label}`) RETURN count(n) AS c"
+                result = session.run(query)
+                record = result.single()
+                count = record["c"] if record else 0
+                self._label_count_cache[label] = count
+                return count
+        except Exception as e:
+            logger.debug(f"获取 label 节点数失败 (label={label}): {e}")
+            return 0
     
     def build_query(self, template: Template) -> Tuple[Optional[str], Dict[str, Any]]:
         """根据模版构建查询"""
@@ -426,7 +446,7 @@ class QueryBuilder:
                 
                 # 替换模版中的参数
                 # 对于字符串值需要加引号
-                if param_name == 'VALUE' or param_name in ('VAL', 'FILTER_VAL', 'NODE_VALUE', 'START_VALUE', 'V', 'AID', 'BID', 'CID', 'ID', 'ID1', 'ID2'):
+                if param_name == 'VALUE' or param_name in ('VAL', 'FILTER_VAL', 'NODE_VALUE', 'START_VALUE', 'V', 'AID', 'BID', 'CID', 'ID', 'ID1', 'ID2', ):
                     if isinstance(value, str):
                         replacement = f"'{value}'"
                     else:
@@ -583,12 +603,14 @@ class QueryBuilder:
             prop_value_pairs = []
             if 'P' in params and 'V' in params:
                 prop_value_pairs.append(('P', 'V'))
-            # PROP_ID1 可能对应 AID 或 ID1
+            # PROP_ID1 可能对应 AID、ID1 或批量模板中的 ID1_1（首行）
             if 'PROP_ID1' in params:
                 if 'AID' in params:
                     prop_value_pairs.append(('PROP_ID1', 'AID'))
                 elif 'ID1' in params:
                     prop_value_pairs.append(('PROP_ID1', 'ID1'))
+                elif 'ID1_1' in params:
+                    prop_value_pairs.append(('PROP_ID1', 'ID1_1'))
             if prop_value_pairs:
                 groups.append({
                     'label_param': 'L1',
@@ -657,9 +679,12 @@ class QueryBuilder:
                 'prop_value_pairs': [('PROP_ID', 'VALUE')]
             })
         
-        # 识别 LABEL2 -> PROP2 -> VALUE2 模式（如果有）
-        # 注意：LABEL2 通常用于不同的节点，这里先不处理，避免与 LABEL1 冲突
-        # 如果需要，可以在后续扩展
+        # 识别 LABEL2 -> PROP_ID -> BID1 模式（用于 CREATE_4 等：批量创建每行不同目标节点）
+        if 'LABEL2' in params and 'PROP_ID' in params and 'BID1' in params:
+            groups.append({
+                'label_param': 'LABEL2',
+                'prop_value_pairs': [('PROP_ID', 'BID1')]
+            })
         
         # 识别 LABEL3 -> FILTER_PROP -> FILTER_VAL 模式
         if 'LABEL3' in params and 'FILTER_PROP' in params and 'FILTER_VAL' in params:
@@ -668,14 +693,18 @@ class QueryBuilder:
                 'prop_value_pairs': [('FILTER_PROP', 'FILTER_VAL')]
             })
         
-        # 识别 L2 -> PROP_ID2 -> BID/ID2 模式（用于 management 模板）
+        # 识别 L2 -> PROP_ID2 -> BID/ID2/BID1/ID2_1 模式（用于 management 模板）
         if 'L2' in params and 'PROP_ID2' in params:
             prop_value_pairs = []
-            # PROP_ID2 可能对应 BID 或 ID2
+            # PROP_ID2 可能对应 BID、ID2 或批量模板中的 BID1、ID2_1（首行）
             if 'BID' in params:
                 prop_value_pairs.append(('PROP_ID2', 'BID'))
             elif 'ID2' in params:
                 prop_value_pairs.append(('PROP_ID2', 'ID2'))
+            elif 'BID1' in params:
+                prop_value_pairs.append(('PROP_ID2', 'BID1'))
+            elif 'ID2_1' in params:
+                prop_value_pairs.append(('PROP_ID2', 'ID2_1'))
             # 注意：PROP_ID2 也可能与 IDS 列表一起使用（用于 WHERE ... IN $IDS），
             # 但这种情况不需要从节点采样值，因为 IDS 是列表类型
             if prop_value_pairs:
@@ -683,6 +712,25 @@ class QueryBuilder:
                     'label_param': 'L2',
                     'prop_value_pairs': prop_value_pairs
                 })
+        
+        # 识别 TARGET_LABEL -> TARGET_PROP_ID -> TARGET_ID 模式（用于 management/MIX 模板）
+        if 'TARGET_LABEL' in params and 'TARGET_PROP_ID' in params and 'TARGET_ID' in params:
+            groups.append({
+                'label_param': 'TARGET_LABEL',
+                'prop_value_pairs': [('TARGET_PROP_ID', 'TARGET_ID')]
+            })
+        
+        # 识别 L1 -> TARGET_PROP_ID1 -> TARGET_ID1 / L2 -> TARGET_PROP_ID2 -> TARGET_ID2（用于 MIX_2 等多关系模板）
+        if 'L1' in params and 'TARGET_PROP_ID1' in params and 'TARGET_ID1' in params:
+            groups.append({
+                'label_param': 'L1',
+                'prop_value_pairs': [('TARGET_PROP_ID1', 'TARGET_ID1')]
+            })
+        if 'L2' in params and 'TARGET_PROP_ID2' in params and 'TARGET_ID2' in params:
+            groups.append({
+                'label_param': 'L2',
+                'prop_value_pairs': [('TARGET_PROP_ID2', 'TARGET_ID2')]
+            })
         
         # 识别硬编码标签的情况：当模板中有 PROP_ID 和 VALUE 但没有 LABEL 参数时
         # 从模板字符串中提取硬编码的标签（如 :entity）
@@ -951,7 +999,8 @@ class QueryBuilder:
     
     def _sample_node_by_label(self, label: str) -> Optional[Dict[str, Any]]:
         """
-        从数据库中采样一个指定标签的节点
+        从数据库中采样一个指定标签的节点。
+        通过随机 SKIP 在整图中分散采样，避免总在同一区域采样导致重复查询。
         
         Args:
             label: 节点标签
@@ -964,8 +1013,12 @@ class QueryBuilder:
         
         try:
             with self.driver.session() as session:
-                query = f"MATCH (n:`{label}`) RETURN n LIMIT 100"
-                result = session.run(query)
+                total = self._get_label_count(label)
+                # 在 [0, max(0, total-100)] 间随机跳过，使每次采样的“窗口”落在图的不同区域
+                window_size = 100
+                skip = random.randint(0, max(0, total - window_size)) if total > window_size else 0
+                query = f"MATCH (n:`{label}`) WITH n SKIP $skip LIMIT {window_size} RETURN n"
+                result = session.run(query, skip=skip)
                 
                 nodes = []
                 for record in result:
@@ -1074,8 +1127,10 @@ class QueryBuilder:
                     var = m_var.group(1)
                     end_param = var_to_param.get(var)
             
-            if start_param and end_param:
-                constraints.append((start_param, rel_param, end_param))
+            # 有 rel 和 end 即添加约束（start 可为空，如 MATCH (a)-[r:$R]->(b:$L1) 中 (a) 无标签）
+            # 保证 L1 等 end 标签按关系 R 的语义从 schema.triplets 合法 end 中采样
+            if rel_param and end_param:
+                constraints.append((start_param or '', rel_param, end_param))
                 
         return constraints
 
@@ -1086,8 +1141,9 @@ class QueryBuilder:
         # 获取模版约束
         constraints = self._get_template_constraints(template.template)
 
-        # 处理所有LABEL变体（LABEL, LABEL1, LABEL2, LABEL3, LABEL4, START_LABEL, END_LABEL等）
-        if param_name.startswith('LABEL') or param_name in ('START_LABEL', 'END_LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'SL', 'EL', 'RL', 'REL_NODE_LABEL'):
+        # 处理所有LABEL变体（LABEL, LABEL1, LABEL2, TARGET_LABEL, START_LABEL, END_LABEL, GROUP_LABEL, GL等）
+        # GROUP_LABEL/GL 必须按关系的 end 约束采样，避免出现 Company_Guarantee_Company->Account 等错误
+        if param_name.startswith('LABEL') or param_name in ('START_LABEL', 'END_LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'SL', 'EL', 'RL', 'REL_NODE_LABEL', 'TARGET_LABEL', 'GROUP_LABEL', 'GL'):
             # 随机选择一个label，优先排除技术性基础标签（如 NGDBNode）
             all_labels = list(self.schema.labels.keys())
             if not all_labels:
@@ -1165,15 +1221,28 @@ class QueryBuilder:
         
         # 处理所有REL变体（REL_TYPE, REL1, REL2, REL3, R1, R2等）
         elif param_name.startswith('REL') and param_name != 'REL_PROP' or param_name in ('R1', 'R2', 'R3', 'REL', 'R'):
+            # 如果是 REL_TYPE，并且已经通过 VALUE/PROP_ID 采样到了具体节点，
+            # 优先从该真实节点上存在的关系类型中采样，避免与节点无关的随机关系类型
+            if param_name == 'REL_TYPE':
+                try:
+                    rel_types_from_node = self._get_rel_types_for_value_node(template, current_params)
+                except Exception as e:
+                    logger.debug(f"从 VALUE 节点获取关系类型失败，回退到 schema 级采样: {e}")
+                    rel_types_from_node = None
+                if rel_types_from_node:
+                    # 这里已经是基于具体 VALUE 节点真实存在的关系
+                    return random.choice(rel_types_from_node)
+
             # 随机选择一个关系类型
             rel_types = list(self.schema.relationships.keys())
-            # 如果是 mcp 或 multi_fin 数据集，排除 mention_in
+            # 如果是 mcp 或 multi_fin 数据集，排除 mention_in 和 is_participated_by
             if self.dataset in ("mcp", "multi_fin"):
-                rel_types = [rt for rt in rel_types if rt != "mention_in"]
+                rel_types = [rt for rt in rel_types if rt not in ("mention_in", "is_participated_by")]
             if not rel_types:
                 return None
             
             candidates = set(rel_types)
+            had_strict_constraint = False  # 是否应用过 (L1,R1,L2) 严格约束
             if self.schema.triplets:
                 for start, rel, end in constraints:
                     if rel == param_name:
@@ -1191,9 +1260,13 @@ class QueryBuilder:
                                 s_val = current_params[start]
                                 valid_rels_strict = {t[1] for t in self.schema.triplets if t[0] == s_val and t[2] == e_val}
                                 candidates &= valid_rels_strict
+                                had_strict_constraint = True
             
             if not candidates:
-                # 回退：如果没有符合约束的关系，尝试随机返回一个关系类型
+                # 若已按 (L1,R1,L2) 严格约束过滤，则不允许回退到随机关系，避免 Medium-Account 间出现 Company_Own_Account
+                if had_strict_constraint:
+                    return None
+                # 否则回退：尝试随机返回一个关系类型
                 if rel_types:
                     return random.choice(rel_types)
                 return None
@@ -1224,8 +1297,8 @@ class QueryBuilder:
             # 收集所有有属性的关系类型
             rels_with_props = []
             for rt, rel_info in self.schema.relationships.items():
-                # 如果是 mcp 或 multi_fin 数据集，排除 mention_in
-                if self.dataset in ("mcp", "multi_fin") and rt == "mention_in":
+                # 如果是 mcp 或 multi_fin 数据集，排除 mention_in 和 is_participated_by
+                if self.dataset in ("mcp", "multi_fin") and rt in ("mention_in", "is_participated_by"):
                     continue
                 if rel_info.properties:
                     rels_with_props.append(rt)
@@ -1249,12 +1322,13 @@ class QueryBuilder:
             'P', 'P1', 'P2', 'SP', 'BP',
             'RET_PROP', 'RETURN_PROP', 'RET_PROP1', 'RET_PROP2', 'RET_PROP3',
             'FILTER_PROP', 'NODE_PROP', 'START_PROP', 'REF_PROP',
+            'UPDATE_PROP',  # 用于 SET n.$UPDATE_PROP = $UPDATE_VAL
             'P', 'RET',
         ):
             # 需要根据已选的label来选择属性
             # 尝试从不同的label参数获取label
             label = None
-            for label_key in ['LABEL2', 'LABEL3', 'LABEL4', 'LABEL1', 'LABEL', 'END_LABEL', 'START_LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'SL', 'EL', 'RL']:
+            for label_key in ['LABEL2', 'LABEL3', 'LABEL4', 'LABEL1', 'LABEL', 'END_LABEL', 'START_LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'SL', 'EL', 'RL', 'TARGET_LABEL']:
                 if label_key in current_params:
                     label = current_params.get(label_key)
                     break
@@ -1348,9 +1422,9 @@ class QueryBuilder:
         
         elif param_name == 'PROP_ID':
             # 当参数是 PROP_ID 时，选择节点属性中含有 id 的属性
-            # 尝试从不同的label参数获取label
+            # 模板中 (g:$GROUP_LABEL {$PROP_ID: $GID}) 的 PROP_ID 必须来自 GROUP_LABEL 对应标签，避免 Account {companyId}
             label = None
-            for label_key in ['LABEL2', 'LABEL3', 'LABEL4', 'LABEL1', 'LABEL', 'END_LABEL', 'START_LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'SL', 'EL', 'RL']:
+            for label_key in ['GROUP_LABEL', 'GL', 'LABEL2', 'LABEL3', 'LABEL4', 'LABEL1', 'LABEL', 'END_LABEL', 'START_LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'SL', 'EL', 'RL']:
                 if label_key in current_params:
                     label = current_params.get(label_key)
                     break
@@ -1446,6 +1520,36 @@ class QueryBuilder:
 
             return random.choice(id_properties)
         
+        elif param_name in ('TARGET_PROP_ID', 'TARGET_PROP_ID1', 'TARGET_PROP_ID2'):
+            # 目标节点的 ID 属性名，与 TARGET_LABEL/L1/L2 关联（用于 management/MIX 模板）
+            label = None
+            if param_name == 'TARGET_PROP_ID':
+                label_keys = ['TARGET_LABEL', 'L2', 'END_LABEL', 'EL']
+            elif param_name == 'TARGET_PROP_ID1':
+                label_keys = ['L1', 'START_LABEL', 'LABEL', 'L']
+            else:  # TARGET_PROP_ID2
+                label_keys = ['L2', 'TARGET_LABEL', 'END_LABEL', 'EL', 'LABEL', 'L']
+            for label_key in label_keys:
+                if label_key in current_params:
+                    label = current_params.get(label_key)
+                    break
+            if not label or label not in self.schema.labels:
+                labels = list(self.schema.labels.keys())
+                if not labels:
+                    return None
+                label = random.choice(labels)
+            properties = list(self.schema.labels[label].properties.keys())
+            if not properties:
+                return None
+            id_properties = [p for p in properties if self._is_id_property(p)]
+            if not id_properties:
+                return None
+            if self.excluded_return_props:
+                id_properties = [p for p in id_properties if p not in self.excluded_return_props]
+                if not id_properties:
+                    return None
+            return random.choice(id_properties)
+        
         elif param_name == 'OP':
             # 根据模版判断需要什么类型的操作符
             if template.required_numeric_props:
@@ -1453,34 +1557,69 @@ class QueryBuilder:
             else:
                 return random.choice(self.STRING_OPERATORS)
         
-        elif param_name in ('VALUE', 'VAL', 'FILTER_VAL', 'NODE_VALUE', 'START_VALUE', 'V', 'SV', 'NV', 'NEW_VAL', 'REF_VAL'):
-            # 根据属性获取一个样本值
-            # 尝试找到对应的PROP参数
+        elif param_name in ('VALUE', 'VAL', 'FILTER_VAL', 'NODE_VALUE', 'START_VALUE', 'V', 'V1', 'V2', 'V3', 'V4', 'V5', 'SV', 'NV', 'NEW_VAL', 'REF_VAL', 'VALUE1', 'VALUE2', 'VALUE3', 'VALUE4', 'VALUE5'):
+            # SET r.$RP = $VALUE 等：优先从关系属性的 sample_values 采样，避免合成 val_xxxx
+            rel_type = current_params.get('R') or current_params.get('REL_TYPE') or current_params.get('REL')
+            rp = current_params.get('RP') or current_params.get('REL_PROP')
+            if rel_type and rp and rel_type in self.schema.relationships:
+                rel_props = self.schema.relationships[rel_type].properties
+                if rp in rel_props and rel_props[rp].sample_values:
+                    pool = list(rel_props[rp].sample_values)
+                    exclude = [current_params[k] for k in ('VALUE1', 'VALUE2', 'VALUE3', 'VALUE4', 'VALUE5') if k in current_params and k != param_name]
+                    pool = [v for v in pool if v not in exclude]
+                    value = random.choice(pool) if pool else random.choice(rel_props[rp].sample_values)
+                    if value is not None:
+                        return value
+            # 根据属性获取一个样本值（必须从数据库对应 PROP 采样，PROP 必须从对应 LABEL 采样）
+            # VALUE/VAL/V1..V5 对应 (n:$LABEL {$PROP: $VALUE1}) 或 (n:$LABEL {$PROP_ID: $VALUE1})
+            # 模板 (n:$LABEL {$PROP: $VALUE1})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID1}) 中，VALUE1 应对应 LABEL.PROP（如 Person.birthday），
+            # 而非 PROP_ID（如 Account.accountId），否则会错位（birthday 填成 accountId 的长整型）
             prop = None
-            for prop_key in ['PROP', 'PROP1', 'PROP2', 'FILTER_PROP', 'NODE_PROP', 'START_PROP', 'P', 'P1', 'P2', 'SP', 'NP', 'BP', 'GP', 'RP']:
+            label = None
+            # VALUE1..V5 在 CREATE 批量模板中与 $PROP 同节点，优先用 PROP 确定属性并从该 LABEL 的该属性采样
+            if param_name in ('VALUE', 'VALUE1', 'VALUE2', 'VALUE3', 'VALUE4', 'VALUE5'):
+                prop_order = ['PROP', 'P', 'PROP1', 'P1', 'PROP2', 'P2', 'FILTER_PROP', 'NODE_PROP', 'START_PROP', 'PROP_ID', 'PROP_ID1', 'PROP_ID2', 'SP', 'NP', 'BP', 'GP', 'RP']
+            else:
+                prop_order = ['P', 'PROP', 'P1', 'PROP_ID1', 'PROP_ID', 'PROP_ID2', 'PROP1', 'PROP2', 'FILTER_PROP', 'NODE_PROP', 'START_PROP', 'P2', 'SP', 'NP', 'BP', 'GP', 'RP']
+            for prop_key in prop_order:
                 if prop_key in current_params:
                     prop = current_params.get(prop_key)
                     break
-            
-            # 尝试找到对应的LABEL参数
-            label = None
-            for label_key in ['LABEL1', 'LABEL', 'LABEL2', 'LABEL3', 'START_LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'SL', 'EL', 'RL', 'GL']:
+            for label_key in ['LABEL', 'L', 'L1', 'LABEL1', 'START_LABEL', 'LABEL2', 'L2', 'LABEL3', 'L3', 'L4', 'SL', 'EL', 'RL', 'GL']:
                 if label_key in current_params:
                     label = current_params.get(label_key)
                     break
             
-            # 尝试获取值
             value = None
-            if label and prop and label in self.schema.labels:
-                if prop in self.schema.labels[label].properties:
+            if prop:
+                # 先尝试用已有 label
+                if label and label in self.schema.labels and prop in self.schema.labels[label].properties:
                     prop_info = self.schema.labels[label].properties[prop]
                     if prop_info.sample_values:
-                        value = random.choice(prop_info.sample_values)
+                        pool = list(prop_info.sample_values)
+                        exclude = [current_params[k] for k in ('VALUE1', 'VALUE2', 'VALUE3', 'VALUE4', 'VALUE5', 'V1', 'V2', 'V3', 'V4', 'V5', 'VAL1', 'VAL2', 'VAL3', 'VAL4', 'VAL5') if k in current_params and k != param_name]
+                        pool = [v for v in pool if v not in exclude]
+                        value = random.choice(pool) if pool else (random.choice(prop_info.sample_values) if prop_info.sample_values else None)
+                if value is None:
+                    # 无 label 或该 label 无此属性/无样本：在所有 label 中查找拥有该属性且 sample_values 非空的
+                    for cand_label, label_info in self.schema.labels.items():
+                        if self.excluded_labels and cand_label in self.excluded_labels:
+                            continue
+                        if prop not in label_info.properties:
+                            continue
+                        prop_info = label_info.properties[prop]
+                        if not prop_info.sample_values:
+                            continue
+                        pool = list(prop_info.sample_values)
+                        exclude = [current_params[k] for k in ('VALUE1', 'VALUE2', 'VALUE3', 'VALUE4', 'VALUE5', 'V1', 'V2', 'V3', 'V4', 'V5', 'VAL1', 'VAL2', 'VAL3', 'VAL4', 'VAL5') if k in current_params and k != param_name]
+                        pool = [v for v in pool if v not in exclude]
+                        value = random.choice(pool) if pool else random.choice(prop_info.sample_values)
+                        break
             
             if value is not None:
                 return value
             
-            # 回退策略：如果无法从schema获取样本值，生成一个随机值
+            # 回退策略：如果无法从 schema 获取样本值，生成一个随机值
             # 尝试推断期望的类型
             expected_type = 'string'
             if hasattr(template, 'parameters') and param_name in template.parameters:
@@ -1597,25 +1736,36 @@ class QueryBuilder:
             # 数值比较操作符
             return random.choice(self.NUMERIC_OPERATORS)
 
-        # 4. 阈值参数（THRESHOLD, THRESHOLD1, THRESHOLD2）
-        elif param_name.startswith('THRESHOLD') or param_name == 'THRESHOLD':
-            # 返回一个随机的数值阈值
+        # 4. 更新值参数（UPDATE_VAL, UPDATE_VAL1, UPDATE_REL_VAL, UPDATE_NODE_VAL）用于 SET n.$UPDATE_PROP = $UPDATE_VAL
+        elif param_name in ('UPDATE_VAL', 'UPDATE_VAL1', 'UPDATE_REL_VAL', 'UPDATE_NODE_VAL'):
+            expected_type = 'integer'
+            if hasattr(template, 'parameters') and param_name in template.parameters:
+                expected_type = template.parameters[param_name]
+            if expected_type in ('integer', 'long', 'int'):
+                return random.randint(0, 10000)
+            if expected_type in ('float', 'double'):
+                return round(random.uniform(0, 10000), 2)
+            return random.randint(0, 10000)
+
+        # 5. 阈值参数（THRESHOLD, THRESHOLD1, THRESHOLD2, DELETE_THRESHOLD）
+        elif param_name == 'DELETE_THRESHOLD' or param_name.startswith('THRESHOLD') or param_name == 'THRESHOLD':
+            # 返回一个随机的数值阈值（DELETE_THRESHOLD 用于 WHERE r.$REL_PROP < $DELETE_THRESHOLD）
             # 可以根据实际数据范围调整
             return random.choice([0, 1, 5, 10, 50, 100, 1000])
 
-        # 5. 分类/类别参数（CATEGORY, CATEGORY1, CATEGORY2）
+        # 6. 分类/类别参数（CATEGORY, CATEGORY1, CATEGORY2）
         elif param_name.startswith('CATEGORY') or param_name == 'CATEGORY':
             # 返回一个分类标签
             categories = ['High', 'Medium', 'Low', 'A', 'B', 'C', 'Type1', 'Type2']
             return random.choice(categories)
 
-        # 6. 别名参数（GROUP_ALIAS, COLLECT_ALIAS, ALIAS）
+        # 7. 别名参数（GROUP_ALIAS, COLLECT_ALIAS, ALIAS）
         elif param_name.endswith('ALIAS') or param_name == 'ALIAS':
             # 返回一个别名
             aliases = ['result', 'value', 'data', 'item', 'entity', 'group', 'collection']
             return random.choice(aliases)
 
-        # 7. 分组属性参数（GROUP_PROP）
+        # 8. 分组属性参数（GROUP_PROP）
         elif param_name in ('GROUP_PROP', 'GP'):
             # 需要根据GROUP_LABEL来选择属性
             label = current_params.get('GROUP_LABEL') or current_params.get('GL')
@@ -1643,7 +1793,7 @@ class QueryBuilder:
             
             return random.choice(properties)
 
-        # 8. 分组标签参数（GROUP_LABEL）
+        # 9. 分组标签参数（GROUP_LABEL）
         elif param_name in ('GROUP_LABEL', 'GL'):
             all_labels = list(self.schema.labels.keys())
             if not all_labels:
@@ -1658,72 +1808,190 @@ class QueryBuilder:
     
             return random.choice(labels)
 
-        # 9. 特定属性值参数（NAME, ID, GID等）
-        elif param_name in ('NAME', 'GID', 'AID', 'BID', 'CID', 'ID', 'ID1', 'ID2', 'MID'):
+        # 10. 特定属性值参数（NAME, ID, GID, TARGET_ID, TARGET_ID1, TARGET_ID2, DELETE_ID, ID1_1, ID2_1, BID1, AID1 等）
+        # 要求：VALUE 必须从数据库对应 PROP 采样，PROP 必须从对应 LABEL 采样
+        # 支持批量模板中的 ID1_1/ID2_1（首行 ID）、BID1/BID2、AID1/AID2 等
+        elif (param_name in ('NAME', 'GID', 'GID1', 'GID2', 'GID3', 'GID4', 'GID5', 'AID', 'BID', 'CID', 'ID', 'ID1', 'ID2', 'MID', 'TARGET_ID', 'TARGET_ID1', 'TARGET_ID2', 'DELETE_ID')
+              or param_name.startswith('ID1_') or param_name.startswith('ID2_')
+              or (param_name.startswith('BID') and param_name != 'BID')
+              or (param_name.startswith('AID') and param_name != 'AID')):
+            # 批量模板中 ID1_1/ID2_1 等价于 ID1/ID2，BID1/AID1 等价于 BID/AID
+            base = param_name
+            if param_name.startswith('ID1_') or param_name == 'ID1':
+                base = 'ID1'
+            elif param_name.startswith('ID2_') or param_name == 'ID2':
+                base = 'ID2'
+            elif param_name.startswith('BID'):
+                base = 'BID'
+            elif param_name.startswith('AID'):
+                base = 'AID'
+            elif param_name == 'TARGET_ID1':
+                base = 'TARGET_ID1'
+            elif param_name == 'TARGET_ID2':
+                base = 'TARGET_ID2'
             # 确定目标属性名
-            target_prop = 'name' if param_name == 'NAME' else 'id'
+            target_prop = 'name' if base == 'NAME' else 'id'
             
-            # 尝试找到对应的Label
+            # 尝试找到对应的 Label（必须从对应 LABEL 采样）
             label = None
+            prop_to_use = None  # 明确使用该 label 下的哪个属性
             
-            # 启发式规则：根据参数名推断关联的Label参数名
+            # 启发式规则：根据参数名推断关联的 Label 与 PROP
             label_keys = []
-            if param_name == 'GID':
+            if base in ('GID', 'GID1', 'GID2', 'GID3', 'GID4', 'GID5'):
                 label_keys = ['GROUP_LABEL', 'GL']
-            elif param_name == 'CID':
+                # GID 对应目标节点 (g:$GL {$PROP_ID: $GID})，必须用 PROP_ID 从 GL 采样
+                prop_to_use = current_params.get('PROP_ID')
+            elif base == 'CID':
                 label_keys = ['L3']
-            elif param_name == 'AID':
+                prop_to_use = current_params.get('PROP_ID')
+            elif base in ('AID', 'ID1'):
                 label_keys = ['L1', 'START_LABEL']
-            elif param_name == 'BID':
-                label_keys = ['L2', 'END_LABEL']
-            elif param_name == 'ID1':
-                label_keys = ['L1', 'START_LABEL']
-            elif param_name == 'ID2':
-                label_keys = ['L2', 'END_LABEL']
-            elif param_name == 'NAME':
+                prop_to_use = current_params.get('PROP_ID1') or current_params.get('PROP_ID')
+            elif base in ('BID', 'ID2'):
+                label_keys = ['L2', 'END_LABEL', 'LABEL2']
+                prop_to_use = current_params.get('PROP_ID2') or current_params.get('PROP_ID')
+            elif base == 'TARGET_ID':
+                label_keys = ['TARGET_LABEL']
+                prop_to_use = current_params.get('TARGET_PROP_ID')
+            elif base == 'TARGET_ID1':
+                label_keys = ['L1', 'START_LABEL', 'LABEL', 'L']
+                prop_to_use = current_params.get('TARGET_PROP_ID1')
+            elif base == 'TARGET_ID2':
+                label_keys = ['L2', 'TARGET_LABEL', 'END_LABEL', 'EL']
+                prop_to_use = current_params.get('TARGET_PROP_ID2')
+            elif base == 'DELETE_ID':
                 label_keys = ['LABEL', 'L1', 'L', 'START_LABEL']
+                prop_to_use = current_params.get('PROP_ID')
+            elif base == 'NAME':
+                label_keys = ['LABEL', 'L1', 'L', 'START_LABEL']
+            elif base == 'MID':
+                label_keys = ['L2', 'END_LABEL']
+                prop_to_use = current_params.get('PROP_ID')
             else:
-                # 通用回退
-                label_keys = ['LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'GL', 'SL', 'EL', 'RL']
+                label_keys = ['LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'GL', 'SL', 'EL', 'RL', 'TARGET_LABEL']
             
-            # 1. 尝试从优先关联的Label中获取
             for key in label_keys:
                 if key in current_params:
                     label = current_params[key]
                     break
             
-            # 2. 如果没找到，尝试从所有已知参数中查找任意Label
             if not label:
-                 for label_key in ['LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'GL', 'SL', 'EL', 'RL']:
+                 for label_key in ['LABEL', 'L1', 'L2', 'L3', 'L4', 'L', 'GL', 'SL', 'EL', 'RL', 'TARGET_LABEL']:
                     if label_key in current_params:
                         label = current_params[label_key]
                         break
             
             if label and label in self.schema.labels:
                  props = self.schema.labels[label].properties
-                 # 如果该Label有目标属性，返回其样本值
-                 if target_prop in props:
-                     if props[target_prop].sample_values:
-                         return random.choice(props[target_prop].sample_values)
-                 
-                 # 如果没有找到目标属性，但需要id，尝试查找其他类似id的属性
-                 if target_prop == 'id':
+                 # 优先使用对应 PROP（PROP_ID/PROP_ID1/PROP_ID2）从该 LABEL 采样
+                 if prop_to_use and prop_to_use in props and props[prop_to_use].sample_values:
+                     pool = list(props[prop_to_use].sample_values)
+                     # 排除已采样的同组 ID，避免重复（含 ID1_1/ID2_1/BID1/AID1 等）
+                     exclude_keys = ('GID1', 'GID2', 'GID3', 'GID4', 'GID5', 'AID1', 'AID2', 'AID3', 'AID4', 'AID5', 'BID1', 'BID2', 'BID3', 'BID4', 'BID5', 'ID1_1', 'ID2_1', 'ID1_2', 'ID2_2')
+                     exclude = [current_params[k] for k in exclude_keys if k in current_params and k != param_name]
+                     pool = [v for v in pool if v not in exclude]
+                     if pool:
+                         return random.choice(pool)
+                     return random.choice(props[prop_to_use].sample_values)
+                 # 如果该 Label 有目标属性，返回其样本值
+                 if target_prop in props and props[target_prop].sample_values:
+                     return random.choice(props[target_prop].sample_values)
+                 # 如果没有找到目标属性，但需要 id，尝试查找该 label 下任意有 sample_values 的属性（避免合成 id_）
+                 if target_prop == 'id' or base in ('AID', 'BID', 'CID', 'ID1', 'ID2', 'TARGET_ID', 'DELETE_ID'):
                      for p in props:
-                         if p.lower() in ('id', '_id', 'uid', 'uuid', 'code'):
-                             if props[p].sample_values:
-                                 return random.choice(props[p].sample_values)
+                         if props[p].sample_values and (p.lower().endswith('id') or p.lower() in ('id', '_id', 'uid', 'uuid', 'code', 'loanid', 'accountid')):
+                             pool = list(props[p].sample_values)
+                             exclude_keys = ('AID1', 'AID2', 'AID3', 'AID4', 'AID5', 'BID1', 'BID2', 'BID3', 'BID4', 'BID5', 'ID1_1', 'ID2_1', 'ID1_2', 'ID2_2')
+                             exclude = [current_params[k] for k in exclude_keys if k in current_params and k != param_name]
+                             pool = [v for v in pool if v not in exclude]
+                             if pool:
+                                 return random.choice(pool)
+                             return random.choice(props[p].sample_values)
+                     # 仍无则尝试该 label 下任意有 sample_values 的属性
+                     for p in props:
+                         if props[p].sample_values:
+                             pool = list(props[p].sample_values)
+                             exclude_keys = ('AID1', 'AID2', 'AID3', 'AID4', 'AID5', 'BID1', 'BID2', 'BID3', 'BID4', 'BID5', 'ID1_1', 'ID2_1', 'ID1_2', 'ID2_2')
+                             exclude = [current_params[k] for k in exclude_keys if k in current_params and k != param_name]
+                             pool = [v for v in pool if v not in exclude]
+                             if pool:
+                                 return random.choice(pool)
+                             return random.choice(props[p].sample_values)
             
-            # 如果schema中找不到，生成一个随机的字符串值作为回退
-            # 这是为了确保查询生成不会因为schema缺失id属性而完全失败
-            # 对于创建操作，这通常是可以接受的
-            if target_prop == 'name':
-                return f"Name_{random.randint(1000, 9999)}"
-            else:
-                return f"id_{random.randint(10000, 99999)}"
+            # 禁止合成 id_/Name_，必须从数据库采样；无法采样时返回 None，由调用方跳过该模板
+            return None
         
         else:
             # 未知参数，记录警告并返回None而不是占位符
             logger.warning(f"未知参数类型: {param_name}，模板: {template.id}")
+            return None
+
+    def _get_rel_types_for_value_node(
+        self,
+        template: Template,
+        current_params: Dict[str, Any],
+    ) -> Optional[List[str]]:
+        """
+        基于 VALUE 对应的真实节点，获取其实际存在的关系类型列表。
+        主要用于形如：
+            MATCH (a:entity {$PROP_ID: $VALUE})-[r:$REL_TYPE]-(b:entity)
+        这样的模板，保证 REL_TYPE 一定是该 VALUE 节点真实包含的关系类型。
+        """
+        # 目前仅在已经有 PROP_ID / VALUE 的前提下才有意义
+        if "PROP_ID" not in current_params or "VALUE" not in current_params:
+            return None
+
+        if not self.driver:
+            return None
+
+        prop_name = current_params["PROP_ID"]
+        value = current_params["VALUE"]
+
+        # 从模板字符串中尽量解析出硬编码的标签（如 :entity）
+        label = None
+        try:
+            # 注意：这里是 Python 原始字符串，正则中只需要单反斜杠
+            pattern = r":(\w+)\s*\{[^}]*\$PROP_ID[^}]*\$VALUE[^}]*\}"
+            match = re.search(pattern, template.template)
+            if match:
+                label = match.group(1)
+        except Exception as e:
+            logger.debug(f"解析硬编码标签失败: {e}")
+
+        # 如果没解析到，就回退到默认的 'entity'（mcp 场景下常用）
+        if not label:
+            label = "entity"
+
+        # 防御性处理：prop_name 应该是字符串
+        if not isinstance(prop_name, str):
+            return None
+
+        # 基于具体节点查询其相连关系类型
+        try:
+            with self.driver.session() as session:
+                cypher = (
+                    f"MATCH (a:`{label}`) "           # label 使用反引号包裹
+                    f"WHERE a.`{prop_name}` = $value "  # 属性名同样使用反引号
+                    "MATCH (a)-[r]-(b) "             # 任意方向的关系
+                    "RETURN collect(DISTINCT type(r)) AS rel_types "
+                    "LIMIT 1"
+                )
+                record = session.run(cypher, value=value).single()
+                if not record:
+                    return None
+
+                rel_types = record.get("rel_types") or []
+
+                # mcp / multi_fin 下排除 mention_in 和 is_participated_by
+                if self.dataset in ("mcp", "multi_fin"):
+                    rel_types = [rt for rt in rel_types if rt not in ("mention_in", "is_participated_by")]
+
+                # 返回非空列表时，调用方会在其中随机选择一个
+                return rel_types or None
+
+        except Exception as e:
+            logger.debug(f"从 VALUE 节点获取关系类型时出错: {e}")
             return None
 
 
@@ -2074,12 +2342,12 @@ class QueryGenerator:
     
     def generate_samples(self, target_count: Optional[int] = None, 
                         max_attempts_multiplier: int = 10,
-                        max_failures_per_template: int = 1000,
+                        max_failures_per_template: int = 10000,
                         max_answer_count: int = 20,
                         min_attempts_per_template: int = 5,
                         reset_failures_interval: float = 0.25,
                         stats_output_path: Optional[str] = None,
-                        success_per_template: int = 10,
+                        success_per_template: int = 20,
                         realtime_output_path: Optional[str] = None) -> List[QueryResult]:
         """
         生成查询样本，按模版顺序，每个模版连续采样直到生成指定数量的成功查询
@@ -2554,7 +2822,7 @@ class QueryGenerator:
                             
                             for param_name, value in params.items():
                                 # 替换模版中的参数
-                                if param_name == 'VALUE' or param_name in ('VAL', 'FILTER_VAL', 'NODE_VALUE', 'START_VALUE', 'V','NEW_V' 'AID', 'BID', 'CID', 'ID', 'ID1', 'ID2'):
+                                if param_name == 'VALUE' or param_name in ('VAL', 'FILTER_VAL', 'NODE_VALUE', 'START_VALUE', 'V','NEW_V' 'AID', 'BID', 'CID', 'ID', 'ID1', 'ID2', 'VALUE1', 'VALUE2', 'VALUE3', 'VALUE4', 'VALUE5'):
                                     if isinstance(value, str):
                                         replacement = f"'{value}'"
                                     else:

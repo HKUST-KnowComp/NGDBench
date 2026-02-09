@@ -1,81 +1,54 @@
 [
     {
-        "type": "concept",
+        "type": "triadic",
         "templates": [
-            {
-                "id": "T001code",
-                "template": "MATCH (f:entity) MATCH (f)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'code') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
-                "parameters": {
-                    "PROP_ID": "string",
-                    "VALUE": "string",
-                    "REL_TYPE": "string"
-                }
-            },
-            {
-                "id": "T002movie",
-                "template": "MATCH (f:entity) MATCH (f)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'movie') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
-                "parameters": {
-                    "PROP_ID": "string",
-                    "VALUE": "string",
-                    "REL_TYPE": "string"
-                }
-            },
-            {
-                "id": "T002tool",
-                "template": "MATCH (f:entity) MATCH (f)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'tool') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
-                "parameters": {
-                    "PROP_ID": "string",
-                    "VALUE": "string",
-                    "REL_TYPE": "string"
-                }
-            }
-        ]
-    },
-    {
-        "type": "basic_expand_aggregation",
-        "templates": [
-            {
-                "id": "T001",
-                "template": "MATCH (n:entity {$PROP_ID: $VALUE})-[:$REL_TYPE]->(m) RETURN count(m) AS cnt, collect(m) AS m_list",
-                "parameters": {
-                    "PROP_ID": "string",
-                    "VALUE": "string",
-                    "REL_TYPE": "string"
-                }
-            },
             {
                 "id": "T002",
-                "template": "MATCH (n:$LABEL {$PROP: $VALUE})-[:$REL_TYPE]->(m:$L2) RETURN avg(m.$PROP2) AS avg_value",
+                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[:$REL]-()-[:$REL]-(b:event) WHERE NOT (a)-[:$REL]-(b) WITH a, count(DISTINCT b) AS cnt RETURN b.id, cnt",
                 "parameters": {
-                    "LABEL": "string",
-                    "PROP": "string",
+                    "PROP_ID": "string",
                     "VALUE": "string",
-                    "REL_TYPE": "string",
-                    "L2": "string",
-                    "PROP2": "string"
+                    "REL": "string"
                 }
             },
             {
-                "id": "T003",
-                "template": "MATCH (n:$LABEL {$PROP: $VALUE})-[:$REL_TYPE]->(m) RETURN sum(m.$PROP2) AS total",
+                "id": "T002_1",
+                "template": "MATCH (a:event {$PROP_ID: $VALUE})-[:$REL]-()-[:$REL]-(b:event) WHERE NOT (a)-[:$REL]-(b) WITH a, count(DISTINCT b) AS cnt RETURN b.id, cnt",
                 "parameters": {
-                    "LABEL": "string",
-                    "PROP": "string",
+                    "PROP_ID": "string",
                     "VALUE": "string",
-                    "REL_TYPE": "string",
-                    "PROP2": "string"
+                    "REL": "string"
+                }
+            },
+            {
+                "id": "T002_2",
+                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[:$REL]-()-[:$REL]-(b:entity) WHERE NOT (a)-[:$REL]-(b) WITH a, count(DISTINCT b) AS cnt RETURN b.id, cnt",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL": "string"
                 }
             }
         ]
     },
     {
-        "type": "basic_expand_into_aggregation",
+        "type": "chain",
         "templates": [
             {
                 "id": "T001",
-                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[:$REL1]->(b:$LABEL2) MATCH (a)-[:$REL2]->(b) RETURN count(*) AS cnt",
+                "template": "MATCH (a:entity {$PROP_ID1: $VALUE})-[:$REL1]->(b:entity)-[:$REL2]->(c:entity) RETURN a.id, b.id, c.id",
                 "parameters": {
-                    "PROP_ID": "string",
+                    "PROP_ID1": "string",
+                    "VALUE": "string",
+                    "REL1": "string",
+                    "REL2": "string"
+                }
+            },
+            {
+                "id": "T001_1",
+                "template": "MATCH (a:entity {$PROP_ID1: $VALUE})-[:$REL1]->(b:entity)-[:$REL2]->(c:event) RETURN a.id, b.id, c.id",
+                "parameters": {
+                    "PROP_ID1": "string",
                     "VALUE": "string",
                     "REL1": "string",
                     "REL2": "string"
@@ -83,71 +56,79 @@
             },
             {
                 "id": "T002",
-                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[:$REL1]->(b:entity) MATCH (a)-[:$REL2]->(b) RETURN a, count(b) AS cnt",
+                "template": "MATCH (a:entity {$PROP_ID1: $VALUE})-[:$REL_TYPE *$MIN_HOPS..$MAX_HOPS]-(b:entity) RETURN a.id, b.id",
                 "parameters": {
-                    "PROP_ID": "string",
-                    "VALUE": "string",
-                    "REL1": "string",
-                    "REL2": "string"
-                }
-            }
-        ]
-    },
-    {
-        "type": "basic_filter_aggregation",
-        "templates": [
-            {
-                "id": "T001",
-                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[r:$REL_TYPE]-(b:entity) WHERE r.$REL_PROP $OP $VALUE RETURN count(a) AS cnt",
-                "parameters": {
-                    "PROP_ID": "string",
+                    "PROP_ID1": "string",
                     "VALUE": "string",
                     "REL_TYPE": "string",
-                    "REL_PROP": "string",
-                    "OP": "string"
+                    "MIN_HOPS": "integer",
+                    "MAX_HOPS": "integer"
                 }
             },
             {
-                "id": "T002",
-                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[r:$REL_TYPE]-(b:entity) WHERE r.$REL_PROP $OP $VALUE RETURN a, count(b) AS cnt",
+                "id": "T002_1",
+                "template": "MATCH (a:entity {$PROP_ID1: $VALUE})-[:$REL_TYPE *$MIN_HOPS..$MAX_HOPS]-(b:event) RETURN a.id, b.id",
                 "parameters": {
-                    "PROP_ID": "string",
+                    "PROP_ID1": "string",
                     "VALUE": "string",
                     "REL_TYPE": "string",
-                    "REL_PROP": "string",
-                    "OP": "string"
-                }
-            },
-            {
-                "id": "T003",
-                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[r:$REL_TYPE]-(b:entity) WHERE r.$REL_PROP $OP $VALUE RETURN avg(r.$REL_PROP), max(r.$REL_PROP)",
-                "parameters": {
-                    "PROP_ID": "string",
-                    "VALUE": "string",
-                    "REL_TYPE": "string",
-                    "REL_PROP": "string",
-                    "OP": "string"
-                }
-            }
-        ]
-    },
-    {
-        "type": "nested_loop",
-        "templates": [
-            {
-                "id": "T002",
-                "template": "MATCH (a:entity) WHERE (a)-[:$REL_TYPE]->(:entity {$PROP_ID: $VALUE}) RETURN a.id",
-                "parameters": {
-                    "REL_TYPE": "string",
-                    "PROP_ID": "string",
-                    "VALUE": "string"
+                    "MIN_HOPS": "integer",
+                    "MAX_HOPS": "integer"
                 }
             },
             {
                 "id": "T005",
-                "template": "MATCH (n:entity) WHERE (n)-[:$REL1]->(:entity {$PROP_ID: $VALUE}) RETURN n.id",
+                "template": "MATCH (a:entity {$PROP_ID1: $VALUE})-[:$REL1]->(b:entity)-[:$REL2]->(c:entity) RETURN a.id, count(d) AS cnt,collect(d) AS d_list",
                 "parameters": {
+                    "PROP_ID1": "string",
+                    "VALUE": "string",
                     "REL1": "string",
+                    "REL2": "string"
+                }
+            },
+            {
+                "id": "T010",
+                "template": "MATCH p = (a:entity {$PROP_ID: $VALUE})-[:$REL_TYPE *$MIN_HOPS..$MAX_HOPS]-(b:entity) RETURN avg(length(p)) AS avg_len, collect(b) AS b_list",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string",
+                    "MIN_HOPS": "integer",
+                    "MAX_HOPS": "integer"
+                }
+            },
+            {
+                "id": "T010_1",
+                "template": "MATCH p = (a:event {$PROP_ID: $VALUE})-[:$REL_TYPE *$MIN_HOPS..$MAX_HOPS]-(b:event) RETURN avg(length(p)) AS avg_len, collect(b) AS b_list",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string",
+                    "MIN_HOPS": "integer",
+                    "MAX_HOPS": "integer"
+                }
+            },
+            {
+                "id": "T010_2",
+                "template": "MATCH p = (a:entity {$PROP_ID: $VALUE})-[:$REL_TYPE *$MIN_HOPS..$MAX_HOPS]-(b:event) RETURN avg(length(p)) AS avg_len, collect(b) AS b_list",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string",
+                    "MIN_HOPS": "integer",
+                    "MAX_HOPS": "integer"
+                }
+            }
+        ]
+    },
+    {
+        "type": "nested_loop_new",
+        "templates": [
+            {
+                "id": "T002",
+                "template": "MATCH (a:entity) WHERE (a)-[:$REL_TYPE]->(:entity {$PROP_ID: $VALUE}) RETURN a.id, count(a) AS cnt",
+                "parameters": {
+                    "REL_TYPE": "string",
                     "PROP_ID": "string",
                     "VALUE": "string"
                 }
@@ -160,7 +141,6 @@
                     "VALUE": "string",
                     "REL_TYPE": "string"
                 }
-
             },
             {
                 "id": "T012",
@@ -172,6 +152,128 @@
                     "VALUE1": "string",
                     "PROP_ID2": "string",
                     "VALUE2": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "basic_expand_into_aggregation",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[:$REL1]->(b:entity) MATCH (a)-[:$REL2]->(b) RETURN collect(b.id) AS b_list, count(*) AS cnt",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL1": "string",
+                    "REL2": "string"
+                }
+            },
+            {
+                "id": "T002",
+                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[:$REL1]->(b:event) MATCH (a)-[:$REL2]->(b) RETURN collect(b.id) AS b_list, count(*) AS cnt",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL1": "string",
+                    "REL2": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "basic_expand_aggregation",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (n:entity)-[:$REL_TYPE]->(m:entity {$PROP_ID: $VALUE}) RETURN collect(n.id) AS n_list, count(n) AS cnt",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "basic_filter_aggregation",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (a:$LABEL1)-[r:$REL_TYPE]-(b:$LABEL2) WHERE r.$REL_PROP $OP $VALUE RETURN count(a) AS cnt",
+                "parameters": {
+                    "LABEL1": "string",
+                    "LABEL2": "string",
+                    "REL_TYPE": "string",
+                    "REL_PROP": "string",
+                    "OP": "string",
+                    "VALUE": "string"
+                }
+            },
+            {
+                "id": "T002",
+                "template": "MATCH (a:$LABEL1)-[r:$REL_TYPE]-(b:$LABEL2) WHERE r.$REL_PROP $OP $VALUE RETURN a, count(b) AS cnt",
+                "parameters": {
+                    "LABEL1": "string",
+                    "LABEL2": "string",
+                    "REL_TYPE": "string",
+                    "REL_PROP": "string",
+                    "OP": "string",
+                    "VALUE": "string"
+                }
+            },
+            {
+                "id": "T003",
+                "template": "MATCH (a:$LABEL1)-[r:$REL_TYPE]-(b:$LABEL2) WHERE r.$REL_PROP $OP $VALUE RETURN avg(r.$REL_PROP), max(r.$REL_PROP)",
+                "parameters": {
+                    "LABEL1": "string",
+                    "LABEL2": "string",
+                    "REL_TYPE": "string",
+                    "REL_PROP": "string",
+                    "OP": "string",
+                    "VALUE": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "basic_filter_aggregation",
+        "templates": [
+            {
+                "id": "T003",
+                "template": "MATCH (f:entity)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN f.concept WHERE toLower(c) CONTAINS 'compuatation') AND ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'reasoning') RETURN f.id AS ComputeNode, provider.id AS StorageProvider",
+                "parameters": {
+                    "REL_TYPE": "string",
+                    "CONCEPT_PROP": "string",
+                    "CONCEPT1": "string",
+                    "CONCEPT2": "string",
+                    "PROP_ID": "string"
+                }
+            },
+            {
+                "id": "T004",
+                "template": "MATCH (f:entity)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'reasoning') RETURN provider.id AS ProviderID, count(f) AS CountOfMemoryFunctions, collect(f.id) AS ListOfMemoryFunctions ORDER BY CountOfMemoryFunctions DESC",
+                "parameters": {
+                    "REL_TYPE": "string"
+                }
+            },
+            {
+                "id": "T001",
+                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[r:$REL_TYPE]-(b:entity) RETURN count(b), collect(b) AS b_list",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string"
+                }
+            },
+            {
+                "id": "T002",
+                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[r:$REL_TYPE]-(b:entity) RETURN avg(r.$REL_PROP), max(r.$REL_PROP)",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string",
+                    "REL_PROP": "string"
                 }
             }
         ]
@@ -191,11 +293,22 @@
                 }
             },
             {
-                "id": "T002",
-                "template": "MATCH (a:entity {$PROP_ID1: $VALUE1})-[:$REL_TYPE *$MIN_HOPS..$MAX_HOPS]-(b:entity) RETURN a.id, b.id",
+                "id": "T001",
+                "template": "MATCH (a:entity {$PROP_ID1: $VALUE})-[:$REL1]->(b:entity)-[:$REL2]->(c:entity)-[:$REL3]->(d:entity) RETURN a.id, b.id, c.id, d.id",
                 "parameters": {
                     "PROP_ID1": "string",
-                    "VALUE1": "string",
+                    "VALUE": "string",
+                    "REL1": "string",
+                    "REL2": "string",
+                    "REL3": "string"
+                }
+            },
+            {
+                "id": "T002",
+                "template": "MATCH (a:entity {$PROP_ID1: $VALUE})-[:$REL_TYPE *$MIN_HOPS..$MAX_HOPS]-(b:entity) RETURN a.id, b.id",
+                "parameters": {
+                    "PROP_ID1": "string",
+                    "VALUE": "string",
                     "REL_TYPE": "string",
                     "MIN_HOPS": "integer",
                     "MAX_HOPS": "integer"
@@ -221,52 +334,6 @@
                     "REL_TYPE": "string",
                     "MIN_HOPS": "integer",
                     "MAX_HOPS": "integer"
-                }
-            }
-        ]
-    },
-    {
-        "type": "join",
-        "templates": [
-            {
-                "id": "T001",
-                "template": "MATCH (a:$LABEL1) WITH a ORDER BY a.$PROP1 LIMIT 10 MATCH (b:$LABEL2) WITH a, b ORDER BY b.$PROP2 LIMIT 10 RETURN a, b",
-                "parameters": {
-                    "LABEL1": "string",
-                    "LABEL2": "string",
-                    "PROP1": "string",
-                    "PROP2": "string"
-                }
-            },
-            {
-                "id": "T003",
-                "template": "MATCH (a:$LABEL1) WITH a ORDER BY a.$PROP1 MATCH (b:$LABEL2) WHERE a <> b WITH a, b ORDER BY b.$PROP2 RETURN count(*) AS pair_count",
-                "parameters": {
-                    "LABEL1": "string",
-                    "LABEL2": "string",
-                    "PROP1": "string",
-                    "PROP2": "string"
-                }
-            },
-            {
-                "id": "T004",
-                "template": "MATCH (a:$LABEL1), (b:$LABEL2) WHERE a.$PROP1 = b.$PROP2 AND a <> b RETURN count(*) AS cnt",
-                "parameters": {
-                    "LABEL1": "string",
-                    "LABEL2": "string",
-                    "PROP1": "string",
-                    "PROP2": "string"
-                }
-            },
-            {
-                "id": "T006",
-                "template": "MATCH (a:$LABEL1), (b:$LABEL2) WHERE a.$PROP1 = b.$PROP2 AND a <> b WITH a, count(b) AS cnt WHERE cnt > $THRESHOLD RETURN a",
-                "parameters": {
-                    "LABEL1": "string",
-                    "LABEL2": "string",
-                    "PROP1": "string",
-                    "PROP2": "string",
-                    "THRESHOLD": "integer"
                 }
             }
         ]
@@ -320,16 +387,148 @@
         ]
     },
     {
-        "type": "triadic",
+        "type": "basic_expand_into_aggregation",
         "templates": [
             {
-                "id": "T002",
-                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[:$REL]-()-[:$REL]-(b:entity) WHERE NOT (a)-[:$REL]-(b) WITH a, count(DISTINCT b) AS cnt RETURN a.id, cnt",
+                "id": "T001",
+                "template": "MATCH (a:entity {$PROP_ID: $VALUE})-[:$REL1]->(b:$LABEL2) MATCH (a)-[:$REL2]->(b) RETURN count(b),collect(b.id) AS cnt",
                 "parameters": {
                     "PROP_ID": "string",
                     "VALUE": "string",
-                    "REL": "string"
+                    "REL1": "string",
+                    "REL2": "string"
                 }
+            },
+            {
+                "id": "T003",
+                "template": "MATCH (f:$LABEL) OPTIONAL MATCH (other:$LABEL)-[r]->(f) RETURN f.$PROP_ID, count(r) AS incoming_relationships, collect(type(r)) AS rel_types ORDER BY incoming_relationships",
+                "parameters": {
+                    "LABEL": "string",
+                    "PROP_ID": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "nested_loop",
+        "templates": [
+            {
+                "id": "T002",
+                "template": "MATCH (a:entity) WHERE (a)-[:$REL_TYPE]->(:entity {$PROP_ID: $VALUE}) RETURN a.id",
+                "parameters": {
+                    "REL_TYPE": "string",
+                    "PROP_ID": "string",
+                    "VALUE": "string"
+                }
+            },
+            {
+                "id": "T005",
+                "template": "MATCH (n:entity) WHERE (n)-[:$REL1]->(:entity {$PROP_ID: $VALUE}) RETURN n.id",
+                "parameters": {
+                    "REL1": "string",
+                    "PROP_ID": "string",
+                    "VALUE": "string"
+                }
+            },
+            {
+                "id": "T011",
+                "template": "MATCH (a:entity {$PROP_ID: $VALUE}), (b:$LABEL2) WHERE (a)-[:$REL_TYPE]->(b) RETURN count(b),collect(b) AS b_list",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string"
+                }
+            },
+            {
+                "id": "T012",
+                "template": "MATCH (n:entity) WHERE (n)-[:$REL1]->(:entity {$PROP_ID1: $VALUE1}) OR (n)-[:$REL2]->(:entity {$PROP_ID2: $VALUE2}) RETURN count(n) AS cnt,collect(n) AS n_list",
+                "parameters": {
+                    "REL1": "string",
+                    "REL2": "string",
+                    "PROP_ID1": "string",
+                    "VALUE1": "string",
+                    "PROP_ID2": "string",
+                    "VALUE2": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "concept",
+        "templates": [
+            {
+                "id": "T001programming",
+                "template": "MATCH (f:entity) MATCH (f)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'programming') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string"
+                }
+            },
+            {
+                "id": "T002command",
+                "template": "MATCH (f:entity) MATCH (f)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'command') RETURN f.id AS TargetFunction, count(provider) AS CountOfCodeProviders,collect(provider.id) AS ListOfCodeProviders",
+                "parameters": {
+                    "PROP_ID": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string"
+                }
+            },
+            {
+                "id": "T003",
+                "template": "MATCH (f:entity)-[:$REL_TYPE]->(provider:entity) WHERE ANY(c IN f.concept WHERE toLower(c) CONTAINS 'compuatation') AND ANY(c IN provider.concept WHERE toLower(c) CONTAINS 'reasoning') RETURN f.id AS ComputeNode, provider.id AS StorageProvider",
+                "parameters": {
+                    "REL_TYPE": "string",
+                    "CONCEPT_PROP": "string",
+                    "CONCEPT1": "string",
+                    "CONCEPT2": "string",
+                    "PROP_ID": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "concept_count",
+        "templates": [
+            {
+                "id": "T004_link&resource",
+                "template": "MATCH (a:entity) WHERE ANY(c IN a.concept WHERE toLower(c) CONTAINS 'link') AND ANY(c IN a.concept WHERE toLower(c) CONTAINS 'resource') RETURN count(a) AS cnt",
+                "parameters": {}
+            },
+            {
+                "id": "T004_tool&retriev",
+                "template": "MATCH (a:entity) WHERE ANY(c IN a.concept WHERE toLower(c) CONTAINS 'tool') AND ANY(c IN a.concept WHERE toLower(c) CONTAINS 'retriev') RETURN count(a) AS cnt",
+                "parameters": {}
+            },
+            {
+                "id": "T004_tool&creation",
+                "template": "MATCH (a:entity) WHERE ANY(c IN a.concept WHERE toLower(c) CONTAINS 'tool') AND ANY(c IN a.concept WHERE toLower(c) CONTAINS 'creation') RETURN count(a) AS cnt",
+                "parameters": {}
+            },
+            {
+                "id": "T004_tool&model",
+                "template": "MATCH (a:entity) WHERE ANY(c IN a.concept WHERE toLower(c) CONTAINS 'tool') AND ANY(c IN a.concept WHERE toLower(c) CONTAINS 'model') RETURN count(a) AS cnt",
+                "parameters": {}
+            },
+            {
+                "id": "T001_tool",
+                "template": "MATCH (a:entity) WHERE ANY(c IN a.concept WHERE toLower(c) CONTAINS 'tool') RETURN count(a) AS cnt",
+                "parameters": {}
+            },
+            {
+                "id": "T002_script",
+                "template": "MATCH (a:entity) WHERE ANY(c IN a.concept WHERE toLower(c) CONTAINS 'script') RETURN count(a) AS cnt",
+                "parameters": {}
+            },
+            {
+                "id": "T003_command",
+                "template": "MATCH (a:entity) WHERE ANY(c IN a.concept WHERE toLower(c) CONTAINS 'command') RETURN count(a) AS cnt",
+                "parameters": {}
+            },
+            {
+                "id": "T004_manual",
+                "template": "MATCH (a:entity) WHERE ANY(c IN a.concept WHERE toLower(c) CONTAINS 'manual') RETURN count(a) AS cnt",
+                "parameters": {}
             }
         ]
     }

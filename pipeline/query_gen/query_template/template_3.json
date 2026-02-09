@@ -1,0 +1,119 @@
+[
+    {
+        "type": "chain",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (a:$LABEL1)-[:$REL1]->(b:$LABEL2)-[:$REL2]->(c:$LABEL3)-[:$REL3]->(d:$LABEL4) RETURN a, b, d",
+                "parameters": {
+                    "LABEL1": "string",
+                    "LABEL2": "string",
+                    "LABEL3": "string",
+                    "LABEL4": "string",
+                    "REL1": "string",
+                    "REL2": "string",
+                    "REL3": "string"
+                }
+            },
+            {
+                "id": "T002",
+                "template": "MATCH (a:$LABEL1)-[:$REL_TYPE *$MIN_HOPS..$MAX_HOPS]-(b:$LABEL2) RETURN a, b",
+                "parameters": {
+                    "LABEL1": "string",
+                    "LABEL2": "string",
+                    "REL_TYPE": "string",
+                    "MIN_HOPS": "integer",
+                    "MAX_HOPS": "integer"
+                }
+            },
+            {
+                "id": "T003",
+                "template": "MATCH (start:$START_LABEL {$START_PROP: $START_VALUE}) MATCH p = (start) ((n1:$L1)<-$D1[:$R1]-$D2(r:$REL_NODE_LABEL)-$D3[:$R2]->(n2:$L2) WHERE r.$NODE_PROP = $NODE_VALUE){$MIN_HOPS..$MAX_HOPS} (end:$END_LABEL) RETURN p",
+                "parameters": {
+                    "START_LABEL": "string",
+                    "START_PROP": "string",
+                    "START_VALUE": "string",
+                    "L1": "string",
+                    "L2": "string",
+                    "D1": "string",
+                    "D2": "string",
+                    "D3": "string",
+                    "R1": "string",
+                    "R2": "string",
+                    "REL_NODE_LABEL": "string",
+                    "NODE_PROP": "string",
+                    "NODE_VALUE": "string",
+                    "MIN_HOPS": "integer",
+                    "MAX_HOPS": "integer",
+                    "END_LABEL": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "pipelined",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (a:$LABEL1 {$PROP1: $VALUE})-[:$REL1]->(b:$LABEL2) WITH b MATCH (b)-[:$REL2]->(c:$LABEL3) WHERE c.$FILTER_PROP = $FILTER_VAL RETURN b.$RET_PROP1, c.$RET_PROP2, c.$RET_PROP3",
+                "parameters": {
+                    "LABEL1": "string",
+                    "LABEL2": "string",
+                    "LABEL3": "string",
+                    "PROP1": "string",
+                    "VALUE": "string",
+                    "REL1": "string",
+                    "REL2": "string",
+                    "FILTER_PROP": "string",
+                    "FILTER_VAL": "string",
+                    "RET_PROP1": "string",
+                    "RET_PROP2": "string",
+                    "RET_PROP3": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "anti",
+        "templates": [
+            {
+                "id": "T002",
+                "template": "MATCH (a:$LABEL1 {$PROP1: $VALUE}), (b:$LABEL2) WHERE NOT (a)-[:$REL_TYPE]->(b) RETURN b.$RETURN_PROP",
+                "parameters": {
+                    "LABEL1": "string",
+                    "LABEL2": "string",
+                    "PROP1": "string",
+                    "VALUE": "string",
+                    "REL_TYPE": "string",
+                    "RETURN_PROP": "string"
+                }
+            },
+            {
+                "id": "T003",
+                "template": "MATCH (a:$LABEL) WHERE NOT (a)-[:$REL1]->(:$LABEL2) OR (a)-[:$REL2]->(:$LABEL3) RETURN a.$RET_PROP",
+                "parameters": {
+                    "LABEL": "string",
+                    "LABEL2": "string",
+                    "LABEL3": "string",
+                    "REL1": "string",
+                    "REL2": "string",
+                    "RET_PROP": "string"
+                }
+            }
+        ]
+    },
+    {
+        "type": "union",
+        "templates": [
+            {
+                "id": "T001",
+                "template": "MATCH (a:$L1) RETURN a.$P UNION MATCH (b:$L2) RETURN b.$P",
+                "parameters": {
+                    "L1": "string",
+                    "L2": "string",
+                    "P": "string"
+                }
+            }
+        ]
+    }
+]

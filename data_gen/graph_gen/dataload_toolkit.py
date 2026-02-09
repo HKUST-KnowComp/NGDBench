@@ -9,15 +9,62 @@ if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 import gzip
+import re
+import json
 import pandas as pd
 import networkx as nx
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Tuple, List
-from data_analyser.graph_handler import GraphInspector
+ # from data_analyser.graph_handler import GraphInspector
 from pathlib import Path
 import pickle
 import random
-# from torch_geometric.utils import to_networkx
+
+
+def load_ldbcbi_schema(schema_path: str) -> dict:
+    """
+    从 ldbcbi_schema.json 读取各节点类型的属性列表，并处理 Message/Post/Comment 的继承关系。
+    返回格式: {node_label: [prop1, prop2, ...]}，属性顺序与 JSON 中保持一致。
+    """
+    if not os.path.exists(schema_path):
+        print(f"警告: 未找到 LDBC BI schema 文件 {schema_path}，将无法为节点自动补充列名")
+        return {}
+
+    try:
+        with open(schema_path, "r", encoding="utf-8") as f:
+            raw = json.load(f)
+    except Exception as e:
+        print(f"警告: 读取 LDBC BI schema 文件 {schema_path} 失败: {e}")
+        return {}
+
+    schema = {}
+
+    # 先直接复制原有定义
+    for label, props in raw.items():
+        schema[label] = list(props) if isinstance(props, list) else []
+
+    # 处理 Message / Post / Comment 之间的关系：
+    # - Message: 基础属性
+    # - Post:    Message 的基础属性 + Post 自己的附加属性（如 language）
+    # - Comment: Message 的基础属性 + Comment 自己的附加属性（当前为 []，但兼容未来扩展）
+    msg_base = raw.get("Message", [])
+    post_extra = raw.get("Post", [])
+    comment_extra = raw.get("Comment", [])
+
+    if msg_base:
+        schema["Message"] = list(msg_base)
+
+    # Post = Message 属性 + Post 附加属性
+    schema["Post"] = list(msg_base) + list(post_extra)
+    # Comment = Message 属性 + Comment 附加属性（目前可能为空）
+    schema["Comment"] = list(msg_base) + list(comment_extra)
+
+    return schema
+
+
+LDBC_BI_SCHEMA_PATH = os.path.join(os.path.dirname(__file__), "ldbcbi_schema.json")
+LDBC_BI_SCHEMA_PROPS = load_ldbcbi_schema(LDBC_BI_SCHEMA_PATH)
+
 
 def read_csv_gz(file_path: str) -> pd.DataFrame:
     # read the single .csv.gz file
@@ -85,6 +132,25 @@ def process_single_file_ldbcbi(file_path: str, folder_name: str, file_format: st
     if "_" not in folder_name:
         # the file is a node table
         node_type = folder_name
+        # 如果 schema 提供了该节点类型的属性列表，则用其作为列名
+        schema_props = LDBC_BI_SCHEMA_PROPS.get(node_type)
+        if schema_props:
+            cols_num = len(df.columns)
+            schema_num = len(schema_props)
+            # 为所有列生成列名：优先使用 schema 中的定义，多出来的列自动生成 attr_1, attr_2...
+            new_cols = []
+            for i in range(cols_num):
+                if i < schema_num:
+                    new_cols.append(schema_props[i])
+                else:
+                    new_cols.append(f"attr_{i - schema_num + 1}")
+            df.columns = new_cols
+            if cols_num != schema_num:
+                print(
+                    f"提示: 节点 {node_type} 列数与 schema 不一致，"
+                    f"数据列数 {cols_num}，schema 列数 {schema_num}，"
+                    f"多出的列已自动命名为 attr_*"
+                )
         # 检查是否有 'id' 列，或者第一列（当没有header时，列名是0）
         id_col = None
         if 'id' in df.columns:

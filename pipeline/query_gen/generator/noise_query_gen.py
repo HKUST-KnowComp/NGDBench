@@ -976,7 +976,7 @@ class NoiseQueryGenerator(QueryGenerator):
                         min_attempts_per_template: int = 5,
                         reset_failures_interval: float = 0.25,
                         stats_output_path: Optional[str] = None,
-                        success_per_template: int = 10,
+                        success_per_template: int = 100,
                         realtime_output_path: Optional[str] = None) -> List[QueryResult]:
         """
         生成查询样本，遍历噪声节点/边，对每个尝试匹配模板生成查询

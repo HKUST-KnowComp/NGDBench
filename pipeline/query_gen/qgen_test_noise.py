@@ -25,7 +25,7 @@ DEFAULT_PERTURB_RECORD_DIR = "../../data_gen/perturbation_generator/perturb_reco
 
 def generate_step1_queries(uri: str, user: str, password: str, dataset: str,
                            perturb_record_dir: str, noise_prefix: str = None,
-                           template_path: str = "query_template/template.json",
+                           template_path: str = "query_template/template_3.json",
                            target_count: int = 100,
                            output_file: str = None,
                            show_schema: bool = True,
@@ -179,7 +179,7 @@ def generate_step2_queries(uri: str, user: str, password: str, dataset: str,
         uri=uri,
         user=user,
         password=password,
-        template_path="query_template/template.json",  # 这个路径在 generate_judge_queries 中会被覆盖
+        template_path=template_file_path,  # 这个路径在 generate_judge_queries 中会被覆盖
         perturb_record_dir=perturb_record_dir,
         noise_prefix=noise_prefix,
         dataset=dataset,

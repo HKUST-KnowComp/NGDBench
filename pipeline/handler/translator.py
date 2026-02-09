@@ -148,8 +148,13 @@ def get_nlp_descriptions_batch(client: OpenAI, queries: Union[List[str], List[Di
 def _get_normal_descriptions_batch(client: OpenAI, queries: List[str], model: str) -> List[str]:
     """普通查询描述模式"""
     # 构建提示词
-    prompt = "Please provide concise natural language descriptions for the following Cypher queries. Use one line per query to describe the query's intent and basic process, without going into details.\n\n"
-    prompt += "Important: When min() or max() is applied to string values, it refers to lexicographic (alphabetical) ordering, not numerical ordering. For example, min(city) means the city name that comes first alphabetically.\n\n"
+    prompt = "Task: Write ONE concise English natural-language description for each Cypher query.\n"
+    prompt += "Key rules:\n"
+    prompt += "- Preserve ALL numeric/date/time literals and quantitative constraints from the Cypher in the description (e.g., numbers, decimals, negative values, ranges, LIMIT/SKIP, slices, counts, offsets, thresholds, timestamps). Do NOT omit or generalize them.\n"
+    prompt += "- When min() or max() is applied to string values, interpret it as lexicographic (alphabetical) ordering.\n\n"
+    prompt += "Example:\n"
+    prompt += "\"query\": \"MATCH (n:Account) WHERE n.createTime = '2022-10-15 14:34:56.729' OR (n)-[:Account_Repay_Loan]->(:Company) RETURN n.email\"\n"
+    prompt += "\"nlp\": Find the email of accounts created on a 2022-10-15 14:34:56.729 or accounts repaying a loan\n\n"
     
     for i, query in enumerate(queries, 1):
         prompt += f"Query {i}:\n{query}\n\n"
@@ -159,13 +164,11 @@ def _get_normal_descriptions_batch(client: OpenAI, queries: List[str], model: st
         item_type="query",
         content_name="translation"
     )
-    prompt += "\nPlease provide one natural language description per query in order, separated by newlines, without adding numbers:"
+    prompt += "\nReturn the translations in order, one per line:"
     
     try:
         system_content = (
-            "You are a professional database query analysis expert, skilled at converting Cypher queries into concise natural language descriptions. "
-            "When min() or max() is applied to strings, it means lexicographic (alphabetical) ordering. "
-            f"{_get_system_critical_emphasis('translation/description', 'queries', 'translation')} "
+            "You are a professional database query analysis expert. "
             "Please respond in English."
         )
         response = client.chat.completions.create(

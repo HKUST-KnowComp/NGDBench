@@ -106,24 +106,39 @@ class Neo4jGraphBuilder:
         self.logger.info("导入完成: %s", summary)
         return summary
 
+    def clear_database(self) -> None:
+        """清空默认数据库（neo4j）中的所有节点与关系。使用分批删除避免内存溢出。"""
+        self._prepare_database(recreate=True)
+
     # 数据库准备
     def _prepare_database(self, recreate: bool = True) -> None:
         """
         准备数据库（使用默认的neo4j数据库）。
         
         如果recreate=True，将清空整个数据库的所有数据。
+        使用分批删除避免单次事务占用过多内存（防止 MemoryPoolOutOfMemoryError）。
         """
         default_db = "neo4j"
-        
+        delete_batch_size = 10_000  # 每批删除的节点数，避免事务内存超限
+
         try:
             with self.driver.session(database=default_db) as session:
                 if recreate:
-                    # 清空整个数据库的所有节点和关系
-                    delete_query = "MATCH (n) DETACH DELETE n"
-                    result = session.run(delete_query)
-                    # 消耗结果以确保删除完成
-                    result.consume()
-                    self.logger.info("已清空数据库 %s 的所有数据", default_db)
+                    # 分批清空，避免 MATCH (n) DETACH DELETE n 单事务内存爆掉
+                    total_deleted = 0
+                    while True:
+                        result = session.run(
+                            "MATCH (n) WITH n LIMIT $limit DETACH DELETE n",
+                            limit=delete_batch_size,
+                        )
+                        summary = result.consume()
+                        counters = summary.counters
+                        deleted = getattr(counters, "nodes_deleted", 0) or 0
+                        total_deleted += deleted
+                        if deleted == 0:
+                            break
+                        self.logger.debug("本批删除 %d 个节点，累计 %d", deleted, total_deleted)
+                    self.logger.info("已清空数据库 %s 的所有数据（共 %d 个节点）", default_db, total_deleted)
                 else:
                     # 检查是否已存在数据
                     check_query = "MATCH (n) RETURN count(n) as count"

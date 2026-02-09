@@ -256,6 +256,20 @@ class ManagementQueryBuilder:
         # 首先尝试从节点采样来填充相关参数
         params_used = {}
         
+        # 获取模板中的 (start, rel, end) 约束，用于保证节点标签按关系语义采样
+        constraints = self.query_builder._get_template_constraints(temp_template.template)
+        # 先预填 REL，使 GROUP_LABEL/GL 等 end 标签在节点组填充时能按关系的合法 end 采样（避免 Company_Guarantee_Company->Account）
+        # MATCH (a:L1),(b:L2) CREATE (a)-[:R1]->(b) 型：R1 必须与 (L1,L2) 匹配，模板中已约定 L1/L2 在 R1 之前，此处不预填 R1，主循环会按顺序先填 L1/L2 再填 R1
+        pair_label_params = {'L1', 'L2', 'L3', 'L4'}
+        for start, rel, end in constraints:
+            if rel and rel in template.parameters and rel not in params_used:
+                if start in pair_label_params and end in pair_label_params:
+                    continue  # 两端均为节点对标签，关系类型必须由 (L1,L2) 决定，稍后在主循环中填
+                rel_value = self.query_builder._generate_param_value(rel, temp_template, params_used)
+                if rel_value is not None:
+                    params_used[rel] = rel_value
+                break  # 先填一个 REL 即可，用于约束 LABEL/GROUP_LABEL
+        
         # 识别需要从同一节点获取的参数组
         node_param_groups = self.query_builder._identify_node_param_groups(temp_template)
         
@@ -270,6 +284,32 @@ class ManagementQueryBuilder:
             # 如果参数已经填充，跳过
             if param_name in params_used:
                 continue
+            
+            # AID1-5/BID1-5 必须从 L1+PROP_ID1 / L2+PROP_ID2 的 sample_values 采样，不能合成 id_
+            # 若 PROP_ID1/PROP_ID2 尚未填充则优先生成，否则 _generate_param_value('AID'/'BID') 会回退到合成值
+            if param_name.startswith('AID') or param_name == 'AID':
+                for dep in ('L1', 'PROP_ID1'):
+                    if dep in template.parameters and dep not in params_used:
+                        dep_val = self.query_builder._generate_param_value(dep, temp_template, params_used)
+                        if dep_val is not None:
+                            params_used[dep] = dep_val
+            if param_name.startswith('BID') or param_name == 'BID':
+                for dep in ('L2', 'PROP_ID2'):
+                    if dep in template.parameters and dep not in params_used:
+                        dep_val = self.query_builder._generate_param_value(dep, temp_template, params_used)
+                        if dep_val is not None:
+                            params_used[dep] = dep_val
+            
+            # 若当前参数是某约束的 end 标签（如 L1），先填充该约束的 rel（如 R），
+            # 保证 b 等节点标签从关系 R 的合法 end 中采样（如 Company_Guarantee_Company -> Company）
+            for start, rel, end in constraints:
+                if end == param_name and rel and rel not in params_used:
+                    rel_value = self.query_builder._generate_param_value(rel, temp_template, params_used)
+                    if rel_value is not None:
+                        params_used[rel] = rel_value
+                    break
+            
+            # 关系类型 R/R1 由模板参数顺序保证：模板中 L1、L2 已写在 R、R1 之前，主循环按 template.parameters 顺序填充，故填 R 时 L1/L2 已在 params_used 中，_generate_param_value 会按 (L1,R,L2) 约束选合法关系。
             
             # 处理 list 类型参数
             if param_type == "list":
@@ -341,12 +381,11 @@ class ManagementQueryBuilder:
         base_name = match.group(1)  # 基础名称：VALUE, VAL, AID, BID等
         index = int(match.group(2))  # 索引：1, 2, 3, 4, 5等
         
-        # 处理 VALUE1-5, VALUE2-5 等（对应 VALUE）
-        if base_name in ('VALUE', 'VAL'):
-            # 使用原有的 VALUE/VAL 生成逻辑，但确保每次生成不同的值
-            # 如果已经有 VALUE 或 VAL，基于它生成不同的值
-            base_param = 'VALUE' if base_name == 'VALUE' else 'VAL'
-            if base_param in current_params:
+        # 处理 VALUE1-5, VAL1-5, V1-5 等（对应 VALUE, VAL, V）
+        if base_name in ('VALUE', 'VAL', 'V'):
+            # 使用原有的 VALUE/VAL/V 生成逻辑（从对应 LABEL 的 PROP 采样，保证每行不同）
+            base_param = 'VALUE' if base_name == 'VALUE' else ('VAL' if base_name == 'VAL' else 'V')
+            if base_param in current_params and base_name != 'V':
                 base_value = current_params[base_param]
                 # 如果是数值类型，生成不同的数值
                 if isinstance(base_value, (int, float)):
@@ -357,7 +396,7 @@ class ManagementQueryBuilder:
                 # 如果是字符串类型，生成不同的字符串
                 elif isinstance(base_value, str):
                     return f"{base_value}_{index}"
-            # 如果没有基础值，使用原有方法生成，但传入修改后的参数名
+            # 从对应 LABEL 的 PROP 采样（V1..V5 每行不同）
             return self.query_builder._generate_param_value(base_param, temp_template, current_params)
         
         # 处理 AID1-5, BID1-5 等（对应 AID, BID）
@@ -771,6 +810,13 @@ class ManageGenerator:
                         logger.debug(f"查询包含针对 ID 属性的聚合，跳过该样本: {template_id}")
                         continue
                     
+                    # 校验：关系终点标签与 schema 一致、节点属性属于对应 label
+                    valid, validation_err = self._validate_management_queries(template_query)
+                    if not valid:
+                        stats['failure_count'] += 1
+                        logger.debug(f"管理查询校验未通过，跳过该样本: {template_id} — {validation_err}")
+                        continue
+                    
                     # 执行查询流程
                     if is_batch:
                         # Batch 格式执行流程（新格式）：
@@ -1018,6 +1064,88 @@ class ManageGenerator:
         if prop_lower == "id":
             return True
         return False
+
+    def _validate_management_queries(
+        self, template_query: Union[str, List[str]]
+    ) -> Tuple[bool, Optional[str]]:
+        """
+        校验生成的管理查询是否合法，避免：
+        1. 关系终点标签与 schema 不一致（如 Company_Guarantee_Company 的终点应为 Company，而非 Account）
+        2. 节点上使用的属性不属于该 label（如 Account { companyId: ... } 中 companyId 不属于 Account）
+        Returns:
+            (valid, error_message)
+        """
+        import re
+        if not self.schema:
+            return True, None
+        queries = (
+            template_query if isinstance(template_query, list) else [template_query]
+        )
+        triplets = getattr(self.schema, "triplets", set()) or set()
+        labels = getattr(self.schema, "labels", {}) or {}
+        for q in queries:
+            if not q or not q.strip():
+                continue
+            # 1) 关系终点标签：匹配 (start)-[:RelType]->(end:EndLabel {...})
+            # 提取 start_label, rel_type, end_label；校验 (start_label, rel_type, end_label) 在 triplets 中
+            rel_pattern = re.compile(
+                r"\(\s*\w*\s*:\s*(\w+)\s*[^)]*\)\s*-\s*\[\s*:\s*(\w+)\s*[^\]]*\]\s*->\s*\(\s*\w*\s*:\s*(\w+)\s*(\{[^}]*\})?"
+            )
+            for m in rel_pattern.finditer(q):
+                start_label, rel_type, end_label, end_props = (
+                    m.group(1),
+                    m.group(2),
+                    m.group(3),
+                    m.group(4) or "",
+                )
+                if triplets and (start_label, rel_type, end_label) not in triplets:
+                    return False, (
+                        f"关系终点标签与 schema 不一致: "
+                        f"({start_label})-[:{rel_type}]->(?:{end_label}) 不在合法三元组中"
+                    )
+                # 终点节点上的属性必须属于 end_label
+                if end_props and end_label in labels:
+                    prop_keys = re.findall(r"[\{,]\s*(\w+)\s*:", end_props)
+                    valid_props = set(labels[end_label].properties.keys())
+                    for k in prop_keys:
+                        if k not in valid_props:
+                            return False, (
+                                f"属性 {k} 不属于 label {end_label}: "
+                                f"节点 (:{end_label} {{{k}: ...}})"
+                            )
+            # 2) 任意节点 (var:Label { ... })：校验每个属性属于对应 Label
+            node_pattern = re.compile(r":(\w+)\s*\{([^}]*)\}")
+            for m in node_pattern.finditer(q):
+                label_name, props_content = m.group(1), m.group(2)
+                if label_name not in labels:
+                    continue
+                valid_props = set(labels[label_name].properties.keys())
+                prop_keys = re.findall(r"[\{,]\s*(\w+)\s*:", props_content)
+                for k in prop_keys:
+                    if k not in valid_props:
+                        return False, (
+                            f"属性 {k} 不属于 label {label_name}: "
+                            f"(:{label_name} {{{k}: ...}})"
+                        )
+            # 3) MATCH (a:L1),(b:L2) ... CREATE (a)-[:R]->(b)：用 MATCH 中的标签校验 (L1,R,L2) 是否在 triplets 中
+            var_to_label = {}
+            for m in re.finditer(r"\(\s*(\w+)\s*:\s*(\w+)\s*[^)]*\)", q):
+                var_to_label[m.group(1)] = m.group(2)
+            create_rel = re.search(
+                r"CREATE\s+\(\s*(\w+)\s*\)\s*-\s*\[\s*:\s*(\w+)\s*[^\]]*\]\s*->\s*\(\s*(\w+)\s*\)",
+                q,
+                re.IGNORECASE,
+            )
+            if create_rel and triplets:
+                left_var, rel_type, right_var = create_rel.group(1), create_rel.group(2), create_rel.group(3)
+                start_label = var_to_label.get(left_var)
+                end_label = var_to_label.get(right_var)
+                if start_label and end_label and (start_label, rel_type, end_label) not in triplets:
+                    return False, (
+                        f"关系类型与节点对不匹配: MATCH (:{start_label}),(:{end_label}) 之间不存在关系 "
+                        f"[:{rel_type}]，合法三元组中无 ({start_label}, {rel_type}, {end_label})"
+                    )
+        return True, None
 
     def _has_id_aggregate(self, query: str) -> bool:
         """

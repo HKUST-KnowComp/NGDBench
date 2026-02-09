@@ -137,18 +137,21 @@ data_gen/perturbed_dataset/*
 data_gen/perturbation_generator/perturb_record/*
 pipeline/data_analyser/buffer/*
 data_gen/graph_gen/graph_buffer/*
-query_gen/query/*
-query_gen/query/archive/*
-query_gen/query/reserve/*
-query_gen/query_parse/output/*
-
+pipeline/query_gen/query/*
+pipeline/query_gen/query/archive/*
+pipeline/query_gen/query/reserve/*
+pipeline/query_gen/query_parse/output/*
+tests/
+pipeline/query_module/mcp_v1
+pipeline/query_module/mcp_v2
+pipeline/handler/translate_unstrcture
 # 保留 example_data 目录及内容
 !data_gen/gnd_dataset/example_data/
 !data_gen/gnd_dataset/example_data/**
 !data_gen/perturbed_dataset/example_data/
 !data_gen/perturbed_dataset/example_data/**
 !data_gen/perturb_record/example_record.json
-!query_gen/query_parse/output/ast_output_example.json
+!pipeline/query_gen/query_parse/output/ast_output_example.json
 # # 排除大型数据文件
 # *.csv
 # src/*.csv

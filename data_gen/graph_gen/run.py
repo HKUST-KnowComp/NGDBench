@@ -1,7 +1,7 @@
 from dataload_toolkit import build_graph_from_data_ldbcbi, load_graph, save_graph
 import random
 from pathlib import Path
-from ..data_analyser.graph_handler import GraphInspector 
+# from ..data_analyser.graph_handler import GraphInspector 
 if __name__ == "__main__":
     # LDBC SNB FinBench 数据
     data_path = "/home/ylivm/ngdb/ngdb_benchmark/data_gen/gnd_dataset/ldbc_snb_bi/out-sf1/csv/bi/composite-projected-fk/initial_snapshot"
@@ -20,13 +20,13 @@ if __name__ == "__main__":
         save_graph(graph, graph_path)
     
     # 创建图检查器
-    graph_inspector = GraphInspector(graph)
+    # graph_inspector = GraphInspector(graph)
     
-    # 显示图的统计信息
-    print("\n" + "="*60)
-    print("【图的整体统计信息】")
-    print("="*60)
-    graph_inspector.summary()
+    # # 显示图的统计信息
+    # print("\n" + "="*60)
+    # print("【图的整体统计信息】")
+    # print("="*60)
+    # graph_inspector.summary()
     
     # 随机采样一些节点进行测试
     all_nodes = list(graph.nodes())

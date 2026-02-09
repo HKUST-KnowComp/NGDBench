@@ -1,0 +1,10 @@
+{
+    "Person": ["creationDate", "id", "firstName", "lastName","gender", "birthday", "locationIP", "browserUsed", "speaksLanguage", "email"],
+    "Organisation": ["id", "type", "name", "url"],
+    "Place": ["id", "name", "url", "type"],
+    "TagClass": ["id", "name", "url"],
+    "Tag": ["id", "name", "url"],
+    "Forum": ["creationDate", "id", "title"],
+    "Post": ["creationDate", "id", "imageFile","locationIP","browserUsed","language","content","likes"],
+    "Comment": ["creationDate", "id", "locationIP","browserUsed","content","likes"]
+  }

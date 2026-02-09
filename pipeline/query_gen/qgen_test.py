@@ -10,9 +10,10 @@ DEFAULT_NEO4J_URI = "bolt://localhost:7690"
 DEFAULT_NEO4J_USER = "neo4j"
 DEFAULT_NEO4J_PASSWORD = "fei123456"
 DEFAULT_DATASET = "mcp"
+DEFAULT_TEMPLATE_PATH = "query_template/template_mcp1.json"
 
 
-def test_query_generator(uri: str, user: str, password: str, dataset: str):
+def test_query_generator(uri: str, user: str, password: str, dataset: str, template_path: str):
     """测试查询生成器"""
     
     
@@ -21,7 +22,7 @@ def test_query_generator(uri: str, user: str, password: str, dataset: str):
         uri=uri,
         user=user,
         password=password,
-        template_path="query_template/template_mcp1.json",
+        template_path=template_path,
         dataset=dataset,
     )
     
@@ -45,7 +46,7 @@ def test_query_generator(uri: str, user: str, password: str, dataset: str):
         print(f"\n=== 开始生成查询 ===")
         output_file = f"query_results_{dataset}.json"
         # 使用实时输出，一边生成一边写入文件
-        results = generator.generate_samples(target_count=10000, realtime_output_path=output_file)
+        results = generator.generate_samples(target_count=80000, max_failures_per_template=50000, realtime_output_path=output_file)
         
         print(f"\n=== 生成结果 ===")
         print(f"共生成 {len(results)} 个查询")
@@ -93,10 +94,17 @@ if __name__ == "__main__":
         default=DEFAULT_DATASET,
         help=f"数据集, 默认: {DEFAULT_DATASET}",
     )
+    parser.add_argument(
+        "--template-path",
+        type=str,
+        default=DEFAULT_TEMPLATE_PATH,
+        help=f"模板文件路径, 默认: {DEFAULT_TEMPLATE_PATH}",
+    )
     args = parser.parse_args()
     test_query_generator(
         uri=args.uri,
         user=args.user,
         password=args.password,
         dataset=args.dataset,
+        template_path=args.template_path,
     )

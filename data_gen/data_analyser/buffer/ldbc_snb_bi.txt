@@ -1,0 +1,237 @@
+============================================================
+Sample Nodes (30 nodes)
+============================================================
+
+Node: Comment:2336466700817
+  Attributes: {'label': 'Comment', 'creationDate': '2012-11-23T00:55:43.736+00:00', 'id': 2336466700817, 'locationIP': '41.138.204.90', 'browserUsed': 'Firefox', 'content': 'roflol', 'likes': 6}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:102
+    --[Comment_hasCreator_Person]--> Person:10995116283619
+    --[Comment_replyOf_Comment]--> Comment:2336466700815
+
+Node: Comment:2336467068880
+  Attributes: {'label': 'Comment', 'creationDate': '2012-11-10T21:51:18.833+00:00', 'id': 2336467068880, 'locationIP': '103.1.81.200', 'browserUsed': 'Internet Explorer', 'content': 'cool', 'likes': 4}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:0
+    --[Comment_hasCreator_Person]--> Person:28587302323528
+    --[Comment_replyOf_Post]--> Post:1511833348042
+
+Node: Forum:2199023349952
+  Attributes: {'label': 'Forum', 'creationDate': '2012-09-14T13:40:35.498+00:00', 'id': 2199023349952, 'title': 'Album 4 of Lachhiman Kunwar'}
+  In-degree: 0, Out-degree: 15
+  Sample out-edges:
+    --[Forum_hasTag_Tag]--> Tag:9277
+    --[Forum_containerOf_Post]--> Post:2199029688184
+    --[Forum_containerOf_Post]--> Post:2199029688185
+
+Node: Post:1924150451183
+  Attributes: {'label': 'Post', 'creationDate': '2012-05-14T03:36:43.112+00:00', 'id': 1924150451183, 'imageFile': 'photo1924150451183.jpg', 'locationIP': '199.103.75.32', 'browserUsed': 'Firefox', 'language': None, 'content': None, 'likes': 0}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[Post_isLocatedIn_Country]--> Place:50
+    --[Post_hasCreator_Person]--> Person:24189255812811
+
+Node: Post:1236955189463
+  Attributes: {'label': 'Post', 'creationDate': '2011-07-20T02:25:20.429+00:00', 'id': 1236955189463, 'imageFile': 'photo1236955189463.jpg', 'locationIP': '203.81.75.82', 'browserUsed': 'Chrome', 'language': None, 'content': None, 'likes': 0}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[Post_isLocatedIn_Country]--> Place:65
+    --[Post_hasCreator_Person]--> Person:17592186048816
+
+Node: Post:274878458536
+  Attributes: {'label': 'Post', 'creationDate': '2010-06-03T21:37:53.984+00:00', 'id': 274878458536, 'imageFile': None, 'locationIP': '143.108.80.193', 'browserUsed': 'Internet Explorer', 'language': 'pt', 'content': "About François Mitterrand,  Gaulle's estaAbout Rubén Blades, anians consideAbout George H. W.", 'likes': 94}
+  In-degree: 5, Out-degree: 9
+  Sample out-edges:
+    --[Post_isLocatedIn_Country]--> Place:49
+    --[Post_hasCreator_Person]--> Person:2199023259866
+    --[Post_hasTag_Tag]--> Tag:592
+
+Node: Comment:1924148084060
+  Attributes: {'label': 'Comment', 'creationDate': '2012-05-12T22:29:13.371+00:00', 'id': 1924148084060, 'locationIP': '31.186.103.75', 'browserUsed': 'Internet Explorer', 'content': 'good', 'likes': 4}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:56
+    --[Comment_hasCreator_Person]--> Person:2199023261443
+    --[Comment_replyOf_Post]--> Post:1924148084051
+
+Node: Comment:2199024216419
+  Attributes: {'label': 'Comment', 'creationDate': '2012-10-27T23:30:52.281+00:00', 'id': 2199024216419, 'locationIP': '116.68.178.26', 'browserUsed': 'Safari', 'content': 'About Sukarno, d by one of his geneAbout Miguel de Cervantes, ctor. In 1597, d', 'likes': 78}
+  In-degree: 2, Out-degree: 7
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:55
+    --[Comment_hasCreator_Person]--> Person:35184372099038
+    --[Comment_replyOf_Post]--> Post:1649268402528
+
+Node: Comment:2199024392358
+  Attributes: {'label': 'Comment', 'creationDate': '2012-10-08T06:36:18.120+00:00', 'id': 2199024392358, 'locationIP': '110.74.196.47', 'browserUsed': 'Firefox', 'content': 'no', 'likes': 2}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:67
+    --[Comment_hasCreator_Person]--> Person:17592186049799
+    --[Comment_replyOf_Post]--> Post:2199024392357
+
+Node: Comment:1924147636360
+  Attributes: {'label': 'Comment', 'creationDate': '2012-06-09T15:21:31.928+00:00', 'id': 1924147636360, 'locationIP': '27.106.80.206', 'browserUsed': 'Internet Explorer', 'content': 'LOL', 'likes': 3}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:0
+    --[Comment_hasCreator_Person]--> Person:28587302328777
+    --[Comment_replyOf_Comment]--> Comment:1511830775942
+
+Node: Post:1649272015444
+  Attributes: {'label': 'Post', 'creationDate': '2012-02-09T07:51:24.009+00:00', 'id': 1649272015444, 'imageFile': 'photo1649272015444.jpg', 'locationIP': '27.121.104.16', 'browserUsed': 'Firefox', 'language': None, 'content': None, 'likes': 0}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[Post_isLocatedIn_Country]--> Place:62
+    --[Post_hasCreator_Person]--> Person:17592186047045
+
+Node: Comment:2199025927527
+  Attributes: {'label': 'Comment', 'creationDate': '2012-10-31T18:22:32.940+00:00', 'id': 2199025927527, 'locationIP': '101.2.110.58', 'browserUsed': 'Firefox', 'content': 'no way!', 'likes': 7}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:0
+    --[Comment_hasCreator_Person]--> Person:2199023261649
+    --[Comment_replyOf_Comment]--> Comment:2199025927523
+
+Node: Post:1649267601707
+  Attributes: {'label': 'Post', 'creationDate': '2012-01-23T15:13:48.716+00:00', 'id': 1649267601707, 'imageFile': None, 'locationIP': '204.79.186.89', 'browserUsed': 'Firefox', 'language': 'uz', 'content': 'About First Philippine Republic,  and endured until the capture and surrender of Emilio Aguinaldo to the American', 'likes': 114}
+  In-degree: 3, Out-degree: 3
+  Sample out-edges:
+    --[Post_isLocatedIn_Country]--> Place:89
+    --[Post_hasCreator_Person]--> Person:15393162792064
+    --[Post_hasTag_Tag]--> Tag:11711
+
+Node: Comment:1924150472546
+  Attributes: {'label': 'Comment', 'creationDate': '2012-05-12T07:17:27.292+00:00', 'id': 1924150472546, 'locationIP': '14.134.15.85', 'browserUsed': 'Chrome', 'content': 'roflol', 'likes': 6}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:1
+    --[Comment_hasCreator_Person]--> Person:19791209304389
+    --[Comment_replyOf_Post]--> Post:1924150472541
+
+Node: Comment:1924146185233
+  Attributes: {'label': 'Comment', 'creationDate': '2012-06-24T15:58:23.091+00:00', 'id': 1924146185233, 'locationIP': '58.115.57.68', 'browserUsed': 'Chrome', 'content': 'right', 'likes': 5}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:94
+    --[Comment_hasCreator_Person]--> Person:8796093031391
+    --[Comment_replyOf_Comment]--> Comment:1924146185216
+
+Node: Post:1924147804958
+  Attributes: {'label': 'Post', 'creationDate': '2012-06-15T20:15:54.523+00:00', 'id': 1924147804958, 'imageFile': 'photo1924147804958.jpg', 'locationIP': '1.6.201.95', 'browserUsed': 'Firefox', 'language': None, 'content': None, 'likes': 0}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[Post_isLocatedIn_Country]--> Place:0
+    --[Post_hasCreator_Person]--> Person:8796093022955
+
+Node: Comment:2336467380634
+  Attributes: {'label': 'Comment', 'creationDate': '2012-11-23T23:19:33.784+00:00', 'id': 2336467380634, 'locationIP': '148.239.127.235', 'browserUsed': 'Internet Explorer', 'content': 'cool', 'likes': 4}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:53
+    --[Comment_hasCreator_Person]--> Person:10995116284986
+    --[Comment_replyOf_Comment]--> Comment:2336467380622
+
+Node: Comment:2199028073195
+  Attributes: {'label': 'Comment', 'creationDate': '2012-11-07T07:49:08.280+00:00', 'id': 2199028073195, 'locationIP': '14.0.15.124', 'browserUsed': 'Firefox', 'content': 'no', 'likes': 2}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:1
+    --[Comment_hasCreator_Person]--> Person:8796093031021
+    --[Comment_replyOf_Comment]--> Comment:1924150166248
+
+Node: Post:2061587300801
+  Attributes: {'label': 'Post', 'creationDate': '2012-08-02T22:13:51.158+00:00', 'id': 2061587300801, 'imageFile': 'photo2061587300801.jpg', 'locationIP': '14.213.225.201', 'browserUsed': 'Chrome', 'language': None, 'content': None, 'likes': 0}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[Post_isLocatedIn_Country]--> Place:1
+    --[Post_hasCreator_Person]--> Person:10995116287790
+
+Node: Comment:2336462926493
+  Attributes: {'label': 'Comment', 'creationDate': '2012-11-17T22:16:54.775+00:00', 'id': 2336462926493, 'locationIP': '196.192.37.223', 'browserUsed': 'Firefox', 'content': 'good', 'likes': 4}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:84
+    --[Comment_hasCreator_Person]--> Person:35184372095616
+    --[Comment_replyOf_Comment]--> Comment:2199023973018
+
+Node: Comment:1924148460698
+  Attributes: {'label': 'Comment', 'creationDate': '2012-05-23T02:49:05.087+00:00', 'id': 1924148460698, 'locationIP': '61.95.189.144', 'browserUsed': 'Chrome', 'content': 'no way!', 'likes': 7}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:0
+    --[Comment_hasCreator_Person]--> Person:28587302331208
+    --[Comment_replyOf_Comment]--> Comment:1099514739859
+
+Node: Forum:1374389587995
+  Attributes: {'label': 'Forum', 'creationDate': '2011-10-29T05:55:07.498+00:00', 'id': 1374389587995, 'title': 'Album 13 of Ae-ra Yoon'}
+  In-degree: 0, Out-degree: 19
+  Sample out-edges:
+    --[Forum_hasTag_Tag]--> Tag:6462
+    --[Forum_containerOf_Post]--> Post:1374392531759
+    --[Forum_containerOf_Post]--> Post:1374392531760
+
+Node: Post:137439270438
+  Attributes: {'label': 'Post', 'creationDate': '2010-03-07T11:00:28.907+00:00', 'id': 137439270438, 'imageFile': 'photo137439270438.jpg', 'locationIP': '41.196.188.7', 'browserUsed': 'Firefox', 'language': None, 'content': None, 'likes': 0}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[Post_isLocatedIn_Country]--> Place:74
+    --[Post_hasCreator_Person]--> Person:8647
+
+Node: Comment:1374390316704
+  Attributes: {'label': 'Comment', 'creationDate': '2011-10-17T00:24:39.701+00:00', 'id': 1374390316704, 'locationIP': '14.135.100.96', 'browserUsed': 'Firefox', 'content': 'yes', 'likes': 3}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:1
+    --[Comment_hasCreator_Person]--> Person:8796093024008
+    --[Comment_replyOf_Comment]--> Comment:1374390316698
+
+Node: Comment:2199028443986
+  Attributes: {'label': 'Comment', 'creationDate': '2012-09-21T07:40:00.092+00:00', 'id': 2199028443986, 'locationIP': '89.214.221.107', 'browserUsed': 'Internet Explorer', 'content': 'fine', 'likes': 4}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:93
+    --[Comment_hasCreator_Person]--> Person:4398046516814
+    --[Comment_replyOf_Comment]--> Comment:1924150537026
+
+Node: Post:1924146302707
+  Attributes: {'label': 'Post', 'creationDate': '2012-05-23T07:07:32.971+00:00', 'id': 1924146302707, 'imageFile': 'photo1924146302707.jpg', 'locationIP': '27.14.225.42', 'browserUsed': 'Firefox', 'language': None, 'content': None, 'likes': 0}
+  In-degree: 1, Out-degree: 2
+  Sample out-edges:
+    --[Post_isLocatedIn_Country]--> Place:1
+    --[Post_hasCreator_Person]--> Person:4398046517801
+
+Node: Comment:1649269545871
+  Attributes: {'label': 'Comment', 'creationDate': '2012-01-22T03:42:25.904+00:00', 'id': 1649269545871, 'locationIP': '190.15.158.17', 'browserUsed': 'Internet Explorer', 'content': 'yes', 'likes': 3}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:71
+    --[Comment_hasCreator_Person]--> Person:24189255818204
+    --[Comment_replyOf_Post]--> Post:1374391638923
+
+Node: Comment:1099512242511
+  Attributes: {'label': 'Comment', 'creationDate': '2011-05-28T13:31:51.210+00:00', 'id': 1099512242511, 'locationIP': '1.5.239.60', 'browserUsed': 'Chrome', 'content': 'thx', 'likes': 3}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:52
+    --[Comment_hasCreator_Person]--> Person:6597069773376
+    --[Comment_replyOf_Post]--> Post:1099512242509
+
+Node: Comment:2061584555561
+  Attributes: {'label': 'Comment', 'creationDate': '2012-07-25T08:39:33.518+00:00', 'id': 2061584555561, 'locationIP': '103.22.243.176', 'browserUsed': 'Internet Explorer', 'content': 'About Nelly Furtado, ith her debut album, Whoa, NeAbout Andrew Johnson, tary policies.', 'likes': 86}
+  In-degree: 3, Out-degree: 6
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:51
+    --[Comment_hasCreator_Person]--> Person:4398046519825
+    --[Comment_replyOf_Post]--> Post:1374389788195
+
+Node: Comment:2199026113326
+  Attributes: {'label': 'Comment', 'creationDate': '2012-10-03T03:20:49.610+00:00', 'id': 2199026113326, 'locationIP': '103.22.164.117', 'browserUsed': 'Firefox', 'content': 'right', 'likes': 5}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[Comment_isLocatedIn_Country]--> Place:51
+    --[Comment_hasCreator_Person]--> Person:30786325579007
+    --[Comment_replyOf_Post]--> Post:2199026113322
+

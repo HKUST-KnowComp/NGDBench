@@ -488,7 +488,7 @@ if __name__ == "__main__":
     import sys
     
     # 解析命令行参数，支持 --api-key 和 --base-url
-    api_key = "sk-edc6c171ed524d059e3053b33ea96705"
+    api_key = ""
     base_url = "https://dashscope.aliyuncs.com/compatible-mode/v1"
     model = "qwen2.5-7b-instruct"
     
@@ -549,7 +549,7 @@ if __name__ == "__main__":
         mode = sys.argv[1]
         input_file = sys.argv[2]
         output_file = sys.argv[3]
-        chunk_size = int(sys.argv[4]) if len(sys.argv) > 4 else 10
+        chunk_size = int(sys.argv[4]) if len(sys.argv) > 4 else 1
         
         print(f"开始翻译: {input_file} -> {output_file}")
         print(f"模式: {mode}, 批次大小: {chunk_size}")

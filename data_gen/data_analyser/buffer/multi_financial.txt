@@ -1,0 +1,216 @@
+============================================================
+Sample Nodes (30 nodes)
+============================================================
+
+Node: 0fbc8b7cd578122bf26505102452795f727b7a926ebb7aafe6f65e50eac82609
+  Attributes: {'id': 'significant losses', 'type': 'entity', 'file_id': '2d58f498318fc3db9e224adcf6926fb61463db11607cc340cbd73c39277919ec', 'concept': ['reduction', 'decline', 'damage', 'impairment', 'setback', 'losses']}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 2d58f498318fc3db9e224adcf6926fb61463db11607cc340cbd73c39277919ec
+
+Node: 343261203bdd95bdd8de2b9219734440ff690a8676f53c4843b545d2d5e20917
+  Attributes: {'id': 'At the Smarter Mobility Africa Summit, held in South Africa in October 2021, a notable highlight was the showcase of a compact electric microcar by Funky Electric.', 'type': 'event', 'file_id': 'c71dcc70b43cd6be3a3d03aa921f7f682a97910e26bc74af8e91033d3d840bee', 'concept': ['mobility', 'innovation', 'showcase', 'technology', 'exhibition']}
+  In-degree: 1, Out-degree: 5
+  Sample out-edges:
+    --[before]--> 042bcf1438bf1dd41697e2af1df2c11088e3475d577db0afe7f8ffa2f2221815
+    --[is participated by]--> b751726e5a922ce3131086eb0de9c390ee57bff8ac15fa98d5400fe8ebb9d552
+    --[is participated by]--> f11838c759fd259e6ed65cd705f4566085a350c7120d2a2d85829eed416c5cd2
+
+Node: 242ce0501cea55ccdfd186214112f2aae0c9dc41db39fe09e33b001ad3694881
+  Attributes: {'id': 'We have increasingly undertaken initiatives to deliver to insurance companies customizable and diversified portfolios of Blackstone products and strategies.', 'type': 'event', 'file_id': '47d016f8f6d280f319039e55a720bc0bd44ae995689319efc4244b7956637698', 'concept': ['collaboration', 'business', 'innovation', 'strategy', 'diversification']}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is participated by]--> e66e8424516c4ccb411e16be9392316fb94fb281faedb1875397e4645126e5f8
+    --[is participated by]--> 5a2ef0881d2db1e9d5e3e529176390923250c7571e46812d262386d878eab57f
+    --[mention in]--> 47d016f8f6d280f319039e55a720bc0bd44ae995689319efc4244b7956637698
+
+Node: ecec2d1c221c96a425b0859c89ab6d4ba6f55cdfd0b2fcd9289cac4235e3a95d
+  Attributes: {'id': 'Options trading shall terminate on the same date and time as the underlying futures contract.', 'type': 'event', 'file_id': '6da1655c785b4baef122554631069d247ea219bc823d121bfe30518ee16b1929', 'concept': ['expiration', 'synchronization', 'contract end', 'market closure', 'termination']}
+  In-degree: 0, Out-degree: 2
+  Sample out-edges:
+    --[after]--> e603ed29583c8c3c2eff2d9005f03d0c16f7111c533f3d8b3f4d58ede990fce3
+    --[mention in]--> 6da1655c785b4baef122554631069d247ea219bc823d121bfe30518ee16b1929
+
+Node: 71499244461c80ba3bae23df31d2ea99d2b379d77ac95bf03c2917413907d861
+  Attributes: {'id': 'written revocation', 'type': 'entity', 'file_id': '730178c8d88e8c4a610ab17b85d22bec04485ca3560dfc6919128aa99588561f', 'concept': ['notice', 'withdrawal', 'official document', 'paper', 'cancellation', 'document']}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 730178c8d88e8c4a610ab17b85d22bec04485ca3560dfc6919128aa99588561f
+
+Node: 8134d60d502ce03a0573226b9a936054aa2e825a6ec74854579160fd0d593d19
+  Attributes: {'id': "JD.com's Security Department carries out at least 1,700 stress tests per year.", 'type': 'event', 'file_id': 'a746a24d07dad96b67524f466c68148db3a6222ec0e2a26252b2abb9bb9adc06', 'concept': ['assessment', 'security', 'prevention', 'protection', 'testing']}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is participated by]--> 576621d51bb44ca4391763142daa3c40d3c712e8ca961e647d250af9073bbf9c
+    --[is participated by]--> 9967d3f114cd8d722ecddf1b985de2830d0dc8e46cb3acbe100376622583a9c7
+    --[mention in]--> a746a24d07dad96b67524f466c68148db3a6222ec0e2a26252b2abb9bb9adc06
+
+Node: 87301ef9b4b109d9c3b58aa1937c6716db8abcc5dc9a65f45b59d08925d39532
+  Attributes: {'id': 'Nasdaq Stock Market Rule 4121 is for Trading Halts Due to Extraordinary Volatility.', 'type': 'event', 'file_id': '5ce185b524ee6adbcb27c6e4e3400c7dfd70bb3f765c557f65cf1a63d702a118', 'concept': ['volatility', 'market regulation', 'trading halt', 'stability', 'monitoring']}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is participated by]--> 5aa090036237ec14901e4c388059c97d41b296f9e1d9993536132a2c8eb5ea05
+    --[is participated by]--> dc3bb2f4a7de4a0e467a84e22b9de112ae876cef7747f408f37aff74ab4e0bb5
+    --[mention in]--> 5ce185b524ee6adbcb27c6e4e3400c7dfd70bb3f765c557f65cf1a63d702a118
+
+Node: e75e4c2d9d71e892df727fe1d2a9daffb322f2e96469842ae89ab11ec1297b3f
+  Attributes: {'id': 'Nine-Month Mid-Curve Options in the March Quarterly Cycle have specific underlying futures contracts.', 'type': 'event', 'file_id': 'dcd5dcdb5000607ecbaee810dc29b98400b0afbe56b871b7d8c9261363887192', 'concept': ['trading', 'futures', 'derivatives', 'finance', 'options']}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is participated by]--> 6da8b226ce7633fd1843a8c041db02a45d8e1425a6d2b190bbfaf2740e7deaba
+    --[is participated by]--> 5de5683a9387203ce72dfefa56ead4c2d7d06e5afe0f3825a6da3dc1bc9197cb
+    --[mention in]--> dcd5dcdb5000607ecbaee810dc29b98400b0afbe56b871b7d8c9261363887192
+
+Node: 726911afc7c51143074ecbd4349dda47624a42e58e848aac1ffcf415b4a3b4a4
+  Attributes: {'id': 'registered investment advisers to distribute quarterly statements', 'type': 'entity', 'file_id': 'eb4bb8b0aab15f68af77c3f904bfddc94a5197bb6d5386a172df46907045108c', 'concept': ['advisers', 'compliance', 'reporting', 'regulation', 'statement', 'finance', 'investment']}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> eb4bb8b0aab15f68af77c3f904bfddc94a5197bb6d5386a172df46907045108c
+
+Node: 050b084a50ad1703570484b61964aabd1eb2f3831c0442c2ca355b540ae61bdf
+  Attributes: {'id': 'Gen X and Boomer consumers', 'type': 'entity', 'file_id': '1af0d994d29435e89db00be1181e3492631d57e89b362d62720d8eec69ac0ab1', 'concept': ['market', 'users', 'generation', 'buyers', 'consumers', 'audience', 'demographic']}
+  In-degree: 0, Out-degree: 2
+  Sample out-edges:
+    --[prefer]--> b1c802201295b224d431c3cceca4f18918b5052d1b46dc2e3c50f429d34557af
+    --[mention in]--> 1af0d994d29435e89db00be1181e3492631d57e89b362d62720d8eec69ac0ab1
+
+Node: 2ee26bbb8782c871a86e0190e38580b5b10ef0f673c22ee0c3287912e0a869c1
+  Attributes: {'id': 'The response of Fama-French industry portfolios to federal funds rate changes', 'type': 'event', 'file_id': '4f4bb0170dddf2c8fc0a39e8b53ad9472805106be1eef9b1975b14d69bfbbbd4', 'concept': ['market response', 'interest rates', 'economy', 'finance', 'investment']}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is participated by]--> f1929f6d54201026c275a28c6806e239cfafae635e52db525ee8fd29ec93b7c9
+    --[is participated by]--> 53139264750e2c607a46ef96eec4eabc8480eefa40159f27caa97a01f194168b
+    --[mention in]--> 4f4bb0170dddf2c8fc0a39e8b53ad9472805106be1eef9b1975b14d69bfbbbd4
+
+Node: 22f81f4d41bc586bfbedd80cf90e7ea4cb633623121ff5cd5d4cbbe53483430d
+  Attributes: {'id': 'The Board amended the rules on December 15, 2011.', 'type': 'event', 'file_id': '37dcf68415c82668d3d178c3f4eb3b5745a545bd9dbc252e8ad72806071587e0', 'concept': ['decision making', 'policy amendment', 'regulation update', 'rules change', 'governance']}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[after]--> d7f0056547fd1a3276dc3d548651e5369728c228945a15b266fac3e55eb13055
+    --[before]--> 617e2853e16dcb447ed2113cfdc3ded3b08f04012cabd45a46234a3a43b43876
+    --[mention in]--> 37dcf68415c82668d3d178c3f4eb3b5745a545bd9dbc252e8ad72806071587e0
+
+Node: 537f48ace9cd67318a4f86fc1ef71185a6d06da75d04a566e6d31a12c8b2588e
+  Attributes: {'id': 'Gorchakova provided details about EU citizenship by investment.', 'type': 'event', 'file_id': 'e04de067b6cde695595cd48211fe55d7d133130ddd86d11f3bb344378bab855b', 'concept': ['citizenship', 'detail', 'information', 'policy', 'investment']}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is participated by]--> a6b728b520e01b713ff3a195f36c8ed6cfa783589c313d2a799936aa9f925a56
+    --[is participated by]--> 7c95d3b0c35f79eb18d6def92fa22c71a66ffc483b464490d02fe5b70f8def11
+    --[mention in]--> e04de067b6cde695595cd48211fe55d7d133130ddd86d11f3bb344378bab855b
+
+Node: 09a0f4f04d09a3a755e923dc06bfa7f19a295d55f2f21d409307265ae7029d6a
+  Attributes: {'id': 'complete documentary instructions', 'type': 'entity', 'file_id': '6810cb1281328e39f1f3a2570d2044495fac14c4ebf955aa45e014ba4ee97009', 'concept': ['tutorial', 'instructions', 'process', 'steps', 'procedure', 'guide', 'manual']}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 6810cb1281328e39f1f3a2570d2044495fac14c4ebf955aa45e014ba4ee97009
+
+Node: 145fd60544c607f8c79f5bedaaa3f087cd81473d4b197be78573ba2f6af7105a
+  Attributes: {'id': "NIKE's Class B Common Stock", 'type': 'entity', 'file_id': '1f52e840d93da989e9e869f7dd3af58f70bc78a30a49f551b474c9e6bbc3e56a', 'concept': ['company', 'share', 'equity', 'ownership', 'finance', 'investment', 'stock']}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 1f52e840d93da989e9e869f7dd3af58f70bc78a30a49f551b474c9e6bbc3e56a
+
+Node: 7cec57cf1b3e0bb811a7f217d6cbe6199bfbc128fde46e9c56f9da2d3ad09077
+  Attributes: {'id': 'warrants', 'type': 'entity', 'file_id': '6b7c5efdba6ab3af12d486b75c68d9037e7647b91b9d880cbbeaf156d4c9bc2e', 'concept': ['certificates', 'orders', 'documents', 'legal', 'authority', 'permissions']}
+  In-degree: 3, Out-degree: 4
+  Sample out-edges:
+    --[redeemable]--> 582c449c4427f5c961a572ee38a9f2eae383a1023b4a3e40c28eb6a683f4d5e8
+    --[redeemable]--> 248ddfa5980d70d7cf9384de49fbf13bff0ad4b9fbd3acd6c47c82479e0bc319
+    --[provide]--> f4032c0bc0e765057fd90c4148e7583b540f66c8d11aed0d50bd0f9df1c78617
+
+Node: 54806fea4c52684464a112c5c5fe3ccac381451091b8e5588cf884e876fbd91c
+  Attributes: {'id': 'Mantianxing Project', 'type': 'entity', 'file_id': 'a1fef2c1bd73410cead3bc9303b04c865c6cc434e68e6723e94bec2aacf781fc', 'concept': ['development', 'construction', 'initiative', 'project', 'innovation', 'infrastructure', 'technology']}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> a1fef2c1bd73410cead3bc9303b04c865c6cc434e68e6723e94bec2aacf781fc
+
+Node: af80fb4bb70a63fc78f7ff4c18214554c3233d1ceba8e3c7bc60d70d04baa6d9
+  Attributes: {'id': 'The hours of trading in MSCI EM ex China ex Taiwan Index Futures Contracts shall be determined by the Exchange.', 'type': 'event', 'file_id': 'd74b3c7e19511633f66f958cf7f43e810bffa37aba560c00deb9b11de94034e5', 'concept': ['trading', 'futures', 'market', 'regulation', 'finance']}
+  In-degree: 0, Out-degree: 2
+  Sample out-edges:
+    --[is participated by]--> 3deaeeebfd1412f41d09a90d61d1048cd6ab201e4461e027300ff4408daa6eaf
+    --[mention in]--> d74b3c7e19511633f66f958cf7f43e810bffa37aba560c00deb9b11de94034e5
+
+Node: 628d7f610f7efaea4c8e8e51037aa614a70b1e37d695aba346ff0f66ff2c22ed
+  Attributes: {'id': 'The Warrant Issuer invoices the Delivery Certificate Holder for the appropriate premium(s).', 'type': 'event', 'file_id': '38c79cd5bb2d1cef069920290a1bc8038ab4dbbf1f2cac5c5c52919ce0cd617e', 'concept': ['transaction', 'finance', 'certification', 'payment', 'invoicing']}
+  In-degree: 0, Out-degree: 4
+  Sample out-edges:
+    --[is participated by]--> 293740cb76e25e9cd49dd9388bc5de70c4f87096e3d4037fb2f0e040a55668d3
+    --[is participated by]--> 3030107705951db3bf1fe3a03db48a9b1060b51182d9bba53a72acd5a4b70236
+    --[is participated by]--> 840a7502675d84a43f31f5b7e52dfc8bf16bda4d8ec4123b268c7cb3da36e2a3
+
+Node: 9ce0d1c039c65436dcf9cc8a902175a6da6a7d41dd322d57081ee545728a3417
+  Attributes: {'id': 'Scoot Henderson was partnered with PUMA.', 'type': 'event', 'file_id': '32ab12b3957f845e9a3f0e67a1bf851325efd72c4dcbbf1829bd327a75cc4520', 'concept': ['collaboration', 'partnering', 'association', 'teamwork', 'joining']}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is participated by]--> fc89bc570e06fc7529116b048904ddfbf3b8e144053d7edc7bc4c1e45ba70523
+    --[is participated by]--> ec80bdccada60aba3c33a77368567615fb1ebca7bdbfa0f8a0004526730d918b
+    --[mention in]--> 32ab12b3957f845e9a3f0e67a1bf851325efd72c4dcbbf1829bd327a75cc4520
+
+Node: f49892f9f6d292df368c062e745231c5f397138c702d6d3672c99ade66f3c19b
+  Attributes: {'id': 'The Final Settlement Price shall be determined on the second to last Business Day of the contract month.', 'type': 'event', 'file_id': '34633c6f8bb0aedc191dbdd06a192b07777fa74908c4f68e6d669c6122053d98', 'concept': ['deadline', 'settlement', 'contract', 'negotiation', 'pricing']}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is participated by]--> b9eb3f7efce7258da823348b1eb1dd31cff4d21f0e45b975d5123ab2f35cc9d7
+    --[is participated by]--> c2b16ea032720d110c50582fef2add0d06f37f8fdce2978bec658eaecc8066f9
+    --[mention in]--> 34633c6f8bb0aedc191dbdd06a192b07777fa74908c4f68e6d669c6122053d98
+
+Node: 146519ab987496a12ad6cea039cf3048e5a53bb0d6a3774e29201f203055782b
+  Attributes: {'id': 'The Exchange establishes requirements and conditions for approval of regularity.', 'type': 'event', 'file_id': 'b19d3201132c503d968ac74f872b166043a014606666e8f168c0a0f81feb055b', 'concept': ['criteria', 'compliance', 'regulation', 'establishment', 'approval']}
+  In-degree: 0, Out-degree: 2
+  Sample out-edges:
+    --[is participated by]--> 3deaeeebfd1412f41d09a90d61d1048cd6ab201e4461e027300ff4408daa6eaf
+    --[mention in]--> b19d3201132c503d968ac74f872b166043a014606666e8f168c0a0f81feb055b
+
+Node: 9ddab71f0c75985453de52e2957cc54cf9018aac9ae1560599330e5d7ea6aa8f
+  Attributes: {'id': 'Our investments are growing as we pursue our IDM 2.0 strategy.', 'type': 'event', 'file_id': '0a85daecda22b469f017c8d31a2a2fdb9751ff33f3df6a3fe562735cb7acd508', 'concept': ['expansion', 'strategy', 'progress', 'growth', 'investment']}
+  In-degree: 0, Out-degree: 2
+  Sample out-edges:
+    --[because]--> 83dcd9cddcabd3ff7b3594e4787bd8174298848c11d5eebefcc215f498db452b
+    --[mention in]--> 0a85daecda22b469f017c8d31a2a2fdb9751ff33f3df6a3fe562735cb7acd508
+
+Node: 1a1cc1f588733c17d023a0a75900253da87a4bdd03d3c9de8a3f17d79f86d68a
+  Attributes: {'id': 'growth cap', 'type': 'entity', 'file_id': 'bad22a448f24477f0f464ef8312672cd5a3fa3e69d90bf410ddb549eef1cef29', 'concept': ['ceiling', 'threshold', 'regulation', 'restriction', 'limit']}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> bad22a448f24477f0f464ef8312672cd5a3fa3e69d90bf410ddb549eef1cef29
+
+Node: 8b712b03f33349f68d4cddcbcd2e2aebb6727159b2799852f2cb38eef572e58e
+  Attributes: {'id': 'OASE® blue technology', 'type': 'entity', 'file_id': '0a0aa8ce46b5af11e226e277c4f3a9db48412139b69c01a520aedb2c57fa6fd0', 'concept': ['solution', 'process', 'efficiency', 'system', 'innovation', 'technology', 'cleanup']}
+  In-degree: 0, Out-degree: 2
+  Sample out-edges:
+    --[removes]--> 377847a8ecdd01a2319e723117e1761198988709e2663bd22c73fc0b665616d1
+    --[mention in]--> 0a0aa8ce46b5af11e226e277c4f3a9db48412139b69c01a520aedb2c57fa6fd0
+
+Node: 35e6f231ae7d9ebf60e3961aa3627ed5d7ad8d2eb5995b4952d04483563df80f
+  Attributes: {'id': 'The number of contract months listed for trading shall be determined by the Exchange.', 'type': 'event', 'file_id': '56373a9d2b97a1586791bf9e75bb0672e23c216760d5fe8a83ebe84e9b26d141', 'concept': ['trading', 'determination', 'regulation', 'exchange', 'contracts']}
+  In-degree: 0, Out-degree: 3
+  Sample out-edges:
+    --[is participated by]--> 6db6b64142b516a3ab5d735ddf10f4b5d4788ef3c4e320a3b73a0e3098f509f4
+    --[is participated by]--> 3deaeeebfd1412f41d09a90d61d1048cd6ab201e4461e027300ff4408daa6eaf
+    --[mention in]--> 56373a9d2b97a1586791bf9e75bb0672e23c216760d5fe8a83ebe84e9b26d141
+
+Node: b6472a80db752a20c1c97b4fef2841bedb1f00f8818df98233534b68fdc92e01
+  Attributes: {'id': 'a number of factors', 'type': 'entity', 'file_id': '1beb5783fc7050dbae4ab2e3aa9f7b06ebb2c27b95e2e8760841ad3e80070108', 'concept': ['conditions', 'factors', 'components', 'elements', 'influences', 'aspects', 'variables']}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 1beb5783fc7050dbae4ab2e3aa9f7b06ebb2c27b95e2e8760841ad3e80070108
+
+Node: 36d1b9cdc60e95f9d49987e7e9e37590bd9df4a24a90e948eb6c329199bb4032
+  Attributes: {'id': 'at 3:00 p.m.', 'type': 'entity', 'file_id': '446245c98962742586c75bbccd6ac6914788d1e75e7cd35148054a4d8307e3fa', 'concept': ['moment', 'afternoon', 'hour', 'schedule', 'time']}
+  In-degree: 3, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 446245c98962742586c75bbccd6ac6914788d1e75e7cd35148054a4d8307e3fa
+
+Node: a69cc9debafde5370c8363ff1a711526c43301f9a7d46181d368cb68ebd5b8a9
+  Attributes: {'id': 'The scope of the chapter is defined for Nasdaq-100 Annual Dividend Index Futures.', 'type': 'event', 'file_id': 'daaff01bc5b575e0674ec510be6922694ab0742cdf0bfe6ea5273ee6b3b03ad3', 'concept': ['futures', 'definition', 'indexing', 'finance', 'investment']}
+  In-degree: 2, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> daaff01bc5b575e0674ec510be6922694ab0742cdf0bfe6ea5273ee6b3b03ad3
+
+Node: 18c4b66e580a80bd2800306732f532eedb44efc3b27c14bb5fa8f09e9d3f02e3
+  Attributes: {'id': 'Comparable store sales for fiscal 2024 were flat.', 'type': 'event', 'file_id': '28603e12a74691a4d139acd0418f4f4dff5a96dddf668e57206adadde7b10a70', 'concept': ['sales', 'revenue', 'performance', 'comparison', 'stability']}
+  In-degree: 1, Out-degree: 1
+  Sample out-edges:
+    --[mention in]--> 28603e12a74691a4d139acd0418f4f4dff5a96dddf668e57206adadde7b10a70
+
