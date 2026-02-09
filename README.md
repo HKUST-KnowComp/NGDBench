@@ -1,130 +1,134 @@
 # NGDB Benchmark
 
 Our dataset is available at [https://huggingface.co/datasets/FeifeiCS/NGDBench](https://huggingface.co/datasets/FeifeiCS/NGDBench)
-## 目录
 
-- [用户指南](#用户指南)
-- [Neo4j 使用](#neo4j-使用)
-- [数据生成模块状态](#数据生成模块状态)
-- [使用指南](#使用指南)
-- [生成的数据集](#生成的数据集)
+## Table of Contents
 
-## 用户指南
+- [User Guide](#user-guide)
+- [Using Neo4j](#using-neo4j)
+- [Status of Data Generation Modules](#status-of-data-generation-modules)
+- [Usage Guide](#usage-guide)
+- [Generated Datasets](#generated-datasets)
 
-### 1. 数据转换为图格式
+## User Guide
 
-将数据转换为图的形式（`.gpickle` 或 `.graphml`）：
+### 1. Convert Data to Graph Format
+
+Convert the data into graph format (`.gpickle` or `.graphml`):
 
 ```bash
 cd data_gen/graph_gen
 python run.py
 ```
 
-### 2. 模拟噪声图
+### 2. Simulate Noisy Graphs
 
-生成噪声图并记录噪声点的位置：
+Generate noisy graphs and record the positions of noisy nodes:
 
 ```bash
 cd data_gen
 python graph_generator.py
 ```
 
-### 3. 构建数据库容器
+### 3. Build Database Containers
 
-如果需要自己建数据库容器（可以先用已建好的）：
+If you need to build your own database containers (you can also directly use the prebuilt ones):
 
 ```bash
 cd pipeline/db_builder
 python test_build.py
 ```
 
-### 4 生成检测查询
-#### 4.1 
-在噪声图上生成检测查询（噪声点和干净点上的复杂查询检测），在干净图上生成增删改相关的查询。
+### 4. Generate Detection Queries
 
-查询分为几类：
-- **complex1**: 复杂查询类型1  1/16 （分三类模版： 不含agg的查询，含有agg的查询，链式查询返回abd的 ）
-- **complex2**: 复杂查询类型2（判断题） 1w - 200 
-- **management**: 管理查询（增删改）1w - 2k （见下一节）
+#### 4.1
+
+On the noisy graph, generate detection queries (complex queries on noisy and clean nodes); on the clean graph, generate queries related to insert, delete, and update operations.
+
+The queries are divided into several categories:
+
+- **complex1**: Complex query type 1, 1/16 (three template categories: queries without aggregation, queries with aggregation, and chain queries returning a, b, d)
+- **complex2**: Complex query type 2 (judgment questions), about 1w–200 queries
+- **management**: Management queries (insert/delete/update), about 1w–2k queries (see the next section)
 
 ```bash
 cd pipeline/query_gen
 python qgen_test_noise
-
 ```
 
-在 query_module 执行噪声图查询（complex1和complex2需要）
-往干净图运行生成的文件里加入噪声图上的运行结果
+In the `query_module`, execute queries on the noisy graph (required for `complex1` and `complex2`), and then add the execution results on the noisy graph into the files of queries executed on the clean graph.
 
 #### 4.2
 
+(Reserved for additional query generation steps.)
 
+### 5. Clean Query Results
 
-### 5. 清洗查询结果
+Clean and post-process the query result data.
 
-清洗查询结果数据。
-
-### 6. 生成 NLP 描述
+### 6. Generate NLP Descriptions
 
 ```bash
 cd pipeline/handler
 python translate.py
 ```
 
-**注意**: 记得修改文件名; 
-由于模版为了可拓展性没有加返回限制，所以complex1的query可能都是return a结尾的，最后要给查询加上属性 return a._node_id(对于ldbc数据集是_node_id，对于primekg可以是x_id,x_type,x_name三个一起返回)
+**Note**: Remember to modify the file name.  
+For extensibility, the templates do not set explicit return limits, so `complex1` queries may all end with `return a`. Finally, you need to add an attribute to the query such as `return a._node_id` (for the LDBC dataset this is `_node_id`; for PrimeKG this can be `x_id`, `x_type`, and `x_name` returned together).
 
-## Neo4j 使用
+## Using Neo4j
 
-### 基本用法
+### Basic Usage
 
-详见 `pipeline/query_module/db_base.py`
+See `pipeline/query_module/db_base.py` for details.
 
 ```python
 uri = "bolt://localhost:7693"
 user = "neo4j"
 password = "fei123456"
 
-# 输入和输出文件路径
+# Input and output file paths
 input_json_file = "../query_gen/query/ldbc_snb_finbench/noise_query_results_ldbcfin_cleaned.json"
 output_json_file = "noise_execution_step1_ldbcfin_results.json"
 
-# 创建数据库执行器
+# Create database executor
 executor = DatabaseExecutor(uri, user, password)
 
 try:
-    # 连接数据库
+    # Connect to the database
     executor.connect()
     
-    # 读取查询
+    # Read queries
     queries = executor.read_queries_from_json(input_json_file)
     
-    # 执行查询并比较结果，启用增量保存（一边执行一边记录）
+    # Execute queries and compare results, enabling incremental saving
     results = executor.execute_queries_batch(
         queries, 
         compare_with_original=True,
-        incremental_save=True,  # 启用增量保存
+        incremental_save=True,  # enable incremental save
         output_file_path=output_json_file
     )
 finally:
     executor.close()
 ```
 
-
-### 待完成功能
+### TODO Features
 
 - 🚧 
 - 🚧 
 
-## 使用指南
+## Status of Data Generation Modules
 
-关于如何使用 `data_gen` 模块的详细说明，请参阅 [data_gen/readme.md](data_gen/readme.md)。
+This section is under construction and will be updated with the progress and status of each data generation component.
 
-## 生成的数据集
+## Usage Guide
 
-当前生成的数据集存储在：
+For detailed instructions on how to use the `data_gen` module, please refer to [data_gen/readme.md](data_gen/readme.md).
+
+## Generated Datasets
+
+The currently generated datasets are stored at:
 
 - **GPU8**: `/data/ylivm/ngdb_benchmark/data_gen/perturbed_dataset`
-- **扰动记录**: `/data/ylivm/ngdb_benchmark/data_gen/perturb_record`
-
+- **Perturbation Records**: `/data/ylivm/ngdb_benchmark/data_gen/perturb_record`
 
