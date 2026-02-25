@@ -1,0 +1,1186 @@
+[
+  {
+    "operation": "CREATE",
+    "templates": [
+      {
+        "difficulty": 1,
+        "title": "创建节点并验证全局聚合",
+        "pre_validation": "MATCH (a:$LABEL) RETURN avg(a.$PROP) AS avg_value",
+        "template": "CREATE (n:$LABEL {$PROP: $VALUE})",
+        "post_validation": "MATCH (a:$LABEL) RETURN avg(a.$PROP) AS avg_value",
+        "parameters": {
+          "LABEL": "string",
+          "PROP": "string",
+          "VALUE": "string"
+        },
+        "example": "创建一个节点并观察该标签下某属性平均值的变化。"
+      },
+      {
+        "difficulty": 2,
+        "title": "创建节点并验证关联分组统计",
+        "pre_validation": "MATCH (g:$GROUP_LABEL)<-[:$REL]-(n:$LABEL) RETURN g.$GROUP_PROP, count(n) AS cnt",
+        "template": "CREATE (n:$LABEL {$PROP: $NAME})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID})",
+        "post_validation": "MATCH (g:$GROUP_LABEL)<-[:$REL]-(n:$LABEL) RETURN g.$GROUP_PROP, count(n) AS cnt",
+        "parameters": {
+          "GROUP_LABEL": "string",
+          "REL": "string",
+          "LABEL": "string",
+          "GROUP_PROP": "string",
+          "PROP": "string",
+          "NAME": "string",
+          "GID": "string",
+          "PROP_ID": "string"
+        },
+        "example": "创建节点并建立关系，验证所属分组的成员数量是否增加。"
+      },
+      {
+        "difficulty": 3,
+        "title": "创建关系并验证路径链存在性",
+        "pre_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3) RETURN count(*) AS cnt",
+        "template": "MATCH (a:$L1 {$PROP_ID1: $ID1}), (b:$L2 {$PROP_ID2: $ID2}) CREATE (a)-[:$R1]->(b)",
+        "post_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3) RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "L3": "string",
+          "R1": "string",
+          "R2": "string",
+          "ID1": "string",
+          "ID2": "string",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "创建一段关系，验证是否补全了一条三层深度的供应或逻辑链。"
+      },
+      {
+        "difficulty": 4,
+        "title": "创建节点并验证属性过滤聚合",
+        "pre_validation": "MATCH (a:$LABEL1)-[r:$REL_TYPE]-(b:$LABEL2) WHERE r.$REL_PROP > $VAL RETURN count(a) AS cnt",
+        "template": "CREATE (a:$LABEL1)-[r:$REL_TYPE {$REL_PROP: $NEW_VAL}]->(b:$LABEL2 {$PROP_ID: $BID})",
+        "post_validation": "MATCH (a:$LABEL1)-[r:$REL_TYPE]-(b:$LABEL2) WHERE r.$REL_PROP > $VAL RETURN count(a) AS cnt",
+        "parameters": {
+          "LABEL1": "string",
+          "LABEL2": "string",
+          "REL_TYPE": "string",
+          "REL_PROP": "string",
+          "VAL": "integer",
+          "NEW_VAL": "integer",
+          "BID": "string",
+          "PROP_ID": "string"
+        },
+        "example": "创建带属性的关系，验证满足特定阈值的关系总数。"
+      },
+      {
+        "difficulty": 5,
+        "title": "创建节点并验证嵌套循环引用",
+        "pre_validation": "MATCH (a:$L1) MATCH (b:$L2) WHERE a.$P1 = b.$P2 RETURN count(b) AS cnt",
+        "template": "CREATE (n:$L1 {$P1: $VAL})",
+        "post_validation": "MATCH (a:$L1) MATCH (b:$L2) WHERE a.$P1 = b.$P2 RETURN count(b) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "VAL": "string",
+          "PROP_ID": "string"
+        },
+        "example": "创建节点后，通过非关系型的属性关联（Join）检查匹配对数量。"
+      },
+      {
+        "difficulty": 6,
+        "title": "创建节点并验证多级路径平均长度",
+        "pre_validation": "MATCH p = (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN avg(length(p)) AS avg_len",
+        "template": "MATCH (a:$L1 {$PROP_ID1: $ID1}), (b:$L2 {$PROP_ID2: $ID2}) CREATE (a)-[:$R]->(b)",
+        "post_validation": "MATCH p = (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN avg(length(p)) AS avg_len",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "R": "string",
+          "MIN_HOPS": "integer",
+          "MAX_HOPS": "integer",
+          "ID1": "string",
+          "ID2": "string",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "创建连接后，验证图中特定标签间变长路径的平均深度变化。"
+      },
+      {
+        "difficulty": 7,
+        "title": "创建节点并验证 Top-N 收集结果",
+        "pre_validation": "MATCH (g:$GL {$PROP_ID: $GID})<-[:$R]-(n:$L {$P: $V}) RETURN count(n) AS exists",
+        "template": "CREATE (n:$L {$P: $V})-[:$R]->(g:$GL {$PROP_ID: $GID})",
+        "post_validation": "MATCH (g:$GL {$PROP_ID: $GID})<-[:$R]-(n:$L {$P: $V}) RETURN count(n) AS exists",
+        "parameters": {
+          "GL": "string",
+          "R": "string",
+          "L": "string",
+          "P": "string",
+          "V": "integer",
+          "GP": "string",
+          "GID": "string",
+          "PROP_ID": "string"
+        },
+        "example": "创建节点并关联分组，验证其是否进入了该分组的 Top-5 列表。"
+      },
+      {
+        "difficulty": 8,
+        "title": "创建节点并验证跨标签 Join 统计",
+        "pre_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 AND a <> b RETURN count(*) AS cnt",
+        "template": "CREATE (n:$L1 {$P1: $VAL})",
+        "post_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 AND a <> b RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "VAL": "string",
+          "PROP_ID": "string"
+        },
+        "example": "创建节点后，检查跨标签的属性对等连接总数。"
+      },
+      {
+        "difficulty": 9,
+        "title": "创建节点并验证复杂排他性逻辑",
+        "pre_validation": "MATCH (a:$L1 {$P1: $V}), (b:$L2) WHERE NOT (a)-[:$R]->(b) RETURN count(b) AS cnt",
+        "template": "MATCH (a:$L1 {$PROP_ID1: $AID}), (b:$L2 {$PROP_ID2: $BID}) CREATE (a)-[:$R]->(b)",
+        "post_validation": "MATCH (a:$L1 {$P1: $V}), (b:$L2) WHERE NOT (a)-[:$R]->(b) RETURN count(b) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "V": "string",
+          "R": "string",
+          "AID": "string",
+          "BID": "string",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "创建关系后，验证未建立连接的候选节点数量是否减少。"
+      },
+      {
+        "difficulty": 10,
+        "title": "创建节点并验证四层链条聚合",
+        "pre_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3)-[:$R3]->(d:$L4) RETURN avg(d.$NP) AS final_avg",
+        "template": "CREATE (n:$L4 {$NP: $VAL})<-[:$R3]-(c:$L3 {$PROP_ID: $CID})",
+        "post_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3)-[:$R3]->(d:$L4) RETURN avg(d.$NP) AS final_avg",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "L3": "string",
+          "L4": "string",
+          "R1": "string",
+          "R2": "string",
+          "R3": "string",
+          "NP": "string",
+          "VAL": "integer",
+          "CID": "string",
+          "PROP_ID": "string"
+        },
+        "example": "在长链末端创建节点，验证整条业务链末端数值的平均影响。"
+      },
+      {
+        "difficulty": 11,
+        "title": "创建节点并验证无关标签的全局聚合",
+        "pre_validation": "MATCH (a:$L2) RETURN sum(a.$P2) AS total",
+        "template": "CREATE (n:$L1 {$PROP: $VALUE})",
+        "post_validation": "MATCH (a:$L2) RETURN sum(a.$P2) AS total",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "PROP": "string",
+          "P2": "string",
+          "VALUE": "string"
+        },
+        "example": "创建节点后，验证其他无关标签的数值总和是否保持稳定。"
+      },
+      {
+        "difficulty": 12,
+        "title": "创建关系并验证无关路径的计数",
+        "pre_validation": "MATCH (a:$L3)-[:$R2]->(b:$L4) RETURN count(*) AS cnt",
+        "template": "MATCH (a:$L1 {$PROP_ID1: $ID1}), (b:$L2 {$PROP_ID2: $ID2}) CREATE (a)-[:$R1]->(b)",
+        "post_validation": "MATCH (a:$L3)-[:$R2]->(b:$L4) RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "L3": "string",
+          "L4": "string",
+          "R1": "string",
+          "R2": "string",
+          "ID1": "string",
+          "ID2": "string",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "创建一种类型的关系后，验证其他无关路径类型的数量是否保持不变。"
+      },
+      {
+        "difficulty": 13,
+        "title": "创建节点并验证无关标签的属性平均值",
+        "pre_validation": "MATCH (a:$L2) RETURN avg(a.$P2) AS avg_val",
+        "template": "CREATE (n:$L1 {$P1: $VAL})",
+        "post_validation": "MATCH (a:$L2) RETURN avg(a.$P2) AS avg_val",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "VAL": "string"
+        },
+        "example": "创建节点后，验证其他无关标签的属性平均值是否保持稳定。"
+      }
+    ]
+  },
+  {
+    "operation": "MERGE",
+    "templates": [
+      {
+        "difficulty": 1,
+        "title": "幂等合并并验证总和",
+        "pre_validation": "MATCH (a:$LABEL) RETURN sum(a.$PROP) AS total",
+        "template": "MERGE (n:$LABEL {$PROP_ID: $VALUE}) SET n.$PROP = $VAL",
+        "post_validation": "MATCH (a:$LABEL) RETURN sum(a.$PROP) AS total",
+        "parameters": {
+          "LABEL": "string",
+          "PROP": "string",
+          "VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "合并节点并更新数值，验证全局总和的变化。"
+      },
+      {
+        "difficulty": 2,
+        "title": "合并关系并验证扩展计数",
+        "pre_validation": "MATCH (n:$L1 {$P: $V})-[:$R]->(m) RETURN count(m) AS cnt",
+        "template": "MATCH (a:$L1 {$PROP_ID1: $ID1}), (b:$L2 {$PROP_ID2: $ID2}) MERGE (a)-[:$R]->(b)",
+        "post_validation": "MATCH (n:$L1 {$P: $V})-[:$R]->(m) RETURN count(m) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "P": "string",
+          "V": "string",
+          "R": "string",
+          "ID1": "string",
+          "ID2": "string",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "合并两个节点的关系，验证起始节点的出度。"
+      },
+      {
+        "difficulty": 3,
+        "title": "合并节点并验证双重路径聚合",
+        "pre_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2) MATCH (a)-[:$R2]->(b) RETURN count(*) AS cnt",
+        "template": "MATCH (a:$L1 {$PROP_ID1: $ID1}), (b:$L2 {$PROP_ID2: $ID2}) MERGE (a)-[:$R2]->(b)",
+        "post_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2) MATCH (a)-[:$R2]->(b) RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "PROP_ID1": "string",
+          "L2": "string",
+          "PROP_ID2": "string",
+          "R1": "string",
+          "R2": "string",
+          "ID1": "string",
+          "ID2": "string"
+        },
+        "example": "合并一种新类型的关系，验证两个节点间同时拥有两种关系的对数。"
+      },
+      {
+        "difficulty": 4,
+        "title": "合并并验证嵌套属性引用",
+        "pre_validation": "MATCH (a:$L1 {$P1: $V}) MATCH (b:$L2 {$P2: a.$P1}) RETURN count(b) AS cnt",
+        "template": "MERGE (n:$L1 {$PROP_ID: $VALUE}) SET n.$P1 = $NEW_REF",
+        "post_validation": "MATCH (a:$L1 {$P1: $V}) MATCH (b:$L2 {$P2: a.$P1}) RETURN count(b) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "P1": "string",
+          "V": "string",
+          "L2": "string",
+          "P2": "string",
+          "NEW_REF": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "合并更新节点的引用属性，验证其在 Join 查询中匹配到的目标数。"
+      },
+      {
+        "difficulty": 5,
+        "title": "合并并验证 OR 条件下的节点计数",
+        "pre_validation": "MATCH (n:$L) WHERE (n)-[:$R1]->(:$L1) OR (n)-[:$R2]->(:$L2) RETURN count(n) AS cnt",
+        "template": "MATCH (n:$L {$PROP_ID: $VALUE}), (m:$L2 {$PROP_ID: $MID}) MERGE (n)-[:$R2]->(m)",
+        "post_validation": "MATCH (n:$L) WHERE (n)-[:$R1]->(:$L1) OR (n)-[:$R2]->(:$L2) RETURN count(n) AS cnt",
+        "parameters": {
+          "L": "string",
+          "R1": "string",
+          "L1": "string",
+          "R2": "string",
+          "L2": "string",
+          "MID": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "合并关系以满足多重可选路径之一，验证符合条件的节点总数。"
+      },
+      {
+        "difficulty": 6,
+        "title": "合并并验证三层链条的平均值",
+        "pre_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3) RETURN avg(c.$P) AS avg_val",
+        "template": "MERGE (n:$L3 {$PROP_ID: $VALUE}) SET n.$P = $VAL",
+        "post_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3) RETURN avg(c.$P) AS avg_val",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "L3": "string",
+          "R1": "string",
+          "R2": "string",
+          "P": "string",
+          "VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "合并更新长链末端的属性，验证对整条链条统计结果的影响。"
+      },
+      {
+        "difficulty": 7,
+        "title": "合并并验证连接过滤后的 Top 收集",
+        "pre_validation": "MATCH (a:$L1) CALL {WITH a MATCH (b:$L2) WHERE a.$P1 = b.$P2 RETURN b.$BP AS val ORDER BY b.$BP DESC LIMIT 10} RETURN a, val",
+        "template": "MERGE (n:$L2 {$PROP_ID: $VALUE}) SET n.$BP = $NEW_VAL",
+        "post_validation": "MATCH (a:$L1) CALL {WITH a MATCH (b:$L2) WHERE a.$P1 = b.$P2 RETURN b.$BP AS val ORDER BY b.$BP DESC LIMIT 10} RETURN a, val",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "BP": "string",
+          "NEW_VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "合并更新 Join 目标节点的属性，验证 Top-10 列表的更新。"
+      },
+      {
+        "difficulty": 8,
+        "title": "合并并验证变长路径计数",
+        "pre_validation": "MATCH (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN count(b) AS cnt",
+        "template": "MATCH (a:$L1 {$PROP_ID1: $ID1}), (b:$L2 {$PROP_ID2: $ID2}) MERGE (a)-[:$R]->(b)",
+        "post_validation": "MATCH (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN count(b) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "R": "string",
+          "MIN_HOPS": "integer",
+          "MAX_HOPS": "integer",
+          "ID1": "string",
+          "ID2": "string",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "合并关系，验证在指定跳数范围内可达节点的总数。"
+      },
+      {
+        "difficulty": 9,
+        "title": "合并并验证带阈值的 Join 过滤",
+        "pre_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 WITH a, count(b) AS cnt WHERE cnt > $THRESHOLD RETURN a",
+        "template": "MERGE (n:$L2 {$PROP_ID: $VALUE, $P2: $REF_VAL})",
+        "post_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 WITH a, count(b) AS cnt WHERE cnt > $THRESHOLD RETURN a",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "THRESHOLD": "integer",
+          "REF_VAL": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "合并新节点，验证是否有主节点因为匹配数超过阈值而进入结果集。"
+      },
+      {
+        "difficulty": 10,
+        "title": "合并并验证复杂路径模式计数",
+        "pre_validation": "MATCH (s:$SL {$SP: $SV}) MATCH p = (s) ((n1:$L1)<-[:$R1]-(r:$RL)-[:$R2]->(n2:$L2) WHERE r.$NP = $NV){$MIN_HOPS..$MAX_HOPS} (e:$EL) RETURN count(p) AS path_cnt",
+        "template": "MERGE (r:$RL {$PROP_ID: $VALUE}) SET r.$NP = $NV",
+        "post_validation": "MATCH (s:$SL {$SP: $SV}) MATCH p = (s) ((n1:$L1)<-[:$R1]-(r:$RL)-[:$R2]->(n2:$L2) WHERE r.$NP = $NV){$MIN_HOPS..$MAX_HOPS} (e:$EL) RETURN count(p) AS path_cnt",
+        "parameters": {
+          "SL": "string",
+          "SP": "string",
+          "SV": "string",
+          "L1": "string",
+          "R1": "string",
+          "RL": "string",
+          "R2": "string",
+          "L2": "string",
+          "NP": "string",
+          "NV": "string",
+          "MIN_HOPS": "integer",
+          "MAX_HOPS": "integer",
+          "EL": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "合并更新路径中间节点的属性，验证符合特定重复模式的路径总数。"
+      },
+      {
+        "difficulty": 11,
+        "title": "合并节点并验证无关标签的最大值",
+        "pre_validation": "MATCH (a:$L2) RETURN max(a.$P2) AS max_val",
+        "template": "MERGE (n:$L1 {$PROP_ID: $VALUE}) SET n.$P1 = $VAL",
+        "post_validation": "MATCH (a:$L2) RETURN max(a.$P2) AS max_val",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "合并更新节点后，验证其他无关标签的属性最大值是否保持稳定。"
+      },
+      {
+        "difficulty": 12,
+        "title": "合并关系并验证无关路径的平均长度",
+        "pre_validation": "MATCH p = (a:$L3)-[:$R2 *$MIN_HOPS..$MAX_HOPS]-(b:$L4) RETURN avg(length(p)) AS avg_len",
+        "template": "MATCH (a:$L1 {$PROP_ID1: $ID1}), (b:$L2 {$PROP_ID2: $ID2}) MERGE (a)-[:$R1]->(b)",
+        "post_validation": "MATCH p = (a:$L3)-[:$R2 *$MIN_HOPS..$MAX_HOPS]-(b:$L4) RETURN avg(length(p)) AS avg_len",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "L3": "string",
+          "L4": "string",
+          "R1": "string",
+          "R2": "string",
+          "MIN_HOPS": "integer",
+          "MAX_HOPS": "integer",
+          "ID1": "string",
+          "ID2": "string",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "合并一种类型的关系后，验证其他无关路径类型的平均长度是否保持不变。"
+      },
+      {
+        "difficulty": 13,
+        "title": "合并节点并验证无关标签的 Join 匹配数",
+        "pre_validation": "MATCH (a:$L3), (b:$L4) WHERE a.$P3 = b.$P4 RETURN count(*) AS cnt",
+        "template": "MERGE (n:$L1 {$PROP_ID: $VALUE}) SET n.$P1 = $VAL",
+        "post_validation": "MATCH (a:$L3), (b:$L4) WHERE a.$P3 = b.$P4 RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L3": "string",
+          "L4": "string",
+          "P1": "string",
+          "P3": "string",
+          "P4": "string",
+          "VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "合并更新节点后，验证其他无关标签间的 Join 匹配数是否保持稳定。"
+      }
+    ]
+  },
+  {
+    "operation": "DELETE",
+    "templates": [
+      {
+        "difficulty": 1,
+        "title": "删除节点并验证最大值",
+        "pre_validation": "MATCH (a:$LABEL) RETURN max(a.$PROP) AS max_val",
+        "template": "MATCH (n:$LABEL {$PROP_ID: $VALUE}) DELETE n",
+        "post_validation": "MATCH (a:$LABEL) RETURN max(a.$PROP) AS max_val",
+        "parameters": {
+          "LABEL": "string",
+          "PROP": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除一个节点，验证该标签下属性最大值是否发生变化。"
+      },
+      {
+        "difficulty": 2,
+        "title": "删除关系并验证入度聚合",
+        "pre_validation": "MATCH (n:$L1 {$P: $V})<-[:$R]-(m) RETURN count(m) AS cnt",
+        "template": "MATCH (a)-[r:$R]->(b:$L1 {$PROP_ID: $VALUE}) DELETE r",
+        "post_validation": "MATCH (n:$L1 {$P: $V})<-[:$R]-(m) RETURN count(m) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "P": "string",
+          "V": "string",
+          "R": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除指向某节点的关系，验证其入度统计。"
+      },
+      {
+        "difficulty": 3,
+        "title": "删除节点并验证 Join 匹配数",
+        "pre_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 RETURN count(*) AS cnt",
+        "template": "MATCH (n:$L2 {$PROP_ID: $VALUE}) DETACH DELETE n",
+        "post_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除一个参与 Join 的节点，验证连接后的结果总数。"
+      },
+      {
+        "difficulty": 4,
+        "title": "删除关系并验证排他性查询",
+        "pre_validation": "MATCH (a:$L1 {$P1: $V}), (b:$L2) WHERE NOT (a)-[:$R]->(b) RETURN count(b) AS cnt",
+        "template": "MATCH (a:$L1 {$PROP_ID1: $AID})-[r:$R]->(b:$L2 {$PROP_ID2: $BID}) DELETE r",
+        "post_validation": "MATCH (a:$L1 {$P1: $V}), (b:$L2) WHERE NOT (a)-[:$R]->(b) RETURN count(b) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "P1": "string",
+          "V": "string",
+          "L2": "string",
+          "R": "string",
+          "AID": "string",
+          "BID": "string",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "删除关系后，验证进入“未连接”状态的节点数量。"
+      },
+      {
+        "difficulty": 5,
+        "title": "删除路径并验证链条完整性",
+        "pre_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3) RETURN count(c) AS cnt",
+        "template": "MATCH (b:$L2 {$PROP_ID: $VALUE}) DETACH DELETE b",
+        "post_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3) RETURN count(c) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "L3": "string",
+          "R1": "string",
+          "R2": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除链条中间的节点，验证完整三级链条的数量减少。"
+      },
+      {
+        "difficulty": 6,
+        "title": "删除节点并验证 OR 逻辑下的聚合",
+        "pre_validation": "MATCH (n:$L) WHERE (n)-[:$R1]->(:$L1) OR (n)-[:$R2]->(:$L2) RETURN avg(n.$NP)",
+        "template": "MATCH (n:$L {$PROP_ID: $VALUE}) DETACH DELETE n",
+        "post_validation": "MATCH (n:$L) WHERE (n)-[:$R1]->(:$L1) OR (n)-[:$R2]->(:$L2) RETURN avg(n.$NP)",
+        "parameters": {
+          "L": "string",
+          "R1": "string",
+          "L1": "string",
+          "R2": "string",
+          "L2": "string",
+          "NP": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除满足多重条件的节点，验证剩余符合条件节点的平均值。"
+      },
+      {
+        "difficulty": 7,
+        "title": "删除节点并验证变长路径平均长度",
+        "pre_validation": "MATCH p = (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN avg(length(p)) AS avg_len",
+        "template": "MATCH (n {$PROP_ID: $VALUE}) DETACH DELETE n",
+        "post_validation": "MATCH p = (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN avg(length(p)) AS avg_len",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "R": "string",
+          "MIN_HOPS": "integer",
+          "MAX_HOPS": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除关键路径节点，验证图中剩余路径的平均长度变化。"
+      },
+      {
+        "difficulty": 8,
+        "title": "删除节点并验证 Top-N 收集的位移",
+        "pre_validation": "MATCH (target:$L {$PROP_ID: $VALUE})-[:$R]->(g:$GL) WITH g MATCH (g)<-[:$R]-(n:$L) WITH g, n ORDER BY n.$P DESC LIMIT 3 RETURN g.$GP, n.$P AS top_val",
+        "template": "MATCH (n:$L {$PROP_ID: $VALUE}) DETACH DELETE n",
+        "post_validation": "MATCH (g:$GL {$GP: $PREVIOUS_GP_VALUE}) MATCH (g)<-[:$R]-(n:$L) WITH g, n ORDER BY n.$P DESC LIMIT 3 RETURN g.$GP, n.$P AS top_val",
+        "parameters": {
+          "GL": "string",
+          "R": "string",
+          "L": "string",
+          "P": "string",
+          "GP": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除排名第一的节点，验证 Top-3 列表是否被后续节点填补。"
+      },
+      {
+        "difficulty": 9,
+        "title": "删除节点并验证跨标签 Join 阈值过滤",
+        "pre_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 WITH a, count(b) AS cnt WHERE cnt > $THRESHOLD RETURN a",
+        "template": "MATCH (n:$L2 {$PROP_ID: $VALUE}) DETACH DELETE n",
+        "post_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 WITH a, count(b) AS cnt WHERE cnt > $THRESHOLD RETURN a",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "THRESHOLD": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除匹配项，验证是否有主节点因匹配数跌破阈值而从结果中消失。"
+      },
+      {
+        "difficulty": 10,
+        "title": "删除节点并验证复杂路径模式的消失",
+        "pre_validation": "MATCH (start:$SL {$SP: $SV}) MATCH p = (start) (...){$MIN_HOPS..$MAX_HOPS} (end:$EL) RETURN count(p) AS cnt",
+        "template": "MATCH (n {$PROP_ID: $VALUE}) DETACH DELETE n",
+        "post_validation": "MATCH (start:$SL {$SP: $SV}) MATCH p = (start) (...){$MIN_HOPS..$MAX_HOPS} (end:$EL) RETURN count(p) AS cnt",
+        "parameters": {
+          "SL": "string",
+          "SP": "string",
+          "SV": "string",
+          "MIN_HOPS": "integer",
+          "MAX_HOPS": "integer",
+          "EL": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除核心中转节点，验证特定业务模式路径的总数变化。"
+      },
+      {
+        "difficulty": 11,
+        "title": "删除节点并验证无关标签的最小值",
+        "pre_validation": "MATCH (a:$L2) RETURN min(a.$P2) AS min_val",
+        "template": "MATCH (n:$L1 {$PROP_ID: $VALUE}) DETACH DELETE n",
+        "post_validation": "MATCH (a:$L2) RETURN min(a.$P2) AS min_val",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P2": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除节点后，验证其他无关标签的属性最小值是否保持稳定。"
+      },
+      {
+        "difficulty": 12,
+        "title": "删除关系并验证无关路径的计数",
+        "pre_validation": "MATCH (a:$L3)-[:$R2]->(b:$L4) RETURN count(*) AS cnt",
+        "template": "MATCH (a)-[r:$R1]->(b:$L1 {$PROP_ID: $VALUE}) DELETE r",
+        "post_validation": "MATCH (a:$L3)-[:$R2]->(b:$L4) RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L3": "string",
+          "L4": "string",
+          "R1": "string",
+          "R2": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除一种类型的关系后，验证其他无关路径类型的数量是否保持不变。"
+      },
+      {
+        "difficulty": 13,
+        "title": "删除节点并验证无关标签的聚合统计",
+        "pre_validation": "MATCH (a:$L2) RETURN avg(a.$P2) AS avg_val, count(a) AS cnt",
+        "template": "MATCH (n:$L1 {$PROP_ID: $VALUE}) DETACH DELETE n",
+        "post_validation": "MATCH (a:$L2) RETURN avg(a.$P2) AS avg_val, count(a) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P2": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "删除节点后，验证其他无关标签的平均值和计数是否保持稳定。"
+      }
+    ]
+  },
+  {
+    "operation": "SET",
+    "templates": [
+      {
+        "difficulty": 1,
+        "title": "更新属性并验证平均值",
+        "pre_validation": "MATCH (a:$LABEL) RETURN avg(a.$PROP) AS avg_val",
+        "template": "MATCH (n:$LABEL {$PROP_ID: $VALUE}) SET n.$PROP = $VAL",
+        "post_validation": "MATCH (a:$LABEL) RETURN avg(a.$PROP) AS avg_val",
+        "parameters": {
+          "LABEL": "string",
+          "PROP": "string",
+          "VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "修改数值属性，验证全局平均值的波动。"
+      },
+      {
+        "difficulty": 2,
+        "title": "更新关系属性并验证过滤聚合",
+        "pre_validation": "MATCH (a:$L1)-[r:$R]-(b:$L2) WHERE r.$RP $OP $V RETURN count(*) AS cnt",
+        "template": "MATCH (a {$PROP_ID1: $AID})-[r:$R]->(b {$PROP_ID2: $BID}) SET r.$RP = $VALUE",
+        "post_validation": "MATCH (a:$L1)-[r:$R]-(b:$L2) WHERE r.$RP $OP $V RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "R": "string",
+          "L2": "string",
+          "RP": "string",
+          "OP": "string",
+          "V": "integer",
+          "AID": "string",
+          "BID": "string",
+          "VALUE": "integer",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "更新关系的权重，验证符合阈值条件的关系数量。"
+      },
+      {
+        "difficulty": 3,
+        "title": "更新属性并验证 Join 匹配变化",
+        "pre_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 RETURN count(*) AS cnt",
+        "template": "MATCH (n:$L1 {$PROP_ID: $VALUE}) SET n.$P1 = $NEW_VAL",
+        "post_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "NEW_VAL": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "修改 Join 关联字段，验证连接成功的对数。"
+      },
+      {
+        "difficulty": 4,
+        "title": "更新属性并验证路径链条末端聚合",
+        "pre_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3) RETURN sum(c.$P) AS total",
+        "template": "MATCH (n:$L3 {$PROP_ID: $VALUE}) SET n.$P = $VAL",
+        "post_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3) RETURN sum(c.$P) AS total",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "L3": "string",
+          "R1": "string",
+          "R2": "string",
+          "P": "string",
+          "VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "更新链条末端节点的数值，验证整链聚合结果。"
+      },
+      {
+        "difficulty": 5,
+        "title": "更新属性并验证嵌套循环引用",
+        "pre_validation": "MATCH (a:$L1) MATCH (b:$L2 {$P2: a.$P1}) RETURN count(b) AS cnt",
+        "template": "MATCH (n:$L1 {$PROP_ID: $VALUE}) SET n.$P1 = $NEW_REF",
+        "post_validation": "MATCH (a:$L1) MATCH (b:$L2 {$P2: a.$P1}) RETURN count(b) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "NEW_REF": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "修改节点的引用键，验证在嵌套查询中匹配到的目标数量。"
+      },
+      {
+        "difficulty": 6,
+        "title": "更新属性并验证 OR 条件下的计数",
+        "pre_validation": "MATCH (n:$L) WHERE n.$P $OP $V OR (n)-[:$R]->(:$L2) RETURN count(n) AS cnt",
+        "template": "MATCH (n:$L {$PROP_ID: $VALUE}) SET n.$P = $NEW_V",
+        "post_validation": "MATCH (n:$L) WHERE n.$P $OP $V OR (n)-[:$R]->(:$L2) RETURN count(n) AS cnt",
+        "parameters": {
+          "L": "string",
+          "P": "string",
+          "OP": "string",
+          "V": "integer",
+          "R": "string",
+          "L2": "string",
+          "NEW_V": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "更新属性，验证节点是否通过属性条件（而非关系条件）进入结果集。"
+      },
+      {
+        "difficulty": 7,
+        "title": "更新属性并验证属性值变化",
+        "pre_validation": "MATCH (n:$L {$PROP_ID: $VALUE}) RETURN n.$P AS old_value",
+        "template": "MATCH (n:$L {$PROP_ID: $VALUE}) SET n.$P = $VAL",
+        "post_validation": "MATCH (n:$L {$PROP_ID: $VALUE}) RETURN n.$P AS new_value",
+        "parameters": {
+          "L": "string",
+          "P": "string",
+          "VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "更新节点的属性值，验证修改前后属性值的变化。"
+      },
+      {
+        "difficulty": 8,
+        "title": "批量更新标签并验证变长路径计数",
+        "pre_validation": "MATCH (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN count(b) AS cnt",
+        "template": "MATCH (n {$PROP_ID: $VALUE}) SET n:$L2",
+        "post_validation": "MATCH (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN count(b) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "R": "string",
+          "MIN_HOPS": "integer",
+          "MAX_HOPS": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "为节点添加新标签，验证其作为变长路径终点的可达性总数。"
+      },
+      {
+        "difficulty": 9,
+        "title": "更新属性并验证 Join 后的聚合阈值",
+        "pre_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 WITH a, avg(b.$BP) AS avg_b WHERE avg_b > $THRESHOLD RETURN a",
+        "template": "MATCH (n:$L2 {$PROP_ID: $VALUE}) SET n.$BP = $VAL",
+        "post_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 WITH a, avg(b.$BP) AS avg_b WHERE avg_b > $THRESHOLD RETURN a",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "BP": "string",
+          "THRESHOLD": "integer",
+          "VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "修改 Join 目标的数值，验证主节点是否因关联平均值达标而进入结果。"
+      },
+      {
+        "difficulty": 10,
+        "title": "创建关系并验证变长路径平均长度",
+        "pre_validation": "MATCH p = (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN avg(length(p)) AS avg_len",
+        "template": "MATCH (a {$PROP_ID1: $AID}), (b {$PROP_ID2: $BID}) CREATE (a)-[:$R]->(b)",
+        "post_validation": "MATCH p = (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN avg(length(p)) AS avg_len",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "R": "string",
+          "MIN_HOPS": "integer",
+          "MAX_HOPS": "integer",
+          "AID": "string",
+          "BID": "string",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "创建新关系改变图拓扑结构，验证特定标签间变长路径的平均跳数变化。"
+      },
+      {
+        "difficulty": 11,
+        "title": "更新属性并验证无关标签的总和",
+        "pre_validation": "MATCH (a:$L2) RETURN sum(a.$P2) AS total",
+        "template": "MATCH (n:$L1 {$PROP_ID: $VALUE}) SET n.$P1 = $VAL",
+        "post_validation": "MATCH (a:$L2) RETURN sum(a.$P2) AS total",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "VAL": "integer",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "更新节点属性后，验证其他无关标签的数值总和是否保持稳定。"
+      },
+      {
+        "difficulty": 12,
+        "title": "更新属性并验证无关关系的过滤计数",
+        "pre_validation": "MATCH (a:$L3)-[r:$R2]-(b:$L4) WHERE r.$RP $OP $V RETURN count(*) AS cnt",
+        "template": "MATCH (a {$PROP_ID1: $AID})-[r:$R1]->(b {$PROP_ID2: $BID}) SET r.$RP = $VALUE",
+        "post_validation": "MATCH (a:$L3)-[r:$R2]-(b:$L4) WHERE r.$RP $OP $V RETURN count(*) AS cnt",
+        "parameters": {
+          "L3": "string",
+          "L4": "string",
+          "R1": "string",
+          "R2": "string",
+          "RP": "string",
+          "OP": "string",
+          "V": "integer",
+          "AID": "string",
+          "BID": "string",
+          "VALUE": "integer",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "更新一种类型关系的属性后，验证其他无关关系类型的过滤计数是否保持不变。"
+      },
+      {
+        "difficulty": 13,
+        "title": "更新标签并验证无关路径的存在性",
+        "pre_validation": "MATCH (a:$L3)-[:$R2]->(b:$L4)-[:$R3]->(c:$L5) RETURN count(*) AS cnt",
+        "template": "MATCH (n {$PROP_ID: $VALUE}) SET n:$L2",
+        "post_validation": "MATCH (a:$L3)-[:$R2]->(b:$L4)-[:$R3]->(c:$L5) RETURN count(*) AS cnt",
+        "parameters": {
+          "L2": "string",
+          "L3": "string",
+          "L4": "string",
+          "L5": "string",
+          "R2": "string",
+          "R3": "string",
+          "PROP_ID": "string",
+          "VALUE": "string"
+        },
+        "example": "更新节点标签后，验证其他无关路径链的存在性是否保持稳定。"
+      }
+    ]
+  },
+  {
+    "operation": "FOREACH",
+    "templates": [
+      {
+        "difficulty": 1,
+        "title": "循环创建并验证基础计数",
+        "pre_validation": "MATCH (n:$LABEL) RETURN count(n) AS cnt",
+        "template": "FOREACH (x IN $LIST | CREATE (:$LABEL {val: x}))",
+        "post_validation": "MATCH (n:$LABEL) RETURN count(n) AS cnt",
+        "parameters": {
+          "LABEL": "string",
+          "LIST": "list",
+          "PROP_ID": "string"
+        },
+        "example": "批量创建节点并验证总数增加。"
+      },
+      {
+        "difficulty": 2,
+        "title": "循环建立关系并验证出度聚合",
+        "pre_validation": "MATCH (n:$L1 {$P: $V})-[:$R]->(m) RETURN count(m) AS cnt",
+        "template": "MATCH (a:$L1 {$PROP_ID1: $AID}), (others:$L2) WHERE others.$PROP_ID2 IN $IDS FOREACH (o IN [others] | CREATE (a)-[:$R]->(o))",
+        "post_validation": "MATCH (n:$L1 {$P: $V})-[:$R]->(m) RETURN count(m) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "P": "string",
+          "V": "string",
+          "R": "string",
+          "AID": "string",
+          "IDS": "list",
+          "L2": "string",
+          "PROP_ID1": "string",
+          "PROP_ID2": "string"
+        },
+        "example": "为一个节点批量连接多个目标，验证其出度。"
+      },
+      {
+        "difficulty": 3,
+        "title": "循环更新并验证 Join 匹配总数",
+        "pre_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 RETURN count(*) AS cnt",
+        "template": "MATCH (n:$L1) WHERE n.$PROP_ID IN $IDS FOREACH (i IN [n] | SET i.$P1 = $NEW_VAL)",
+        "post_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "IDS": "list",
+          "NEW_VAL": "string",
+          "PROP_ID": "string"
+        },
+        "example": "批量修改 Join 键，验证连接对数的剧烈变化。"
+      },
+      {
+        "difficulty": 4,
+        "title": "循环处理路径并验证链条平均值",
+        "pre_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3) RETURN avg(c.$P) AS avg_val",
+        "template": "MATCH (n:$L3) WHERE n.$PROP_ID IN $IDS FOREACH (i IN [n] | SET i.$P = $VAL)",
+        "post_validation": "MATCH (a:$L1)-[:$R1]->(b:$L2)-[:$R2]->(c:$L3) RETURN avg(c.$P) AS avg_val",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "L3": "string",
+          "R1": "string",
+          "R2": "string",
+          "P": "string",
+          "IDS": "list",
+          "VAL": "integer",
+          "PROP_ID": "string"
+        },
+        "example": "批量更新链条末端数值，验证对整体平均值的影响。"
+      },
+      {
+        "difficulty": 5,
+        "title": "循环设置属性并验证嵌套引用计数",
+        "pre_validation": "MATCH (a:$L1) MATCH (b:$L2 {$P2: a.$P1}) RETURN count(b) AS cnt",
+        "template": "MATCH (n:$L1) WHERE n.$PROP_ID IN $IDS FOREACH (i IN [n] | SET i.$P1 = $NEW_REF)",
+        "post_validation": "MATCH (a:$L1) MATCH (b:$L2 {$P2: a.$P1}) RETURN count(b) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "IDS": "list",
+          "NEW_REF": "string",
+          "PROP_ID": "string"
+        },
+        "example": "批量重定向节点的引用属性，验证 Join 匹配数量。"
+      },
+      {
+        "difficulty": 6,
+        "title": "循环创建并验证 OR 逻辑下的聚合",
+        "pre_validation": "MATCH (n:$L) WHERE (n)-[:$R1]->(:$L1) OR (n)-[:$R2]->(:$L2) RETURN sum(n.$NP)",
+        "template": "MATCH (n:$L) WHERE n.$PROP_ID IN $IDS FOREACH (i IN [n] | CREATE (i)-[:$R1]->(:$L1))",
+        "post_validation": "MATCH (n:$L) WHERE (n)-[:$R1]->(:$L1) OR (n)-[:$R2]->(:$L2) RETURN sum(n.$NP)",
+        "parameters": {
+          "L": "string",
+          "R1": "string",
+          "L1": "string",
+          "R2": "string",
+          "L2": "string",
+          "NP": "string",
+          "IDS": "list",
+          "PROP_ID": "string"
+        },
+        "example": "批量为节点建立关系，验证符合多重条件之一的节点数值总和。"
+      },
+      {
+        "difficulty": 7,
+        "title": "循环更新并验证 Top-N 收集列表",
+        "pre_validation": "MATCH (n:$L) WHERE n.$PROP_ID IN $IDS RETURN n.$PROP_ID AS id, n.$P AS val ORDER BY id",
+        "template": "MATCH (n:$L) WHERE n.$PROP_ID IN $IDS FOREACH (i IN [n] | SET i.$P = i.$P + $INC)",
+        "post_validation": "MATCH (n:$L) WHERE n.$PROP_ID IN $IDS RETURN n.$PROP_ID AS id, n.$P AS val ORDER BY id",
+        "parameters": {
+          "GL": "string",
+          "R": "string",
+          "L": "string",
+          "P": "string",
+          "GP": "string",
+          "IDS": "list",
+          "INC": "integer",
+          "PROP_ID": "string"
+        },
+        "example": "批量增加节点权重，验证分组 Top-10 列表的成员更替。"
+      },
+      {
+        "difficulty": 8,
+        "title": "循环创建关系并验证变长路径长度",
+        "pre_validation": "MATCH p = (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN avg(length(p)) AS avg_len",
+        "template": "MATCH (a:$L1), (b:$L2) WHERE a.$PROP_ID IN $A_IDS AND b.$PROP_ID IN $B_IDS FOREACH (x IN [1] | CREATE (a)-[:$R]->(b))",
+        "post_validation": "MATCH p = (a:$L1)-[:$R *$MIN_HOPS..$MAX_HOPS]-(b:$L2) RETURN avg(length(p)) AS avg_len",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "R": "string",
+          "MIN_HOPS": "integer",
+          "MAX_HOPS": "integer",
+          "A_IDS": "list",
+          "B_IDS": "list",
+          "PROP_ID": "string"
+        },
+        "example": "批量建立连接，验证图中路径联通性及平均跳数的变化。"
+      },
+      {
+        "difficulty": 9,
+        "title": "循环更新并验证 Join 阈值过滤结果",
+        "pre_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 WITH a, count(b) AS cnt WHERE cnt > $THRESHOLD RETURN a",
+        "template": "MATCH (n:$L2) WHERE n.$PROP_ID IN $IDS FOREACH (i IN [n] | SET i.$P2 = $NEW_REF)",
+        "post_validation": "MATCH (a:$L1), (b:$L2) WHERE a.$P1 = b.$P2 WITH a, count(b) AS cnt WHERE cnt > $THRESHOLD RETURN a",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "THRESHOLD": "integer",
+          "IDS": "list",
+          "NEW_REF": "string",
+          "PROP_ID": "string"
+        },
+        "example": "批量修改大量目标的关联键，验证主节点集因匹配数变化而产生的变动。"
+      },
+      {
+        "difficulty": 10,
+        "title": "循环构建复杂路径模式并验证计数",
+        "pre_validation": "MATCH (s:$SL {$SP: $SV}) MATCH p = (s) ((n1:$L1)<-[:$R1]-(r:$RL)-[:$R2]->(n2:$L2) WHERE r.$NP = $NV){$MIN_HOPS..$MAX_HOPS} (e:$EL) RETURN count(p) AS cnt",
+        "template": "MATCH (r:$RL) WHERE r.$PROP_ID IN $IDS FOREACH (i IN [r] | SET i.$NP = $NV)",
+        "post_validation": "MATCH (s:$SL {$SP: $SV}) MATCH p = (s) ((n1:$L1)<-[:$R1]-(r:$RL)-[:$R2]->(n2:$L2) WHERE r.$NP = $NV){$MIN_HOPS..$MAX_HOPS} (e:$EL) RETURN count(p) AS cnt",
+        "parameters": {
+          "SL": "string",
+          "SP": "string",
+          "SV": "string",
+          "L1": "string",
+          "R1": "string",
+          "RL": "string",
+          "R2": "string",
+          "L2": "string",
+          "NP": "string",
+          "NV": "string",
+          "MIN_HOPS": "integer",
+          "MAX_HOPS": "integer",
+          "EL": "string",
+          "IDS": "list",
+          "PROP_ID": "string"
+        },
+        "example": "批量修改路径中间节点的属性，验证符合特定业务逻辑循环模式的路径总数。"
+      },
+      {
+        "difficulty": 11,
+        "title": "循环操作并验证无关标签的聚合统计",
+        "pre_validation": "MATCH (a:$L2) RETURN avg(a.$P2) AS avg_val, count(a) AS cnt",
+        "template": "MATCH (n:$L1) WHERE n.$PROP_ID IN $IDS FOREACH (i IN [n] | SET i.$P1 = $VAL)",
+        "post_validation": "MATCH (a:$L2) RETURN avg(a.$P2) AS avg_val, count(a) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "P1": "string",
+          "P2": "string",
+          "IDS": "list",
+          "VAL": "integer",
+          "PROP_ID": "string"
+        },
+        "example": "批量更新节点后，验证其他无关标签的平均值和计数是否保持稳定。"
+      },
+      {
+        "difficulty": 12,
+        "title": "循环创建关系并验证无关路径的计数",
+        "pre_validation": "MATCH (a:$L3)-[:$R2]->(b:$L4) RETURN count(*) AS cnt",
+        "template": "MATCH (a:$L1), (b:$L2) WHERE a.$PROP_ID IN $A_IDS AND b.$PROP_ID IN $B_IDS FOREACH (x IN [1] | CREATE (a)-[:$R1]->(b))",
+        "post_validation": "MATCH (a:$L3)-[:$R2]->(b:$L4) RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L2": "string",
+          "L3": "string",
+          "L4": "string",
+          "R1": "string",
+          "R2": "string",
+          "A_IDS": "list",
+          "B_IDS": "list",
+          "PROP_ID": "string"
+        },
+        "example": "批量创建一种类型的关系后，验证其他无关路径类型的数量是否保持不变。"
+      },
+      {
+        "difficulty": 13,
+        "title": "循环更新并验证无关标签的 Join 匹配",
+        "pre_validation": "MATCH (a:$L3), (b:$L4) WHERE a.$P3 = b.$P4 RETURN count(*) AS cnt",
+        "template": "MATCH (n:$L1) WHERE n.$PROP_ID IN $IDS FOREACH (i IN [n] | SET i.$P1 = $NEW_VAL)",
+        "post_validation": "MATCH (a:$L3), (b:$L4) WHERE a.$P3 = b.$P4 RETURN count(*) AS cnt",
+        "parameters": {
+          "L1": "string",
+          "L3": "string",
+          "L4": "string",
+          "P1": "string",
+          "P3": "string",
+          "P4": "string",
+          "IDS": "list",
+          "NEW_VAL": "string",
+          "PROP_ID": "string"
+        },
+        "example": "批量更新节点属性后，验证其他无关标签间的 Join 匹配数是否保持稳定。"
+      }
+    ]
+  }
+]

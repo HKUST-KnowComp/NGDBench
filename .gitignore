@@ -145,6 +145,7 @@ tests/
 pipeline/query_module/mcp_v1
 pipeline/query_module/mcp_v2
 pipeline/handler/translate_unstrcture
+pipeline/query_gen/management_query_ldbc_fin.json
 # 保留 example_data 目录及内容
 !data_gen/gnd_dataset/example_data/
 !data_gen/gnd_dataset/example_data/**

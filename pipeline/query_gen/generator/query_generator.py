@@ -1572,12 +1572,20 @@ class QueryBuilder:
                         return value
             # 根据属性获取一个样本值（必须从数据库对应 PROP 采样，PROP 必须从对应 LABEL 采样）
             # VALUE/VAL/V1..V5 对应 (n:$LABEL {$PROP: $VALUE1}) 或 (n:$LABEL {$PROP_ID: $VALUE1})
-            # 模板 (n:$LABEL {$PROP: $VALUE1})-[:$REL]->(g:$GROUP_LABEL {$PROP_ID: $GID1}) 中，VALUE1 应对应 LABEL.PROP（如 Person.birthday），
-            # 而非 PROP_ID（如 Account.accountId），否则会错位（birthday 填成 accountId 的长整型）
+            # 当模板中为 {$PROP_ID: $VALUE1} 时，VALUE1 必须从 PROP_ID 对应属性（如 loanId）的 sample_values 采样，
+            # 不能从 PROP（如 loanUsage）采样，否则会出现 loanId: 'medical expenses' 这类错误。
             prop = None
             label = None
-            # VALUE1..V5 在 CREATE 批量模板中与 $PROP 同节点，优先用 PROP 确定属性并从该 LABEL 的该属性采样
-            if param_name in ('VALUE', 'VALUE1', 'VALUE2', 'VALUE3', 'VALUE4', 'VALUE5'):
+            # 检测模板是否将 VALUE/VALUE1-5 与 PROP_ID 绑定在同一节点谓词中（如 {$PROP_ID: $VALUE1}）
+            template_str = getattr(template, 'template', '') or ''
+            value_bound_to_prop_id = (
+                param_name in ('VALUE', 'VALUE1', 'VALUE2', 'VALUE3', 'VALUE4', 'VALUE5')
+                and re.search(r'\$PROP_ID\s*:\s*\$VALUE(\d*)\b', template_str)
+            )
+            if value_bound_to_prop_id and current_params.get('PROP_ID'):
+                # 明确从 PROP_ID 对应属性采样，避免用 PROP 的 sample_values 填到 PROP_ID 上
+                prop_order = ['PROP_ID', 'PROP_ID1', 'PROP_ID2', 'PROP', 'P', 'PROP1', 'P1', 'PROP2', 'P2', 'FILTER_PROP', 'NODE_PROP', 'START_PROP', 'SP', 'NP', 'BP', 'GP', 'RP']
+            elif param_name in ('VALUE', 'VALUE1', 'VALUE2', 'VALUE3', 'VALUE4', 'VALUE5'):
                 prop_order = ['PROP', 'P', 'PROP1', 'P1', 'PROP2', 'P2', 'FILTER_PROP', 'NODE_PROP', 'START_PROP', 'PROP_ID', 'PROP_ID1', 'PROP_ID2', 'SP', 'NP', 'BP', 'GP', 'RP']
             else:
                 prop_order = ['P', 'PROP', 'P1', 'PROP_ID1', 'PROP_ID', 'PROP_ID2', 'PROP1', 'PROP2', 'FILTER_PROP', 'NODE_PROP', 'START_PROP', 'P2', 'SP', 'NP', 'BP', 'GP', 'RP']

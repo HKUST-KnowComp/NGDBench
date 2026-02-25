@@ -18,7 +18,7 @@ Neo4jGraphBuilder = build_base.Neo4jGraphBuilder
 
 # 获取当前文件所在目录
 current_dir = Path(__file__).parent
-template_path = current_dir / "query_template" / "template_managemet_batch_new1.json"
+template_path = current_dir / "query_template" / "template_managemet.json"
 
 # 项目根目录（用于默认 GRAPH_PATH）
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -58,6 +58,12 @@ parser.add_argument(
     help="数据集名称（默认：ldbc_fin）"
 )
 parser.add_argument(
+    "--validation-mode",
+    choices=["agg", "no-agg"],
+    default="no-agg",
+    help="验证模式：agg=按原有聚合逻辑；no-agg=为每条 template 生成对应的非聚合验证（默认：agg）"
+)
+parser.add_argument(
     "--graph-path",
     default=None,
     type=Path,
@@ -71,6 +77,7 @@ NEO4J_USER = args.neo4j_user
 NEO4J_PASSWORD = args.neo4j_password
 dataset_name = args.dataset
 GRAPH_PATH = args.graph_path if args.graph_path is not None else DEFAULT_GRAPH_PATH
+validation_mode = args.validation_mode
 
 # 确定是否构建数据库（默认构建，除非指定 --skip-build）
 BUILD_DB = not args.skip_build
@@ -111,7 +118,8 @@ generator = ManageGenerator(
     user=NEO4J_USER,
     password=NEO4J_PASSWORD,
     template_path=str(template_path),
-    graph_file=str(GRAPH_PATH) if GRAPH_PATH.exists() else None  # 传入图文件路径，用于在恢复数据库后重新构建
+    graph_file=str(GRAPH_PATH) if GRAPH_PATH.exists() else None,  # 传入图文件路径，用于在恢复数据库后重新构建
+    validation_mode=validation_mode,
 )
 
 # 初始化（连接数据库并分析schema）

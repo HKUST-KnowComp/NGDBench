@@ -300,6 +300,15 @@ class ManagementQueryBuilder:
                         if dep_val is not None:
                             params_used[dep] = dep_val
             
+            # VALUE/VALUE1-5 与 PROP_ID 绑定时（如 {$PROP_ID: $VALUE1}）必须从 PROP_ID 对应属性采样，
+            # 故优先生成 PROP_ID 和 LABEL/L1/L 等，避免 VALUE 采到 PROP 的 sample_values（如 loanId 采成 loanUsage 的值）
+            if param_name in ('VALUE', 'VALUE1', 'VALUE2', 'VALUE3', 'VALUE4', 'VALUE5'):
+                for dep in ('PROP_ID', 'LABEL', 'L', 'L1', 'L2', 'L3', 'L4'):
+                    if dep in template.parameters and dep not in params_used:
+                        dep_val = self.query_builder._generate_param_value(dep, temp_template, params_used)
+                        if dep_val is not None:
+                            params_used[dep] = dep_val
+            
             # 若当前参数是某约束的 end 标签（如 L1），先填充该约束的 rel（如 R），
             # 保证 b 等节点标签从关系 R 的合法 end 中采样（如 Company_Guarantee_Company -> Company）
             for start, rel, end in constraints:
@@ -538,7 +547,8 @@ class ManageGenerator:
         database_backup_path: Optional[str] = None,
         database_name: str = "neo4j",
         neo4j_admin_path: Optional[str] = None,
-        graph_file: Optional[str] = None
+        graph_file: Optional[str] = None,
+        validation_mode: str = "agg",
     ):
         """
         初始化管理操作查询生成器
@@ -561,6 +571,8 @@ class ManageGenerator:
         self.template_path = template_path
         self.exclude_internal_id_as_return = exclude_internal_id_as_return
         self.dataset = dataset
+        # 验证模式：agg=原有聚合验证；no-agg=为每条 template 生成对应的非聚合验证
+        self.validation_mode = validation_mode
         
         self.excluded_return_props: Set[str] = (
             set(DEFAULT_EXCLUDED_RETURN_PROPS) if exclude_internal_id_as_return else set()
@@ -857,7 +869,7 @@ class ManageGenerator:
                         template_executed_queries: List[str] = []
                         template_answers: List[List[Dict]] = []
                         
-                        for template_q in template_queries_list:
+                        for idx, template_q in enumerate(template_queries_list, start=1):
                             # 执行 template 查询
                             t_success, t_answer, t_error = self.executor.execute(template_q, allow_empty=True)
                             template_successes.append(t_success)
@@ -871,8 +883,16 @@ class ManageGenerator:
                             
                             # 执行 validation 查询（如果存在）
                             if has_validation:
-                                v_success, v_answer, v_error = self.executor.execute(validation_query, allow_empty=True)
-                                validation_queries_list.append(validation_query)
+                                # agg 模式：始终使用同一条 validation_query
+                                # no-agg 模式：为每条 template 生成一条按索引展开的 validation
+                                if self.validation_mode == "no-agg" and template.has_validation():
+                                    v_template = template.validation or ""
+                                    v_template_idx = self._adapt_validation_for_index(v_template, idx)
+                                    v_query = self.builder._replace_parameters(v_template_idx, params_used)
+                                else:
+                                    v_query = validation_query
+                                v_success, v_answer, v_error = self.executor.execute(v_query, allow_empty=True)
+                                validation_queries_list.append(v_query)
                                 validation_answers_list.append(v_answer)
                                 validation_successes_list.append(v_success)
                                 validation_errors_list.append(v_error)
@@ -1170,6 +1190,26 @@ class ManageGenerator:
                     return True
 
         return False
+    
+    def _adapt_validation_for_index(self, validation_template: str, index: int) -> str:
+        """
+        将 validation 模板中以 1 结尾的参数占位符（如 $VALUE1/$AID1）替换为对应行索引：
+        - index=1 时返回原模板
+        - index=2 时，将 $XXX1 替换为 $XXX2
+        只改后缀为 1 的占位符，避免误伤无索引的参数名。
+        """
+        if index <= 1 or not validation_template:
+            return validation_template
+        
+        import re
+        
+        pattern = re.compile(r'\$([A-Z_]+)1\b')
+        
+        def repl(m: "re.Match") -> str:
+            name = m.group(1)
+            return f"${name}{index}"
+        
+        return pattern.sub(repl, validation_template)
     
     def _build_export_record(self, r: ManagementQueryResult) -> Dict[str, Any]:
         """将内部结果对象转换为导出的记录格式"""
